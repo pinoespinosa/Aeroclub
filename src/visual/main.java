@@ -1,0 +1,156 @@
+package visual;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.annotation.PostConstruct;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+
+
+public class main {
+
+	private JFrame frame;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					main window = new main();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public main() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (Exception e) {
+		};
+		
+		frame.getContentPane().setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		frame.setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
+		frame.setBounds(100, 100, 700, 430);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{50, 0, 50, 0, 50, 0};
+		gridBagLayout.rowHeights = new int[]{50, 0, 20, 0, 20, 0, 20, 0, 20, 50, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
+		
+		JButton btnNewButton_1 = new JButton("Nueva Venta");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+	
+		/* ------------------------------- Nueva venta ------------------------------- */
+				frame.setEnabled(false);
+				Venta dialog = new Venta(frame);
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				}
+		});
+		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_1.gridx = 1;
+		gbc_btnNewButton_1.gridy = 1;
+		frame.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridheight = 5;
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 3;
+		gbc_panel.gridy = 1;
+		frame.getContentPane().add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0};
+		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		JLabel lblVencimientoYAlertas = new JLabel("Vencimiento y alertas");
+		lblVencimientoYAlertas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		GridBagConstraints gbc_lblVencimientoYAlertas = new GridBagConstraints();
+		gbc_lblVencimientoYAlertas.anchor = GridBagConstraints.WEST;
+		gbc_lblVencimientoYAlertas.insets = new Insets(0, 0, 5, 0);
+		gbc_lblVencimientoYAlertas.gridx = 0;
+		gbc_lblVencimientoYAlertas.gridy = 0;
+		panel.add(lblVencimientoYAlertas, gbc_lblVencimientoYAlertas);
+		
+		JList list = new JList();
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.fill = GridBagConstraints.BOTH;
+		gbc_list.gridx = 0;
+		gbc_list.gridy = 1;
+		panel.add(list, gbc_list);
+		
+		JButton btnNewButton = new JButton("Nueva Compra");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 3;
+		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
+		
+		JButton btnNewButton_2 = new JButton("Ver informes");
+		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_2.gridx = 1;
+		gbc_btnNewButton_2.gridy = 5;
+		frame.getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Administrar");
+		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
+		gbc_btnNewButton_3.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_3.gridx = 1;
+		gbc_btnNewButton_3.gridy = 7;
+		frame.getContentPane().add(btnNewButton_3, gbc_btnNewButton_3);
+		
+		postContructor();
+	}
+	@PostConstruct
+	public void postContructor(){
+		MainController.setViewConfig(frame);	
+	}
+}
