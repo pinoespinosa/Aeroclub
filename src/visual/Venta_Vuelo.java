@@ -76,9 +76,9 @@ public class Venta_Vuelo extends JDialog {
 			panel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Nuevo vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[]{10, 0, 0, 0, 10, 0};
-			gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0};
+			gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0};
 			gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
 				JLabel lblPiloto = new JLabel("Piloto");
@@ -147,44 +147,12 @@ public class Venta_Vuelo extends JDialog {
 				panel.add(btnNuevoInstructor, gbc_btnNuevoInstructor);
 			}
 			{
-				JLabel lblSocio = new JLabel("Socio");
-				lblSocio.setFont(new Font("Tahoma", Font.BOLD, 12));
-				GridBagConstraints gbc_lblSocio = new GridBagConstraints();
-				gbc_lblSocio.insets = new Insets(0, 0, 5, 5);
-				gbc_lblSocio.anchor = GridBagConstraints.WEST;
-				gbc_lblSocio.gridx = 1;
-				gbc_lblSocio.gridy = 3;
-				panel.add(lblSocio, gbc_lblSocio);
-			}
-			{
-				JComboBox comboBox = new JComboBox();
-				GridBagConstraints gbc_comboBox = new GridBagConstraints();
-				gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-				gbc_comboBox.fill = GridBagConstraints.BOTH;
-				gbc_comboBox.gridx = 2;
-				gbc_comboBox.gridy = 3;
-				panel.add(comboBox, gbc_comboBox);
-			}
-			{
-				JButton btnNuevoSocio = new JButton("");
-				btnNuevoSocio.setToolTipText("Nuevo Socio");
-				btnNuevoSocio.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Instructor1.png"));
-				btnNuevoSocio.setPreferredSize(new Dimension(40, 40));
-				btnNuevoSocio.setMinimumSize(new Dimension(40, 40));
-				btnNuevoSocio.setMaximumSize(new Dimension(40, 40));
-				GridBagConstraints gbc_btnNuevoSocio = new GridBagConstraints();
-				gbc_btnNuevoSocio.insets = new Insets(0, 0, 5, 5);
-				gbc_btnNuevoSocio.gridx = 3;
-				gbc_btnNuevoSocio.gridy = 3;
-				panel.add(btnNuevoSocio, gbc_btnNuevoSocio);
-			}
-			{
 				JLabel lblAvin = new JLabel("Avi\u00F3n");
 				GridBagConstraints gbc_lblAvin = new GridBagConstraints();
 				gbc_lblAvin.anchor = GridBagConstraints.WEST;
 				gbc_lblAvin.insets = new Insets(0, 0, 5, 5);
 				gbc_lblAvin.gridx = 1;
-				gbc_lblAvin.gridy = 4;
+				gbc_lblAvin.gridy = 3;
 				panel.add(lblAvin, gbc_lblAvin);
 				lblAvin.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
@@ -196,7 +164,7 @@ public class Venta_Vuelo extends JDialog {
 				gbc_comboBox.fill = GridBagConstraints.BOTH;
 				gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 				gbc_comboBox.gridx = 2;
-				gbc_comboBox.gridy = 4;
+				gbc_comboBox.gridy = 3;
 				panel.add(comboBox, gbc_comboBox);
 				comboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
@@ -209,7 +177,7 @@ public class Venta_Vuelo extends JDialog {
 				GridBagConstraints gbc_button = new GridBagConstraints();
 				gbc_button.insets = new Insets(0, 0, 5, 5);
 				gbc_button.gridx = 3;
-				gbc_button.gridy = 4;
+				gbc_button.gridy = 3;
 				panel.add(button, gbc_button);
 			}
 			{
@@ -218,9 +186,30 @@ public class Venta_Vuelo extends JDialog {
 				gbc_lblAceite.anchor = GridBagConstraints.WEST;
 				gbc_lblAceite.insets = new Insets(0, 0, 5, 5);
 				gbc_lblAceite.gridx = 1;
-				gbc_lblAceite.gridy = 5;
+				gbc_lblAceite.gridy = 4;
 				panel.add(lblAceite, gbc_lblAceite);
 				lblAceite.setFont(new Font("Tahoma", Font.BOLD, 12));
+			}
+			{
+				JSpinner spinner = new JSpinner();
+				spinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+				GridBagConstraints gbc_spinner = new GridBagConstraints();
+				gbc_spinner.fill = GridBagConstraints.BOTH;
+				gbc_spinner.insets = new Insets(0, 0, 5, 5);
+				gbc_spinner.gridx = 2;
+				gbc_spinner.gridy = 4;
+				panel.add(spinner, gbc_spinner);
+				spinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			}
+			{
+				JLabel lblCombustible = new JLabel("Combustible");
+				GridBagConstraints gbc_lblCombustible = new GridBagConstraints();
+				gbc_lblCombustible.anchor = GridBagConstraints.WEST;
+				gbc_lblCombustible.insets = new Insets(0, 0, 5, 5);
+				gbc_lblCombustible.gridx = 1;
+				gbc_lblCombustible.gridy = 5;
+				panel.add(lblCombustible, gbc_lblCombustible);
+				lblCombustible.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
 			{
 				JSpinner spinner = new JSpinner();
@@ -234,18 +223,17 @@ public class Venta_Vuelo extends JDialog {
 				spinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
-				JLabel lblCombustible = new JLabel("Combustible");
-				GridBagConstraints gbc_lblCombustible = new GridBagConstraints();
-				gbc_lblCombustible.anchor = GridBagConstraints.WEST;
-				gbc_lblCombustible.insets = new Insets(0, 0, 5, 5);
-				gbc_lblCombustible.gridx = 1;
-				gbc_lblCombustible.gridy = 6;
-				panel.add(lblCombustible, gbc_lblCombustible);
-				lblCombustible.setFont(new Font("Tahoma", Font.BOLD, 12));
+				JLabel lblHoraInicio = new JLabel("Hora Inicio");
+				GridBagConstraints gbc_lblHoraInicio = new GridBagConstraints();
+				gbc_lblHoraInicio.anchor = GridBagConstraints.WEST;
+				gbc_lblHoraInicio.insets = new Insets(0, 0, 5, 5);
+				gbc_lblHoraInicio.gridx = 1;
+				gbc_lblHoraInicio.gridy = 6;
+				panel.add(lblHoraInicio, gbc_lblHoraInicio);
+				lblHoraInicio.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
 			{
 				JSpinner spinner = new JSpinner();
-				spinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 				GridBagConstraints gbc_spinner = new GridBagConstraints();
 				gbc_spinner.fill = GridBagConstraints.BOTH;
 				gbc_spinner.insets = new Insets(0, 0, 5, 5);
@@ -253,16 +241,17 @@ public class Venta_Vuelo extends JDialog {
 				gbc_spinner.gridy = 6;
 				panel.add(spinner, gbc_spinner);
 				spinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				spinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.DAY_OF_YEAR));
 			}
 			{
-				JLabel lblHoraInicio = new JLabel("Hora Inicio");
-				GridBagConstraints gbc_lblHoraInicio = new GridBagConstraints();
-				gbc_lblHoraInicio.anchor = GridBagConstraints.WEST;
-				gbc_lblHoraInicio.insets = new Insets(0, 0, 5, 5);
-				gbc_lblHoraInicio.gridx = 1;
-				gbc_lblHoraInicio.gridy = 7;
-				panel.add(lblHoraInicio, gbc_lblHoraInicio);
-				lblHoraInicio.setFont(new Font("Tahoma", Font.BOLD, 12));
+				JLabel lblHoraFinalizacin = new JLabel("Hora Finalizaci\u00F3n");
+				GridBagConstraints gbc_lblHoraFinalizacin = new GridBagConstraints();
+				gbc_lblHoraFinalizacin.anchor = GridBagConstraints.WEST;
+				gbc_lblHoraFinalizacin.insets = new Insets(0, 0, 5, 5);
+				gbc_lblHoraFinalizacin.gridx = 1;
+				gbc_lblHoraFinalizacin.gridy = 7;
+				panel.add(lblHoraFinalizacin, gbc_lblHoraFinalizacin);
+				lblHoraFinalizacin.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
 			{
 				JSpinner spinner = new JSpinner();
@@ -276,34 +265,13 @@ public class Venta_Vuelo extends JDialog {
 				spinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.DAY_OF_YEAR));
 			}
 			{
-				JLabel lblHoraFinalizacin = new JLabel("Hora Finalizaci\u00F3n");
-				GridBagConstraints gbc_lblHoraFinalizacin = new GridBagConstraints();
-				gbc_lblHoraFinalizacin.anchor = GridBagConstraints.WEST;
-				gbc_lblHoraFinalizacin.insets = new Insets(0, 0, 5, 5);
-				gbc_lblHoraFinalizacin.gridx = 1;
-				gbc_lblHoraFinalizacin.gridy = 8;
-				panel.add(lblHoraFinalizacin, gbc_lblHoraFinalizacin);
-				lblHoraFinalizacin.setFont(new Font("Tahoma", Font.BOLD, 12));
-			}
-			{
-				JSpinner spinner = new JSpinner();
-				GridBagConstraints gbc_spinner = new GridBagConstraints();
-				gbc_spinner.fill = GridBagConstraints.BOTH;
-				gbc_spinner.insets = new Insets(0, 0, 5, 5);
-				gbc_spinner.gridx = 2;
-				gbc_spinner.gridy = 8;
-				panel.add(spinner, gbc_spinner);
-				spinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				spinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.DAY_OF_YEAR));
-			}
-			{
 				JButton btnCrearVuelo = new JButton("Crear Vuelo");
 				GridBagConstraints gbc_btnCrearVuelo = new GridBagConstraints();
 				gbc_btnCrearVuelo.insets = new Insets(0, 0, 5, 5);
 				gbc_btnCrearVuelo.fill = GridBagConstraints.BOTH;
 				gbc_btnCrearVuelo.gridwidth = 3;
 				gbc_btnCrearVuelo.gridx = 1;
-				gbc_btnCrearVuelo.gridy = 10;
+				gbc_btnCrearVuelo.gridy = 9;
 				panel.add(btnCrearVuelo, gbc_btnCrearVuelo);
 			}
 		}
