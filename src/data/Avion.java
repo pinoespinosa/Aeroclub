@@ -49,14 +49,14 @@ public class Avion {
 	}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","name"});
+		return Arrays.asList(new String[]{"id","name", "precio"});
 	}
 	
 	private static Avion loadFromList(List<String> valores){		
 		return new Avion(
 							Integer.parseInt(valores.get(0)),
 							valores.get(1),
-							Float.parseFloat("1.0"));
+							Float.parseFloat(valores.get(2)));
 	}
 	
 	public static List<Avion> loadFromDB(){

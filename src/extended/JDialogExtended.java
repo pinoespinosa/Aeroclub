@@ -6,7 +6,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import visual.MainController;
 
 
 public class JDialogExtended extends JDialog {

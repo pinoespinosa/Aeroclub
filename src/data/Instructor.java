@@ -7,7 +7,7 @@ import java.util.List;
 import base_datos.Utils;
 import base_datos.managerDB;
 
-public class Piloto {
+public class Instructor {
 
 	private int id;
 	private String name, apellido;
@@ -16,7 +16,7 @@ public class Piloto {
 	
 	
 	
-	public Piloto(int id, String name, String apellido, Long nacimiento,
+	public Instructor(int id, String name, String apellido, Long nacimiento,
 			Long fecha_licencia) {
 		super();
 		this.id = id;
@@ -26,7 +26,7 @@ public class Piloto {
 		this.fecha_licencia = fecha_licencia;
 	}
 	
-	public Piloto(int id, String name, String apellido) {
+	public Instructor(int id, String name, String apellido) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -65,30 +65,31 @@ public class Piloto {
 	}
 		
 	private static String getScriptDataBase(){
-		return 	"SELECT DISTINCT pe.*" +
-				"FROM aviones.piloto as pi " +
-				"inner join aviones.persona as pe on pe.id = pi.id;";
-		}
+		return 	"SELECT DISTINCT pe.* " +
+				"FROM aviones.instructor as inst " +
+				"inner join aviones.persona as pe " +
+				"on pe.id=inst.id;";
+	}
 	
 	private static List<String> getFieldScriptBase(){
 		return Arrays.asList(new String[]{"id","nombre","apellido"});
 	}
 	
-	private static Piloto loadFromList(List<String> valores){		
-		return new Piloto(
+	private static Instructor loadFromList(List<String> valores){		
+		return new Instructor(
 							Integer.parseInt(valores.get(0)),
 							valores.get(1),
 							valores.get(2));
 	}
 	
-	public static List<Piloto> loadFromDB(){
-		List<List<String>> pilotosData = managerDB.executeScript_Query(Piloto.getScriptDataBase(), Piloto.getFieldScriptBase());
-		List<Piloto> pilotos = new ArrayList<Piloto>();
+	public static List<Instructor> loadFromDB(){
+		List<List<String>> instructoresData = managerDB.executeScript_Query(Instructor.getScriptDataBase(), Instructor.getFieldScriptBase());
+		List<Instructor> instructores = new ArrayList<Instructor>();
 		
-		for (List<String> list : pilotosData) {
-			pilotos.add(loadFromList(list));
+		for (List<String> list : instructoresData) {
+			instructores.add(loadFromList(list));
 		}
-	return pilotos;
+	return instructores;
 	}
 	
 	

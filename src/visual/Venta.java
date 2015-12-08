@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import extended.JDialogExtended;
+import extended.MainController;
 
 
 public class Venta extends JDialogExtended {
@@ -61,7 +62,7 @@ public class Venta extends JDialogExtended {
 			contentPanel.add(btnVuelo, gbc_btnVuelo);
 		}
 		{
-			JButton btnAceite = new JButton("Nuevo Aceite");
+			JButton btnAceite = new JButton("Nuevo Venta de Aceite");
 			btnAceite.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
@@ -81,7 +82,7 @@ public class Venta extends JDialogExtended {
 			contentPanel.add(btnAceite, gbc_btnAceite);
 		}
 		{
-			JButton btnCombustible = new JButton("Nuevo Combustible");
+			JButton btnCombustible = new JButton("Nuevo Venta de Combustible");
 			btnCombustible.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {

@@ -1,34 +1,219 @@
 package data;
 
-public class Vuelo {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import base_datos.managerDB;
+
+
+public class Vuelo implements Comparable<Vuelo>{
+
+	private int id;
+
+	private long horaInicio, horaFinal;
+
+	private int cantAceite, cantCombustible;
+
+	private int idAvion, idPiloto, idInstructor;
+
+	private float precio, precioAceite, precioCombustible;
 	
-	private Long horaInicio, horaFinal;
-	
-	public Vuelo(Long horaInicio, Long horaFinal) {
+
+	public Vuelo(int id, long horaInicio, long horaFinal, int cantAceite, int cantCombustible, int idAvion, int idPiloto, int idInstructor, float precio, float precioAceite, float precioCombustible) {
 		super();
+		this.id = id;
 		this.horaInicio = horaInicio;
 		this.horaFinal = horaFinal;
+		this.cantAceite = cantAceite;
+		this.cantCombustible = cantCombustible;
+		this.idAvion = idAvion;
+		this.idPiloto = idPiloto;
+		this.idInstructor = idInstructor;
+		this.precio = precio;
+		this.precioAceite=precioAceite;
+		this.precioCombustible=precioCombustible;
 	}
 
-	public Long getHoraInicio() {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public long getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Long horaInicio) {
+	public void setHoraInicio(long horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public Long getHoraFinal() {
+	public long getHoraFinal() {
 		return horaFinal;
 	}
 
-	public void setHoraFinal(Long horaFinal) {
+	public void setHoraFinal(long horaFinal) {
 		this.horaFinal = horaFinal;
 	}
 
+	public int getCantAceite() {
+		return cantAceite;
+	}
+
+	public void setCantAceite(int cantAceite) {
+		this.cantAceite = cantAceite;
+	}
+
+	public int getCantCombustible() {
+		return cantCombustible;
+	}
+
+	public void setCantCombustible(int cantCombustible) {
+		this.cantCombustible = cantCombustible;
+	}
+
+	public int getIdAvion() {
+		return idAvion;
+	}
+
+	public void setIdAvion(int idAvion) {
+		this.idAvion = idAvion;
+	}
+
+	public int getIdPiloto() {
+		return idPiloto;
+	}
+
+	public void setIdPiloto(int idPiloto) {
+		this.idPiloto = idPiloto;
+	}
+
+	public int getIdInstructor() {
+		return idInstructor;
+	}
+
+	public void setIdInstructor(int idInstructor) {
+		this.idInstructor = idInstructor;
+	}
+	
 	@Override
 	public String toString() {
-		return "Vuelo Hora Despegue:" + horaInicio + ", Hora llegada:" + horaFinal;
+		
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm dd/MMM ");
+		
+		Date inicio = new Date(horaInicio);
+		Date fin = new Date(horaFinal);
+		
+		return "Vuelo "+ getId() +" - " + format.format(inicio) + "~ " + format.format(fin);
 	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+	
+	public String getUpdateScriptDataBase(){
+		return "UPDATE `aviones`.`instructor`" +
+				" SET" +
+				" horaInicio=" + getHoraInicio() +
+				", horaFinal=" + getHoraFinal() +
+				", cantAceite=" + getCantAceite() +
+				", cantCombustible=" + getCantCombustible() +
+				", idAvion=" + getIdAvion() +
+				", idPiloto=" + getIdPiloto() + 
+				", idInstructor=" + getIdInstructor() +
+				", precio=" + getPrecio() +
+				", precioAceite=" + getPrecioAceite() +
+				", precioCombustible=" + getPrecioCombustible() +
+				" WHERE `idVuelo` =5"  + ";"; 
+	}
+	
+	public String getCreateScriptDataBase(){
+		return "INSERT INTO `aviones`.`vuelo` values ( " +
+				" " + getId()  +
+				", " + getHoraInicio() +
+				", " + getHoraFinal() +
+				", " + getCantAceite() +
+				", " + getCantCombustible() +
+				", " + getIdAvion() +
+				", " + getIdPiloto() + 
+				", " + getIdInstructor() +
+				", " + getPrecio() +
+				", " + getPrecioAceite() +
+				", " + getPrecioCombustible() +
+				 ");"; 
+	}
+
+	public float getPrecioAceite() {
+		return precioAceite;
+	}
+
+	public void setPrecioAceite(float precioAceite) {
+		this.precioAceite = precioAceite;
+	}
+
+	public float getPrecioCombustible() {
+		return precioCombustible;
+	}
+
+	public void setPrecioCombustible(float precioCombustible) {
+		this.precioCombustible = precioCombustible;
+	}
+	
+	
+	
+	private static String getScriptDataBase(){
+		return 	"	SELECT *" +
+				"	FROM aviones.vuelo;";
+	}
+	
+	private static List<String> getFieldScriptBase(){
+		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible"});
+	}
+	
+	private static Vuelo loadFromList(List<String> valores){		
+		return new Vuelo(
+							Integer.parseInt(valores.get(0)),
+							Long.parseLong(valores.get(1)),
+							Long.parseLong(valores.get(2)),
+							Integer.parseInt(valores.get(3)),
+							Integer.parseInt(valores.get(4)),
+							Integer.parseInt(valores.get(5)),
+							Integer.parseInt(valores.get(6)),
+							Integer.parseInt(valores.get(7)),
+							Float.parseFloat(valores.get(8)),
+							Float.parseFloat(valores.get(9)),
+							Float.parseFloat(valores.get(10)));
+	}
+	
+	public static List<Vuelo> loadFromDB(){
+		List<List<String>> vuelosData = managerDB.executeScript_Query(Vuelo.getScriptDataBase(), Vuelo.getFieldScriptBase());
+		List<Vuelo> aviones = new ArrayList<Vuelo>();
+		
+		for (List<String> list : vuelosData) {
+			aviones.add(loadFromList(list));
+		}
+	return aviones;
+	}
+
+	@Override
+	public int compareTo(Vuelo arg0) {
+		if (getId()==arg0.getId())
+			return 0;
+		if (getId()<arg0.getId())
+			return -1;
+		else
+			return 1;
+	}
+	
+
 
 }

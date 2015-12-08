@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -17,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+
+import extended.MainController;
 
 
 public class main {
@@ -121,6 +125,16 @@ public class main {
 		panel.add(list, gbc_list);
 		
 		JButton btnNewButton = new JButton("Nueva Compra");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				/* ------------------------------- Nueva venta ------------------------------- */
+				frame.setEnabled(false);
+				Compra_General dialog = new Compra_General(frame);
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
