@@ -109,7 +109,17 @@ public class Vuelo implements Comparable<Vuelo>{
 		Date inicio = new Date(horaInicio);
 		Date fin = new Date(horaFinal);
 		
-		return "Vuelo "+ getId() +" - " + format.format(inicio) + "~ " + format.format(fin);
+		String id;
+		
+		if (getId()<10)
+			id="00"+getId();
+		else
+			if (getId()>9 && getId()<100)
+				id="0"+getId();
+			else
+				id=""+getId();
+			
+		return "Vuelo "+ id +" - " + format.format(inicio) + "~ " + format.format(fin);
 	}
 
 	public float getPrecio() {

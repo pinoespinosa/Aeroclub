@@ -384,6 +384,7 @@ public class Venta_Vuelo extends JDialog {
 			panel.setLayout(gbl_panel);
 			{
 				list = new JList<Vuelo>();
+				list.setFont(new Font("Consolas", Font.PLAIN, 11));
 				list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				
 				vuelossList = new DefaultListModel<Vuelo>();
