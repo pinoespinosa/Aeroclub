@@ -18,6 +18,11 @@ public class Avion {
 		this.name = name;
 		this.precio = precio;
 	}
+	
+	public Avion(int id) {
+		super();
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;
@@ -72,6 +77,14 @@ public class Avion {
 	@Override
 	public String toString() {
 		return "Avion " + id + " " + name;
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof Avion)
+			return ((Avion) arg0).getId() == getId();
+		else
+			return false;
 	}
 	
 	

@@ -3,6 +3,7 @@ package data;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -17,12 +18,25 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	private int cantAceite, cantCombustible;
 
-	private int idAvion, idPiloto, idInstructor;
+	private int idAvion, idPiloto, idInstructor, formaDePago;
 
+	
+	
+	/**
+	 * En el momento que se crea el vuelo se guardan los precios y no se pueden modificar mas adelante
+	 */
 	private float precio, precioAceite, precioCombustible;
 	
+	public Vuelo(float precioAceite, float precioCombustible) {
+		super();
+		this.precioAceite = precioAceite;
+		this.precioCombustible = precioCombustible;
+	}
 
-	public Vuelo(int id, long horaInicio, long horaFinal, int cantAceite, int cantCombustible, int idAvion, int idPiloto, int idInstructor, float precio, float precioAceite, float precioCombustible) {
+
+
+	public Vuelo(int id, long horaInicio, long horaFinal, int cantAceite, int cantCombustible, int idAvion, int idPiloto, int idInstructor,
+			float precio, float precioAceite, float precioCombustible, int formaDePago) {
 		super();
 		this.id = id;
 		this.horaInicio = horaInicio;
@@ -32,10 +46,13 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.idAvion = idAvion;
 		this.idPiloto = idPiloto;
 		this.idInstructor = idInstructor;
+		this.formaDePago = formaDePago;
 		this.precio = precio;
-		this.precioAceite=precioAceite;
-		this.precioCombustible=precioCombustible;
+		this.precioAceite = precioAceite;
+		this.precioCombustible = precioCombustible;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -124,27 +141,13 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	public float getPrecio() {
 		return precio;
-	}
-
+	}	
+	
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
 	
-	public String getUpdateScriptDataBase(){
-		return "UPDATE `aviones`.`instructor`" +
-				" SET" +
-				" horaInicio=" + getHoraInicio() +
-				", horaFinal=" + getHoraFinal() +
-				", cantAceite=" + getCantAceite() +
-				", cantCombustible=" + getCantCombustible() +
-				", idAvion=" + getIdAvion() +
-				", idPiloto=" + getIdPiloto() + 
-				", idInstructor=" + getIdInstructor() +
-				", precio=" + getPrecio() +
-				", precioAceite=" + getPrecioAceite() +
-				", precioCombustible=" + getPrecioCombustible() +
-				" WHERE `idVuelo` =5"  + ";"; 
-	}
+
 	
 	public String getCreateScriptDataBase(){
 		return "INSERT INTO `aviones`.`vuelo` values ( " +
@@ -159,6 +162,7 @@ public class Vuelo implements Comparable<Vuelo>{
 				", " + getPrecio() +
 				", " + getPrecioAceite() +
 				", " + getPrecioCombustible() +
+				", " + getFormaDePago() +
 				 ");"; 
 	}
 
@@ -186,7 +190,7 @@ public class Vuelo implements Comparable<Vuelo>{
 	}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible"});
+		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible","formaDePago"});
 	}
 	
 	private static Vuelo loadFromList(List<String> valores){		
@@ -201,7 +205,8 @@ public class Vuelo implements Comparable<Vuelo>{
 							Integer.parseInt(valores.get(7)),
 							Float.parseFloat(valores.get(8)),
 							Float.parseFloat(valores.get(9)),
-							Float.parseFloat(valores.get(10)));
+							Float.parseFloat(valores.get(10)),
+							Integer.parseInt(valores.get(11)));
 	}
 	
 	public static List<Vuelo> loadFromDB(){
@@ -211,6 +216,9 @@ public class Vuelo implements Comparable<Vuelo>{
 		for (List<String> list : vuelosData) {
 			aviones.add(loadFromList(list));
 		}
+		
+		Collections.sort(aviones);
+		
 	return aviones;
 	}
 
@@ -219,9 +227,17 @@ public class Vuelo implements Comparable<Vuelo>{
 		if (getId()==arg0.getId())
 			return 0;
 		if (getId()<arg0.getId())
-			return -1;
-		else
 			return 1;
+		else
+			return -1;
+	}
+
+	public int getFormaDePago() {
+		return formaDePago;
+	}
+
+	public void setFormaDePago(int formaDePago) {
+		this.formaDePago = formaDePago;
 	}
 	
 

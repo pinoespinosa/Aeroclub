@@ -10,22 +10,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import data.Vencimiento;
 import extended.MainController;
 
 
 public class main {
 
 	private JFrame frame;
+	private JList<Vencimiento> list;
+	private DefaultListModel<Vencimiento> vencimientoList;
 	
 	/**
 	 * Launch the application.
@@ -93,9 +100,9 @@ public class main {
 		frame.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridheight = 5;
+		gbc_panel.gridheight = 7;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 3;
@@ -103,21 +110,23 @@ public class main {
 		frame.getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0};
+		gbl_panel.rowHeights = new int[]{50, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblVencimientoYAlertas = new JLabel("Vencimiento y alertas");
-		lblVencimientoYAlertas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblVencimientoYAlertas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVencimientoYAlertas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
 		GridBagConstraints gbc_lblVencimientoYAlertas = new GridBagConstraints();
-		gbc_lblVencimientoYAlertas.anchor = GridBagConstraints.WEST;
+		gbc_lblVencimientoYAlertas.fill = GridBagConstraints.BOTH;
 		gbc_lblVencimientoYAlertas.insets = new Insets(0, 0, 5, 0);
 		gbc_lblVencimientoYAlertas.gridx = 0;
 		gbc_lblVencimientoYAlertas.gridy = 0;
 		panel.add(lblVencimientoYAlertas, gbc_lblVencimientoYAlertas);
 		
-		JList list = new JList();
+		list = new JList<Vencimiento>();
+		list.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.fill = GridBagConstraints.BOTH;
 		gbc_list.gridx = 0;
@@ -165,6 +174,22 @@ public class main {
 	}
 	@PostConstruct
 	public void postContructor(){
-		MainController.setViewConfig(frame);	
+		MainController.setViewConfig(frame);
+		list.setFont(new Font("Consolas", Font.PLAIN, 15));
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		vencimientoList = new DefaultListModel<Vencimiento>();
+		list.setModel(vencimientoList);
+		updateVencimientos();
+	}
+	
+	public void updateVencimientos(){
+		List<Vencimiento> listaV =  Vencimiento.loadFromDB();
+		vencimientoList.removeAllElements();
+		
+		for (Vencimiento vencimiento : listaV) {
+			vencimientoList.addElement(vencimiento);
+		}
+		
+
 	}
 }

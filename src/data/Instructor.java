@@ -33,6 +33,11 @@ public class Instructor {
 		this.apellido = apellido;
 	}
 	
+	public Instructor(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -96,6 +101,14 @@ public class Instructor {
 	@Override
 	public String toString() {
 		return getApellido() + ", " + getName();
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof Instructor)
+			return ((Instructor) arg0).getId() == getId();
+		else
+			return false;
 	}
 	
 	

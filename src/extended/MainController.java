@@ -22,7 +22,10 @@ public class MainController {
 		ACTION_CONTINUE=0,
 		ACTION_EXIT=1;
 
-	
+	/**
+	 * Configura el tamaño de la ventana a Maximizado
+	 * @param view
+	 */
 	public static void setViewConfig(JFrame view){
 		view.setExtendedState(Frame.MAXIMIZED_BOTH);
 	}

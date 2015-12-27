@@ -33,6 +33,11 @@ public class Piloto {
 		this.apellido = apellido;
 	}
 	
+	public Piloto(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -95,6 +100,14 @@ public class Piloto {
 	@Override
 	public String toString() {
 		return getApellido() + ", " + getName();
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof Piloto)
+			return ((Piloto) arg0).getId()==getId();
+		else
+			return false;
 	}
 	
 	
