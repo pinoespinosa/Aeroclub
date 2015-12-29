@@ -9,14 +9,14 @@ import base_datos.managerDB;
 
 public class Piloto {
 
-	private int id;
+	private int id, dni;
 	private String name, apellido;
 	private Long nacimiento, fecha_licencia;
 	
 	
 	
 	
-	public Piloto(int id, String name, String apellido, Long nacimiento,
+	public Piloto(int id, String name, String apellido, int dni, Long nacimiento,
 			Long fecha_licencia) {
 		super();
 		this.id = id;
@@ -24,6 +24,7 @@ public class Piloto {
 		this.apellido = apellido;
 		this.nacimiento = nacimiento;
 		this.fecha_licencia = fecha_licencia;
+		this.dni=dni;
 	}
 	
 	public Piloto(int id, String name, String apellido) {
@@ -36,6 +37,10 @@ public class Piloto {
 	public Piloto(int id) {
 		super();
 		this.id = id;
+	}
+	
+	public Piloto() {
+		super();
 	}
 	
 	public int getId() {
@@ -70,20 +75,24 @@ public class Piloto {
 	}
 		
 	private static String getScriptDataBase(){
-		return 	"SELECT DISTINCT pe.*" +
+		return 	"SELECT DISTINCT pe.*, pi.fechaVencimientoLicencia " +
 				"FROM aviones.piloto as pi " +
-				"inner join aviones.persona as pe on pe.id = pi.id;";
+				"inner join aviones.persona as pe on pe.id = pi.id " +
+				"order by apellido;";
 		}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","nombre","apellido"});
+		return Arrays.asList(new String[]{"id","nombre","apellido","dni", "nacimiento", "fechaVencimientoLicencia"});
 	}
 	
 	private static Piloto loadFromList(List<String> valores){		
 		return new Piloto(
 							Integer.parseInt(valores.get(0)),
 							valores.get(1),
-							valores.get(2));
+							valores.get(2),
+							Integer.parseInt(valores.get(3)),
+							Long.parseLong(valores.get(4)),
+							Long.parseLong(valores.get(5)));
 	}
 	
 	public static List<Piloto> loadFromDB(){
@@ -104,10 +113,29 @@ public class Piloto {
 
 	@Override
 	public boolean equals(Object arg0) {
-		if (arg0 instanceof Piloto)
-			return ((Piloto) arg0).getId()==getId();
+		
+		
+		
+		if (arg0 instanceof Piloto){
+			if (((Piloto) arg0).getId()==getId())
+				return true;
+			
+			if (((Piloto) arg0).getDni()==getDni())
+					return true;
+			else
+				return false;
+			
+		}
 		else
 			return false;
+	}
+
+	public int getDni() {
+		return dni;
+	}
+
+	public void setDni(int dni) {
+		this.dni = dni;
 	}
 	
 	

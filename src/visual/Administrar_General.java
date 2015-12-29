@@ -124,4 +124,10 @@ public class Administrar_General extends JDialogExtended {
 		}
 	}
 
+	@Override
+	public void updateUi() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

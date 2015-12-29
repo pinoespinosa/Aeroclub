@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -117,6 +118,17 @@ public class Venta extends JDialogExtended {
 				buttonPane.add(cancelButton);
 			}
 		}
+		inic();
+	}
+	@PostConstruct 
+	private void inic()
+	{
+		setAction(MainController.ACTION_EXIT);
+	}
+	@Override
+	public void updateUi() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

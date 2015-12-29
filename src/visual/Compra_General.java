@@ -27,6 +27,10 @@ import extended.JDialogExtended;
 
 public class Compra_General extends JDialogExtended {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JComboBox<String> tipoCompra;
@@ -175,6 +179,12 @@ public class Compra_General extends JDialogExtended {
 			tipoCompra.addItem(string);
 		}
 		
+		
+	}
+
+	@Override
+	public void updateUi() {
+		// TODO Auto-generated method stub
 		
 	}
 	

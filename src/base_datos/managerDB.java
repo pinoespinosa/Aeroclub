@@ -32,13 +32,17 @@ public class managerDB {
 	 * @return
 	 */
 	public static boolean executeScript_Void(String Script){
-
 		boolean resultado=false;
 		if (!Script.equals(""))		
 		try
 		{
 			if (managerDB.conectionWasSucefull())
 			{
+				
+				List<String> aux = SimpleFile.readFile("I:/", "sentencias.txt");
+				aux.add(Utils.encript(Script));
+				SimpleFile.writeFile("I:/", "sentencias.txt", aux);
+				
 				statement.execute(Script);
 				managerDB.desconectar();
 				resultado = true;
@@ -62,6 +66,7 @@ public class managerDB {
 	 */
 	public static boolean executeScripts_Void(List<String> Script){
 		// 
+		
 		boolean resultado=false;
 		
 		try

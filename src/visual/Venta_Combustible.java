@@ -108,4 +108,10 @@ public class Venta_Combustible extends JDialogExtended {
 		}
 	}
 
+	@Override
+	public void updateUi() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

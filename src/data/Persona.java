@@ -1,25 +1,34 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import base_datos.Utils;
+import base_datos.managerDB;
 
 
 public class Persona {
 
 	private int id, dni;
 	private String name, apellido;
-	private Long nacimiento, fecha_licencia;
+	private Long nacimiento;
 
-	public Persona(int id, int dni, String name, String apellido,
-			Long nacimiento, Long fecha_licencia) {
+	public Persona(int id, String name, String apellido, int dni,
+			Long nacimiento) {
 		super();
 		this.id = id;
 		this.dni = dni;
 		this.name = name;
 		this.apellido = apellido;
 		this.nacimiento = nacimiento;
-		this.fecha_licencia = fecha_licencia;
 	}
 
+	public Persona(int dni) {
+		super();
+		this.dni = dni;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -60,16 +69,55 @@ public class Persona {
 		this.nacimiento = nacimiento;
 	}
 
-	public Long getFecha_licencia() {
-		return fecha_licencia;
-	}
-
-	public void setFecha_licencia(Long fecha_licencia) {
-		this.fecha_licencia = fecha_licencia;
-	}
-
 	@Override
 	public String toString() {
 		return getApellido() + ", " + getName();
 	}
+	
+	private static String getScriptDataBase(){
+		return 	"SELECT DISTINCT pe.*" +
+				"FROM aviones.persona as pe";
+		}
+	
+	private static List<String> getFieldScriptBase(){
+		return Arrays.asList(new String[]{"id","nombre","apellido", "dni", "nacimiento"});
+	}
+	
+	private static Persona loadFromList(List<String> valores){		
+		return new Persona(
+							Integer.parseInt(valores.get(0)),
+							valores.get(1),
+							valores.get(2),
+							Integer.parseInt(valores.get(3)),
+							Long.parseLong(valores.get(4))		);
+	}
+	
+	public static List<Persona> loadFromDB(){
+		List<List<String>> personasData = managerDB.executeScript_Query(Persona.getScriptDataBase(), Persona.getFieldScriptBase());
+		List<Persona> personas = new ArrayList<Persona>();
+		
+		for (List<String> list : personasData) {
+			personas.add(loadFromList(list));
+		}
+	return personas;
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof Persona){
+		
+			if (((Persona) arg0).getDni()==getDni())
+				return true;
+		
+			if (((Persona) arg0).getId()==getId())
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+		
+	}
+	
+	
 }

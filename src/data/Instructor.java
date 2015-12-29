@@ -9,7 +9,7 @@ import base_datos.managerDB;
 
 public class Instructor {
 
-	private int id;
+	private int id, dni;
 	private String name, apellido;
 	private Long nacimiento, fecha_licencia;
 	
@@ -17,13 +17,14 @@ public class Instructor {
 	
 	
 	public Instructor(int id, String name, String apellido, Long nacimiento,
-			Long fecha_licencia) {
+			Long fecha_licencia, int dni) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.apellido = apellido;
 		this.nacimiento = nacimiento;
 		this.fecha_licencia = fecha_licencia;
+		this.setDni(dni);
 	}
 	
 	public Instructor(int id, String name, String apellido) {
@@ -36,6 +37,10 @@ public class Instructor {
 	public Instructor(int id) {
 		super();
 		this.id = id;
+	}
+	
+	public Instructor() {
+		super();
 	}
 	
 	public int getId() {
@@ -70,21 +75,25 @@ public class Instructor {
 	}
 		
 	private static String getScriptDataBase(){
-		return 	"SELECT DISTINCT pe.* " +
+		return 	"SELECT DISTINCT pe.*, inst.* " +
 				"FROM aviones.instructor as inst " +
 				"inner join aviones.persona as pe " +
-				"on pe.id=inst.id;";
+				"on pe.id=inst.id " +
+				"order by apellido;";
 	}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","nombre","apellido"});
+		return Arrays.asList(new String[]{"id","nombre","apellido","nacimiento", "fecha_inscripcion_instructor", "dni"});
 	}
 	
 	private static Instructor loadFromList(List<String> valores){		
 		return new Instructor(
 							Integer.parseInt(valores.get(0)),
 							valores.get(1),
-							valores.get(2));
+							valores.get(2),
+							Long.parseLong(valores.get(3)),
+							Long.parseLong(valores.get(4)),
+							Integer.parseInt(valores.get(5)));
 	}
 	
 	public static List<Instructor> loadFromDB(){
@@ -105,10 +114,24 @@ public class Instructor {
 
 	@Override
 	public boolean equals(Object arg0) {
-		if (arg0 instanceof Instructor)
-			return ((Instructor) arg0).getId() == getId();
+		if (arg0 instanceof Instructor){
+			if (((Instructor) arg0).getId() == getId())
+				return true;
+			if (((Instructor) arg0).getDni() == getDni())
+				return true;
+			else
+				return false;
+		}
 		else
 			return false;
+	}
+
+	public int getDni() {
+		return dni;
+	}
+
+	public void setDni(int dni) {
+		this.dni = dni;
 	}
 	
 	

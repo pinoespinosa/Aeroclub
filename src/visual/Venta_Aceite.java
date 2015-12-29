@@ -6,12 +6,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,8 +17,13 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
-public class Venta_Aceite extends JDialog {
-	private JFrame parent;
+import extended.JDialogExtended;
+
+public class Venta_Aceite extends JDialogExtended {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField_1;
 
@@ -33,15 +35,7 @@ public class Venta_Aceite extends JDialog {
 		super(parent);
 		
 		setResizable(false);
-		this.parent=parent;
-		
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				parent.setEnabled(true);
-				parent.setVisible(true);
-			}
-		});
+	
 		setTitle("Venta de Aceite");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -126,6 +120,12 @@ public class Venta_Aceite extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	@Override
+	public void updateUi() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

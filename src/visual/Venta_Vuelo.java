@@ -45,12 +45,15 @@ import data.Instructor;
 import data.Piloto;
 import data.Precios;
 import data.Vuelo;
+import extended.JDialogExtended;
 import extended.MainController;
 
 
-public class Venta_Vuelo extends JDialog {
-	private JFrame parent;
-	private int action;
+public class Venta_Vuelo extends JDialogExtended {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
 	private DefaultComboBoxModel<Piloto> pilotosList;
@@ -75,7 +78,6 @@ public class Venta_Vuelo extends JDialog {
 	public Venta_Vuelo(final JFrame parent) {
 		super(parent);
 		setResizable(false);
-		this.parent=parent;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
 
@@ -133,6 +135,18 @@ public class Venta_Vuelo extends JDialog {
 			}
 			{
 				JButton btnNewButton = new JButton("");
+				btnNewButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						
+						Nuevo_Piloto dialog = new Nuevo_Piloto(Venta_Vuelo.this);
+						dialog.setAction(MainController.ACTION_EXIT);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+						
+						Venta_Vuelo.this.setEnabled(false);	
+					}
+				});
 				btnNewButton.setToolTipText("Nuevo Piloto");
 				btnNewButton.setMaximumSize(new Dimension(40, 40));
 				btnNewButton.setMinimumSize(new Dimension(40, 40));
@@ -208,6 +222,18 @@ public class Venta_Vuelo extends JDialog {
 			}
 			{
 				JButton btnNuevoInstructor = new JButton("");
+				btnNuevoInstructor.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						
+						Nuevo_Instructor dialog = new Nuevo_Instructor(Venta_Vuelo.this);
+						dialog.setAction(MainController.ACTION_EXIT);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+						
+						Venta_Vuelo.this.setEnabled(false);	
+					}
+				});
 				btnNuevoInstructor.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Instructor1.png"));
 				btnNuevoInstructor.setToolTipText("Nuevo Instructor");
 				btnNuevoInstructor.setPreferredSize(new Dimension(40, 40));
@@ -243,7 +269,7 @@ public class Venta_Vuelo extends JDialog {
 			}
 			{
 				JButton button = new JButton("");
-				button.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Instructor1.png"));
+				button.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Avion.png"));
 				button.setPreferredSize(new Dimension(40, 40));
 				button.setMinimumSize(new Dimension(40, 40));
 				button.setMaximumSize(new Dimension(40, 40));
@@ -613,7 +639,6 @@ public class Venta_Vuelo extends JDialog {
 		inicioSpinner.setValue(new Date(aux.getHoraInicio()));
 		finalizacionSpinner.setValue(new Date(aux.getHoraFinal()));
 
-				
 		guardarEdicionBtn.setEnabled(true);
 		cancelarEdicionBtn.setEnabled(true);
 		editarBtn.setEnabled(false);
@@ -683,6 +708,12 @@ public class Venta_Vuelo extends JDialog {
 		
 		
 		return true;
+	}
+
+	@Override
+	public void updateUi() {
+		inic();
+		
 	}
 	
 }

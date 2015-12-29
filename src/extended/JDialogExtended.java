@@ -1,27 +1,28 @@
 package extended;
 
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 
 
-public class JDialogExtended extends JDialog {
-	private JFrame parent;
+public abstract class JDialogExtended extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int action;
 
 	/**
 	 * Create the dialog.
 	 * @param frmSistemaDeGestin 
 	 */
-	public JDialogExtended(final JFrame parent) {
+	public JDialogExtended(final Window parent) {
 		super(parent);
 		setResizable(false);
-		this.parent=parent;	
-		action = MainController.ACTION_EXIT;
-		
+		action = getAction();
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
@@ -31,11 +32,14 @@ public class JDialogExtended extends JDialog {
 					{		
 						parent.setEnabled(true);
 						parent.setVisible(true);
-					}		
-						break;
+						}
+					break;
 					default:					
 						break;
 				}
+				
+				if (parent instanceof JDialogExtended)
+					((JDialogExtended) parent).updateUi();
 			}
 		});
 		
@@ -43,7 +47,7 @@ public class JDialogExtended extends JDialog {
 		setBounds(100, 100, 637, 443);
 		
 	}
-
+	
 	public int getAction() {
 		return action;
 	}
@@ -51,5 +55,7 @@ public class JDialogExtended extends JDialog {
 	public void setAction(int action) {
 		this.action = action;
 	}
+	
+	public abstract void updateUi();
 
 }
