@@ -12,9 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -72,9 +70,7 @@ public class main {
 			public void windowClosing(WindowEvent arg0) {
 				
 				try {
-					
-					Process process = new ProcessBuilder("git.sh","","").start();
-					
+					Runtime.getRuntime().exec("I:/Program Files/Git/git-bash.exe -i I:/Users/Pino/git/Aeroclub/git.sh");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
