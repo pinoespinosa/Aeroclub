@@ -72,7 +72,6 @@ public class main {
 				try {
 					Runtime.getRuntime().exec("I:/Program Files/Git/git-bash.exe -i I:/Users/Pino/git/Aeroclub/git.sh");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			
