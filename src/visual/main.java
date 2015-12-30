@@ -74,7 +74,11 @@ public class main {
 				 String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
 			      ProcessBuilder pBuilder = new ProcessBuilder(commands);
 			      pBuilder.redirectOutput();
-
+			      pBuilder.inheritIO();
+			      pBuilder.redirectOutput();
+			      pBuilder.redirectOutput();
+			      pBuilder.redirectOutput();
+			      
 			      try {
 			         p = pBuilder.start();
 			         InputStream in = p.getInputStream();
