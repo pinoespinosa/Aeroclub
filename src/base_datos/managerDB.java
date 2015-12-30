@@ -39,9 +39,9 @@ public class managerDB {
 			if (managerDB.conectionWasSucefull())
 			{
 				
-				List<String> aux = SimpleFile.readFile("I:/", "sentencias.txt");
+				List<String> aux = SimpleFile.readFile("", "sentencias.txt");
 				aux.add(Utils.encript(Script));
-				SimpleFile.writeFile("I:/", "sentencias.txt", aux);
+				SimpleFile.writeFile("", "sentencias.txt", aux);
 				
 				statement.execute(Script);
 				managerDB.desconectar();
