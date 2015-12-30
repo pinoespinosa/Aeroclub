@@ -13,7 +13,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.annotation.PostConstruct;
 import javax.swing.DefaultListModel;
@@ -36,7 +38,7 @@ public class main {
 	private JFrame frame;
 	private JList<Vencimiento> list;
 	private DefaultListModel<Vencimiento> vencimientoList;
-	
+	private static Process p;
 	/**
 	 * Launch the application.
 	 */
@@ -68,13 +70,38 @@ public class main {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
+			
+				 String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
+			      ProcessBuilder pBuilder = new ProcessBuilder(commands);
+			      pBuilder.redirectErrorStream();
+
+			      try {
+			         p = pBuilder.start();
+			         InputStream in = p.getInputStream();
+			         final Scanner scanner = new Scanner(in);
+			         new Thread(new Runnable() {
+			            public void run() {
+			               while (scanner.hasNextLine()) {
+			                  System.out.println(scanner.nextLine());
+			               }
+			               scanner.close();
+			            }
+			         }).start();
+			      } catch (IOException e) {
+			         e.printStackTrace();
+			      }
 				
+				
+				
+				
+				
+				/*
 				try {
 					Runtime.getRuntime().exec("I:/Program Files/Git/git-bash.exe -i I:/Users/Pino/git/Aeroclub/git.sh");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			
+			*/
 			}
 		});
 
