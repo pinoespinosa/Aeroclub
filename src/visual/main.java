@@ -209,6 +209,17 @@ public class main {
 		
 		JButton btnNewButton_3 = new JButton("Administrar");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+	
+		/* ------------------------------- Nueva venta ------------------------------- */
+				frame.setEnabled(false);
+				Administrar_General dialog = new Administrar_General(frame);
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				}
+		});
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
 		gbc_btnNewButton_3.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
