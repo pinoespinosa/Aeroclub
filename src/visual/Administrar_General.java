@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +13,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 
 import extended.JDialogExtended;
+import extended.MainController;
 
 
 public class Administrar_General extends JDialogExtended {
@@ -122,8 +124,13 @@ public class Administrar_General extends JDialogExtended {
 				buttonPane.add(cancelButton);
 			}
 		}
+		inic();
 	}
-
+	@PostConstruct 
+	private void inic()
+	{
+		setAction(MainController.ACTION_EXIT);
+	}
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
