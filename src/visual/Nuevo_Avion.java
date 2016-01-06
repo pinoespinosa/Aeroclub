@@ -88,7 +88,7 @@ public class Nuevo_Avion extends JDialogExtended {
 			contentPanel.add(info, gbc_info);
 		}
 		{
-			lblNombre = new JLabel("Nombre");
+			lblNombre = new JLabel("Precio");
 			GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 			gbc_lblNombre.anchor = GridBagConstraints.WEST;
 			gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
@@ -177,7 +177,12 @@ public class Nuevo_Avion extends JDialogExtended {
 		}
 		
 		for (Avion av : aviones) {
-			if(av.getName())
+			if(av.getName().equals(nombreAvionTextField.getText())){
+				setEditable(false);
+				return;}
+			else
+				setEditable(true);
+			
 		}
 		
 			
