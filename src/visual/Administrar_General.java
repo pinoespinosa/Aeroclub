@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -44,6 +46,7 @@ public class Administrar_General extends JDialogExtended {
 	private boolean dirty = false;
 	private DefaultComboBoxModel<Avion> avionesList;
 	private JComboBox avionComboBox;
+	
 	/**
 	 * Create the dialog.
 	 * 
@@ -57,7 +60,7 @@ public class Administrar_General extends JDialogExtended {
 				if (dirty) {
 					int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 					if (opcion == JOptionPane.YES_OPTION) {
-						saveChanges();
+						saveChangesCombustiblesAceites();
 					}
 
 				}
@@ -87,7 +90,7 @@ public class Administrar_General extends JDialogExtended {
 						if (dirty) {
 							int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 							if (opcion == JOptionPane.YES_OPTION) {
-								saveChanges();
+								saveChangesCombustiblesAceites();
 							} else
 								updateUi();
 
@@ -142,7 +145,7 @@ public class Administrar_General extends JDialogExtended {
 					btnGuardarCambios.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent arg0) {
-							saveChanges();
+							saveChangesCombustiblesAceites();
 						}
 					});
 					{
@@ -211,6 +214,7 @@ public class Administrar_General extends JDialogExtended {
 				}
 				{
 					avionComboBox = new JComboBox<Avion>();
+
 		
 	
 					avionesList = new DefaultComboBoxModel<Avion>();
@@ -298,19 +302,38 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioCombustibleSocio.addChangeListener(spinListener);
 		spinnerPrecioAceiteAeroclub.addChangeListener(spinListener);
 		spinnerPrecioAceiteSocio.addChangeListener(spinListener);
+		spinnerPrecioAvion.addChangeListener(spinListener);
 		
-		if (avionesList.getSize()>0)
+		if (avionesList.getSize()>0){
 			avionesList.setSelectedItem(avionesList.getElementAt(0));
+			 spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+		}
+		
+		avionComboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				
+				if (dirty)
+		    	{
+		    		Avion current = (Avion) avionesList.getSelectedItem();
+		    		current.setPrecio((float) spinnerPrecioAvion.getValue());
+		    		managerDB.updateAsset(current);
+		    		
+		    	}
+		        spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+			}
+		});
+		
 		avionComboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+		    	
+		    
 		    }
 		});
 		
 		
 	}
 
-	private void saveChanges() {
+	private void saveChangesCombustiblesAceites() {
 		Precios.updatePrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB, spinnerPrecioCombustibleAeroclub.getValue() + "");
 		Precios.updatePrecio(Precios.PRECIO_COMBUSTIBLE_SOCIO, spinnerPrecioCombustibleSocio.getValue() + "");
 		Precios.updatePrecio(Precios.PRECIO_ACEITE_AEROCLUB, spinnerPrecioAceiteAeroclub.getValue() + "");
