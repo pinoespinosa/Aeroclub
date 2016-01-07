@@ -39,7 +39,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import base_datos.Utils;
 import base_datos.managerDB;
 import data.Avion;
 import data.Instructor;
@@ -718,8 +717,6 @@ public class Venta_Vuelo extends JDialogExtended {
 		
     	Date inicio = (Date) inicioSpinner.getModel().getValue();
 		Date fin = (Date) finalizacionSpinner.getModel().getValue();
-		
-		System.out.println(Utils.encript(inicio.getTime()+""));
 		
 		if (inicio.compareTo(fin) == 1) {
 			JOptionPane.showMessageDialog(null,"La hora de aterrizaje no puede ser menor que la de despegue.");

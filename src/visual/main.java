@@ -44,6 +44,7 @@ public class main {
 	private JList<Vencimiento> list;
 	private DefaultListModel<Vencimiento> vencimientoList;
 	private static Process p;
+	private JLabel lblNewLabel;
 	/**
 	 * Launch the application.
 	 */
@@ -144,7 +145,7 @@ public class main {
 				}
 		});
 		
-		JLabel lblNewLabel = new JLabel("La licencia del sistema expira el ");
+		lblNewLabel = new JLabel("La licencia del sistema expira el ");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -259,17 +260,13 @@ public class main {
 	    	fechaVencimientoLicencia = Utils.decript(fechaVencimientoLicencia);
 	    	
 	  	    	
-	    	Date fechaVencLicen = new Date(Long.parseLong(fechaVencimientoLicencia));
-	    	
-			
-	    	
-	    	//boolean valorr = fechaVencLicen.after(horaInternet);
-	    	
+	    	Date fechaVencLicen = new Date(Long.parseLong(fechaVencimientoLicencia));    	
 			
 			  long diff = fechaVencLicen.getTime() - horaInternet.getTime();
+			  
 			    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-			
-	    //	System.out.println( horaInternet.toLocaleString() );
+			    lblNewLabel.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + " dias.");
+
 		} catch (IOException e) {
 		}
 		
