@@ -215,6 +215,7 @@ public class Administrar_General extends JDialogExtended {
 				{
 					avionComboBox = new JComboBox<Avion>();
 
+
 		
 	
 					avionesList = new DefaultComboBoxModel<Avion>();
@@ -302,37 +303,37 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioCombustibleSocio.addChangeListener(spinListener);
 		spinnerPrecioAceiteAeroclub.addChangeListener(spinListener);
 		spinnerPrecioAceiteSocio.addChangeListener(spinListener);
-		spinnerPrecioAvion.addChangeListener(spinListener);
-		
-		if (avionesList.getSize()>0){
-			avionesList.setSelectedItem(avionesList.getElementAt(0));
-			 spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
-		}
+		spinnerPrecioAvion.addChangeListener(spinListener);	
 		
 		avionComboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				
-				if (dirty)
-		    	{
-		    		Avion current = (Avion) avionesList.getSelectedItem();
-		    		current.setPrecio((float) spinnerPrecioAvion.getValue());
-		    		managerDB.updateAsset(current);
-		    		
-		    	}
-		        spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+
+					if (dirty) {
+						int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+						if (opcion == JOptionPane.YES_OPTION) {
+							saveChangesAviones();
+						} 
+						dirty = false;
+					}
+					updateUi();
+
+				}
 			}
 		});
-		
-		avionComboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	
-		    
-		    }
-		});
-		
-		
+	
 	}
 
+	private void saveChangesAviones(){
+		Avion current = (Avion) avionesList.getSelectedItem();
+		current.setPrecio(Float.parseFloat(spinnerPrecioAvion.getValue() + ""));
+		managerDB.updateAsset(current);
+		JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
+
+	}
+	
 	private void saveChangesCombustiblesAceites() {
 		Precios.updatePrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB, spinnerPrecioCombustibleAeroclub.getValue() + "");
 		Precios.updatePrecio(Precios.PRECIO_COMBUSTIBLE_SOCIO, spinnerPrecioCombustibleSocio.getValue() + "");
@@ -354,6 +355,11 @@ public class Administrar_General extends JDialogExtended {
 		List<Avion> aviones = Avion.loadFromDB();
 		for (Avion avion : aviones) {
 			avionesList.addElement(avion);
+		}
+		
+		if (avionesList.getSize()>0){
+			avionesList.setSelectedItem(avionesList.getElementAt(0));
+			 spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
 		}
 		
 		dirty = false;
