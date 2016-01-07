@@ -44,6 +44,8 @@ public class main {
 	private DefaultListModel<Vencimiento> vencimientoList;
 	private static Process p;
 	private JLabel lblTiempoLicencia;
+	private JButton btnNuevaVenta, btnNuevaCompra, btnVerInformes, btnAdministrar;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -126,9 +128,9 @@ public class main {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 
-		JButton btnNewButton_1 = new JButton("Nueva Venta");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+		btnNuevaVenta = new JButton("Nueva Venta");
+		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnNuevaVenta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
@@ -158,7 +160,7 @@ public class main {
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_1.gridx = 1;
 		gbc_btnNewButton_1.gridy = 3;
-		frame.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
+		frame.getContentPane().add(btnNuevaVenta, gbc_btnNewButton_1);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
@@ -194,8 +196,8 @@ public class main {
 		gbc_list.gridy = 1;
 		panel.add(list, gbc_list);
 
-		JButton btnNewButton = new JButton("Nueva Compra");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNuevaCompra = new JButton("Nueva Compra");
+		btnNuevaCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				/*
@@ -208,26 +210,26 @@ public class main {
 				dialog.setVisible(true);
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnNuevaCompra.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 5;
-		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
+		frame.getContentPane().add(btnNuevaCompra, gbc_btnNewButton);
 
-		JButton btnNewButton_2 = new JButton("Ver informes");
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnVerInformes = new JButton("Ver informes");
+		btnVerInformes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_2.gridx = 1;
 		gbc_btnNewButton_2.gridy = 7;
-		frame.getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
+		frame.getContentPane().add(btnVerInformes, gbc_btnNewButton_2);
 
-		JButton btnNewButton_3 = new JButton("Administrar");
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		btnNewButton_3.addMouseListener(new MouseAdapter() {
+		btnAdministrar = new JButton("Administrar");
+		btnAdministrar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnAdministrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
@@ -245,7 +247,7 @@ public class main {
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 9;
-		frame.getContentPane().add(btnNewButton_3, gbc_btnNewButton_3);
+		frame.getContentPane().add(btnAdministrar, gbc_btnNewButton_3);
 
 		postContructor();
 	}
@@ -277,6 +279,13 @@ public class main {
 		}
 
 	}
+	
+	private void deshabilitarSistema(){
+		btnAdministrar.setEnabled(false);
+		btnNuevaCompra.setEnabled(false);
+		btnNuevaVenta.setEnabled(false);
+		btnVerInformes.setEnabled(false);
+	}
 
 	private void verificarFecha() throws IOException {
 		
@@ -293,8 +302,10 @@ public class main {
 			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias.");
 			managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='10' WHERE valor='intentos';");
 		}
-		else
+		else{
 			lblTiempoLicencia.setText("La licencia del sistema expiró. Consulte con su administrador. Dirección de email: pino.espinosa91@gmail.com");
+			deshabilitarSistema();
+		}
 		MainController.setLicenciaValida(tiempoPendienteLicencia>0);
 		
 	}
@@ -309,9 +320,10 @@ public class main {
 			managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='"+intentos+"' WHERE valor='intentos';");
 			lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia.");
 		}
-		else
+		else{
 			lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia en repetidas veces. Algunas funciones estan temporalmente invalidas");
-
+			deshabilitarSistema();
+		}
 	}
 
 }

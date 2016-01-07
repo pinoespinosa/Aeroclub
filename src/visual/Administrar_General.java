@@ -12,8 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.annotation.PostConstruct;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -88,7 +88,7 @@ public class Administrar_General extends JDialogExtended {
 						}
 					}
 				});
-				tabbedPane.addTab("Precios Aviones", null, panel, null);
+				tabbedPane.addTab("Precios Combustibles/Aceites", null, panel, null);
 				GridBagLayout gbl_panel = new GridBagLayout();
 				gbl_panel.columnWidths = new int[]{20, 0, 0, 20, 0};
 				gbl_panel.rowHeights = new int[]{20, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0};
@@ -187,19 +187,58 @@ public class Administrar_General extends JDialogExtended {
 			}
 			{
 				JPanel panel = new JPanel();
-				tabbedPane.addTab("New tab", null, panel, null);
+				tabbedPane.addTab("Precio aviones", null, panel, null);
 				GridBagLayout gbl_panel = new GridBagLayout();
-				gbl_panel.columnWidths = new int[]{0, 0};
-				gbl_panel.rowHeights = new int[]{0, 0};
-				gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-				gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_panel.columnWidths = new int[]{20, 0, 0, 0, 0, 20, 0};
+				gbl_panel.rowHeights = new int[]{20, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0};
+				gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+				gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 				panel.setLayout(gbl_panel);
 				{
-					JButton btnNewButton = new JButton("New button");
-					GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-					gbc_btnNewButton.gridx = 0;
-					gbc_btnNewButton.gridy = 0;
-					panel.add(btnNewButton, gbc_btnNewButton);
+					JLabel lblAvion = new JLabel("Avion");
+					GridBagConstraints gbc_lblAvion = new GridBagConstraints();
+					gbc_lblAvion.insets = new Insets(0, 0, 5, 5);
+					gbc_lblAvion.anchor = GridBagConstraints.EAST;
+					gbc_lblAvion.gridx = 1;
+					gbc_lblAvion.gridy = 1;
+					panel.add(lblAvion, gbc_lblAvion);
+				}
+				{
+					JComboBox comboBox = new JComboBox();
+					GridBagConstraints gbc_comboBox = new GridBagConstraints();
+					gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+					gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+					gbc_comboBox.gridx = 2;
+					gbc_comboBox.gridy = 1;
+					panel.add(comboBox, gbc_comboBox);
+				}
+				{
+					JLabel lblPrecio = new JLabel("Precio");
+					GridBagConstraints gbc_lblPrecio = new GridBagConstraints();
+					gbc_lblPrecio.anchor = GridBagConstraints.WEST;
+					gbc_lblPrecio.insets = new Insets(0, 0, 5, 5);
+					gbc_lblPrecio.gridx = 1;
+					gbc_lblPrecio.gridy = 2;
+					panel.add(lblPrecio, gbc_lblPrecio);
+				}
+				{
+					JSpinner spinner = new JSpinner();
+					GridBagConstraints gbc_spinner = new GridBagConstraints();
+					gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
+					gbc_spinner.insets = new Insets(0, 0, 5, 5);
+					gbc_spinner.gridx = 2;
+					gbc_spinner.gridy = 2;
+					panel.add(spinner, gbc_spinner);
+				}
+				{
+					JButton button = new JButton("Guardar Cambios");
+					GridBagConstraints gbc_button = new GridBagConstraints();
+					gbc_button.fill = GridBagConstraints.HORIZONTAL;
+					gbc_button.gridwidth = 2;
+					gbc_button.insets = new Insets(0, 0, 5, 5);
+					gbc_button.gridx = 2;
+					gbc_button.gridy = 4;
+					panel.add(button, gbc_button);
 				}
 			}
 		}
@@ -225,7 +264,7 @@ public class Administrar_General extends JDialogExtended {
 		}
 		inic();
 	}
-	@PostConstruct
+	
 	private void inic() {
 		setAction(MainController.ACTION_EXIT);
 
