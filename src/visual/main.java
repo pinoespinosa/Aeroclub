@@ -37,7 +37,6 @@ import base_datos.managerDB;
 import data.Vencimiento;
 import extended.MainController;
 
-
 public class main {
 
 	private JFrame frame;
@@ -76,42 +75,38 @@ public class main {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-			
-				 String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
-			      ProcessBuilder pBuilder = new ProcessBuilder(commands);
-			      pBuilder.redirectOutput();
-			      pBuilder.inheritIO();
-			      pBuilder.redirectOutput();
-			      pBuilder.redirectOutput();
-			      pBuilder.redirectOutput();
-			      
-			      try {
-			         p = pBuilder.start();
-			         InputStream in = p.getInputStream();
-			         final Scanner scanner = new Scanner(in);
-			         new Thread(new Runnable() {
-			            public void run() {
-			               while (scanner.hasNextLine()) {
-			                  System.out.println(scanner.nextLine());
-			               }
-			               scanner.close();
-			            }
-			         }).start();
-			      } catch (IOException e) {
-			         e.printStackTrace();
-			      }
-				
-				
-				System.out.println();
-				
-				
-				/*
+
+				String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
+				ProcessBuilder pBuilder = new ProcessBuilder(commands);
+				pBuilder.redirectOutput();
+				pBuilder.inheritIO();
+				pBuilder.redirectOutput();
+				pBuilder.redirectOutput();
+				pBuilder.redirectOutput();
+
 				try {
-					Runtime.getRuntime().exec("I:/Program Files/Git/git-bash.exe -i I:/Users/Pino/git/Aeroclub/git.sh");
+					p = pBuilder.start();
+					InputStream in = p.getInputStream();
+					final Scanner scanner = new Scanner(in);
+					new Thread(new Runnable() {
+						public void run() {
+							while (scanner.hasNextLine()) {
+								System.out.println(scanner.nextLine());
+							}
+							scanner.close();
+						}
+					}).start();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			*/
+
+				System.out.println();
+
+				/*
+				 * try { Runtime.getRuntime().exec(
+				 * "I:/Program Files/Git/git-bash.exe -i I:/Users/Pino/git/Aeroclub/git.sh"
+				 * ); } catch (IOException e) { e.printStackTrace(); }
+				 */
 			}
 		});
 
@@ -119,7 +114,7 @@ public class main {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception e) {
 		};
-		
+
 		frame.getContentPane().setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		frame.setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
 		frame.setBounds(100, 100, 700, 430);
@@ -130,21 +125,24 @@ public class main {
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
-		
+
 		JButton btnNewButton_1 = new JButton("Nueva Venta");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-	
-		/* ------------------------------- Nueva venta ------------------------------- */
+
+				/*
+				 * ------------------------------- Nueva venta
+				 * -------------------------------
+				 */
 				frame.setEnabled(false);
 				Venta dialog = new Venta(frame);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
-				}
+			}
 		});
-		
+
 		lblNewLabel = new JLabel("La licencia del sistema expira el ");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
@@ -161,7 +159,7 @@ public class main {
 		gbc_btnNewButton_1.gridx = 1;
 		gbc_btnNewButton_1.gridy = 3;
 		frame.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -177,7 +175,7 @@ public class main {
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		
+
 		JLabel lblVencimientoYAlertas = new JLabel("Vencimiento y alertas");
 		lblVencimientoYAlertas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVencimientoYAlertas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
@@ -187,7 +185,7 @@ public class main {
 		gbc_lblVencimientoYAlertas.gridx = 0;
 		gbc_lblVencimientoYAlertas.gridy = 0;
 		panel.add(lblVencimientoYAlertas, gbc_lblVencimientoYAlertas);
-		
+
 		list = new JList<Vencimiento>();
 		list.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_list = new GridBagConstraints();
@@ -195,12 +193,15 @@ public class main {
 		gbc_list.gridx = 0;
 		gbc_list.gridy = 1;
 		panel.add(list, gbc_list);
-		
+
 		JButton btnNewButton = new JButton("Nueva Compra");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				/* ------------------------------- Nueva venta ------------------------------- */
+
+				/*
+				 * ------------------------------- Nueva venta
+				 * -------------------------------
+				 */
 				frame.setEnabled(false);
 				Compra_General dialog = new Compra_General(frame);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -214,7 +215,7 @@ public class main {
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 5;
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
-		
+
 		JButton btnNewButton_2 = new JButton("Ver informes");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
@@ -223,19 +224,21 @@ public class main {
 		gbc_btnNewButton_2.gridx = 1;
 		gbc_btnNewButton_2.gridy = 7;
 		frame.getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
-		
+
 		JButton btnNewButton_3 = new JButton("Administrar");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-	
-		/* ------------------------------- Nueva venta ------------------------------- */
+
+				/*
+				 * ------------ Nueva venta---------------------
+				 */
 				frame.setEnabled(false);
 				Administrar_General dialog = new Administrar_General(frame);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
-				}
+			}
 		});
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
 		gbc_btnNewButton_3.fill = GridBagConstraints.BOTH;
@@ -243,34 +246,31 @@ public class main {
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 9;
 		frame.getContentPane().add(btnNewButton_3, gbc_btnNewButton_3);
-		
+
 		postContructor();
 	}
 	@PostConstruct
-	public void postContructor(){
-		
-	    try {
-	    	
-	    	Date horaInternet = DateUtils.getAtomicTime().getTime();
-	    	 
-	    	
-	    	System.out.println(Utils.encript(horaInternet.getTime()+""));
-	    	
-	    	String fechaVencimientoLicencia =  managerDB.executeScript_Query("SELECT fecha FROM aviones.licencia;", "fecha").get(0);
-	    	fechaVencimientoLicencia = Utils.decript(fechaVencimientoLicencia);
-	    	
-	  	    	
-	    	Date fechaVencLicen = new Date(Long.parseLong(fechaVencimientoLicencia));    	
-			
-			  long diff = fechaVencLicen.getTime() - horaInternet.getTime();
-			  
-			    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-			    lblNewLabel.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + " dias.");
+	public void postContructor() {
+
+		try {
+
+			Date horaInternet = DateUtils.getAtomicTime().getTime();
+
+			System.out.println(Utils.encript(horaInternet.getTime() + ""));
+
+			String fechaVencimientoLicencia = managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='fecha';", "dato").get(0);
+			fechaVencimientoLicencia = Utils.decript(fechaVencimientoLicencia);
+
+			Date fechaVencLicen = new Date(Long.parseLong(fechaVencimientoLicencia));
+
+			long diff = fechaVencLicen.getTime() - horaInternet.getTime();
+
+			System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+			lblNewLabel.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + " dias.");
 
 		} catch (IOException e) {
 		}
-		
-				
+
 		MainController.setViewConfig(frame);
 		list.setFont(new Font("Consolas", Font.PLAIN, 15));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -278,19 +278,15 @@ public class main {
 		list.setModel(vencimientoList);
 		updateVencimientos();
 	}
-	
-	public void updateVencimientos(){
-		List<Vencimiento> listaV =  Vencimiento.loadFromDB();
+
+	public void updateVencimientos() {
+		List<Vencimiento> listaV = Vencimiento.loadFromDB();
 		vencimientoList.removeAllElements();
-		
+
 		for (Vencimiento vencimiento : listaV) {
 			vencimientoList.addElement(vencimiento);
 		}
-		
 
 	}
-	
-	
-	 
 
 }
