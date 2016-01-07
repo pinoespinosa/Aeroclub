@@ -257,8 +257,7 @@ public class main {
 	    try {
 	    	
 	    	Date pino = DateUtils.getAtomicTime().getTime();
-	    	
-			System.out.println( pino.toLocaleString() );
+	    	System.out.println( pino.toLocaleString() );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
