@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
@@ -29,7 +31,8 @@ public class Administrar_General extends JDialogExtended {
 	 */
 	
 	private static final long serialVersionUID = 1L;
-private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub;	
+	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub;	
+	private boolean dirty=true;
 	
 	/**
 	 * Create the dialog.
@@ -37,12 +40,25 @@ private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub
 	 */
 	public Administrar_General(JFrame parent) {
 		super(parent);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				if (dirty){
+					int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+				    if (opcion == JOptionPane.YES_OPTION)
+				    {
+				      saveChanges();
+				    }
+				
+				}
+			}
+		});
 		setTitle("Nueva Compra");
 		setBounds(100, 100, 878, 559);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{444, 0};
+		gridBagLayout.columnWidths = new int[]{20, 444, 0};
 		gridBagLayout.rowHeights = new int[]{67, 33, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		{
@@ -50,16 +66,16 @@ private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub
 			GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 			gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 			gbc_tabbedPane.insets = new Insets(0, 0, 5, 0);
-			gbc_tabbedPane.gridx = 0;
+			gbc_tabbedPane.gridx = 1;
 			gbc_tabbedPane.gridy = 0;
 			getContentPane().add(tabbedPane, gbc_tabbedPane);
 			{
 				JPanel panel = new JPanel();
 				tabbedPane.addTab("Precios Aviones", null, panel, null);
 				GridBagLayout gbl_panel = new GridBagLayout();
-				gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
+				gbl_panel.columnWidths = new int[]{0, 0, 0, 20, 0};
 				gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-				gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+				gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 				gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 				panel.setLayout(gbl_panel);
 				{
@@ -75,7 +91,7 @@ private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub
 					spinnerPrecioCombustibleSocio = new JSpinner();
 					GridBagConstraints gbc_spinnerPrecioCombustibleSocio = new GridBagConstraints();
 					gbc_spinnerPrecioCombustibleSocio.fill = GridBagConstraints.HORIZONTAL;
-					gbc_spinnerPrecioCombustibleSocio.insets = new Insets(0, 0, 5, 0);
+					gbc_spinnerPrecioCombustibleSocio.insets = new Insets(0, 0, 5, 5);
 					gbc_spinnerPrecioCombustibleSocio.gridx = 2;
 					gbc_spinnerPrecioCombustibleSocio.gridy = 1;
 					panel.add(spinnerPrecioCombustibleSocio, gbc_spinnerPrecioCombustibleSocio);
@@ -92,7 +108,7 @@ private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub
 				{
 					spinnerPrecioCombustibleAeroclub = new JSpinner();
 					GridBagConstraints gbc_spinnerPrecioCombustibleAeroclub = new GridBagConstraints();
-					gbc_spinnerPrecioCombustibleAeroclub.insets = new Insets(0, 0, 5, 0);
+					gbc_spinnerPrecioCombustibleAeroclub.insets = new Insets(0, 0, 5, 5);
 					gbc_spinnerPrecioCombustibleAeroclub.fill = GridBagConstraints.HORIZONTAL;
 					gbc_spinnerPrecioCombustibleAeroclub.gridx = 2;
 					gbc_spinnerPrecioCombustibleAeroclub.gridy = 2;
@@ -108,6 +124,7 @@ private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub
 						}
 					});
 					GridBagConstraints gbc_btnGuardarCambios = new GridBagConstraints();
+					gbc_btnGuardarCambios.insets = new Insets(0, 0, 0, 5);
 					gbc_btnGuardarCambios.gridwidth = 2;
 					gbc_btnGuardarCambios.fill = GridBagConstraints.HORIZONTAL;
 					gbc_btnGuardarCambios.gridx = 1;
@@ -139,7 +156,7 @@ private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub
 			GridBagConstraints gbc_buttonPane = new GridBagConstraints();
 			gbc_buttonPane.anchor = GridBagConstraints.NORTH;
 			gbc_buttonPane.fill = GridBagConstraints.HORIZONTAL;
-			gbc_buttonPane.gridx = 0;
+			gbc_buttonPane.gridx = 1;
 			gbc_buttonPane.gridy = 1;
 			getContentPane().add(buttonPane, gbc_buttonPane);
 			{
