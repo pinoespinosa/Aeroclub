@@ -256,19 +256,8 @@ public class main {
 			verificarFecha();
 			} 
 		catch (IOException e) {
-			
-			int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='intentos';", "dato").get(0));
-			
-			MainController.setLicenciaValida(intentos>0);
-			
-			intentos--;
-			if (intentos>0){
-				managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='"+intentos+"' WHERE valor='intentos';");
-				lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia.");
-			}
-			else
-				lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia en repetidas veces. Algunas funciones estan temporalmente invalidas");
-
+			ingresarSinValicion();
+		
 		}
 
 		MainController.setViewConfig(frame);
@@ -308,6 +297,21 @@ public class main {
 			lblTiempoLicencia.setText("La licencia del sistema expiró. Consulte con su administrador. Dirección de email: pino.espinosa91@gmail.com");
 		MainController.setLicenciaValida(tiempoPendienteLicencia>0);
 		
+	}
+	
+	private void ingresarSinValicion(){
+		int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='intentos';", "dato").get(0));
+		
+		MainController.setLicenciaValida(intentos>0);
+		
+		intentos--;
+		if (intentos>0){
+			managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='"+intentos+"' WHERE valor='intentos';");
+			lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia.");
+		}
+		else
+			lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia en repetidas veces. Algunas funciones estan temporalmente invalidas");
+
 	}
 
 }
