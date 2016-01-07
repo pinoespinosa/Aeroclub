@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.swing.DefaultListModel;
@@ -31,6 +32,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import base_datos.DateUtils;
+import base_datos.Utils;
+import base_datos.managerDB;
 import data.Vencimiento;
 import extended.MainController;
 
@@ -245,32 +248,32 @@ public class main {
 	@PostConstruct
 	public void postContructor(){
 		
-		
-		
-		
-		
-		
-		
-		
-		
-	
 	    try {
 	    	
-	    	Date pino = DateUtils.getAtomicTime().getTime();
-	    	System.out.println( pino.toLocaleString() );
+	    	Date horaInternet = DateUtils.getAtomicTime().getTime();
+	    	 
+	    	
+	    	System.out.println(Utils.encript(horaInternet.getTime()+""));
+	    	
+	    	String fechaVencimientoLicencia =  managerDB.executeScript_Query("SELECT fecha FROM aviones.licencia;", "fecha").get(0);
+	    	fechaVencimientoLicencia = Utils.decript(fechaVencimientoLicencia);
+	    	
+	  	    	
+	    	Date fechaVencLicen = new Date(Long.parseLong(fechaVencimientoLicencia));
+	    	
+			
+	    	
+	    	//boolean valorr = fechaVencLicen.after(horaInternet);
+	    	
+			
+			  long diff = fechaVencLicen.getTime() - horaInternet.getTime();
+			    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+			
+	    //	System.out.println( horaInternet.toLocaleString() );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
+				
 		MainController.setViewConfig(frame);
 		list.setFont(new Font("Consolas", Font.PLAIN, 15));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -713,8 +713,12 @@ public class Venta_Vuelo extends JDialogExtended {
 	 */
 	public boolean modelValidation(){
 		
+		
+		
     	Date inicio = (Date) inicioSpinner.getModel().getValue();
 		Date fin = (Date) finalizacionSpinner.getModel().getValue();
+		
+		//System.out.println(Utils.encript(inicio.getTime()+""));
 		
 		if (inicio.compareTo(fin) == 1) {
 			JOptionPane.showMessageDialog(null,"La hora de aterrizaje no puede ser menor que la de despegue.");
