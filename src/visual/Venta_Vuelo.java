@@ -134,8 +134,8 @@ public class Venta_Vuelo extends JDialogExtended {
 				pilotoComboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
-				JButton btnNewButton = new JButton("");
-				btnNewButton.addMouseListener(new MouseAdapter() {
+				JButton btnNuevoPiloto = new JButton("");
+				btnNuevoPiloto.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 						
@@ -147,16 +147,16 @@ public class Venta_Vuelo extends JDialogExtended {
 						Venta_Vuelo.this.setEnabled(false);	
 					}
 				});
-				btnNewButton.setToolTipText("Nuevo Piloto");
-				btnNewButton.setMaximumSize(new Dimension(40, 40));
-				btnNewButton.setMinimumSize(new Dimension(40, 40));
-				btnNewButton.setPreferredSize(new Dimension(40, 40));
-				btnNewButton.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Instructor1.png"));
+				btnNuevoPiloto.setToolTipText("Nuevo Piloto");
+				btnNuevoPiloto.setMaximumSize(new Dimension(40, 40));
+				btnNuevoPiloto.setMinimumSize(new Dimension(40, 40));
+				btnNuevoPiloto.setPreferredSize(new Dimension(40, 40));
+				btnNuevoPiloto.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Instructor1.png"));
 				GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 				gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 				gbc_btnNewButton.gridx = 4;
 				gbc_btnNewButton.gridy = 1;
-				panel.add(btnNewButton, gbc_btnNewButton);
+				panel.add(btnNuevoPiloto, gbc_btnNewButton);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -268,16 +268,29 @@ public class Venta_Vuelo extends JDialogExtended {
 				avionComboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
-				JButton button = new JButton("");
-				button.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Avion.png"));
-				button.setPreferredSize(new Dimension(40, 40));
-				button.setMinimumSize(new Dimension(40, 40));
-				button.setMaximumSize(new Dimension(40, 40));
+				JButton btnNuevoAvion = new JButton("");
+				btnNuevoAvion.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+					
+						Nuevo_Avion dialog = new Nuevo_Avion(Venta_Vuelo.this);
+						dialog.setAction(MainController.ACTION_EXIT);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+						
+						Venta_Vuelo.this.setEnabled(false);
+						
+					}
+				});
+				btnNuevoAvion.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Avion.png"));
+				btnNuevoAvion.setPreferredSize(new Dimension(40, 40));
+				btnNuevoAvion.setMinimumSize(new Dimension(40, 40));
+				btnNuevoAvion.setMaximumSize(new Dimension(40, 40));
 				GridBagConstraints gbc_button = new GridBagConstraints();
 				gbc_button.insets = new Insets(0, 0, 5, 5);
 				gbc_button.gridx = 4;
 				gbc_button.gridy = 4;
-				panel.add(button, gbc_button);
+				panel.add(btnNuevoAvion, gbc_button);
 			}
 			{
 				JLabel lblAceite = new JLabel("Aceite");
@@ -611,6 +624,10 @@ public class Venta_Vuelo extends JDialogExtended {
 	    };
 	    finalizacionSpinner.addChangeListener(spinListener);
 	    inicioSpinner.addChangeListener(spinListener);
+	
+	    // Formateo las fechas
+	    inicioSpinner.setEditor(new JSpinner.DateEditor(inicioSpinner, "dd/MM/yyyy HH:mm"));
+	    finalizacionSpinner.setEditor(new JSpinner.DateEditor(finalizacionSpinner, "dd/MM/yyyy HH:mm"));
 	    
 	    // Cargo el valor del total en base a los precios
 	    updatePrecio();

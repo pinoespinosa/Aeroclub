@@ -14,7 +14,7 @@ public class Precios {
 	public static final String PRECIO_COMBUSTIBLE_AEROCLUB = "precioCombustibleAeroclub";
 	public static final String PRECIO_COMBUSTIBLE_SOCIO = "precioCombustibleSocio";
 	public static final String PRECIO_ACEITE_AEROCLUB = "precioAceiteAeroclub";
-	
+	public static final String PRECIO_ACEITE_SOCIO = "precioAceiteSocio";
 	
 	public static float getPrecio(String elemento){
 		return Float.parseFloat(managerDB.executeScript_Query("SELECT precio FROM aviones.precios WHERE id='"+elemento+"';", "precio").get(0));

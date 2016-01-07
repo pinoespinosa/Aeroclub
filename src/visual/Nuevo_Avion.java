@@ -15,14 +15,17 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
+import base_datos.managerDB;
 import data.Avion;
 import extended.JDialogExtended;
+import extended.MainController;
 
 public class Nuevo_Avion extends JDialogExtended {
 
@@ -36,7 +39,7 @@ public class Nuevo_Avion extends JDialogExtended {
 	private JTextPane info;
 	private JLabel lblNombre;
 	private JButton okButton;
-	private JSpinner spinner;
+	private JSpinner spinnerPrecio;
 	
 	/**
 	 * Create the dialog.
@@ -44,7 +47,7 @@ public class Nuevo_Avion extends JDialogExtended {
 	 */
 	public Nuevo_Avion(Window parent) {
 		super(parent);
-		setTitle("Nuevo Piloto");
+		setTitle("Nuevo Avion");
 		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -97,20 +100,20 @@ public class Nuevo_Avion extends JDialogExtended {
 			contentPanel.add(lblNombre, gbc_lblNombre);
 		}
 		{
-			spinner = new JSpinner();
+			spinnerPrecio = new JSpinner();
 			GridBagConstraints gbc_spinner = new GridBagConstraints();
 			gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 			gbc_spinner.insets = new Insets(0, 0, 5, 5);
 			gbc_spinner.gridx = 2;
 			gbc_spinner.gridy = 3;
-			contentPanel.add(spinner, gbc_spinner);
+			contentPanel.add(spinnerPrecio, gbc_spinner);
 		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Crear Piloto");
+				okButton = new JButton("Crear Avion");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -126,6 +129,7 @@ public class Nuevo_Avion extends JDialogExtended {
 	
 	@PostConstruct
 	private void inic() {
+		setAction(MainController.ACTION_EXIT);
 		aviones = Avion.loadFromDB();
 	
 		nombreAvionTextField.addKeyListener(new KeyAdapter(){
@@ -139,32 +143,27 @@ public class Nuevo_Avion extends JDialogExtended {
 			public void mouseClicked(MouseEvent arg0) {
 
 				// Validacion
-		/*		if (nombreTextField.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null,"El nombre del piloto no puede ser vacio.");	
-					return;
-				}
-				if (apellidoTextField.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null,"El apellido del piloto no puede ser vacio.");	
+				if (nombreAvionTextField.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null,"El nombre del avion no puede ser vacio.");	
 					return;
 				}
 				
-				int dni = Integer.parseInt(dniTextField.getText());
-				Persona pe = new Persona(dni);
-				
-				// Creo la persona si no existia
-				if (!aviones.contains(pe)) {
-					managerDB.executeScript_Void("INSERT INTO `aviones`.`persona` VALUES ('"+managerDB.getNextId("persona")+"', '"+dni+"' ,'"+nombreTextField.getText()+"','"+apellidoTextField.getText()+"','"+((Date) nacimientoSpinner.getModel().getValue()).getTime()+"');");
-					aviones = Persona.loadFromDB();
+				for (Avion av : aviones) {
+					if(av.getName().equals(nombreAvionTextField.getText())){
+						setEditable(false);
+						JOptionPane.showMessageDialog(null,"Ya existe un avion con ese nombre.");	
+						return;}
+					else
+						setEditable(true);
 				}
-			*/	
-				// Creo el piloto
-			//	pe= aviones.get(aviones.indexOf(pe));
-			//	managerDB.executeScript_Void(" INSERT INTO `aviones`.`piloto` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"');");
+			// Creo el piloto
+				managerDB.executeScript_Void(" INSERT INTO `aviones`.`avion` VALUES ('"+ managerDB.getNextId("avion")+"','"+nombreAvionTextField.getText()+"','"+spinnerPrecio.getValue()+"" +"');");
 			//	JOptionPane.showMessageDialog(null,"Se creo un nuevo piloto.");					
 				Nuevo_Avion.this.dispose();	
 			}
 		});
 		updateView();
+	
 	}
 	
 	private void updateView(){
@@ -176,14 +175,9 @@ public class Nuevo_Avion extends JDialogExtended {
 			return;
 		}
 		
-		for (Avion av : aviones) {
-			if(av.getName().equals(nombreAvionTextField.getText())){
-				setEditable(false);
-				return;}
-			else
-				setEditable(true);
+
 			
-		}
+		
 		
 			
 	}
