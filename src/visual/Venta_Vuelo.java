@@ -700,7 +700,7 @@ public class Venta_Vuelo extends JDialogExtended {
 		long tiempoVuelo = ((Date)finalizacionSpinner.getModel().getValue()).getTime() - ((Date)inicioSpinner.getModel().getValue()).getTime();
 		tiempoVuelo= TimeUnit.HOURS.convert(tiempoVuelo, TimeUnit.MILLISECONDS);
 		
-		valor += tiempoVuelo * current.getPrecio();
+		valor += tiempoVuelo * ((Avion)avionesList.getSelectedItem()).getPrecio();
 		
 		costoVuelo.setText( valor+"" );
 	}
