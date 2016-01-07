@@ -91,7 +91,7 @@ public class main {
 					new Thread(new Runnable() {
 						public void run() {
 							while (scanner.hasNextLine()) {
-								System.out.println(scanner.nextLine());
+							//	System.out.println(scanner.nextLine());
 							}
 							scanner.close();
 						}
