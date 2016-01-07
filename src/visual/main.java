@@ -140,8 +140,10 @@ public class main {
 		});
 		
 		JLabel lblNewLabel = new JLabel("La licencia del sistema expira el ");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.gridwidth = 3;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
