@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.swing.ButtonGroup;
@@ -695,6 +696,12 @@ public class Venta_Vuelo extends JDialogExtended {
 	public void updatePrecio(){
 		Float valor = Integer.parseInt(combustibleSpinner.getValue()+"")*current.getPrecioCombustible();
 		valor += Integer.parseInt(aceiteSpinner.getValue()+"")*current.getPrecioAceite();
+		
+		long tiempoVuelo = ((Date)finalizacionSpinner.getModel().getValue()).getTime() - ((Date)inicioSpinner.getModel().getValue()).getTime();
+		tiempoVuelo= TimeUnit.HOURS.convert(tiempoVuelo, TimeUnit.MILLISECONDS);
+		
+		valor += tiempoVuelo * current.getPrecio();
+		
 		costoVuelo.setText( valor+"" );
 	}
 	

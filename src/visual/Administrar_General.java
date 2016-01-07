@@ -44,6 +44,7 @@ public class Administrar_General extends JDialogExtended {
 	private JSpinner 	spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub, spinnerPrecioAceiteSocio, spinnerPrecioAceiteAeroclub,
 						spinnerPrecioAvion;
 	private boolean dirty = false;
+	private boolean update=false;
 	private DefaultComboBoxModel<Avion> avionesList;
 	private JComboBox avionComboBox;
 	
@@ -196,11 +197,30 @@ public class Administrar_General extends JDialogExtended {
 			}
 			{
 				JPanel panel = new JPanel();
+				panel.addComponentListener(new ComponentAdapter() {
+					@Override
+					public void componentHidden(ComponentEvent arg0) {
+	
+						
+						if (dirty) {
+							int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+							if (opcion == JOptionPane.YES_OPTION) {
+								saveChangesAviones();
+							} 										
+						}
+						update=true;
+						spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+						update=false;
+						dirty = false;
+						
+					}
+				});
+		
 				tabbedPane.addTab("Precio aviones", null, panel, null);
 				GridBagLayout gbl_panel = new GridBagLayout();
-				gbl_panel.columnWidths = new int[]{20, 0, 0, 0, 0, 20, 0};
+				gbl_panel.columnWidths = new int[]{20, 0, 0, 20, 0};
 				gbl_panel.rowHeights = new int[]{20, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0};
-				gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+				gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 				gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 				panel.setLayout(gbl_panel);
 				{
@@ -296,7 +316,8 @@ public class Administrar_General extends JDialogExtended {
 
 		ChangeListener spinListener = new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				dirty = true;
+				if (!update)
+					dirty = true;
 			}
 		};
 		spinnerPrecioCombustibleAeroclub.addChangeListener(spinListener);
@@ -315,10 +336,12 @@ public class Administrar_General extends JDialogExtended {
 						int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 						if (opcion == JOptionPane.YES_OPTION) {
 							saveChangesAviones();
-						} 
-						dirty = false;
+						} 										
 					}
-					updateUi();
+					update=true;
+					spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+					update=false;
+					dirty = false;
 
 				}
 			}
