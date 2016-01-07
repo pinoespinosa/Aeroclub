@@ -300,7 +300,7 @@ public class main {
 
 		long tiempoPendienteLicencia = fechaVencLicen.getTime() - horaInternet.getTime();
 		
-		if (tiempoPendienteLicencia>200){
+		if (tiempoPendienteLicencia>Long.MAX_VALUE){
 			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias.");
 			managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='10' WHERE valor='intentos';");
 		}
