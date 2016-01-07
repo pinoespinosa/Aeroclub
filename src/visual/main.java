@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,6 +30,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import base_datos.DateUtils;
 import data.Vencimiento;
 import extended.MainController;
 
@@ -242,6 +244,34 @@ public class main {
 	}
 	@PostConstruct
 	public void postContructor(){
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	    try {
+	    	
+	    	Date pino = DateUtils.getAtomicTime().getTime();
+	    	
+			System.out.println( pino.toLocaleString() );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		MainController.setViewConfig(frame);
 		list.setFont(new Font("Consolas", Font.PLAIN, 15));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -260,4 +290,8 @@ public class main {
 		
 
 	}
+	
+	
+	 
+
 }
