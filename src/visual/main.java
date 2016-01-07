@@ -120,9 +120,9 @@ public class main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{50, 0, 50, 0, 50, 0};
-		gridBagLayout.rowHeights = new int[]{50, 0, 20, 0, 20, 0, 20, 0, 20, 50, 0};
+		gridBagLayout.rowHeights = new int[]{50, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 50, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		JButton btnNewButton_1 = new JButton("Nueva Venta");
@@ -138,11 +138,20 @@ public class main {
 				dialog.setVisible(true);
 				}
 		});
+		
+		JLabel lblNewLabel = new JLabel("La licencia del sistema expira el ");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.gridwidth = 3;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 1;
+		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 1;
+		gbc_btnNewButton_1.gridy = 3;
 		frame.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		JPanel panel = new JPanel();
@@ -152,7 +161,7 @@ public class main {
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 3;
-		gbc_panel.gridy = 1;
+		gbc_panel.gridy = 3;
 		frame.getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
@@ -195,7 +204,7 @@ public class main {
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 3;
+		gbc_btnNewButton.gridy = 5;
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("Ver informes");
@@ -204,7 +213,7 @@ public class main {
 		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_2.gridx = 1;
-		gbc_btnNewButton_2.gridy = 5;
+		gbc_btnNewButton_2.gridy = 7;
 		frame.getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Administrar");
@@ -224,7 +233,7 @@ public class main {
 		gbc_btnNewButton_3.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_3.gridx = 1;
-		gbc_btnNewButton_3.gridy = 7;
+		gbc_btnNewButton_3.gridy = 9;
 		frame.getContentPane().add(btnNewButton_3, gbc_btnNewButton_3);
 		
 		postContructor();
