@@ -11,7 +11,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -24,6 +26,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import base_datos.managerDB;
+import data.Avion;
 import data.Precios;
 import extended.JDialogExtended;
 import extended.MainController;
@@ -37,6 +41,7 @@ public class Administrar_General extends JDialogExtended {
 	private static final long serialVersionUID = 1L;
 	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub, spinnerPrecioAceiteSocio, spinnerPrecioAceiteAeroclub;
 	private boolean dirty = false;
+	private DefaultComboBoxModel<Avion> avionesList;
 
 	/**
 	 * Create the dialog.
@@ -204,13 +209,15 @@ public class Administrar_General extends JDialogExtended {
 					panel.add(lblAvion, gbc_lblAvion);
 				}
 				{
-					JComboBox comboBox = new JComboBox();
+					JComboBox avionComboBox = new JComboBox<Avion>();
+					avionesList = new DefaultComboBoxModel<Avion>();
+					avionComboBox.setModel(avionesList);
 					GridBagConstraints gbc_comboBox = new GridBagConstraints();
 					gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 					gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 					gbc_comboBox.gridx = 2;
 					gbc_comboBox.gridy = 1;
-					panel.add(comboBox, gbc_comboBox);
+					panel.add(avionComboBox, gbc_comboBox);
 				}
 				{
 					JLabel lblPrecio = new JLabel("Precio");
@@ -232,9 +239,18 @@ public class Administrar_General extends JDialogExtended {
 				}
 				{
 					JButton button = new JButton("Guardar Cambios");
+					button.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							
+							Avion current = (Avion) avionesList.getSelectedItem();
+							managerDB.updateAsset(current);
+							updateUi();
+							
+						}
+					});
 					GridBagConstraints gbc_button = new GridBagConstraints();
 					gbc_button.fill = GridBagConstraints.HORIZONTAL;
-					gbc_button.gridwidth = 2;
 					gbc_button.insets = new Insets(0, 0, 5, 5);
 					gbc_button.gridx = 2;
 					gbc_button.gridy = 4;
@@ -277,7 +293,8 @@ public class Administrar_General extends JDialogExtended {
 		};
 		spinnerPrecioCombustibleAeroclub.addChangeListener(spinListener);
 		spinnerPrecioCombustibleSocio.addChangeListener(spinListener);
-
+		spinnerPrecioAceiteAeroclub.addChangeListener(spinListener);
+		spinnerPrecioAceiteSocio.addChangeListener(spinListener);
 	}
 
 	private void saveChanges() {
@@ -296,6 +313,13 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioAceiteAeroclub.setValue(Precios.getPrecio(Precios.PRECIO_ACEITE_AEROCLUB));
 		spinnerPrecioAceiteSocio.setValue(Precios.getPrecio(Precios.PRECIO_ACEITE_SOCIO));
 
+		// Cargo los aviones en el combo
+		avionesList.removeAllElements();
+		List<Avion> aviones = Avion.loadFromDB();
+		for (Avion avion : aviones) {
+			avionesList.addElement(avion);
+		}
+		
 		dirty = false;
 
 	}
