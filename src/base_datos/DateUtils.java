@@ -15,7 +15,7 @@ public final class DateUtils {
   // NIST, Gaithersburg, Maryland (time-a.nist.gov)
   // public static final String ATOMICTIME_SERVER="129.6.15.28";
   // NIST, Gaithersburg, Maryland  (time-c.nist.gov)
-  public static final String ATOMICTIME_SERVER="129.6.15.30";
+  public static final String ATOMICTIME_SERVER="129.6sssssssss.15.30";
   public static final int ATOMICTIME_PORT = 13;
 
 
