@@ -43,7 +43,7 @@ public class main {
 	private JList<Vencimiento> list;
 	private DefaultListModel<Vencimiento> vencimientoList;
 	private static Process p;
-	private JLabel lblNewLabel;
+	private JLabel lblTiempoLicencia;
 	/**
 	 * Launch the application.
 	 */
@@ -143,16 +143,16 @@ public class main {
 			}
 		});
 
-		lblNewLabel = new JLabel("La licencia del sistema expira el ");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		lblTiempoLicencia = new JLabel("La licencia del sistema expira el ");
+		lblTiempoLicencia.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTiempoLicencia.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.gridwidth = 3;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 1;
-		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		frame.getContentPane().add(lblTiempoLicencia, gbc_lblNewLabel);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
@@ -253,22 +253,22 @@ public class main {
 	public void postContructor() {
 
 		try {
+			verificarFecha();
+			} 
+		catch (IOException e) {
+			
+			int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='intentos';", "dato").get(0));
+			
+			MainController.setLicenciaValida(intentos>0);
+			
+			intentos--;
+			if (intentos>0){
+				managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='"+intentos+"' WHERE valor='intentos';");
+				lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia.");
+			}
+			else
+				lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia en repetidas veces. Algunas funciones estan temporalmente invalidas");
 
-			Date horaInternet = DateUtils.getAtomicTime().getTime();
-
-			System.out.println(Utils.encript(horaInternet.getTime() + ""));
-
-			String fechaVencimientoLicencia = managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='fecha';", "dato").get(0);
-			fechaVencimientoLicencia = Utils.decript(fechaVencimientoLicencia);
-
-			Date fechaVencLicen = new Date(Long.parseLong(fechaVencimientoLicencia));
-
-			long diff = fechaVencLicen.getTime() - horaInternet.getTime();
-
-			System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-			lblNewLabel.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + " dias.");
-
-		} catch (IOException e) {
 		}
 
 		MainController.setViewConfig(frame);
@@ -287,6 +287,27 @@ public class main {
 			vencimientoList.addElement(vencimiento);
 		}
 
+	}
+
+	private void verificarFecha() throws IOException {
+		
+		Date horaInternet = DateUtils.getAtomicTime().getTime();
+
+		String fVencLic = managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='fecha';", "dato").get(0);
+		fVencLic = Utils.decript(fVencLic);
+
+		Date fechaVencLicen = new Date(Long.parseLong(fVencLic));
+
+		long tiempoPendienteLicencia = fechaVencLicen.getTime() - horaInternet.getTime();
+		
+		if (tiempoPendienteLicencia>200){
+			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias.");
+			managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='10' WHERE valor='intentos';");
+		}
+		else
+			lblTiempoLicencia.setText("La licencia del sistema expiró. Consulte con su administrador. Dirección de email: pino.espinosa91@gmail.com");
+		MainController.setLicenciaValida(tiempoPendienteLicencia>0);
+		
 	}
 
 }

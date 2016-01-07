@@ -21,6 +21,8 @@ public class MainController {
 	public static final int 
 		ACTION_CONTINUE=0,
 		ACTION_EXIT=1;
+	
+	private static boolean licenciaValida;
 
 	/**
 	 * Configura el tamaño de la ventana a Maximizado
@@ -56,6 +58,16 @@ public class MainController {
 	public static String getEsquema() {
 		return ESQUEMA;
 	}
+
+	public static boolean getLicenciaValida() {
+		return licenciaValida;
+	}
+
+	public static void setLicenciaValida(boolean licenciaValida) {
+		MainController.licenciaValida = licenciaValida;
+	}
+
+
 
 	
 }
