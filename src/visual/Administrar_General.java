@@ -39,10 +39,11 @@ public class Administrar_General extends JDialogExtended {
 	 */
 
 	private static final long serialVersionUID = 1L;
-	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub, spinnerPrecioAceiteSocio, spinnerPrecioAceiteAeroclub;
+	private JSpinner 	spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub, spinnerPrecioAceiteSocio, spinnerPrecioAceiteAeroclub,
+						spinnerPrecioAvion;
 	private boolean dirty = false;
 	private DefaultComboBoxModel<Avion> avionesList;
-
+	private JComboBox avionComboBox;
 	/**
 	 * Create the dialog.
 	 * 
@@ -209,7 +210,9 @@ public class Administrar_General extends JDialogExtended {
 					panel.add(lblAvion, gbc_lblAvion);
 				}
 				{
-					JComboBox avionComboBox = new JComboBox<Avion>();
+					avionComboBox = new JComboBox<Avion>();
+		
+	
 					avionesList = new DefaultComboBoxModel<Avion>();
 					avionComboBox.setModel(avionesList);
 					GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -229,13 +232,13 @@ public class Administrar_General extends JDialogExtended {
 					panel.add(lblPrecio, gbc_lblPrecio);
 				}
 				{
-					JSpinner spinner = new JSpinner();
+					spinnerPrecioAvion = new JSpinner();
 					GridBagConstraints gbc_spinner = new GridBagConstraints();
 					gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 					gbc_spinner.insets = new Insets(0, 0, 5, 5);
 					gbc_spinner.gridx = 2;
 					gbc_spinner.gridy = 2;
-					panel.add(spinner, gbc_spinner);
+					panel.add(spinnerPrecioAvion, gbc_spinner);
 				}
 				{
 					JButton button = new JButton("Guardar Cambios");
@@ -295,6 +298,16 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioCombustibleSocio.addChangeListener(spinListener);
 		spinnerPrecioAceiteAeroclub.addChangeListener(spinListener);
 		spinnerPrecioAceiteSocio.addChangeListener(spinListener);
+		
+		if (avionesList.getSize()>0)
+			avionesList.setSelectedItem(avionesList.getElementAt(0));
+		avionComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		        spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+		    }
+		});
+		
+		
 	}
 
 	private void saveChanges() {
