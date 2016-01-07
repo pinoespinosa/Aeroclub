@@ -624,8 +624,7 @@ public class Venta_Vuelo extends JDialogExtended {
 		Vuelo aux = list.getSelectedValue();
 
 		current=aux;
-			
-		
+				
 		pilotoComboBox.setSelectedIndex(pilotosList.getIndexOf(new Piloto(aux.getIdPiloto())) );
 
 		pagoEfectivo.setSelected(aux.getFormaDePago()==Precios.EFECTIVO);

@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import data.Precios;
 import extended.JDialogExtended;
@@ -32,7 +34,7 @@ public class Administrar_General extends JDialogExtended {
 	
 	private static final long serialVersionUID = 1L;
 	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub;	
-	private boolean dirty=true;
+	private boolean dirty=false;
 	
 	/**
 	 * Create the dialog.
@@ -56,16 +58,16 @@ public class Administrar_General extends JDialogExtended {
 		setTitle("Nueva Compra");
 		setBounds(100, 100, 878, 559);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{20, 444, 0};
+		gridBagLayout.columnWidths = new int[]{20, 444, 20, 0};
 		gridBagLayout.rowHeights = new int[]{67, 33, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		{
 			JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 			GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 			gbc_tabbedPane.fill = GridBagConstraints.BOTH;
-			gbc_tabbedPane.insets = new Insets(0, 0, 5, 0);
+			gbc_tabbedPane.insets = new Insets(0, 0, 5, 5);
 			gbc_tabbedPane.gridx = 1;
 			gbc_tabbedPane.gridy = 0;
 			getContentPane().add(tabbedPane, gbc_tabbedPane);
@@ -73,7 +75,7 @@ public class Administrar_General extends JDialogExtended {
 				JPanel panel = new JPanel();
 				tabbedPane.addTab("Precios Aviones", null, panel, null);
 				GridBagLayout gbl_panel = new GridBagLayout();
-				gbl_panel.columnWidths = new int[]{0, 0, 0, 20, 0};
+				gbl_panel.columnWidths = new int[]{20, 0, 0, 20, 0};
 				gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 				gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 				gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -119,8 +121,7 @@ public class Administrar_General extends JDialogExtended {
 					btnGuardarCambios.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent arg0) {
-							saveChanges();
-							
+							saveChanges();							
 						}
 					});
 					GridBagConstraints gbc_btnGuardarCambios = new GridBagConstraints();
@@ -154,6 +155,7 @@ public class Administrar_General extends JDialogExtended {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			GridBagConstraints gbc_buttonPane = new GridBagConstraints();
+			gbc_buttonPane.insets = new Insets(0, 0, 0, 5);
 			gbc_buttonPane.anchor = GridBagConstraints.NORTH;
 			gbc_buttonPane.fill = GridBagConstraints.HORIZONTAL;
 			gbc_buttonPane.gridx = 1;
@@ -179,6 +181,14 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioCombustibleAeroclub.setValue(Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB));
 		spinnerPrecioCombustibleSocio.setValue(Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_SOCIO));
 
+	    ChangeListener spinListener = new ChangeListener() {
+	        public void stateChanged(ChangeEvent e) {
+	        	dirty=true;
+	    }
+	    };
+	    spinnerPrecioCombustibleAeroclub.addChangeListener(spinListener);
+	    spinnerPrecioCombustibleSocio.addChangeListener(spinListener);
+		
 	}
 	
 	private void saveChanges(){
