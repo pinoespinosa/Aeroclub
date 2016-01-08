@@ -542,7 +542,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						
 						current.setPrecioAceite(Precios.getPrecio(Precios.PRECIO_ACEITE_AEROCLUB));
 						current.setPrecioCombustible(Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB));
-						
+						current.setPrecioAvion(((Avion)avionesList.getSelectedItem()).getPrecio());
 						updatePrecio();
 						
 
@@ -590,8 +590,6 @@ public class Venta_Vuelo extends JDialogExtended {
 
 	@PostConstruct
 	public void inic(){
-
-		current=new Vuelo(Precios.getPrecio(Precios.PRECIO_ACEITE_AEROCLUB), Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB));
 		
 		// Cargo los aviones en el combo
 		avionesList.removeAllElements();
@@ -599,6 +597,11 @@ public class Venta_Vuelo extends JDialogExtended {
 		for (Avion avion : aviones) {
 			avionesList.addElement(avion);
 		}
+		if (!aviones.isEmpty())
+			current=new Vuelo(Precios.getPrecio(Precios.PRECIO_ACEITE_AEROCLUB), Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB), avionesList.getElementAt(0).getPrecio());
+		else
+			current=new Vuelo(Precios.getPrecio(Precios.PRECIO_ACEITE_AEROCLUB), Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB), 0);
+		
 		
 		// Cargo los pilotos en el combo
 		pilotosList.removeAllElements();
@@ -684,6 +687,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						Float.parseFloat(costoVuelo.getText()),
 						Precios.getPrecio(Precios.PRECIO_ACEITE_AEROCLUB),
 						Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB),
+						((Avion)avionesList.getSelectedItem()).getPrecio(),
 						pagoEfectivo.isSelected() ? Precios.EFECTIVO : Precios.CUENTA_CORRIENTE 
 						);
 		
@@ -719,9 +723,7 @@ public class Venta_Vuelo extends JDialogExtended {
 	 * @return
 	 */
 	public boolean modelValidation(){
-		
-		
-		
+			
     	Date inicio = (Date) inicioSpinner.getModel().getValue();
 		Date fin = (Date) finalizacionSpinner.getModel().getValue();
 		

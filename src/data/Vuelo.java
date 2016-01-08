@@ -25,18 +25,19 @@ public class Vuelo implements Comparable<Vuelo>{
 	/**
 	 * En el momento que se crea el vuelo se guardan los precios y no se pueden modificar mas adelante
 	 */
-	private float precio, precioAceite, precioCombustible;
+	private float precio, precioAceite, precioCombustible, precioAvion;
 	
-	public Vuelo(float precioAceite, float precioCombustible) {
+	public Vuelo(float precioAceite, float precioCombustible, float precioAvion) {
 		super();
 		this.precioAceite = precioAceite;
 		this.precioCombustible = precioCombustible;
+		this.setPrecioAvion(precioAvion);
 	}
 
 
 
 	public Vuelo(int id, long horaInicio, long horaFinal, int cantAceite, int cantCombustible, int idAvion, int idPiloto, int idInstructor,
-			float precio, float precioAceite, float precioCombustible, int formaDePago) {
+			float precio, float precioAceite, float precioCombustible, float precioAvion, int formaDePago) {
 		super();
 		this.id = id;
 		this.horaInicio = horaInicio;
@@ -50,6 +51,7 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.precio = precio;
 		this.precioAceite = precioAceite;
 		this.precioCombustible = precioCombustible;
+		this.setPrecioAvion(precioAvion);
 	}
 
 
@@ -162,6 +164,7 @@ public class Vuelo implements Comparable<Vuelo>{
 				", " + getPrecio() +
 				", " + getPrecioAceite() +
 				", " + getPrecioCombustible() +
+				", " + getPrecioAvion() +
 				", " + getFormaDePago() +
 				 ");"; 
 	}
@@ -190,7 +193,7 @@ public class Vuelo implements Comparable<Vuelo>{
 	}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible","formaDePago"});
+		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible","precioAvion","formaDePago"});
 	}
 	
 	private static Vuelo loadFromList(List<String> valores){		
@@ -206,7 +209,8 @@ public class Vuelo implements Comparable<Vuelo>{
 							Float.parseFloat(valores.get(8)),
 							Float.parseFloat(valores.get(9)),
 							Float.parseFloat(valores.get(10)),
-							Integer.parseInt(valores.get(11)));
+							Float.parseFloat(valores.get(11)),
+							Integer.parseInt(valores.get(12)));
 	}
 	
 	public static List<Vuelo> loadFromDB(){
@@ -238,6 +242,18 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	public void setFormaDePago(int formaDePago) {
 		this.formaDePago = formaDePago;
+	}
+
+
+
+	public float getPrecioAvion() {
+		return precioAvion;
+	}
+
+
+
+	public void setPrecioAvion(float precioAvion) {
+		this.precioAvion = precioAvion;
 	}
 	
 
