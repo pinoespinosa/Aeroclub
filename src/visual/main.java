@@ -196,7 +196,7 @@ public class main {
 		panel.add(list, gbc_list);
 
 		btnNuevaCompra = new JButton("Nueva Compra");
-		btnNuevaCompra.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
+		btnNuevaCompra.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Comprar.png"));
 		btnNuevaCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -218,7 +218,7 @@ public class main {
 		frame.getContentPane().add(btnNuevaCompra, gbc_btnNewButton);
 
 		btnVerInformes = new JButton("Ver informes");
-		btnVerInformes.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
+		btnVerInformes.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin t\u00EDtulo-552.png"));
 		btnVerInformes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
