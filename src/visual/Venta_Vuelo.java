@@ -698,6 +698,10 @@ public class Venta_Vuelo extends JDialogExtended {
 	 * Actualiza el precio del vuelo al cambiar las cantidades de combustible utilizadas
 	 */
 	public void updatePrecio(){
+		
+		if (avionesList.getSize()==0)
+			return;
+		
 		Float valor = Integer.parseInt(combustibleSpinner.getValue()+"")*current.getPrecioCombustible();
 		valor += Integer.parseInt(aceiteSpinner.getValue()+"")*current.getPrecioAceite();
 		
