@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 import data.Gasto;
 import extended.JDialogExtended;
+import extended.MainController;
 
 
 public class Compra_General extends JDialogExtended {
@@ -167,6 +168,8 @@ public class Compra_General extends JDialogExtended {
 	@PostConstruct
 	public void init(){
 
+		setAction(MainController.ACTION_EXIT);
+		
 		List<Gasto> gastos = Gasto.loadFromDB();
 		
 		Set<String> tiposGasto = new HashSet<String>(); 

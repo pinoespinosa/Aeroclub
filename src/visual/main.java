@@ -133,8 +133,7 @@ public class main {
 			public void mouseClicked(MouseEvent arg0) {
 
 				/*
-				 * ------------------------------- Nueva venta
-				 * -------------------------------
+				 * --------------- Nueva Venta -----------------
 				 */
 				frame.setEnabled(false);
 				Venta dialog = new Venta(frame);
@@ -199,7 +198,7 @@ public class main {
 			public void actionPerformed(ActionEvent arg0) {
 
 				/*
-				 * --------------- Nueva venta -----------------
+				 * --------------- Nueva Compra -----------------
 				 */
 				frame.setEnabled(false);
 				Compra_General dialog = new Compra_General(frame);
