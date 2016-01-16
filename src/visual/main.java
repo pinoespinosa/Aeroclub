@@ -218,6 +218,7 @@ public class main {
 		frame.getContentPane().add(btnNuevaCompra, gbc_btnNewButton);
 
 		btnVerInformes = new JButton("Ver informes");
+		btnVerInformes.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
 		btnVerInformes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
@@ -227,6 +228,7 @@ public class main {
 		frame.getContentPane().add(btnVerInformes, gbc_btnNewButton_2);
 
 		btnAdministrar = new JButton("Administrar");
+		btnAdministrar.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
 		btnAdministrar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnAdministrar.addMouseListener(new MouseAdapter() {
 			@Override
