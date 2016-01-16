@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -127,6 +128,7 @@ public class main {
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		btnNuevaVenta = new JButton("Nueva Venta");
+		btnNuevaVenta.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
 		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnNuevaVenta.addMouseListener(new MouseAdapter() {
 			@Override
