@@ -47,6 +47,7 @@ public class Administrar_General extends JDialogExtended {
 	private boolean update=false;
 	private DefaultComboBoxModel<Avion> avionesList;
 	private JComboBox avionComboBox;
+	JButton btnGuardarCambios;
 	
 	/**
 	 * Create the dialog.
@@ -142,7 +143,7 @@ public class Administrar_General extends JDialogExtended {
 					panel.add(spinnerPrecioCombustibleAeroclub, gbc_spinnerPrecioCombustibleAeroclub);
 				}
 				{
-					JButton btnGuardarCambios = new JButton("Guardar Cambios");
+					btnGuardarCambios = new JButton("Guardar Cambios");
 					btnGuardarCambios.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent arg0) {
@@ -211,6 +212,8 @@ public class Administrar_General extends JDialogExtended {
 						update=true;
 						if (avionesList.getSize()!=0)
 							spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+						else
+							btnGuardarCambios.setEnabled(false);
 						update=false;
 						dirty = false;
 						
@@ -235,10 +238,6 @@ public class Administrar_General extends JDialogExtended {
 				}
 				{
 					avionComboBox = new JComboBox<Avion>();
-
-
-		
-	
 					avionesList = new DefaultComboBoxModel<Avion>();
 					avionComboBox.setModel(avionesList);
 					GridBagConstraints gbc_comboBox = new GridBagConstraints();

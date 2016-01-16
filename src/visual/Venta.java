@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.annotation.PostConstruct;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -44,6 +45,7 @@ public class Venta extends JDialogExtended {
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnVuelo = new JButton("Nuevo Vuelo");
+			btnVuelo.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin t\u00EDtulo-2.jpg"));
 			btnVuelo.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {	
