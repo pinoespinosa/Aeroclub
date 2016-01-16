@@ -66,8 +66,12 @@ public class main {
 	 * Create the application.
 	 */
 	public main() {
+		MainController.loadProperties();
 		initialize();
+		
 	}
+
+
 
 	/**
 	 * Initialize the contents of the frame.
@@ -103,12 +107,6 @@ public class main {
 				}
 
 				System.out.println();
-
-				/*
-				 * try { Runtime.getRuntime().exec(
-				 * "I:/Program Files/Git/git-bash.exe -i I:/Users/Pino/git/Aeroclub/git.sh"
-				 * ); } catch (IOException e) { e.printStackTrace(); }
-				 */
 			}
 		});
 
@@ -291,7 +289,7 @@ public class main {
 		
 		Date horaInternet = DateUtils.getAtomicTime().getTime();
 
-		String fVencLic = managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='fecha';", "dato").get(0);
+		String fVencLic = managerDB.executeScript_Query("SELECT dato FROM "+MainController.getEsquema()+".licencia WHERE valor='fecha';", "dato").get(0);
 		fVencLic = Utils.decript(fVencLic);
 
 		Date fechaVencLicen = new Date(Long.parseLong(fVencLic));
@@ -300,7 +298,7 @@ public class main {
 		
 		if (tiempoPendienteLicencia>0){
 			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias.");
-			managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='10' WHERE valor='intentos';");
+			managerDB.executeScript_Void("UPDATE "+MainController.getEsquema()+".licencia SET dato='10' WHERE valor='intentos';");
 		}
 		else{
 			lblTiempoLicencia.setText("La licencia del sistema expiró. Consulte con su administrador. Dirección de email: pino.espinosa91@gmail.com");
@@ -311,13 +309,13 @@ public class main {
 	}
 	
 	private void ingresarSinValicion(){
-		int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM aviones.licencia WHERE valor='intentos';", "dato").get(0));
+		int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM "+MainController.getEsquema()+".licencia WHERE valor='intentos';", "dato").get(0));
 		
 		MainController.setLicenciaValida(intentos>0);
 		
 		intentos--;
 		if (intentos>0){
-			managerDB.executeScript_Void("UPDATE aviones.licencia SET dato='"+intentos+"' WHERE valor='intentos';");
+			managerDB.executeScript_Void("UPDATE "+MainController.getEsquema()+".licencia SET dato='"+intentos+"' WHERE valor='intentos';");
 			lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia.");
 		}
 		else{

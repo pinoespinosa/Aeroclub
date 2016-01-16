@@ -6,6 +6,7 @@ import java.util.List;
 
 import base_datos.Utils;
 import base_datos.managerDB;
+import extended.MainController;
 
 
 public class Persona {
@@ -76,7 +77,7 @@ public class Persona {
 	
 	private static String getScriptDataBase(){
 		return 	"SELECT DISTINCT pe.*" +
-				"FROM aviones.persona as pe";
+				"FROM "+MainController.getEsquema()+".persona as pe";
 		}
 	
 	private static List<String> getFieldScriptBase(){

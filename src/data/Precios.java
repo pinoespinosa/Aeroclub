@@ -1,6 +1,7 @@
 package data;
 
 import base_datos.managerDB;
+import extended.MainController;
 
 
 
@@ -17,11 +18,11 @@ public class Precios {
 	public static final String PRECIO_ACEITE_SOCIO = "precioAceiteSocio";
 	
 	public static float getPrecio(String elemento){
-		return Float.parseFloat(managerDB.executeScript_Query("SELECT precio FROM aviones.precios WHERE id='"+elemento+"';", "precio").get(0));
+		return Float.parseFloat(managerDB.executeScript_Query("SELECT precio FROM "+MainController.getEsquema()+".precios WHERE id='"+elemento+"';", "precio").get(0));
 	}
 	
 	public static void updatePrecio(String elemento, String precio){
-		managerDB.executeScript_Void("UPDATE aviones.precios SET precio='"+precio+"' WHERE id='"+elemento+"';");
+		managerDB.executeScript_Void("UPDATE "+MainController.getEsquema()+".precios SET precio='"+precio+"' WHERE id='"+elemento+"';");
 	}
 	
 	

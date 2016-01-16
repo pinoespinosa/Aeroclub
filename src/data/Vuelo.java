@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import base_datos.managerDB;
+import extended.MainController;
 
 
 public class Vuelo implements Comparable<Vuelo>{
@@ -152,7 +153,7 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	
 	public String getCreateScriptDataBase(){
-		return "INSERT INTO `aviones`.`vuelo` values ( " +
+		return "INSERT INTO `"+MainController.getEsquema()+"`.`vuelo` values ( " +
 				" " + getId()  +
 				", " + getHoraInicio() +
 				", " + getHoraFinal() +
@@ -189,7 +190,7 @@ public class Vuelo implements Comparable<Vuelo>{
 	
 	private static String getScriptDataBase(){
 		return 	"	SELECT *" +
-				"	FROM aviones.vuelo;";
+				"	FROM "+MainController.getEsquema()+".vuelo;";
 	}
 	
 	private static List<String> getFieldScriptBase(){

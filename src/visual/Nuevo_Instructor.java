@@ -29,6 +29,7 @@ import base_datos.managerDB;
 import data.Instructor;
 import data.Persona;
 import extended.JDialogExtended;
+import extended.MainController;
 
 public class Nuevo_Instructor extends JDialogExtended {
 
@@ -224,13 +225,13 @@ public class Nuevo_Instructor extends JDialogExtended {
 				
 
 				if (!personas.contains(pe)) {
-					managerDB.executeScript_Void("INSERT INTO `aviones`.`persona` VALUES ('"+managerDB.getNextId("persona")+"', '"+dni+"' ,'"+nombreTextField.getText()+"','"+apellidoTextField.getText()+"','"+((Date) nacimientoSpinner.getModel().getValue()).getTime()+"');");
+					managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`persona` VALUES ('"+managerDB.getNextId("persona")+"', '"+dni+"' ,'"+nombreTextField.getText()+"','"+apellidoTextField.getText()+"','"+((Date) nacimientoSpinner.getModel().getValue()).getTime()+"');");
 					personas = Persona.loadFromDB();
 				}
 				
 				
 				pe= personas.get(personas.indexOf(pe));
-				managerDB.executeScript_Void(" INSERT INTO `aviones`.`instructor` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"');");
+				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`instructor` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"');");
 				JOptionPane.showMessageDialog(null,"Se creo un nuevo instructor.");					
 				Nuevo_Instructor.this.dispose();	
 			}

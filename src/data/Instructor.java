@@ -6,6 +6,7 @@ import java.util.List;
 
 import base_datos.Utils;
 import base_datos.managerDB;
+import extended.MainController;
 
 public class Instructor {
 
@@ -76,8 +77,8 @@ public class Instructor {
 		
 	private static String getScriptDataBase(){
 		return 	"SELECT DISTINCT pe.*, inst.* " +
-				"FROM aviones.instructor as inst " +
-				"inner join aviones.persona as pe " +
+				"FROM "+MainController.getEsquema()+".instructor as inst " +
+				"inner join "+MainController.getEsquema()+".persona as pe " +
 				"on pe.id=inst.id " +
 				"order by apellido;";
 	}

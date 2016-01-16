@@ -29,6 +29,7 @@ import base_datos.managerDB;
 import data.Persona;
 import data.Piloto;
 import extended.JDialogExtended;
+import extended.MainController;
 
 public class Nuevo_Piloto extends JDialogExtended {
 
@@ -224,13 +225,13 @@ public class Nuevo_Piloto extends JDialogExtended {
 				
 				// Creo la persona si no existia
 				if (!personas.contains(pe)) {
-					managerDB.executeScript_Void("INSERT INTO `aviones`.`persona` VALUES ('"+managerDB.getNextId("persona")+"', '"+dni+"' ,'"+nombreTextField.getText()+"','"+apellidoTextField.getText()+"','"+((Date) nacimientoSpinner.getModel().getValue()).getTime()+"');");
+					managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`persona` VALUES ('"+managerDB.getNextId("persona")+"', '"+dni+"' ,'"+nombreTextField.getText()+"','"+apellidoTextField.getText()+"','"+((Date) nacimientoSpinner.getModel().getValue()).getTime()+"');");
 					personas = Persona.loadFromDB();
 				}
 				
 				// Creo el piloto
 				pe= personas.get(personas.indexOf(pe));
-				managerDB.executeScript_Void(" INSERT INTO `aviones`.`piloto` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"');");
+				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`piloto` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"');");
 				JOptionPane.showMessageDialog(null,"Se creo un nuevo piloto.");					
 				Nuevo_Piloto.this.dispose();	
 			}

@@ -22,7 +22,8 @@ import extended.MainController;
 public class managerDB {
 	private static Connection connect = null;
 	private static Statement statement = null;
-
+	private static String BD_Name;
+	
 	private static boolean ErroresVisibles = true;
 
 	/** 
@@ -150,7 +151,7 @@ public class managerDB {
 		
 			Field[] fields = element.getClass().getDeclaredFields();
 
-			String string = "UPDATE `aviones`.`"+ element.getClass().getSimpleName() + "`" + " SET ";
+			String string = "UPDATE `"+MainController.getEsquema()+"`.`"+ element.getClass().getSimpleName() + "`" + " SET ";
 
 			String partefinal = "";
 
@@ -184,7 +185,7 @@ public class managerDB {
 	}
 		
 	public static int getNextId(String tableName){
-		List<String> next = executeScript_Query("SELECT id FROM aviones."+tableName+" ORDER BY id DESC limit 1;", "id");
+		List<String> next = executeScript_Query("SELECT id FROM "+MainController.getEsquema()+"."+tableName+" ORDER BY id DESC limit 1;", "id");
 		
 		int valor = -1;
 		
@@ -195,7 +196,7 @@ public class managerDB {
 	}
 	
 	public static boolean conectionWasSucefull()
-	{
+	{		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 
@@ -246,6 +247,14 @@ public class managerDB {
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static String getBD_Name() {
+		return BD_Name;
+	}
+
+	public static void setBD_Name(String bD_Name) {
+		BD_Name = bD_Name;
 	}
 
 }

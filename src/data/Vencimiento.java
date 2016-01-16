@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import base_datos.managerDB;
+import extended.MainController;
 
 public class Vencimiento implements Comparable<Vencimiento>{
 	
@@ -65,7 +66,7 @@ public class Vencimiento implements Comparable<Vencimiento>{
 	
 	private static String getScriptDataBase(){
 		return 	"	SELECT *" +
-				"	FROM aviones.vencimientosproximos;";
+				"	FROM "+MainController.getEsquema()+".vencimientosproximos;";
 	}
 	
 	private static List<String> getFieldScriptBase(){

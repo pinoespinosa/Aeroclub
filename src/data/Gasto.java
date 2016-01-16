@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import base_datos.managerDB;
+import extended.MainController;
 
 public class Gasto implements Comparable<Gasto>{
 
@@ -30,7 +31,7 @@ public class Gasto implements Comparable<Gasto>{
 	public static List<Gasto> loadFromDB(){
 		
 		
-		String script = "SELECT * FROM aviones.gasto;";
+		String script = "SELECT * FROM "+MainController.getEsquema()+".gasto;";
 		List<String> campos = Arrays.asList(new String[]{"id","tipo", "detalle", "monto"});
 				
 		List<List<String>> vuelosData = managerDB.executeScript_Query(script,campos);

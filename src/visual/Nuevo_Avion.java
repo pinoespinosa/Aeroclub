@@ -157,7 +157,7 @@ public class Nuevo_Avion extends JDialogExtended {
 						setEditable(true);
 				}
 			// Creo el piloto
-				managerDB.executeScript_Void(" INSERT INTO `aviones`.`avion` VALUES ('"+ managerDB.getNextId("avion")+"','"+nombreAvionTextField.getText()+"','"+spinnerPrecio.getValue()+"" +"');");
+				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`avion` VALUES ('"+ managerDB.getNextId("avion")+"','"+nombreAvionTextField.getText()+"','"+spinnerPrecio.getValue()+"" +"');");
 			//	JOptionPane.showMessageDialog(null,"Se creo un nuevo piloto.");					
 				Nuevo_Avion.this.dispose();	
 			}

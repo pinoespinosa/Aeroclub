@@ -1,18 +1,35 @@
 package extended;
 import java.awt.Font;
 import java.awt.Frame;
+import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.JFrame;
 
+import base_datos.SimpleFile;
+
 public class MainController {
 
-	public static final String 	
-	UBICACION_MYSQL="I:\\Program Files (x86)\\MySQL\\MySQL Server 5.5\\bin\\",
-	USUARIO="root",
-	PASSWORD="36442114",
-	ESQUEMA="aviones",
-	CARPETA_FILES="carpetaFiles",
-	IP_WEB_SERVICE="ipWebService";
+	private static final String 	
+	UBICACION_MYSQL="UBICACION_MYSQL",
+	USUARIO="USUARIO",
+	PASSWORD="PASSWORD",
+	ESQUEMA="ESQUEMA",
+	CARPETA_FILES="CARPETA_FILES",
+	IP_WEB_SERVICE="IP_WEB_SERVICE";
+	
+	private static Hashtable<String, String> properties;
+	
+	public static void loadProperties() {
+		properties= new Hashtable<String, String>();
+				
+		List<String> prop = SimpleFile.readFile("","config.prop");
+		for (String value : prop) {
+			properties.put(value.split("=")[0],value.split("=")[1]);
+		}
+		
+	}
+	
 	
 	public static final int 
 		GROUP_LAYOUT=0, 
@@ -44,19 +61,19 @@ public class MainController {
 
 	
 	public static String getUbicacionMysql() {
-		return UBICACION_MYSQL;
+		return properties.get(UBICACION_MYSQL);
 	}
-
+	
 	public static String getUsuario() {
-		return USUARIO;
+		return properties.get(USUARIO);
 	}
 
 	public static String getPassword() {
-		return PASSWORD;
+		return properties.get(PASSWORD);
 	}
 
 	public static String getEsquema() {
-		return ESQUEMA;
+		return properties.get(ESQUEMA);
 	}
 
 	public static boolean getLicenciaValida() {

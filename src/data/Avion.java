@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import base_datos.managerDB;
+import extended.MainController;
 
 public class Avion {
 
@@ -50,7 +51,7 @@ public class Avion {
 	
 	private static String getScriptDataBase(){
 		return 	"	SELECT *" +
-				"	FROM aviones.avion;";
+				"	FROM "+MainController.getEsquema()+".avion;";
 	}
 	
 	private static List<String> getFieldScriptBase(){
