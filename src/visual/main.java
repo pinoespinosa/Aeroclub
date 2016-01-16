@@ -196,6 +196,7 @@ public class main {
 		panel.add(list, gbc_list);
 
 		btnNuevaCompra = new JButton("Nueva Compra");
+		btnNuevaCompra.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
 		btnNuevaCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
