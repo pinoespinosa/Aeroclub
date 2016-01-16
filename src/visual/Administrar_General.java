@@ -209,7 +209,8 @@ public class Administrar_General extends JDialogExtended {
 							} 										
 						}
 						update=true;
-						spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
+						if (avionesList.getSize()!=0)
+							spinnerPrecioAvion.setValue(((Avion)avionesList.getSelectedItem()).getPrecio());
 						update=false;
 						dirty = false;
 						
