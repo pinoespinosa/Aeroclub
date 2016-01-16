@@ -228,7 +228,7 @@ public class main {
 		frame.getContentPane().add(btnVerInformes, gbc_btnNewButton_2);
 
 		btnAdministrar = new JButton("Administrar");
-		btnAdministrar.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
+		btnAdministrar.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\adminnn.png"));
 		btnAdministrar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnAdministrar.addMouseListener(new MouseAdapter() {
 			@Override
