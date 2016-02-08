@@ -13,10 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -83,7 +81,7 @@ public class main {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 
-				String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
+/*				String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
 				ProcessBuilder pBuilder = new ProcessBuilder(commands);
 				pBuilder.redirectOutput();
 				pBuilder.inheritIO();
@@ -107,7 +105,7 @@ public class main {
 					e.printStackTrace();
 				}
 
-				System.out.println();
+				System.out.println();*/
 			}
 		});
 
@@ -128,7 +126,7 @@ public class main {
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		btnNuevaVenta = new JButton("Nueva Venta");
-		btnNuevaVenta.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin 55555\u00EDtulo-2.png"));
+		btnNuevaVenta.setIcon(new ImageIcon(main.class.getResource("/resources/icon_nueva_venta.png")));
 		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnNuevaVenta.addMouseListener(new MouseAdapter() {
 			@Override
@@ -196,7 +194,7 @@ public class main {
 		panel.add(list, gbc_list);
 
 		btnNuevaCompra = new JButton("Nueva Compra");
-		btnNuevaCompra.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Comprar.png"));
+		btnNuevaCompra.setIcon(new ImageIcon(main.class.getResource("/resources/icon_nueva_compra.png")));
 		btnNuevaCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -218,7 +216,7 @@ public class main {
 		frame.getContentPane().add(btnNuevaCompra, gbc_btnNewButton);
 
 		btnVerInformes = new JButton("Ver informes");
-		btnVerInformes.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\Sin t\u00EDtulo-552.png"));
+		btnVerInformes.setIcon(new ImageIcon(main.class.getResource("/resources/icon_informes.png")));
 		btnVerInformes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
@@ -228,7 +226,7 @@ public class main {
 		frame.getContentPane().add(btnVerInformes, gbc_btnNewButton_2);
 
 		btnAdministrar = new JButton("Administrar");
-		btnAdministrar.setIcon(new ImageIcon("I:\\Users\\Pino\\Desktop\\adminnn.png"));
+		btnAdministrar.setIcon(new ImageIcon(main.class.getResource("/resources/icon_admi.png")));
 		btnAdministrar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnAdministrar.addMouseListener(new MouseAdapter() {
 			@Override

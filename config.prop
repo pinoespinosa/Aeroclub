@@ -2,4 +2,4 @@ header=header
 UBICACION_MYSQL=I:\\Program Files (x86)\\MySQL\\MySQL Server 5.5\\bin\\
 USUARIO=root
 PASSWORD=36442114
-ESQUEMA=aviones2
+ESQUEMA=aviones

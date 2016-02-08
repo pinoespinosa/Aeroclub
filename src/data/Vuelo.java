@@ -21,6 +21,7 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	private int idAvion, idPiloto, idInstructor, formaDePago;
 
+	private Piloto piloto=null;
 	
 	
 	/**
@@ -139,7 +140,7 @@ public class Vuelo implements Comparable<Vuelo>{
 			else
 				id=""+getId();
 			
-		return "Vuelo "+ id +" - " + format.format(inicio) + "~ " + format.format(fin);
+		return "Vuelo "+ id +" - " + getPiloto().getApellido()+ " - " + format.format(inicio) + "~ " + format.format(fin);
 	}
 
 	public float getPrecio() {
@@ -255,6 +256,20 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	public void setPrecioAvion(float precioAvion) {
 		this.precioAvion = precioAvion;
+	}
+
+
+
+	public Piloto getPiloto() {
+		if (piloto==null)
+			piloto = Piloto.getPilotoById(idPiloto+"");
+		return piloto;
+	}
+
+
+
+	public void setPiloto(Piloto piloto) {
+		this.piloto = piloto;
 	}
 	
 

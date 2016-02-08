@@ -13,37 +13,33 @@ public class Piloto {
 	private int id, dni;
 	private String name, apellido;
 	private Long nacimiento, fecha_licencia;
-	
-	
-	
-	
-	public Piloto(int id, String name, String apellido, int dni, Long nacimiento,
-			Long fecha_licencia) {
+
+	public Piloto(int id, String name, String apellido, int dni, Long nacimiento, Long fecha_licencia) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.apellido = apellido;
 		this.nacimiento = nacimiento;
 		this.fecha_licencia = fecha_licencia;
-		this.dni=dni;
+		this.dni = dni;
 	}
-	
+
 	public Piloto(int id, String name, String apellido) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.apellido = apellido;
 	}
-	
+
 	public Piloto(int id) {
 		super();
 		this.id = id;
 	}
-	
+
 	public Piloto() {
 		super();
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -74,6 +70,37 @@ public class Piloto {
 	public void setFecha_licencia(Long fecha_licencia) {
 		this.fecha_licencia = fecha_licencia;
 	}
+	public static List<Piloto> loadFromDB() {
+		return loadFromDB(Piloto.getScriptDataBase());
+	}
+	@Override
+	public String toString() {
+		return getApellido() + ", " + getName();
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof Piloto) {
+			if (((Piloto) arg0).getId() == getId())
+				return true;
+
+			if (((Piloto) arg0).getDni() == getDni())
+				return true;
+			else
+				return false;
+
+		} else
+			return false;
+	}
+
+	public int getDni() {
+		return dni;
+	}
+
+	public void setDni(int dni) {
+		this.dni = dni;
+	}
+	/***************************************************** Metodos privados ***********************************************************************/
 		
 	private static String getScriptDataBase(){
 		return 	"SELECT DISTINCT pe.*, pi.fechaVencimientoLicencia " +
@@ -96,8 +123,8 @@ public class Piloto {
 							Long.parseLong(valores.get(5)));
 	}
 	
-	public static List<Piloto> loadFromDB(){
-		List<List<String>> pilotosData = managerDB.executeScript_Query(Piloto.getScriptDataBase(), Piloto.getFieldScriptBase());
+	private static List<Piloto> loadFromDB(String script){
+		List<List<String>> pilotosData = managerDB.executeScript_Query(script, Piloto.getFieldScriptBase());
 		List<Piloto> pilotos = new ArrayList<Piloto>();
 		
 		for (List<String> list : pilotosData) {
@@ -106,38 +133,16 @@ public class Piloto {
 	return pilotos;
 	}
 	
+
 	
-	@Override
-	public String toString() {
-		return getApellido() + ", " + getName();
-	}
+	public static Piloto getPilotoById(String id){
 
-	@Override
-	public boolean equals(Object arg0) {
-		
-		
-		
-		if (arg0 instanceof Piloto){
-			if (((Piloto) arg0).getId()==getId())
-				return true;
-			
-			if (((Piloto) arg0).getDni()==getDni())
-					return true;
-			else
-				return false;
-			
-		}
-		else
-			return false;
+		String script = "SELECT DISTINCT pe.*, pi.fechaVencimientoLicencia " +
+						"FROM "+MainController.getEsquema()+".piloto as pi " +
+						"INNER JOIN "+MainController.getEsquema()+".persona as pe on pe.id = pi.id " +
+						"WHERE pi.id =" + id + " " +
+						"ORDER BY apellido;";
+		return loadFromDB(script).get(0);
 	}
-
-	public int getDni() {
-		return dni;
-	}
-
-	public void setDni(int dni) {
-		this.dni = dni;
-	}
-	
 	
 }
