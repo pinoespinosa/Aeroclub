@@ -14,8 +14,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -142,23 +144,32 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 
-				/*
-				 * String[] commands = {"I:/Program Files/Git/git-bash.exe",
-				 * "-i", "I:/Users/Pino/git/Aeroclub/git.sh"}; ProcessBuilder
-				 * pBuilder = new ProcessBuilder(commands);
-				 * pBuilder.redirectOutput(); pBuilder.inheritIO();
-				 * pBuilder.redirectOutput(); pBuilder.redirectOutput();
-				 * pBuilder.redirectOutput();
-				 * 
-				 * try { p = pBuilder.start(); InputStream in =
-				 * p.getInputStream(); final Scanner scanner = new Scanner(in);
-				 * new Thread(new Runnable() { public void run() { while
-				 * (scanner.hasNextLine()) {
-				 * System.out.println(scanner.nextLine()); } scanner.close(); }
-				 * }).start(); } catch (IOException e) { e.printStackTrace(); }
-				 * 
-				 * System.out.println();
-				 */
+				String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
+				ProcessBuilder pBuilder = new ProcessBuilder(commands);
+				pBuilder.redirectOutput();
+				pBuilder.inheritIO();
+				pBuilder.redirectOutput();
+				pBuilder.redirectOutput();
+				pBuilder.redirectOutput();
+
+				try {
+					p = pBuilder.start();
+					InputStream in = p.getInputStream();
+					final Scanner scanner = new Scanner(in);
+					new Thread(new Runnable() {
+						public void run() {
+							while (scanner.hasNextLine()) {
+								System.out.println(scanner.nextLine());
+							}
+							scanner.close();
+						}
+					}).start();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				System.out.println();
+
 			}
 		});
 
