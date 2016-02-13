@@ -38,6 +38,7 @@ import javax.swing.JSpinner;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -55,7 +56,6 @@ import data.Vuelo;
 import extended.JDialogExtended;
 import extended.MainController;
 import extended.ObjetoDeImpresion;
-
 
 public class Venta_Vuelo extends JDialogExtended {
 	/**
@@ -80,6 +80,7 @@ public class Venta_Vuelo extends JDialogExtended {
 	
 	
 	private JPanel panelIzquierdo;
+	private JLabel ordenDeVuelo;
 	
 	/**
 	 * Create the dialog.
@@ -113,6 +114,17 @@ public class Venta_Vuelo extends JDialogExtended {
 			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 			panelIzquierdo.setLayout(gbl_panelIzquierdo);
+			{
+				ordenDeVuelo = new JLabel("");
+				ordenDeVuelo.setFont(new Font("Tahoma", Font.BOLD, 12));
+				GridBagConstraints gbc_ordenDeVuelo = new GridBagConstraints();
+				gbc_ordenDeVuelo.anchor = GridBagConstraints.EAST;
+				gbc_ordenDeVuelo.gridwidth = 2;
+				gbc_ordenDeVuelo.insets = new Insets(0, 0, 5, 5);
+				gbc_ordenDeVuelo.gridx = 3;
+				gbc_ordenDeVuelo.gridy = 0;
+				panelIzquierdo.add(ordenDeVuelo, gbc_ordenDeVuelo);
+			}
 			{
 				JLabel lblPiloto = new JLabel("Piloto/Alumno");
 				GridBagConstraints gbc_lblPiloto = new GridBagConstraints();
@@ -153,7 +165,7 @@ public class Venta_Vuelo extends JDialogExtended {
 				btnNuevoPiloto.setMaximumSize(new Dimension(40, 40));
 				btnNuevoPiloto.setMinimumSize(new Dimension(40, 40));
 				btnNuevoPiloto.setPreferredSize(new Dimension(40, 40));
-				btnNuevoPiloto.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Instructor1.png"));
+				btnNuevoPiloto.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_instructor.png")));
 				GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 				gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 				gbc_btnNewButton.gridx = 4;
@@ -239,7 +251,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						Venta_Vuelo.this.setEnabled(false);	
 					}
 				});
-				btnNuevoInstructor.setIcon(new ImageIcon("I:\\Users\\Pino\\Icono_Nuevo_Instructor1.png"));
+				btnNuevoInstructor.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_instructor.png")));
 				btnNuevoInstructor.setToolTipText("Nuevo Instructor");
 				btnNuevoInstructor.setPreferredSize(new Dimension(40, 40));
 				btnNuevoInstructor.setMinimumSize(new Dimension(40, 40));
@@ -409,7 +421,9 @@ public class Venta_Vuelo extends JDialogExtended {
 				gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 				panel_1.setLayout(gbl_panel_1);
 				{
-					crearVueloBtn = new JButton("Crear Vuelo");
+					crearVueloBtn = new JButton("Crear Vuelo    ");
+					crearVueloBtn.setHorizontalTextPosition(SwingConstants.LEADING);
+					crearVueloBtn.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_vuelo.png")));
 					
 					
 					crearVueloBtn.addMouseListener(new MouseAdapter() {
@@ -421,6 +435,7 @@ public class Venta_Vuelo extends JDialogExtended {
 							
 							managerDB.executeScript_Void(getVueloFromView().getCreateScriptDataBase());
 							updateListVuelos();
+							JOptionPane.showMessageDialog(null,"Se ha registrado un nuevo vuelo.");
 							
 						}
 					});
@@ -665,6 +680,8 @@ public class Venta_Vuelo extends JDialogExtended {
 	@PostConstruct
 	public void inic(){
 		
+		ordenDeVuelo.setText("Orden de vuelo: " + managerDB.getNextId("vuelo"));
+		
 		// Cargo los aviones en el combo
 		avionesList.removeAllElements();
 		List<Avion> aviones = Avion.loadFromDB();
@@ -810,6 +827,8 @@ public class Venta_Vuelo extends JDialogExtended {
 		vuelosList.removeAllElements();
 		for (Vuelo vuelo : Vuelo.loadFromDB()) 
 			vuelosList.addElement(vuelo);
+		ordenDeVuelo.setText("Orden de vuelo: " + managerDB.getNextId("vuelo"));
+		
 	}
 	
 	/**

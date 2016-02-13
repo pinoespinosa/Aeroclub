@@ -231,8 +231,8 @@ public class Nuevo_Instructor extends JDialogExtended {
 				
 				
 				pe= personas.get(personas.indexOf(pe));
-				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`instructor` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"');");
-				JOptionPane.showMessageDialog(null,"Se creo un nuevo instructor.");					
+				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`instructor` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"','0');");
+				JOptionPane.showMessageDialog(null,"Se creo un nuevo instructor. El precio del instructor es $ 0, para ajustar el precio debe modificarlo desde la pestaña de Administrar");					
 				Nuevo_Instructor.this.dispose();	
 			}
 		});
@@ -266,7 +266,7 @@ public class Nuevo_Instructor extends JDialogExtended {
 			nombreTextField.setText(inst.getName());
 			apellidoTextField.setText(inst.getApellido());
 			nacimientoSpinner.getModel().setValue( new Date(inst.getNacimiento()) );
-			vencimientoLicenciaSpinner.getModel().setValue( new Date(inst.getFecha_licencia()) );
+			vencimientoLicenciaSpinner.getModel().setValue( new Date(inst.getFecha_psicofisico()) );
 			okButton.setEnabled(false);
 			return;
 		}

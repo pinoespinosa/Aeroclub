@@ -12,21 +12,21 @@ public class Instructor {
 
 	private int id, dni_persona;
 	private String name_persona, apellido_persona;
-	private Long nacimiento_persona, fecha_licencia;
+	private Long nacimiento_persona, fecha_psicofisico;
 	private float precio;
 	
 	
 	
 	public Instructor(int id, String name, String apellido, Long nacimiento,
-			Long fecha_licencia, int dni, float precio) {
+			Long fecha_psicofisico, int dni, float precio) {
 		super();
 		this.id = id;
 		this.name_persona = name;
 		this.apellido_persona = apellido;
 		this.nacimiento_persona = nacimiento;
-		this.fecha_licencia = fecha_licencia;
+		this.setFecha_psicofisico(fecha_psicofisico);
 		this.setDni(dni);
-		this.precio=precio;
+		this.setPrecio(precio);
 	}
 	
 	public Instructor(int id, String name, String apellido) {
@@ -69,12 +69,7 @@ public class Instructor {
 	public void setNacimiento(Long nacimiento) {
 		this.nacimiento_persona = nacimiento;
 	}
-	public Long getFecha_licencia() {
-		return fecha_licencia;
-	}
-	public void setFecha_licencia(Long fecha_licencia) {
-		this.fecha_licencia = fecha_licencia;
-	}
+
 		
 	private static String getScriptDataBase(){
 		return 	"SELECT DISTINCT pe.*, inst.* " +
@@ -138,6 +133,22 @@ public class Instructor {
 
 	public void setDni(int dni) {
 		this.dni_persona = dni;
+	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+
+	public Long getFecha_psicofisico() {
+		return fecha_psicofisico;
+	}
+
+	public void setFecha_psicofisico(Long fecha_psicofisico) {
+		this.fecha_psicofisico = fecha_psicofisico;
 	}
 	
 	
