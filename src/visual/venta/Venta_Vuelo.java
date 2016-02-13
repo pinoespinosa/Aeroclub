@@ -70,7 +70,7 @@ public class Venta_Vuelo extends JDialogExtended {
 	private JSpinner inicioSpinner, finalizacionSpinner;
 	private JList<Vuelo> list;
 	private Vuelo current;
-	private JButton guardarEdicionBtn, cancelarEdicionBtn, crearVueloBtn, editarBtn ;
+	private JButton guardarEdicionBtn, cancelarEdicionBtn, crearVueloBtn, editarBtn, imprimirComprobanteBtn ;
 	private JRadioButton pagoEfectivo, pagoCuentaCorriente;
 	private JLabel costoVuelo;
 	
@@ -462,7 +462,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						setViewFromVueloStored();
 						panelIzquierdo.setBackground(new Color(204, 204, 102));
 						panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Editando vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
-					//	panelIzquierdo.setn
+						imprimirComprobanteBtn.setEnabled(true);
 					}
 						
 					}
@@ -513,6 +513,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						crearVueloBtn.setEnabled(true);
 						editarBtn.setEnabled(true);
 						list.setEnabled(true);
+						imprimirComprobanteBtn.setEnabled(false);
 						
 						current.setPrecioAceite(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB));
 						current.setPrecioCombustible(Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB));
@@ -530,8 +531,9 @@ public class Venta_Vuelo extends JDialogExtended {
 					}
 				});
 				{
-					JButton btnImprimirComprobante = new JButton("Imprimir comprobante");
-					btnImprimirComprobante.addActionListener(new ActionListener() {
+					imprimirComprobanteBtn = new JButton("Imprimir comprobante");
+					imprimirComprobanteBtn.setEnabled(false);
+					imprimirComprobanteBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 													
 							
@@ -591,12 +593,12 @@ public class Venta_Vuelo extends JDialogExtended {
 							
 						}
 					});
-					GridBagConstraints gbc_btnImprimirComprobante = new GridBagConstraints();
-					gbc_btnImprimirComprobante.fill = GridBagConstraints.BOTH;
-					gbc_btnImprimirComprobante.insets = new Insets(0, 0, 5, 0);
-					gbc_btnImprimirComprobante.gridx = 0;
-					gbc_btnImprimirComprobante.gridy = 2;
-					panelDerecho.add(btnImprimirComprobante, gbc_btnImprimirComprobante);
+					GridBagConstraints gbc_imprimirComprobanteBtn = new GridBagConstraints();
+					gbc_imprimirComprobanteBtn.fill = GridBagConstraints.BOTH;
+					gbc_imprimirComprobanteBtn.insets = new Insets(0, 0, 5, 0);
+					gbc_imprimirComprobanteBtn.gridx = 0;
+					gbc_imprimirComprobanteBtn.gridy = 2;
+					panelDerecho.add(imprimirComprobanteBtn, gbc_imprimirComprobanteBtn);
 				}
 				guardarEdicionBtn.setEnabled(false);
 				GridBagConstraints gbc_guardarEdicionBtn = new GridBagConstraints();
@@ -616,7 +618,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						crearVueloBtn.setEnabled(true);
 						editarBtn.setEnabled(true);
 						list.setEnabled(true);
-						
+						imprimirComprobanteBtn.setEnabled(false);
 						
 						aceiteSpinner.setValue(new Float("0.0"));
 						combustibleSpinner.setValue(new Float("0.0"));
@@ -737,9 +739,6 @@ public class Venta_Vuelo extends JDialogExtended {
 
 		pagoEfectivo.setSelected(aux.getFormaDePago()==Precios.EFECTIVO);
 		pagoCuentaCorriente.setSelected(aux.getFormaDePago()==Precios.CUENTA_CORRIENTE);
-		
-		
-		Object a = instructorList.getIndexOf(new Instructor(aux.getIdInstructor()));
 		
 		instructorComboBox.setSelectedIndex(instructorList.getIndexOf(new Instructor(aux.getIdInstructor())));
 		avionComboBox.setSelectedIndex(avionesList.getIndexOf(new Avion(aux.getIdAvion())));

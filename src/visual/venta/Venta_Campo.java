@@ -84,7 +84,7 @@ public class Venta_Campo extends JDialogExtended {
 			contentPanel.add(lblTipoDeVenta, gbc_lblTipoDeVenta);
 		}
 		{
-			tipoDeGasto = new JComboBox();
+			tipoDeGasto = new JComboBox<String>();
 			tipoDeGasto.setModel(new DefaultComboBoxModel(new String[] {"ARRENDAMIENTO_DE_TIERRA"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
@@ -171,7 +171,12 @@ public class Venta_Campo extends JDialogExtended {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Salir");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
