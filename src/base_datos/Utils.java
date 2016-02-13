@@ -1,7 +1,9 @@
 package base_datos;
 
 import java.security.Key;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -16,8 +18,26 @@ public class Utils {
 
 	}
 
+	public static String tolowerCamelCase(String value) {
+
+		String[] palabras = value.split(" ");
+
+		for (int i = 0; i < palabras.length; i++) {
+			palabras[i] = toCamelCase(palabras[i]);
+		}
+
+		palabras[0] = palabras[0].toLowerCase();
+
+		String valor = "";
+
+		for (String string : palabras) {
+			valor += string;
+		}
+		return valor;
+	}
+	
 	public static String encript(String text) {
-			
+
 		try {
 			String key = "Bar12345Bar12345"; // 128 bit key
 			// Create key and cipher
@@ -28,9 +48,7 @@ public class Utils {
 			byte[] encrypted = cipher.doFinal(text.getBytes());
 			String str = Base64.getEncoder().encodeToString(encrypted);
 			return str;
-			
-			
-			
+
 		} catch (Exception e) {
 
 		}
@@ -38,24 +56,42 @@ public class Utils {
 	}
 
 	public static String decript(String text) {
-		
-		try {		
+
+		try {
 			byte[] encrypted = Base64.getDecoder().decode(text);
-			
-	         // decrypt the text
+
+			// decrypt the text
 			String key = "Bar12345Bar12345";
 			Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
-	        cipher.init(Cipher.DECRYPT_MODE, aesKey);
-	        String decrypted = new String(cipher.doFinal(encrypted));
-	        return decrypted;
+			cipher.init(Cipher.DECRYPT_MODE, aesKey);
+			String decrypted = new String(cipher.doFinal(encrypted));
+			return decrypted;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		
+
 		return null;
-		
-		
+
 	}
 
+	public static int minutesBetweenDates(Date inicio, Date fin) {
+
+		double resultado = 0.0;
+
+		try {
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+
+			Date fechaInicioSimple = format.parse(format.format(inicio));
+			Date fechaFinalSimple = format.parse(format.format(fin));
+
+			resultado = fechaFinalSimple.getTime() - fechaInicioSimple.getTime();
+			resultado = resultado / (60 * 1000);
+
+		} catch (Exception e) {
+		}
+
+		return (int) resultado;
+
+	}
 }

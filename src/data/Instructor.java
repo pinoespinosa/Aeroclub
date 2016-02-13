@@ -84,7 +84,7 @@ public class Instructor {
 	}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","nombre","apellido","nacimiento", "fecha_inscripcion_instructor", "dni"});
+		return Arrays.asList(new String[]{"id","nombre","apellido","nacimiento", "fecha_psicofisico", "dni"});
 	}
 	
 	private static Instructor loadFromList(List<String> valores){		
@@ -110,6 +110,9 @@ public class Instructor {
 	
 	@Override
 	public String toString() {
+		if (getName().equals("Sin instructor"))
+			return getName();
+		else
 		return getApellido() + ", " + getName();
 	}
 

@@ -84,6 +84,10 @@ public class MainController {
 		MainController.licenciaValida = licenciaValida;
 	}
 
+	public static Hashtable<String, String> getProperties() {
+		return properties;
+	}
+
 
 
 	

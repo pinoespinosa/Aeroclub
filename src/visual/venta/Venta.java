@@ -1,9 +1,12 @@
-package visual;
+package visual.venta;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -38,9 +41,9 @@ public class Venta extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{424, 0};
-		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnVuelo = new JButton("Nuevo Vuelo");
@@ -50,7 +53,7 @@ public class Venta extends JDialogExtended {
 					Venta_Vuelo dialog = new Venta_Vuelo(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					setAction(MainController.ACTION_CONTINUE);
+					setAction(MainController.ACTION_EXIT);
 					Venta.this.dispose();					
 				}
 			});
@@ -63,44 +66,66 @@ public class Venta extends JDialogExtended {
 			contentPanel.add(btnVuelo, gbc_btnVuelo);
 		}
 		{
-			JButton btnAceite = new JButton("Nuevo Venta de Aceite");
-			btnAceite.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent arg0) {
-					Venta_Aceite dialog = new Venta_Aceite(parent);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-					setAction(MainController.ACTION_CONTINUE);
-					Venta.this.dispose();	
-				}
-			});
-			GridBagConstraints gbc_btnAceite = new GridBagConstraints();
-			btnAceite.setFont(MainController.getDefaultFont(MainController.BUTTON));
-			gbc_btnAceite.fill = GridBagConstraints.BOTH;
-			gbc_btnAceite.insets = new Insets(0, 0, 5, 0);
-			gbc_btnAceite.gridx = 0;
-			gbc_btnAceite.gridy = 1;
-			contentPanel.add(btnAceite, gbc_btnAceite);
-		}
-		{
-			JButton btnCombustible = new JButton("Nuevo Venta de Combustible");
+			JButton btnCombustible = new JButton("Nuevo Venta de Combustible/Aceite");
 			btnCombustible.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					Venta_Combustible dialog = new Venta_Combustible(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					setAction(MainController.ACTION_CONTINUE);
+					setAction(MainController.ACTION_EXIT);
 					Venta.this.dispose();	
 					
 				}
 			});
 			btnCombustible.setFont(MainController.getDefaultFont(MainController.BUTTON));
 			GridBagConstraints gbc_btnCombustibleAceite = new GridBagConstraints();
+			gbc_btnCombustibleAceite.insets = new Insets(0, 0, 5, 0);
 			gbc_btnCombustibleAceite.fill = GridBagConstraints.BOTH;
 			gbc_btnCombustibleAceite.gridx = 0;
-			gbc_btnCombustibleAceite.gridy = 2;
+			gbc_btnCombustibleAceite.gridy = 1;
 			contentPanel.add(btnCombustible, gbc_btnCombustibleAceite);
+		}
+		{
+			JButton btnNuevoAlquilerDe = new JButton("Nuevo Alquiler de Tierra");
+			btnNuevoAlquilerDe.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					Venta_Campo dialog = new Venta_Campo(parent);
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+					setAction(MainController.ACTION_EXIT);
+					Venta.this.dispose();						
+					
+				}
+			});
+			btnNuevoAlquilerDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+			GridBagConstraints gbc_btnNuevoAlquilerDe = new GridBagConstraints();
+			gbc_btnNuevoAlquilerDe.insets = new Insets(0, 0, 5, 0);
+			gbc_btnNuevoAlquilerDe.fill = GridBagConstraints.BOTH;
+			gbc_btnNuevoAlquilerDe.gridx = 0;
+			gbc_btnNuevoAlquilerDe.gridy = 2;
+			contentPanel.add(btnNuevoAlquilerDe, gbc_btnNuevoAlquilerDe);
+		}
+		{
+			JButton btnNuevoDepositoDe = new JButton("Nuevo Deposito de Dinero");
+			btnNuevoDepositoDe.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					Venta_Deposito_Dinero dialog = new Venta_Deposito_Dinero(parent);
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+					setAction(MainController.ACTION_EXIT);
+					Venta.this.dispose();	
+					
+				}
+			});
+			btnNuevoDepositoDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+			GridBagConstraints gbc_btnNuevoDepositoDe = new GridBagConstraints();
+			gbc_btnNuevoDepositoDe.fill = GridBagConstraints.BOTH;
+			gbc_btnNuevoDepositoDe.gridx = 0;
+			gbc_btnNuevoDepositoDe.gridy = 3;
+			contentPanel.add(btnNuevoDepositoDe, gbc_btnNuevoDepositoDe);
 		}
 		{
 			JPanel buttonPane = new JPanel();

@@ -24,6 +24,13 @@ public final class DateUtils {
     Socket conn = null;
 
     try {
+		Thread.sleep(4000);
+	} catch (InterruptedException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+    
+    try {
        conn = new Socket(ATOMICTIME_SERVER, ATOMICTIME_PORT);
 
        in = new BufferedReader

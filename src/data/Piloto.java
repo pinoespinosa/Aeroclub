@@ -100,6 +100,17 @@ public class Piloto {
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
+	
+	public static Piloto getPilotoById(String id){
+
+		String script = "SELECT DISTINCT pe.*, pi.fechaVencimientoLicencia " +
+						"FROM "+MainController.getEsquema()+".piloto as pi " +
+						"INNER JOIN "+MainController.getEsquema()+".persona as pe on pe.id = pi.id " +
+						"WHERE pi.id =" + id + " " +
+						"ORDER BY apellido;";
+		return loadFromDB(script).get(0);
+	}
+	
 	/***************************************************** Metodos privados ***********************************************************************/
 		
 	private static String getScriptDataBase(){
@@ -132,17 +143,5 @@ public class Piloto {
 		}
 	return pilotos;
 	}
-	
-
-	
-	public static Piloto getPilotoById(String id){
-
-		String script = "SELECT DISTINCT pe.*, pi.fechaVencimientoLicencia " +
-						"FROM "+MainController.getEsquema()+".piloto as pi " +
-						"INNER JOIN "+MainController.getEsquema()+".persona as pe on pe.id = pi.id " +
-						"WHERE pi.id =" + id + " " +
-						"ORDER BY apellido;";
-		return loadFromDB(script).get(0);
-	}
-	
+		
 }

@@ -65,8 +65,8 @@ public class Avion {
 							Float.parseFloat(valores.get(2)));
 	}
 	
-	public static List<Avion> loadFromDB(){
-		List<List<String>> avionesData = managerDB.executeScript_Query(Avion.getScriptDataBase(), Avion.getFieldScriptBase());
+	private static List<Avion> loadFromDB(String script){
+		List<List<String>> avionesData = managerDB.executeScript_Query(script, Avion.getFieldScriptBase());
 		List<Avion> aviones = new ArrayList<Avion>();
 		
 		for (List<String> list : avionesData) {
@@ -74,10 +74,14 @@ public class Avion {
 		}
 	return aviones;
 	}
+	
+	public static List<Avion> loadFromDB(){
+		return loadFromDB(Avion.getScriptDataBase());
+	}
 
 	@Override
 	public String toString() {
-		return "Avion " + id + " " + name;
+		return name;
 	}
 
 	@Override
@@ -86,6 +90,15 @@ public class Avion {
 			return ((Avion) arg0).getId() == getId();
 		else
 			return false;
+	}
+	
+	public static Avion getAvionById(String id){
+
+		String script = 	"SELECT * " +
+							"FROM "+MainController.getEsquema()+".avion " +
+							"WHERE id like '"+id +"' ;";
+		
+		return loadFromDB(script).get(0);
 	}
 	
 	

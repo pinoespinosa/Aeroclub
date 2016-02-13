@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -285,6 +286,49 @@ public class Administrar_General extends JDialogExtended {
 					panel.add(button, gbc_button);
 				}
 			}
+			{
+				JPanel panel = new JPanel();
+				tabbedPane.addTab("Registrar nuevo Avion", null, panel, null);
+				GridBagLayout gbl_panel = new GridBagLayout();
+				gbl_panel.columnWidths = new int[]{0, 0};
+				gbl_panel.rowHeights = new int[]{0, 0};
+				gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				panel.setLayout(gbl_panel);
+				{
+					
+					
+					
+					
+			
+
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					JButton btnNewButton = new JButton("New button");
+					btnNewButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							
+							Nuevo_Avion dialog = new Nuevo_Avion(Administrar_General.this);
+							dialog.setAction(MainController.ACTION_EXIT);
+							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.setVisible(true);
+							
+							Administrar_General.this.setEnabled(false);
+						}
+					});
+					GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+					gbc_btnNewButton.gridx = 0;
+					gbc_btnNewButton.gridy = 0;
+					panel.add(btnNewButton, gbc_btnNewButton);
+				}
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -358,20 +402,20 @@ public class Administrar_General extends JDialogExtended {
 	}
 	
 	private void saveChangesCombustiblesAceites() {
-		Precios.updatePrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB, spinnerPrecioCombustibleAeroclub.getValue() + "");
-		Precios.updatePrecio(Precios.PRECIO_COMBUSTIBLE_SOCIO, spinnerPrecioCombustibleSocio.getValue() + "");
-		Precios.updatePrecio(Precios.PRECIO_ACEITE_AEROCLUB, spinnerPrecioAceiteAeroclub.getValue() + "");
-		Precios.updatePrecio(Precios.PRECIO_ACEITE_SOCIO, spinnerPrecioAceiteSocio.getValue() + "");
+		Precios.updatePrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB, spinnerPrecioCombustibleAeroclub.getValue() + "");
+		Precios.updatePrecio(Precios.COMBUSTIBLE_PRECIO_SOCIO, spinnerPrecioCombustibleSocio.getValue() + "");
+		Precios.updatePrecio(Precios.ACEITE_PRECIO_AEROCLUB, spinnerPrecioAceiteAeroclub.getValue() + "");
+		Precios.updatePrecio(Precios.ACEITE_PRECIO_SOCIO, spinnerPrecioAceiteSocio.getValue() + "");
 
 		JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
 	}
 
 	@Override
 	public void updateUi() {
-		spinnerPrecioCombustibleAeroclub.setValue(Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_AEROCLUB));
-		spinnerPrecioCombustibleSocio.setValue(Precios.getPrecio(Precios.PRECIO_COMBUSTIBLE_SOCIO));
-		spinnerPrecioAceiteAeroclub.setValue(Precios.getPrecio(Precios.PRECIO_ACEITE_AEROCLUB));
-		spinnerPrecioAceiteSocio.setValue(Precios.getPrecio(Precios.PRECIO_ACEITE_SOCIO));
+		spinnerPrecioCombustibleAeroclub.setValue(Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB));
+		spinnerPrecioCombustibleSocio.setValue(Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_SOCIO));
+		spinnerPrecioAceiteAeroclub.setValue(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB));
+		spinnerPrecioAceiteSocio.setValue(Precios.getPrecio(Precios.ACEITE_PRECIO_SOCIO));
 
 		// Cargo los aviones en el combo
 		avionesList.removeAllElements();

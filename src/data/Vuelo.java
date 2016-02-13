@@ -17,12 +17,12 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	private long horaInicio, horaFinal;
 
-	private int cantAceite, cantCombustible;
+	float cantAceite;
+
+	private float cantCombustible;
 
 	private int idAvion, idPiloto, idInstructor, formaDePago;
 
-	private Piloto piloto=null;
-	
 	
 	/**
 	 * En el momento que se crea el vuelo se guardan los precios y no se pueden modificar mas adelante
@@ -37,8 +37,7 @@ public class Vuelo implements Comparable<Vuelo>{
 	}
 
 
-
-	public Vuelo(int id, long horaInicio, long horaFinal, int cantAceite, int cantCombustible, int idAvion, int idPiloto, int idInstructor,
+	public Vuelo(int id, long horaInicio, long horaFinal, float cantAceite, float cantCombustible, int idAvion, int idPiloto, int idInstructor,
 			float precio, float precioAceite, float precioCombustible, float precioAvion, int formaDePago) {
 		super();
 		this.id = id;
@@ -82,7 +81,7 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.horaFinal = horaFinal;
 	}
 
-	public int getCantAceite() {
+	public float getCantAceite() {
 		return cantAceite;
 	}
 
@@ -90,7 +89,7 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.cantAceite = cantAceite;
 	}
 
-	public int getCantCombustible() {
+	public float getCantCombustible() {
 		return cantCombustible;
 	}
 
@@ -203,8 +202,8 @@ public class Vuelo implements Comparable<Vuelo>{
 							Integer.parseInt(valores.get(0)),
 							Long.parseLong(valores.get(1)),
 							Long.parseLong(valores.get(2)),
-							Integer.parseInt(valores.get(3)),
-							Integer.parseInt(valores.get(4)),
+							Float.parseFloat(valores.get(3)),
+							Float.parseFloat(valores.get(4)),
 							Integer.parseInt(valores.get(5)),
 							Integer.parseInt(valores.get(6)),
 							Integer.parseInt(valores.get(7)),
@@ -261,17 +260,7 @@ public class Vuelo implements Comparable<Vuelo>{
 
 
 	public Piloto getPiloto() {
-		if (piloto==null)
-			piloto = Piloto.getPilotoById(idPiloto+"");
-		return piloto;
-	}
-
-
-
-	public void setPiloto(Piloto piloto) {
-		this.piloto = piloto;
+		return Piloto.getPilotoById(idPiloto+"");
 	}
 	
-
-
 }

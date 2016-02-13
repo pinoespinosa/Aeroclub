@@ -155,7 +155,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 			contentPanel.add(nacimientoSpinner, gbc_nacimientoSpinner);
 		}
 		{
-			lblFechaVencimientoLicencia = new JLabel("Fecha Vencimiento Licencia");
+			lblFechaVencimientoLicencia = new JLabel("Fecha Vencimiento Psicof\u00EDsico");
 			GridBagConstraints gbc_lblFechaVencimientoLicencia = new GridBagConstraints();
 			gbc_lblFechaVencimientoLicencia.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblFechaVencimientoLicencia.insets = new Insets(0, 0, 5, 5);

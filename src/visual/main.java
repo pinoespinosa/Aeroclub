@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -28,15 +29,18 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import visual.venta.Venta;
 import base_datos.DateUtils;
 import base_datos.Utils;
 import base_datos.managerDB;
 import data.Vencimiento;
+import extended.JDialogExtended;
 import extended.MainController;
 
-public class main {
+public class main extends JDialogExtended{
 
 	private JFrame frame;
 	private JList<Vencimiento> list;
@@ -44,7 +48,9 @@ public class main {
 	private static Process p;
 	private JLabel lblTiempoLicencia;
 	private JButton btnNuevaVenta, btnNuevaCompra, btnVerInformes, btnAdministrar;
-	
+
+
+public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	/**
 	 * Launch the application.
 	 */
@@ -52,8 +58,21 @@ public class main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					main window = new main();
-					window.frame.setVisible(true);
+					
+					// Carga las propiedades y el lookAndFeel
+					MainController.loadProperties();
+					
+					// Regenero la vista de vencimientos por si se modifican los limites minimos
+					managerDB.executeScript_Void("DROP VIEW `" + MainController.getEsquema() + "`.vencimientosproximos; ");
+					managerDB.executeScript_Void(Vencimiento.getViewStript());
+					
+					try {	UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");		} catch (Exception e) {	};
+				
+					Login loginView = new Login(null);
+					loginView.setAction(MainController.ACTION_CONTINUE);
+					loginView.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					loginView.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -64,55 +83,84 @@ public class main {
 	/**
 	 * Create the application.
 	 */
-	public main() {
-		MainController.loadProperties();
-		initialize();
+	public main(final String perfil, final Window parent) {
+		super(parent);
+
+		// Administrar_General.this.setEnabled(false);
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+	
+				initialize(perfil);
+				setProfilePermission(perfil);
+				parent.dispose();
+
+			}
+		});
 		
+
 	}
 
+	
+	private void setProfilePermission(String perfil) {
 
+		Profiles per = Profiles.valueOf(perfil);
 
+		switch (per) {
+
+			case ADMIN :
+				break;
+
+			case DATAENTRY : {
+				btnAdministrar.setVisible(false);
+			}
+				break;
+
+			case VIEWER : {
+				btnAdministrar.setVisible(false);
+				btnNuevaCompra.setVisible(false);
+				btnNuevaVenta.setVisible(false);
+			}
+				break;
+
+			default :
+				break;
+
+		}
+		this.frame.setVisible(true);
+		
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(String perfil) {
 		frame = new JFrame();
+		
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 
-/*				String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
-				ProcessBuilder pBuilder = new ProcessBuilder(commands);
-				pBuilder.redirectOutput();
-				pBuilder.inheritIO();
-				pBuilder.redirectOutput();
-				pBuilder.redirectOutput();
-				pBuilder.redirectOutput();
-
-				try {
-					p = pBuilder.start();
-					InputStream in = p.getInputStream();
-					final Scanner scanner = new Scanner(in);
-					new Thread(new Runnable() {
-						public void run() {
-							while (scanner.hasNextLine()) {
-								System.out.println(scanner.nextLine());
-							}
-							scanner.close();
-						}
-					}).start();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				System.out.println();*/
+				/*
+				 * String[] commands = {"I:/Program Files/Git/git-bash.exe",
+				 * "-i", "I:/Users/Pino/git/Aeroclub/git.sh"}; ProcessBuilder
+				 * pBuilder = new ProcessBuilder(commands);
+				 * pBuilder.redirectOutput(); pBuilder.inheritIO();
+				 * pBuilder.redirectOutput(); pBuilder.redirectOutput();
+				 * pBuilder.redirectOutput();
+				 * 
+				 * try { p = pBuilder.start(); InputStream in =
+				 * p.getInputStream(); final Scanner scanner = new Scanner(in);
+				 * new Thread(new Runnable() { public void run() { while
+				 * (scanner.hasNextLine()) {
+				 * System.out.println(scanner.nextLine()); } scanner.close(); }
+				 * }).start(); } catch (IOException e) { e.printStackTrace(); }
+				 * 
+				 * System.out.println();
+				 */
 			}
 		});
-
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch (Exception e) {
-		};
 
 		frame.getContentPane().setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		frame.setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
@@ -125,7 +173,7 @@ public class main {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 
-		btnNuevaVenta = new JButton("Nueva Venta");
+		btnNuevaVenta = new JButton("Nueva Venta / Deposito");
 		btnNuevaVenta.setIcon(new ImageIcon(main.class.getResource("/resources/icon_nueva_venta.png")));
 		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnNuevaVenta.addMouseListener(new MouseAdapter() {
@@ -218,6 +266,19 @@ public class main {
 		btnVerInformes = new JButton("Ver informes");
 		btnVerInformes.setIcon(new ImageIcon(main.class.getResource("/resources/icon_informes.png")));
 		btnVerInformes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnVerInformes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				/*
+				 * --------------- Nueva Venta -----------------
+				 */
+				frame.setEnabled(false);
+				Informes dialog = new Informes(frame);
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
@@ -255,10 +316,9 @@ public class main {
 
 		try {
 			verificarFecha();
-			} 
-		catch (IOException e) {
+		} catch (IOException e) {
 			ingresarSinValicion();
-		
+
 		}
 
 		MainController.setViewConfig(frame);
@@ -278,8 +338,8 @@ public class main {
 		}
 
 	}
-	
-	private void deshabilitarSistema(){
+
+	private void deshabilitarSistema() {
 		btnAdministrar.setEnabled(false);
 		btnNuevaCompra.setEnabled(false);
 		btnNuevaVenta.setEnabled(false);
@@ -287,42 +347,46 @@ public class main {
 	}
 
 	private void verificarFecha() throws IOException {
-		
+
 		Date horaInternet = DateUtils.getAtomicTime().getTime();
 
-		String fVencLic = managerDB.executeScript_Query("SELECT dato FROM "+MainController.getEsquema()+".licencia WHERE valor='fecha';", "dato").get(0);
+		String fVencLic = managerDB.executeScript_Query("SELECT dato FROM " + MainController.getEsquema() + ".licencia WHERE valor='fecha';", "dato").get(0);
 		fVencLic = Utils.decript(fVencLic);
 
 		Date fechaVencLicen = new Date(Long.parseLong(fVencLic));
 
 		long tiempoPendienteLicencia = fechaVencLicen.getTime() - horaInternet.getTime();
-		
-		if (tiempoPendienteLicencia>0){
+
+		if (tiempoPendienteLicencia > 0) {
 			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias.");
-			managerDB.executeScript_Void("UPDATE "+MainController.getEsquema()+".licencia SET dato='10' WHERE valor='intentos';");
-		}
-		else{
+			managerDB.executeScript_Void("UPDATE " + MainController.getEsquema() + ".licencia SET dato='10' WHERE valor='intentos';");
+		} else {
 			lblTiempoLicencia.setText("La licencia del sistema expiró. Consulte con su administrador. Dirección de email: pino.espinosa91@gmail.com");
 			deshabilitarSistema();
 		}
-		MainController.setLicenciaValida(tiempoPendienteLicencia>0);
-		
+		MainController.setLicenciaValida(tiempoPendienteLicencia > 0);
+
 	}
-	
-	private void ingresarSinValicion(){
-		int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM "+MainController.getEsquema()+".licencia WHERE valor='intentos';", "dato").get(0));
-		
-		MainController.setLicenciaValida(intentos>0);
-		
+
+	private void ingresarSinValicion() {
+		int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM " + MainController.getEsquema() + ".licencia WHERE valor='intentos';", "dato").get(0));
+
+		MainController.setLicenciaValida(intentos > 0);
+
 		intentos--;
-		if (intentos>0){
-			managerDB.executeScript_Void("UPDATE "+MainController.getEsquema()+".licencia SET dato='"+intentos+"' WHERE valor='intentos';");
+		if (intentos > 0) {
+			managerDB.executeScript_Void("UPDATE " + MainController.getEsquema() + ".licencia SET dato='" + intentos + "' WHERE valor='intentos';");
 			lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia.");
-		}
-		else{
+		} else {
 			lblTiempoLicencia.setText("El sistema no pudo conectarse a internet para validar la licencia en repetidas veces. Algunas funciones estan temporalmente invalidas");
 			deshabilitarSistema();
 		}
+	}
+
+	@Override
+	public void updateUi() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

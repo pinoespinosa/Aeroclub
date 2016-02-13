@@ -83,9 +83,50 @@ public class Vencimiento implements Comparable<Vencimiento>{
 
 	@Override
 	public String toString() {
+		if (getFecha()<10)
+			return "     " + detalle;
+		
 		Date fechaVencimiento = new Date(getFecha());
 		SimpleDateFormat format = new SimpleDateFormat("dd/MMM/YYYY ");		
 		return "     " + format.format(fechaVencimiento) + "  -  " + detalle ;
+	}
+	
+	public static String getViewStript(){
+		return 	
+				"CREATE VIEW `" + MainController.getEsquema() + "`.`vencimientosproximos` AS " +
+				"(" +
+				"		SELECT 	'1' as fecha, " +
+				"				concat('Alerta de stock. ',SUM(unidades),' litros de combustible') as detalle " +
+				"		FROM `" + MainController.getEsquema() + "`.gastos_normalizados " +
+				"		WHERE tipo like 'COMBUSTIBLE' " +
+				"		GROUP BY TIPO " +
+				"		having sum(unidades)<"+MainController.getProperties().get("MINIMO_COMBUSTIBLE") +
+				")" +
+
+				"	union " +
+
+
+				"(" +
+				"		SELECT 	'1' as fecha, " +
+				"				concat('Alerta de stock. ',SUM(unidades),' litros de aceite') as detalle " +
+				"		FROM `" + MainController.getEsquema() + "`.gastos_normalizados " +
+				"		WHERE tipo like 'ACEITE' " +
+				"		GROUP BY TIPO " +
+				"		having sum(unidades)<"+MainController.getProperties().get("MINIMO_ACEITE") +
+				"		) " +
+
+				"	union " +
+
+				"(" +
+				"		select 	`vencimientos`.`fecha` AS `fecha`, " +
+				"				`vencimientos`.`detalle` AS `detalle` " +
+				"		from 	`" + MainController.getEsquema() + "`.`vencimientos` " +
+				"" +
+				"		where (`vencimientos`.`fecha` is not null)" +
+				") " +
+				
+				"order by `fecha`;";
+		
 	}
 	
 }

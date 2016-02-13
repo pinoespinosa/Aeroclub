@@ -34,11 +34,12 @@ public abstract class JDialogExtended extends JDialog {
 						parent.setVisible(true);
 						}
 					break;
+					
 					default:					
 						break;
 				}
 				
-				if (parent instanceof JDialogExtended)
+				if (parent!=null  && parent instanceof JDialogExtended)
 					((JDialogExtended) parent).updateUi();
 			}
 		});
