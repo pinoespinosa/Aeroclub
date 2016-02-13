@@ -10,29 +10,30 @@ import extended.MainController;
 
 public class Instructor {
 
-	private int id, dni;
-	private String name, apellido;
-	private Long nacimiento, fecha_licencia;
-	
+	private int id, dni_persona;
+	private String name_persona, apellido_persona;
+	private Long nacimiento_persona, fecha_licencia;
+	private float precio;
 	
 	
 	
 	public Instructor(int id, String name, String apellido, Long nacimiento,
-			Long fecha_licencia, int dni) {
+			Long fecha_licencia, int dni, float precio) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.apellido = apellido;
-		this.nacimiento = nacimiento;
+		this.name_persona = name;
+		this.apellido_persona = apellido;
+		this.nacimiento_persona = nacimiento;
 		this.fecha_licencia = fecha_licencia;
 		this.setDni(dni);
+		this.precio=precio;
 	}
 	
 	public Instructor(int id, String name, String apellido) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.apellido = apellido;
+		this.name_persona = name;
+		this.apellido_persona = apellido;
 	}
 	
 	public Instructor(int id) {
@@ -51,22 +52,22 @@ public class Instructor {
 		this.id = id;
 	}
 	public String getName() {
-		return Utils.toCamelCase(name);
+		return Utils.toCamelCase(name_persona);
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name_persona = name;
 	}
 	public String getApellido() {
-		return Utils.toCamelCase(apellido);
+		return Utils.toCamelCase(apellido_persona);
 	}
 	public void setApellido(String apellido) {
-		this.apellido = apellido;
+		this.apellido_persona = apellido;
 	}
 	public Long getNacimiento() {
-		return nacimiento;
+		return nacimiento_persona;
 	}
 	public void setNacimiento(Long nacimiento) {
-		this.nacimiento = nacimiento;
+		this.nacimiento_persona = nacimiento;
 	}
 	public Long getFecha_licencia() {
 		return fecha_licencia;
@@ -84,7 +85,7 @@ public class Instructor {
 	}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","nombre","apellido","nacimiento", "fecha_psicofisico", "dni"});
+		return Arrays.asList(new String[]{"id","nombre","apellido","nacimiento", "fecha_psicofisico", "dni", "precio"});
 	}
 	
 	private static Instructor loadFromList(List<String> valores){		
@@ -94,7 +95,8 @@ public class Instructor {
 							valores.get(2),
 							Long.parseLong(valores.get(3)),
 							Long.parseLong(valores.get(4)),
-							Integer.parseInt(valores.get(5)));
+							Integer.parseInt(valores.get(5)),
+							Float.parseFloat(valores.get(6)));
 	}
 	
 	public static List<Instructor> loadFromDB(){
@@ -131,11 +133,11 @@ public class Instructor {
 	}
 
 	public int getDni() {
-		return dni;
+		return dni_persona;
 	}
 
 	public void setDni(int dni) {
-		this.dni = dni;
+		this.dni_persona = dni;
 	}
 	
 	

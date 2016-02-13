@@ -696,7 +696,7 @@ public class Venta_Vuelo extends JDialogExtended {
 		instructorList.removeAllElements();
 		List<Instructor> intructores = Instructor.loadFromDB();
 		
-		instructorList.addElement(new Instructor(-1, "Sin instructor","",new Long(-1),new Long(-1),-1));
+		instructorList.addElement(new Instructor(-1, "Sin instructor","",new Long(-1),new Long(-1),-1, new Float(0)));
 		for (Instructor instructor : intructores) {
 			instructorList.addElement(instructor);
 		}

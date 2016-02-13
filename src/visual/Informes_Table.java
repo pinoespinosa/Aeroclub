@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Informes_Table extends JDialogExtended {
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JLabel additionaInformation;
-	
+
 	/**
 	 * Create the dialog.
 	 */
@@ -115,13 +117,12 @@ public class Informes_Table extends JDialogExtended {
 			gbc_buttonPane.gridy = 3;
 			getContentPane().add(buttonPane, gbc_buttonPane);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Salir");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -142,18 +143,9 @@ public class Informes_Table extends JDialogExtended {
 		for (int i = 0; i < dataValues.size(); i++) {
 			for (int j = 0; j < dataValues.get(i).size(); j++) {
 				valores[i][j] = dataValues.get(i).get(j);
-
 			}
-
 		}
-
 		return valores;
-
 	}
 
-	private String[] listToArray(List<List<String>> dataValues) {
-
-		return null;
-
-	}
 }
