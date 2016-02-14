@@ -69,63 +69,8 @@ public class Instructor {
 	public void setNacimiento(Long nacimiento) {
 		this.nacimiento_persona = nacimiento;
 	}
-
-		
-	private static String getScriptDataBase(){
-		return 	"SELECT DISTINCT pe.*, inst.* " +
-				"FROM "+MainController.getEsquema()+".instructor as inst " +
-				"inner join "+MainController.getEsquema()+".persona as pe " +
-				"on pe.id=inst.id " +
-				"order by apellido;";
-	}
-	
-	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","nombre","apellido","nacimiento", "fecha_psicofisico", "dni", "precio"});
-	}
-	
-	private static Instructor loadFromList(List<String> valores){		
-		return new Instructor(
-							Integer.parseInt(valores.get(0)),
-							valores.get(1),
-							valores.get(2),
-							Long.parseLong(valores.get(3)),
-							Long.parseLong(valores.get(4)),
-							Integer.parseInt(valores.get(5)),
-							Float.parseFloat(valores.get(6)));
-	}
-	
-	public static List<Instructor> loadFromDB(){
-		List<List<String>> instructoresData = managerDB.executeScript_Query(Instructor.getScriptDataBase(), Instructor.getFieldScriptBase());
-		List<Instructor> instructores = new ArrayList<Instructor>();
-		
-		for (List<String> list : instructoresData) {
-			instructores.add(loadFromList(list));
-		}
-	return instructores;
-	}
 	
 	
-	@Override
-	public String toString() {
-		if (getName().equals("Sin instructor"))
-			return getName();
-		else
-		return getApellido() + ", " + getName();
-	}
-
-	@Override
-	public boolean equals(Object arg0) {
-		if (arg0 instanceof Instructor){
-			if (((Instructor) arg0).getId() == getId())
-				return true;
-			if (((Instructor) arg0).getDni() == getDni())
-				return true;
-			else
-				return false;
-		}
-		else
-			return false;
-	}
 
 	public int getDni() {
 		return dni_persona;
@@ -151,5 +96,76 @@ public class Instructor {
 		this.fecha_psicofisico = fecha_psicofisico;
 	}
 	
+	public static List<Instructor> loadFromDB(){
+	return loadFromDB(Instructor.getScriptDataBase());
+	}
 	
+	private static List<Instructor> loadFromDB(String script){
+		List<List<String>> instructoresData = managerDB.executeScript_Query(script, Instructor.getFieldScriptBase());
+		List<Instructor> instructores = new ArrayList<Instructor>();
+		
+		for (List<String> list : instructoresData) {
+			instructores.add(loadFromList(list));
+		}
+	return instructores;
+	}
+	
+	@Override
+	public String toString() {
+		if (getName().equals("Sin instructor"))
+			return getName();
+		else
+		return getApellido() + ", " + getName();
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof Instructor){
+			if (((Instructor) arg0).getId() == getId())
+				return true;
+			if (((Instructor) arg0).getDni() == getDni())
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+	
+	public static Instructor getInstructorById(String id){
+
+		String script = 	"SELECT DISTINCT pe.*, inst.* " +
+							"FROM "+MainController.getEsquema()+".instructor as inst " +
+							"inner join "+MainController.getEsquema()+".persona as pe " +
+							"on pe.id=inst.id and id like '"+id+"' " +
+							"order by apellido;";
+		return loadFromDB(script).get(0);
+	}
+	
+	/***************************************************** Metodos privados ***********************************************************************/
+	
+
+	
+	private static String getScriptDataBase(){
+		return 	"SELECT DISTINCT pe.*, inst.* " +
+				"FROM "+MainController.getEsquema()+".instructor as inst " +
+				"inner join "+MainController.getEsquema()+".persona as pe " +
+				"on pe.id=inst.id " +
+				"order by apellido;";
+	}
+	
+	private static List<String> getFieldScriptBase(){
+		return Arrays.asList(new String[]{"id","nombre","apellido","nacimiento", "fecha_psicofisico", "dni", "precio"});
+	}
+	
+	private static Instructor loadFromList(List<String> valores){		
+		return new Instructor(
+							Integer.parseInt(valores.get(0)),
+							valores.get(1),
+							valores.get(2),
+							Long.parseLong(valores.get(3)),
+							Long.parseLong(valores.get(4)),
+							Integer.parseInt(valores.get(5)),
+							Float.parseFloat(valores.get(6)));
+	}
 }

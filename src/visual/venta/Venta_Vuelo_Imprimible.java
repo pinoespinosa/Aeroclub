@@ -28,7 +28,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JLabel fechaVuelo, ordenDeVuelo, avion, fechaPartida, fechaLlegada, piloto, vencimientoPsicofisico, aceite, combustible;
+	private JLabel fechaVuelo, ordenDeVuelo, avion, fechaPartida, fechaLlegada, piloto, vencimientoPsicofisico, aceite, combustible, instructor;
 	
 	/**
 	 * Create the dialog.
@@ -224,7 +224,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		piloto.setBackground(Color.WHITE);
 		piloto.setFont(new Font("Calibri", Font.ITALIC, 18));
 		
-		JLabel lblPiloto = new JLabel("Piloto:");
+		JLabel lblPiloto = new JLabel("Instructor:");
 		GridBagConstraints gbc_lblPiloto = new GridBagConstraints();
 		gbc_lblPiloto.anchor = GridBagConstraints.WEST;
 		gbc_lblPiloto.insets = new Insets(0, 0, 5, 5);
@@ -234,19 +234,15 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		lblPiloto.setBackground(Color.WHITE);
 		lblPiloto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
 		
-		JLabel instructorlabel = new JLabel("New label");
-		instructorlabel.setFont(new Font("Calibri", Font.ITALIC, 18));
-		instructorlabel.setBackground(Color.WHITE);
+		instructor = new JLabel("New label");
+		instructor.setFont(new Font("Calibri", Font.ITALIC, 18));
+		instructor.setBackground(Color.WHITE);
 		GridBagConstraints gbc_instructorlabel = new GridBagConstraints();
 		gbc_instructorlabel.anchor = GridBagConstraints.WEST;
 		gbc_instructorlabel.insets = new Insets(0, 0, 5, 5);
 		gbc_instructorlabel.gridx = 1;
 		gbc_instructorlabel.gridy = 5;
-		panel_2.add(instructorlabel, gbc_instructorlabel);
-		
-		// TODO poner aca el intructor
-		
-		
+		panel_2.add(instructor, gbc_instructorlabel);		
 		
 		JLabel lblVencPsicofisico = new JLabel("Venc Psicof\u00EDsico:");
 		GridBagConstraints gbc_lblVencPsicofisico = new GridBagConstraints();
@@ -373,13 +369,13 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 	}
 
 
-	public void inic(String ordenDeVuelo, String avion, String tipoVuelo,   String fechaPartida, String fechaLlegada, String piloto, String vencimientoPsicofisico, String aceite, String combustible){
+	public void inic(String ordenDeVuelo, String avion, String tipoVuelo, String fechaPartida, String fechaLlegada, String piloto, String vencimientoPsicofisico, String aceite, String combustible, String instructor){
 		
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");		
 		this.fechaVuelo.setText(format.format(new Date( System.currentTimeMillis())));
 		this.ordenDeVuelo.setText(ordenDeVuelo);
 		this.avion.setText(avion);
-	//	this.tipoVuelo.setText(tipoVuelo);
+		this.instructor.setText(instructor);
 		this.fechaLlegada.setText(fechaLlegada);
 		this.fechaPartida.setText(fechaPartida);
 		this.piloto.setText(piloto);

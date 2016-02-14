@@ -589,7 +589,8 @@ public class Venta_Vuelo extends JDialogExtended {
 									Piloto.getPilotoById(current.getIdPiloto()+"").getName()+" "+Piloto.getPilotoById(current.getIdPiloto()+"").getApellido(), 
 									format.format(new Date( Piloto.getPilotoById(current.getIdPiloto()+"").getFecha_licencia())), 
 									aceiteSpinner.getValue()+"", 
-									combustibleSpinner.getValue()+"");      
+									combustibleSpinner.getValue()+"",
+									((Instructor)instructorList.getSelectedItem()).toString()+"");      
 					        dialog.setVisible(true);
 					        
 					        pin.setP(dialog.getImprimible());
