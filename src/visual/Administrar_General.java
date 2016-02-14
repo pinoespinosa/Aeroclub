@@ -45,7 +45,7 @@ public class Administrar_General extends JDialogExtended {
 	 */
 
 	private static final long serialVersionUID = 1L;
-	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub, spinnerPrecioAceiteSocio, spinnerPrecioAceiteAeroclub, spinnerPrecioAvion;
+	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub, spinnerPrecioAceiteSocio, spinnerPrecioAceiteAeroclub, spinnerPrecioAvion, precioInstructorSpinner;
 	private boolean dirty = false;
 	private boolean update = false;
 	private DefaultComboBoxModel<Avion> avionesList;
@@ -73,7 +73,7 @@ public class Administrar_General extends JDialogExtended {
 			}
 		});
 		setTitle("Nueva Compra");
-		setBounds(100, 100, 878, 559);
+		setBounds(100, 100, 495, 559);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{20, 444, 20, 0};
 		gridBagLayout.rowHeights = new int[]{20, 67, 33, 0};
@@ -226,9 +226,9 @@ public class Administrar_General extends JDialogExtended {
 				tabbedPane.addTab("Editar aviones", null, avionesPanel, null);
 				GridBagLayout gbl_avionesPanel = new GridBagLayout();
 				gbl_avionesPanel.columnWidths = new int[]{20, 0, 20, 0};
-				gbl_avionesPanel.rowHeights = new int[]{20, 0, 0, 0, 0};
+				gbl_avionesPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0};
 				gbl_avionesPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-				gbl_avionesPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_avionesPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 				avionesPanel.setLayout(gbl_avionesPanel);
 				{
 					avionesList = new DefaultComboBoxModel<Avion>();
@@ -308,7 +308,7 @@ public class Administrar_General extends JDialogExtended {
 					JPanel crearAvionPanel = new JPanel();
 					crearAvionPanel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Añadir un nuevo avión", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					GridBagConstraints gbc_crearAvionPanel = new GridBagConstraints();
-					gbc_crearAvionPanel.insets = new Insets(0, 0, 0, 5);
+					gbc_crearAvionPanel.insets = new Insets(0, 0, 5, 5);
 					gbc_crearAvionPanel.fill = GridBagConstraints.BOTH;
 					gbc_crearAvionPanel.gridx = 1;
 					gbc_crearAvionPanel.gridy = 3;
@@ -329,15 +329,95 @@ public class Administrar_General extends JDialogExtended {
 						crearAvionPanel.add(button, gbc_button);
 					}
 				}
+				{
+					JPanel panel = new JPanel();
+					panel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Añadir una inspección a un avión", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					GridBagConstraints gbc_panel = new GridBagConstraints();
+					gbc_panel.insets = new Insets(0, 0, 5, 5);
+					gbc_panel.fill = GridBagConstraints.BOTH;
+					gbc_panel.gridx = 1;
+					gbc_panel.gridy = 5;
+					avionesPanel.add(panel, gbc_panel);
+					GridBagLayout gbl_panel = new GridBagLayout();
+					gbl_panel.columnWidths = new int[]{10, 100, 27, 10, 0};
+					gbl_panel.rowHeights = new int[]{5, 0, 0, 0, 0, 5, 0};
+					gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					panel.setLayout(gbl_panel);
+					{
+						JLabel lblFecha = new JLabel("Fecha");
+						GridBagConstraints gbc_lblFecha = new GridBagConstraints();
+						gbc_lblFecha.anchor = GridBagConstraints.WEST;
+						gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
+						gbc_lblFecha.gridx = 1;
+						gbc_lblFecha.gridy = 1;
+						panel.add(lblFecha, gbc_lblFecha);
+					}
+					{
+						JSpinner spinner = new JSpinner();
+						GridBagConstraints gbc_spinner = new GridBagConstraints();
+						gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
+						gbc_spinner.insets = new Insets(0, 0, 5, 5);
+						gbc_spinner.gridx = 2;
+						gbc_spinner.gridy = 1;
+						panel.add(spinner, gbc_spinner);
+					}
+					{
+						JLabel lblAvion_1 = new JLabel("Avion");
+						GridBagConstraints gbc_lblAvion_1 = new GridBagConstraints();
+						gbc_lblAvion_1.insets = new Insets(0, 0, 5, 5);
+						gbc_lblAvion_1.anchor = GridBagConstraints.WEST;
+						gbc_lblAvion_1.gridx = 1;
+						gbc_lblAvion_1.gridy = 2;
+						panel.add(lblAvion_1, gbc_lblAvion_1);
+					}
+					{
+						JComboBox comboBox = new JComboBox();
+						GridBagConstraints gbc_comboBox = new GridBagConstraints();
+						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_comboBox.gridx = 2;
+						gbc_comboBox.gridy = 2;
+						panel.add(comboBox, gbc_comboBox);
+					}
+					{
+						JLabel lblTipoDeInspeccin = new JLabel("Tipo de inspecci\u00F3n");
+						GridBagConstraints gbc_lblTipoDeInspeccin = new GridBagConstraints();
+						gbc_lblTipoDeInspeccin.insets = new Insets(0, 0, 5, 5);
+						gbc_lblTipoDeInspeccin.anchor = GridBagConstraints.WEST;
+						gbc_lblTipoDeInspeccin.gridx = 1;
+						gbc_lblTipoDeInspeccin.gridy = 3;
+						panel.add(lblTipoDeInspeccin, gbc_lblTipoDeInspeccin);
+					}
+					{
+						JComboBox comboBox = new JComboBox();
+						comboBox.setModel(new DefaultComboBoxModel(new String[] {"25 horas", "50 horas", "100 horas"}));
+						GridBagConstraints gbc_comboBox = new GridBagConstraints();
+						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_comboBox.gridx = 2;
+						gbc_comboBox.gridy = 3;
+						panel.add(comboBox, gbc_comboBox);
+					}
+					{
+						JButton btnRegistrarRevisin = new JButton("Registrar revisi\u00F3n");
+						GridBagConstraints gbc_btnRegistrarRevisin = new GridBagConstraints();
+						gbc_btnRegistrarRevisin.anchor = GridBagConstraints.EAST;
+						gbc_btnRegistrarRevisin.insets = new Insets(0, 0, 5, 5);
+						gbc_btnRegistrarRevisin.gridx = 2;
+						gbc_btnRegistrarRevisin.gridy = 4;
+						panel.add(btnRegistrarRevisin, gbc_btnRegistrarRevisin);
+					}
+				}
 			}
 			{
 				JPanel instructoresPanel = new JPanel();
-				tabbedPane.addTab("Registrar nuevo Avion", null, instructoresPanel, null);
+				tabbedPane.addTab("Editar datos de Instructores", null, instructoresPanel, null);
 				GridBagLayout gbl_instructoresPanel = new GridBagLayout();
 				gbl_instructoresPanel.columnWidths = new int[]{0, 0, 0, 0};
 				gbl_instructoresPanel.rowHeights = new int[]{0, 0, 0, 0};
 				gbl_instructoresPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-				gbl_instructoresPanel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+				gbl_instructoresPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 				instructoresPanel.setLayout(gbl_instructoresPanel);
 				{
 					JPanel updatePrecioInstructores = new JPanel();
@@ -386,13 +466,23 @@ public class Administrar_General extends JDialogExtended {
 						updatePrecioInstructores.add(label, gbc_label);
 					}
 					{
-						JSpinner spinner = new JSpinner();
+						
+						precioInstructorSpinner = new JSpinner();
+						instructoresComboBox.addItemListener(new ItemListener() {
+
+							@Override
+							public void itemStateChanged(ItemEvent event) {
+								precioInstructorSpinner.setValue( ((Instructor)instructoresComboBox.getSelectedItem()).getPrecio());
+								}
+							});
+						
+						precioInstructorSpinner.setValue( ((Instructor)instructoresComboBox.getSelectedItem()).getPrecio());
 						GridBagConstraints gbc_spinner = new GridBagConstraints();
 						gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 						gbc_spinner.insets = new Insets(0, 0, 5, 5);
 						gbc_spinner.gridx = 2;
 						gbc_spinner.gridy = 2;
-						updatePrecioInstructores.add(spinner, gbc_spinner);
+						updatePrecioInstructores.add(precioInstructorSpinner, gbc_spinner);
 					}
 					{
 						JButton button = new JButton("Actualizar precio");
@@ -400,9 +490,10 @@ public class Administrar_General extends JDialogExtended {
 							public void actionPerformed(ActionEvent arg0) {
 								
 								Instructor current = (Instructor) instructoresComboBox.getSelectedItem();
+								current.setPrecio( new Float( precioInstructorSpinner.getValue()+"") );
 								managerDB.updateAsset(current);
 								updateUi();
-								
+								JOptionPane.showMessageDialog(null, "Se ajusto el precio del instructor");
 							}
 						});
 						GridBagConstraints gbc_button = new GridBagConstraints();
@@ -454,6 +545,7 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioAceiteAeroclub.addChangeListener(spinListener);
 		spinnerPrecioAceiteSocio.addChangeListener(spinListener);
 		spinnerPrecioAvion.addChangeListener(spinListener);
+		
 
 		avionComboBox.addItemListener(new ItemListener() {
 

@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
@@ -236,6 +238,15 @@ public class Venta_Vuelo extends JDialogExtended {
 				gbc_instructorComboBox.gridy = 3;
 				panelIzquierdo.add(instructorComboBox, gbc_instructorComboBox);
 				instructorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				
+				
+				instructorComboBox.addItemListener(new ItemListener() {
+
+					@Override
+					public void itemStateChanged(ItemEvent event) {
+						updatePrecio();
+						}
+					});
 			}
 			{
 				JButton btnNuevoInstructor = new JButton("");
@@ -327,7 +338,6 @@ public class Venta_Vuelo extends JDialogExtended {
 			{
 				combustibleSpinner = new JSpinner();
 				combustibleSpinner.addChangeListener(new ChangeListener() {
-
 			        @Override
 			        public void stateChanged(ChangeEvent e) {
 			            updatePrecio();
@@ -811,8 +821,8 @@ public class Venta_Vuelo extends JDialogExtended {
 			
 		float minutosVuelo = Utils.minutesBetweenDates((Date)inicioSpinner.getModel().getValue(), (Date)finalizacionSpinner.getModel().getValue());
 		
-		float valor = (minutosVuelo /60) * ((Avion)avionesList.getSelectedItem()).getPrecio();
-		 
+		float valor = (minutosVuelo /60) * ((Avion)avionesList.getSelectedItem()).getPrecio() + (minutosVuelo /60) * ((Instructor)instructorList.getSelectedItem()).getPrecio();
+			
 		valor = Math.round(valor*100);
 		valor = valor/100;
 		
