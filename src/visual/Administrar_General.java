@@ -14,6 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -25,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -49,9 +52,10 @@ public class Administrar_General extends JDialogExtended {
 	private boolean dirty = false;
 	private boolean update = false;
 	private DefaultComboBoxModel<Avion> avionesList;
-	private JComboBox avionComboBox;
+	private JComboBox<Avion> avionComboBox;
 	private JButton btnGuardarCambios;
 	private JComboBox<Instructor> instructoresComboBox;
+
 
 	/**
 	 * Create the dialog.
@@ -344,6 +348,14 @@ public class Administrar_General extends JDialogExtended {
 					gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 					panel.setLayout(gbl_panel);
+					
+					JSpinner fechaInspeccionSpinner= new JSpinner();
+					JComboBox<Avion> avionInspeccionComboBox;
+
+					fechaInspeccionSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
+					fechaInspeccionSpinner.getModel().setValue( new Date(System.currentTimeMillis()) );
+					fechaInspeccionSpinner.setEditor(new JSpinner.DateEditor(fechaInspeccionSpinner, "dd/MM/yyyy"));
+					
 					{
 						JLabel lblFecha = new JLabel("Fecha");
 						GridBagConstraints gbc_lblFecha = new GridBagConstraints();
@@ -354,13 +366,12 @@ public class Administrar_General extends JDialogExtended {
 						panel.add(lblFecha, gbc_lblFecha);
 					}
 					{
-						JSpinner spinner = new JSpinner();
-						GridBagConstraints gbc_spinner = new GridBagConstraints();
-						gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
-						gbc_spinner.insets = new Insets(0, 0, 5, 5);
-						gbc_spinner.gridx = 2;
-						gbc_spinner.gridy = 1;
-						panel.add(spinner, gbc_spinner);
+						GridBagConstraints gbc_fechaInspeccionSpinner = new GridBagConstraints();
+						gbc_fechaInspeccionSpinner.fill = GridBagConstraints.HORIZONTAL;
+						gbc_fechaInspeccionSpinner.insets = new Insets(0, 0, 5, 5);
+						gbc_fechaInspeccionSpinner.gridx = 2;
+						gbc_fechaInspeccionSpinner.gridy = 1;
+						panel.add(fechaInspeccionSpinner, gbc_fechaInspeccionSpinner);
 					}
 					{
 						JLabel lblAvion_1 = new JLabel("Avion");
@@ -372,13 +383,17 @@ public class Administrar_General extends JDialogExtended {
 						panel.add(lblAvion_1, gbc_lblAvion_1);
 					}
 					{
-						JComboBox comboBox = new JComboBox();
+						avionInspeccionComboBox = new JComboBox<Avion>();
+						
+						for (Avion av : Avion.loadFromDB()) {
+							avionInspeccionComboBox.addItem(av);
+						}
 						GridBagConstraints gbc_comboBox = new GridBagConstraints();
 						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 						gbc_comboBox.gridx = 2;
 						gbc_comboBox.gridy = 2;
-						panel.add(comboBox, gbc_comboBox);
+						panel.add(avionInspeccionComboBox, gbc_comboBox);
 					}
 					{
 						JLabel lblTipoDeInspeccin = new JLabel("Tipo de inspecci\u00F3n");
@@ -390,8 +405,8 @@ public class Administrar_General extends JDialogExtended {
 						panel.add(lblTipoDeInspeccin, gbc_lblTipoDeInspeccin);
 					}
 					{
-						JComboBox comboBox = new JComboBox();
-						comboBox.setModel(new DefaultComboBoxModel(new String[] {"25 horas", "50 horas", "100 horas"}));
+						JComboBox<String> comboBox = new JComboBox<String>();
+						comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"25 horas", "50 horas", "100 horas"}));
 						GridBagConstraints gbc_comboBox = new GridBagConstraints();
 						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
