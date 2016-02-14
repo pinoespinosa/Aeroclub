@@ -349,9 +349,9 @@ public class Administrar_General extends JDialogExtended {
 					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 					panel.setLayout(gbl_panel);
 					
-					JSpinner fechaInspeccionSpinner= new JSpinner();
-					JComboBox<Avion> avionInspeccionComboBox;
-
+					final JSpinner fechaInspeccionSpinner= new JSpinner();
+					final JComboBox<Avion> avionInspeccionComboBox;
+					final JComboBox<String> tipoInspeccionComboBox;
 					fechaInspeccionSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
 					fechaInspeccionSpinner.getModel().setValue( new Date(System.currentTimeMillis()) );
 					fechaInspeccionSpinner.setEditor(new JSpinner.DateEditor(fechaInspeccionSpinner, "dd/MM/yyyy"));
@@ -405,17 +405,26 @@ public class Administrar_General extends JDialogExtended {
 						panel.add(lblTipoDeInspeccin, gbc_lblTipoDeInspeccin);
 					}
 					{
-						JComboBox<String> comboBox = new JComboBox<String>();
-						comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"25 horas", "50 horas", "100 horas"}));
+						tipoInspeccionComboBox = new JComboBox<String>();
+						tipoInspeccionComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"25 horas", "50 horas", "100 horas"}));
 						GridBagConstraints gbc_comboBox = new GridBagConstraints();
 						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 						gbc_comboBox.gridx = 2;
 						gbc_comboBox.gridy = 3;
-						panel.add(comboBox, gbc_comboBox);
+						panel.add(tipoInspeccionComboBox, gbc_comboBox);
 					}
 					{
 						JButton btnRegistrarRevisin = new JButton("Registrar revisi\u00F3n");
+						btnRegistrarRevisin.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								
+								Avion selectedAvion =(Avion) avionInspeccionComboBox.getSelectedItem();
+								
+								managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`inspeccion` VALUES ('"+managerDB.getNextId("inspeccion")+"','"+selectedAvion.getId()+"','"+( (Date)fechaInspeccionSpinner.getValue()).getTime()+"','"+tipoInspeccionComboBox.getSelectedItem()+"') ");
+	
+							}
+						});
 						GridBagConstraints gbc_btnRegistrarRevisin = new GridBagConstraints();
 						gbc_btnRegistrarRevisin.anchor = GridBagConstraints.EAST;
 						gbc_btnRegistrarRevisin.insets = new Insets(0, 0, 5, 5);

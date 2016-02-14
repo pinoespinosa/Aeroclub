@@ -179,9 +179,9 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		getContentPane().add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{5, 0, 5, 0};
-		gbl_panel_2.rowHeights = new int[]{30, 0, 10, 0, 0, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{30, 0, 10, 0, 0, 0, 0, 0, 0};
 		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
 		JLabel lblAvion = new JLabel("Avion:");
@@ -204,32 +204,56 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_2.add(avion, gbc_avion);
 		avion.setFont(new Font("Calibri", Font.ITALIC, 18));
 		
-		JLabel lblPiloto = new JLabel("Piloto:");
-		GridBagConstraints gbc_lblPiloto = new GridBagConstraints();
-		gbc_lblPiloto.anchor = GridBagConstraints.WEST;
-		gbc_lblPiloto.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPiloto.gridx = 1;
-		gbc_lblPiloto.gridy = 3;
-		panel_2.add(lblPiloto, gbc_lblPiloto);
-		lblPiloto.setBackground(Color.WHITE);
-		lblPiloto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
+		JLabel lblPiloto_1 = new JLabel("Piloto:");
+		lblPiloto_1.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
+		lblPiloto_1.setBackground(Color.WHITE);
+		GridBagConstraints gbc_lblPiloto_1 = new GridBagConstraints();
+		gbc_lblPiloto_1.anchor = GridBagConstraints.WEST;
+		gbc_lblPiloto_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPiloto_1.gridx = 1;
+		gbc_lblPiloto_1.gridy = 2;
+		panel_2.add(lblPiloto_1, gbc_lblPiloto_1);
 		
 		piloto = new JLabel("New label");
 		GridBagConstraints gbc_piloto = new GridBagConstraints();
 		gbc_piloto.anchor = GridBagConstraints.WEST;
 		gbc_piloto.insets = new Insets(0, 0, 5, 5);
 		gbc_piloto.gridx = 1;
-		gbc_piloto.gridy = 4;
+		gbc_piloto.gridy = 3;
 		panel_2.add(piloto, gbc_piloto);
 		piloto.setBackground(Color.WHITE);
 		piloto.setFont(new Font("Calibri", Font.ITALIC, 18));
+		
+		JLabel lblPiloto = new JLabel("Piloto:");
+		GridBagConstraints gbc_lblPiloto = new GridBagConstraints();
+		gbc_lblPiloto.anchor = GridBagConstraints.WEST;
+		gbc_lblPiloto.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPiloto.gridx = 1;
+		gbc_lblPiloto.gridy = 4;
+		panel_2.add(lblPiloto, gbc_lblPiloto);
+		lblPiloto.setBackground(Color.WHITE);
+		lblPiloto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
+		
+		JLabel instructorlabel = new JLabel("New label");
+		instructorlabel.setFont(new Font("Calibri", Font.ITALIC, 18));
+		instructorlabel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_instructorlabel = new GridBagConstraints();
+		gbc_instructorlabel.anchor = GridBagConstraints.WEST;
+		gbc_instructorlabel.insets = new Insets(0, 0, 5, 5);
+		gbc_instructorlabel.gridx = 1;
+		gbc_instructorlabel.gridy = 5;
+		panel_2.add(instructorlabel, gbc_instructorlabel);
+		
+		// TODO poner aca el intructor
+		
+		
 		
 		JLabel lblVencPsicofisico = new JLabel("Venc Psicof\u00EDsico:");
 		GridBagConstraints gbc_lblVencPsicofisico = new GridBagConstraints();
 		gbc_lblVencPsicofisico.anchor = GridBagConstraints.WEST;
 		gbc_lblVencPsicofisico.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVencPsicofisico.gridx = 1;
-		gbc_lblVencPsicofisico.gridy = 5;
+		gbc_lblVencPsicofisico.gridy = 6;
 		panel_2.add(lblVencPsicofisico, gbc_lblVencPsicofisico);
 		lblVencPsicofisico.setBackground(Color.WHITE);
 		lblVencPsicofisico.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
@@ -239,7 +263,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_vencimientoPsicofisico.anchor = GridBagConstraints.WEST;
 		gbc_vencimientoPsicofisico.insets = new Insets(0, 0, 0, 5);
 		gbc_vencimientoPsicofisico.gridx = 1;
-		gbc_vencimientoPsicofisico.gridy = 6;
+		gbc_vencimientoPsicofisico.gridy = 7;
 		panel_2.add(vencimientoPsicofisico, gbc_vencimientoPsicofisico);
 		vencimientoPsicofisico.setBackground(Color.WHITE);
 		vencimientoPsicofisico.setFont(new Font("Calibri", Font.ITALIC, 18));

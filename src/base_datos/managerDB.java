@@ -22,7 +22,6 @@ import extended.MainController;
 public class managerDB {
 	private static Connection connect = null;
 	private static Statement statement = null;
-	private static String BD_Name;
 	
 	private static boolean ErroresVisibles = true;
 
@@ -250,13 +249,6 @@ public class managerDB {
 		}
 	}
 
-	public static String getBD_Name() {
-		return BD_Name;
-	}
-
-	public static void setBD_Name(String bD_Name) {
-		BD_Name = bD_Name;
-	}
 
 }
 
