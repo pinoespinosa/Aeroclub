@@ -51,6 +51,7 @@ public class Informes extends JDialogExtended {
 	 */
 	public Informes(final JFrame parent) {
 		super(parent);
+		setTitle("Mostrar informes");
 		setBounds(100, 100, 645, 379);
 		getContentPane().setLayout(new BorderLayout());
 		
@@ -516,13 +517,12 @@ public class Informes extends JDialogExtended {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Salir");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
