@@ -13,11 +13,14 @@ public class ObjetoDeImpresion implements Printable {
 
 			Graphics2D g2 = (Graphics2D) g;
 			g2.translate(20, 25);
-
-			g2.scale(0.5, 0.5);
+			g2.rotate(Math.toRadians(90));
+			g2.scale(0.8, 0.8);
+			
 			p.printAll(g);
 
-			g2.translate(595, 0);
+
+			
+			g2.translate(0, -700);
 			p.printAll(g);
 			
 			return PAGE_EXISTS;

@@ -6,10 +6,15 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,35 +25,34 @@ import javax.swing.border.LineBorder;
 
 import extended.JDialogExtended;
 
-
-
 public class Venta_Vuelo_Imprimible extends JDialogExtended {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private JLabel fechaVuelo, ordenDeVuelo, avion, fechaPartida, fechaLlegada, piloto, vencimientoPsicofisico, aceite, combustible, instructor;
-	
+
 	/**
 	 * Create the dialog.
-	 * @param frmSistemaDeGestin 
+	 * 
+	 * @param frmSistemaDeGestin
 	 */
 	public Venta_Vuelo_Imprimible(final JFrame parent) {
 		super(parent);
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 14));
-		
+
 		setResizable(false);
 		setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
-		setBounds(100, 100, 522, 606);
+		setBounds(100, 100, 462, 665);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{5, 225, 10, 225, 5, 0};
+		gridBagLayout.columnWidths = new int[]{5, 0, 10, 0, 5, 0};
 		gridBagLayout.rowHeights = new int[]{15, 0, 0, 10, 0, 15, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(null);
@@ -62,19 +66,35 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_1.gridx = 0;
 		gbc_lblNewLabel_1.gridy = 0;
 		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon(Venta_Vuelo_Imprimible.class.getResource("/resources/logo.png")));
 		
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(Venta_Vuelo_Imprimible.class.getResource("/resources/logo.png").getPath()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		lblNewLabel_1.setIcon(new ImageIcon(img.getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+
+//		new BufferedImage(new File(Venta_Vuelo_Imprimible.class.getResource("/resources/logo.png")));
+		/*
+		img.getScaledInstance(label.width, label.height,
+		        Image.SCALE_SMOOTH)
+		ImageIcon icono = new ImageIcon(Venta_Vuelo_Imprimible.class.getResource("/resources/logo.png"));
+		icono.se        
+		lblNewLabel_1.setIcon(icono);
+*/
 		JLabel lblMarconi = new JLabel("Marconi 1383 - 7000 - Tandil");
 		lblMarconi.setBackground(Color.WHITE);
 		GridBagConstraints gbc_lblMarconi = new GridBagConstraints();
@@ -85,8 +105,8 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel.add(lblMarconi, gbc_lblMarconi);
 		lblMarconi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMarconi.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
-		JLabel lblTelfono = new JLabel("Tel\u00E9fono: (0249) 442-2671 / 442-4228     -    aeroclubtandil.com.ar");
+
+		JLabel lblTelfono = new JLabel("Tel\u00E9fono: (0249) 442-2671 / 442-4228");
 		lblTelfono.setBackground(Color.WHITE);
 		lblTelfono.setFont(new Font("Calibri", Font.ITALIC, 18));
 		GridBagConstraints gbc_lblTelfono = new GridBagConstraints();
@@ -95,13 +115,22 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_lblTelfono.gridy = 2;
 		panel.add(lblTelfono, gbc_lblTelfono);
 		
+		JLabel lblAeroclubtandilcomar = new JLabel("aeroclubtandil.com.ar");
+		lblAeroclubtandilcomar.setFont(new Font("Calibri", Font.ITALIC, 18));
+		lblAeroclubtandilcomar.setBackground(Color.WHITE);
+		GridBagConstraints gbc_lblAeroclubtandilcomar = new GridBagConstraints();
+		gbc_lblAeroclubtandilcomar.insets = new Insets(0, 0, 5, 0);
+		gbc_lblAeroclubtandilcomar.gridx = 0;
+		gbc_lblAeroclubtandilcomar.gridy = 3;
+		panel.add(lblAeroclubtandilcomar, gbc_lblAeroclubtandilcomar);
+
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
 		gbc_horizontalStrut_1.insets = new Insets(0, 0, 5, 5);
 		gbc_horizontalStrut_1.gridx = 0;
 		gbc_horizontalStrut_1.gridy = 2;
 		getContentPane().add(horizontalStrut_1, gbc_horizontalStrut_1);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBorder(new LineBorder(new Color(128, 128, 128), 2, true));
@@ -118,14 +147,14 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
-		
+
 		JLabel label_2 = new JLabel("");
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
 		gbc_label_2.insets = new Insets(0, 0, 5, 5);
 		gbc_label_2.gridx = 1;
 		gbc_label_2.gridy = 0;
 		panel_1.add(label_2, gbc_label_2);
-		
+
 		JLabel lblFecha = new JLabel("Fecha:");
 		GridBagConstraints gbc_lblFecha = new GridBagConstraints();
 		gbc_lblFecha.insets = new Insets(0, 0, 0, 5);
@@ -134,7 +163,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_1.add(lblFecha, gbc_lblFecha);
 		lblFecha.setBackground(Color.DARK_GRAY);
 		lblFecha.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
+
 		fechaVuelo = new JLabel("New label");
 		GridBagConstraints gbc_fechaVuelo = new GridBagConstraints();
 		gbc_fechaVuelo.anchor = GridBagConstraints.WEST;
@@ -143,7 +172,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_fechaVuelo.gridy = 1;
 		panel_1.add(fechaVuelo, gbc_fechaVuelo);
 		fechaVuelo.setFont(new Font("Calibri", Font.BOLD, 18));
-		
+
 		JLabel lblOrdenDeVuelo = new JLabel("Orden de vuelo:");
 		GridBagConstraints gbc_lblOrdenDeVuelo = new GridBagConstraints();
 		gbc_lblOrdenDeVuelo.insets = new Insets(0, 0, 0, 5);
@@ -151,7 +180,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_lblOrdenDeVuelo.gridy = 1;
 		panel_1.add(lblOrdenDeVuelo, gbc_lblOrdenDeVuelo);
 		lblOrdenDeVuelo.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
+
 		ordenDeVuelo = new JLabel("New label");
 		GridBagConstraints gbc_ordenDeVuelo = new GridBagConstraints();
 		gbc_ordenDeVuelo.anchor = GridBagConstraints.WEST;
@@ -160,14 +189,14 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_ordenDeVuelo.gridy = 1;
 		panel_1.add(ordenDeVuelo, gbc_ordenDeVuelo);
 		ordenDeVuelo.setFont(new Font("Calibri", Font.BOLD, 18));
-		
+
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut_2 = new GridBagConstraints();
 		gbc_horizontalStrut_2.insets = new Insets(0, 0, 5, 0);
 		gbc_horizontalStrut_2.gridx = 4;
 		gbc_horizontalStrut_2.gridy = 2;
 		getContentPane().add(horizontalStrut_2, gbc_horizontalStrut_2);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBorder(new LineBorder(new Color(128, 128, 128), 2, true));
@@ -183,7 +212,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
-		
+
 		JLabel lblAvion = new JLabel("Avion:");
 		GridBagConstraints gbc_lblAvion = new GridBagConstraints();
 		gbc_lblAvion.anchor = GridBagConstraints.WEST;
@@ -193,7 +222,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_2.add(lblAvion, gbc_lblAvion);
 		lblAvion.setBackground(Color.WHITE);
 		lblAvion.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		
+
 		avion = new JLabel("New label");
 		avion.setBackground(Color.WHITE);
 		GridBagConstraints gbc_avion = new GridBagConstraints();
@@ -203,7 +232,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_avion.gridy = 1;
 		panel_2.add(avion, gbc_avion);
 		avion.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
+
 		JLabel lblPiloto_1 = new JLabel("Piloto:");
 		lblPiloto_1.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
 		lblPiloto_1.setBackground(Color.WHITE);
@@ -213,7 +242,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_lblPiloto_1.gridx = 1;
 		gbc_lblPiloto_1.gridy = 2;
 		panel_2.add(lblPiloto_1, gbc_lblPiloto_1);
-		
+
 		piloto = new JLabel("New label");
 		GridBagConstraints gbc_piloto = new GridBagConstraints();
 		gbc_piloto.anchor = GridBagConstraints.WEST;
@@ -223,7 +252,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_2.add(piloto, gbc_piloto);
 		piloto.setBackground(Color.WHITE);
 		piloto.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
+
 		JLabel lblPiloto = new JLabel("Instructor:");
 		GridBagConstraints gbc_lblPiloto = new GridBagConstraints();
 		gbc_lblPiloto.anchor = GridBagConstraints.WEST;
@@ -233,7 +262,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_2.add(lblPiloto, gbc_lblPiloto);
 		lblPiloto.setBackground(Color.WHITE);
 		lblPiloto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		
+
 		instructor = new JLabel("New label");
 		instructor.setFont(new Font("Calibri", Font.ITALIC, 18));
 		instructor.setBackground(Color.WHITE);
@@ -242,8 +271,8 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_instructorlabel.insets = new Insets(0, 0, 5, 5);
 		gbc_instructorlabel.gridx = 1;
 		gbc_instructorlabel.gridy = 5;
-		panel_2.add(instructor, gbc_instructorlabel);		
-		
+		panel_2.add(instructor, gbc_instructorlabel);
+
 		JLabel lblVencPsicofisico = new JLabel("Venc Psicof\u00EDsico:");
 		GridBagConstraints gbc_lblVencPsicofisico = new GridBagConstraints();
 		gbc_lblVencPsicofisico.anchor = GridBagConstraints.WEST;
@@ -253,7 +282,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_2.add(lblVencPsicofisico, gbc_lblVencPsicofisico);
 		lblVencPsicofisico.setBackground(Color.WHITE);
 		lblVencPsicofisico.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		
+
 		vencimientoPsicofisico = new JLabel("New label");
 		GridBagConstraints gbc_vencimientoPsicofisico = new GridBagConstraints();
 		gbc_vencimientoPsicofisico.anchor = GridBagConstraints.WEST;
@@ -263,14 +292,14 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_2.add(vencimientoPsicofisico, gbc_vencimientoPsicofisico);
 		vencimientoPsicofisico.setBackground(Color.WHITE);
 		vencimientoPsicofisico.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
+
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
 		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_horizontalStrut.gridx = 2;
 		gbc_horizontalStrut.gridy = 4;
 		getContentPane().add(horizontalStrut, gbc_horizontalStrut);
-		
+
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setBorder(new LineBorder(new Color(128, 128, 128), 2, true));
@@ -286,7 +315,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbl_panel_3.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
-		
+
 		JLabel label_6 = new JLabel("Llegada:");
 		GridBagConstraints gbc_label_6 = new GridBagConstraints();
 		gbc_label_6.anchor = GridBagConstraints.WEST;
@@ -296,7 +325,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_3.add(label_6, gbc_label_6);
 		label_6.setBackground(Color.WHITE);
 		label_6.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		
+
 		fechaLlegada = new JLabel("New label");
 		GridBagConstraints gbc_fechaLlegada = new GridBagConstraints();
 		gbc_fechaLlegada.anchor = GridBagConstraints.WEST;
@@ -306,7 +335,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_3.add(fechaLlegada, gbc_fechaLlegada);
 		fechaLlegada.setBackground(Color.WHITE);
 		fechaLlegada.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
+
 		JLabel lblPartida = new JLabel("Partida:");
 		GridBagConstraints gbc_lblPartida = new GridBagConstraints();
 		gbc_lblPartida.anchor = GridBagConstraints.WEST;
@@ -316,7 +345,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_3.add(lblPartida, gbc_lblPartida);
 		lblPartida.setBackground(Color.WHITE);
 		lblPartida.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		
+
 		fechaPartida = new JLabel("New label");
 		GridBagConstraints gbc_fechaPartida = new GridBagConstraints();
 		gbc_fechaPartida.anchor = GridBagConstraints.WEST;
@@ -326,7 +355,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_3.add(fechaPartida, gbc_fechaPartida);
 		fechaPartida.setBackground(Color.WHITE);
 		fechaPartida.setFont(new Font("Calibri", Font.ITALIC, 18));
-		
+
 		JLabel label_5 = new JLabel("Aceite (L):");
 		label_5.setBackground(Color.WHITE);
 		label_5.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
@@ -336,7 +365,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_label_5.gridx = 1;
 		gbc_label_5.gridy = 4;
 		panel_3.add(label_5, gbc_label_5);
-		
+
 		aceite = new JLabel("New label");
 		aceite.setBackground(Color.WHITE);
 		aceite.setFont(new Font("Calibri", Font.ITALIC, 18));
@@ -346,7 +375,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_aceite.gridx = 1;
 		gbc_aceite.gridy = 5;
 		panel_3.add(aceite, gbc_aceite);
-		
+
 		JLabel lblCombl = new JLabel("Combustible (L):");
 		lblCombl.setBackground(Color.WHITE);
 		lblCombl.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
@@ -356,7 +385,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		gbc_lblCombl.gridx = 1;
 		gbc_lblCombl.gridy = 6;
 		panel_3.add(lblCombl, gbc_lblCombl);
-		
+
 		combustible = new JLabel("New label");
 		combustible.setBackground(Color.WHITE);
 		combustible.setFont(new Font("Calibri", Font.ITALIC, 18));
@@ -368,11 +397,10 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_3.add(combustible, gbc_combustible);
 	}
 
+	public void inic(String ordenDeVuelo, String avion, String tipoVuelo, String fechaPartida, String fechaLlegada, String piloto, String vencimientoPsicofisico, String aceite, String combustible, String instructor) {
 
-	public void inic(String ordenDeVuelo, String avion, String tipoVuelo, String fechaPartida, String fechaLlegada, String piloto, String vencimientoPsicofisico, String aceite, String combustible, String instructor){
-		
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");		
-		this.fechaVuelo.setText(format.format(new Date( System.currentTimeMillis())));
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+		this.fechaVuelo.setText(format.format(new Date(System.currentTimeMillis())));
 		this.ordenDeVuelo.setText(ordenDeVuelo);
 		this.avion.setText(avion);
 		this.instructor.setText(instructor);
@@ -382,22 +410,15 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		this.vencimientoPsicofisico.setText(vencimientoPsicofisico);
 		this.aceite.setText(aceite);
 		this.combustible.setText(combustible);
-	
-		
-		
-	    
 	}
 
-	
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
-		
+
 	}
-		
-	public Container getImprimible(){
+
+	public Container getImprimible() {
 		return getContentPane();
 	}
 }
-
-

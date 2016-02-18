@@ -13,6 +13,8 @@ import extended.MainController;
 
 public class Vuelo implements Comparable<Vuelo>{
 
+	public enum TipoVuelo {		Diurno, Nocturno	}
+	
 	private int id;
 
 	private long horaInicio, horaFinal;
@@ -21,7 +23,7 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	private float cantCombustible;
 
-	private int idAvion, idPiloto, idInstructor, formaDePago;
+	private int idAvion, idPiloto, idInstructor, formaDePago, tipoVuelo;
 
 	
 	/**
@@ -38,7 +40,7 @@ public class Vuelo implements Comparable<Vuelo>{
 
 
 	public Vuelo(int id, long horaInicio, long horaFinal, float cantAceite, float cantCombustible, int idAvion, int idPiloto, int idInstructor,
-			float precio, float precioAceite, float precioCombustible, float precioAvion, int formaDePago) {
+			float precio, float precioAceite, float precioCombustible, float precioAvion, int formaDePago, int tipoVuelo) {
 		super();
 		this.id = id;
 		this.horaInicio = horaInicio;
@@ -52,6 +54,7 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.precio = precio;
 		this.precioAceite = precioAceite;
 		this.precioCombustible = precioCombustible;
+		this.tipoVuelo=tipoVuelo;
 		this.setPrecioAvion(precioAvion);
 	}
 
@@ -167,6 +170,7 @@ public class Vuelo implements Comparable<Vuelo>{
 				", " + getPrecioCombustible() +
 				", " + getPrecioAvion() +
 				", " + getFormaDePago() +
+				", " + getTipoVuelo() +
 				 ");"; 
 	}
 
@@ -194,7 +198,7 @@ public class Vuelo implements Comparable<Vuelo>{
 	}
 	
 	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible","precioAvion","formaDePago"});
+		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible","precioAvion","formaDePago", "tipoVuelo"});
 	}
 	
 	private static Vuelo loadFromList(List<String> valores){		
@@ -211,7 +215,9 @@ public class Vuelo implements Comparable<Vuelo>{
 							Float.parseFloat(valores.get(9)),
 							Float.parseFloat(valores.get(10)),
 							Float.parseFloat(valores.get(11)),
-							Integer.parseInt(valores.get(12)));
+							Integer.parseInt(valores.get(12)),
+							Integer.parseInt(valores.get(13)));
+		
 	}
 	
 	public static List<Vuelo> loadFromDB(){
@@ -261,6 +267,16 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	public Piloto getPiloto() {
 		return Piloto.getPilotoById(idPiloto+"");
+	}
+
+
+	public int getTipoVuelo() {
+		return tipoVuelo;
+	}
+
+
+	public void setTipoVuelo(int tipoVuelo) {
+		this.tipoVuelo = tipoVuelo;
 	}
 	
 }

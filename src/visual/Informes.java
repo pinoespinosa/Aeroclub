@@ -41,9 +41,14 @@ import extended.MainController;
 
 public class Informes extends JDialogExtended {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private final JPanel contentPanel = new JPanel();
 
-	private JComboBox inicioAnio, finAnio, inicioMes, finMes;
+	private JComboBox<String> inicioAnio, finAnio, inicioMes, finMes;
 	private JComboBox<Persona> personasCuentaCorriente;
 	
 	/**
@@ -52,7 +57,7 @@ public class Informes extends JDialogExtended {
 	public Informes(final JFrame parent) {
 		super(parent);
 		setTitle("Mostrar informes");
-		setBounds(100, 100, 645, 379);
+		setBounds(100, 100, 645, 412);
 		getContentPane().setLayout(new BorderLayout());
 		
 		addWindowListener(new WindowAdapter() {
@@ -65,10 +70,10 @@ public class Informes extends JDialogExtended {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JPanel panel = new JPanel();
@@ -77,7 +82,7 @@ public class Informes extends JDialogExtended {
 			gbc_panel.gridwidth = 11;
 			gbc_panel.insets = new Insets(0, 0, 5, 5);
 			gbc_panel.fill = GridBagConstraints.HORIZONTAL;
-			gbc_panel.gridx = 1;
+			gbc_panel.gridx = 2;
 			gbc_panel.gridy = 1;
 			contentPanel.add(panel, gbc_panel);
 			GridBagLayout gbl_panel = new GridBagLayout();
@@ -144,7 +149,7 @@ public class Informes extends JDialogExtended {
 						gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 			gbc_panel.gridwidth = 11;
 			gbc_panel.insets = new Insets(0, 0, 5, 5);
-			gbc_panel.gridx = 1;
+			gbc_panel.gridx = 2;
 			gbc_panel.gridy = 2;
 			contentPanel.add(panel, gbc_panel);
 			GridBagLayout gbl_panel = new GridBagLayout();
@@ -163,14 +168,14 @@ public class Informes extends JDialogExtended {
 				panel.add(lblDesde, gbc_lblDesde);
 			}
 			{
-				inicioMes = new JComboBox();
+				inicioMes = new JComboBox<String>();
 				GridBagConstraints gbc_inicioMes = new GridBagConstraints();
 				gbc_inicioMes.gridheight = 2;
 				gbc_inicioMes.insets = new Insets(0, 0, 0, 5);
 				gbc_inicioMes.gridx = 1;
 				gbc_inicioMes.gridy = 0;
 				panel.add(inicioMes, gbc_inicioMes);
-				inicioMes.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+				inicioMes.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 			}
 			{
 				JLabel label = new JLabel("/");
@@ -182,14 +187,14 @@ public class Informes extends JDialogExtended {
 				panel.add(label, gbc_label);
 			}
 			{
-				inicioAnio = new JComboBox();
+				inicioAnio = new JComboBox<String>();
 				GridBagConstraints gbc_inicioAnio = new GridBagConstraints();
 				gbc_inicioAnio.gridheight = 2;
 				gbc_inicioAnio.insets = new Insets(0, 0, 0, 5);
 				gbc_inicioAnio.gridx = 3;
 				gbc_inicioAnio.gridy = 0;
 				panel.add(inicioAnio, gbc_inicioAnio);
-				inicioAnio.setModel(new DefaultComboBoxModel(new String[] {"2016", "2017", "2018", "2019", "2020"}));
+				inicioAnio.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020"}));
 			}
 			{
 				JLabel lblHasta = new JLabel("hasta");
@@ -201,14 +206,14 @@ public class Informes extends JDialogExtended {
 				panel.add(lblHasta, gbc_lblHasta);
 			}
 			{
-				finMes = new JComboBox();
+				finMes = new JComboBox<String>();
 				GridBagConstraints gbc_finMes = new GridBagConstraints();
 				gbc_finMes.gridheight = 2;
 				gbc_finMes.insets = new Insets(0, 0, 0, 5);
 				gbc_finMes.gridx = 5;
 				gbc_finMes.gridy = 0;
 				panel.add(finMes, gbc_finMes);
-				finMes.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+				finMes.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 			}
 			{
 				JLabel label = new JLabel("/");
@@ -220,14 +225,14 @@ public class Informes extends JDialogExtended {
 				panel.add(label, gbc_label);
 			}
 			{
-				finAnio = new JComboBox();
+				finAnio = new JComboBox<String>();
 				GridBagConstraints gbc_finAnio = new GridBagConstraints();
 				gbc_finAnio.gridheight = 2;
 				gbc_finAnio.insets = new Insets(0, 0, 0, 5);
 				gbc_finAnio.gridx = 7;
 				gbc_finAnio.gridy = 0;
 				panel.add(finAnio, gbc_finAnio);
-				finAnio.setModel(new DefaultComboBoxModel(new String[] {"2016", "2017", "2018", "2019", "2020"}));
+				finAnio.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020"}));
 			}
 			{
 				JButton btnHorasDeVuelo = new JButton("Horas de vuelo simples");
@@ -246,13 +251,109 @@ public class Informes extends JDialogExtended {
 					panel.add(btnNewButton, gbc_btnNewButton);
 					{
 						JPanel panel_1 = new JPanel();
+						panel_1.setBorder(new CompoundBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Revisiones a los aviones", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 4, 4, 4)));
+						GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+						gbc_panel_1.gridwidth = 11;
+						gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+						gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
+						gbc_panel_1.gridx = 2;
+						gbc_panel_1.gridy = 3;
+						contentPanel.add(panel_1, gbc_panel_1);
+						GridBagLayout gbl_panel_1 = new GridBagLayout();
+						gbl_panel_1.columnWidths = new int[]{0, 200, 0};
+						gbl_panel_1.rowHeights = new int[]{0, 0};
+						gbl_panel_1.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+						gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+						panel_1.setLayout(gbl_panel_1);
+						{
+							JButton btnVerUltimasRevisiones = new JButton("Ver ultimas revisiones");
+							btnVerUltimasRevisiones.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent arg0) {
+								/*	
+									
+									List<String> columnas = new ArrayList<String>();
+									
+									
+									String columnNames[] = {"idAvion", "tipoInspeccion", "fecha"};
+									
+									List<String> campos = Arrays.asList(columnNames);
+									managerDB.executeScript_Query("SELECT idAvion, tipoInspeccion, max(fechaInspeccion) as fecha FROM aviones.inspeccion group by tipoInspeccion, idAvion order by idAvion;", Arrays.asList(columnNames));
+									
+									
+									
+
+									SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+									Date fechaInicioSimple=null, fechaFinalSimple=null;
+									try {
+										fechaInicioSimple = format.parse("1980-1-1");
+										fechaFinalSimple = format.parse(finAnio.getSelectedItem()+"-"+finMes.getSelectedItem()+"-1");
+									} catch (ParseException e) {
+										e.printStackTrace();
+									}
+
+									
+									
+									List<List<String>> filtrado = new ArrayList<List<String>>();
+									
+									Hashtable<String, Integer> horasVoladas= getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple, );
+									
+									for (String list : horasVoladas.keySet()) {
+										List<String> aa = new ArrayList<String>();
+										aa.add(Avion.getAvionById(list).getName());
+										float valor = horasVoladas.get(list);
+										valor=valor/60;
+										aa.add(horasVoladas.get(list)+ " minutos (" + valor + " horas)");
+										filtrado.add (aa );
+
+									}
+									
+									if (filtrado.isEmpty()){
+										JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem());
+										return;
+									}
+									
+									// Create columns names
+									String columnNames[] = {"Avion", "Tiempo de vuelo"};
+									List<String> campos = Arrays.asList(columnNames);
+									
+									Informes_Table dialog = new Informes_Table(parent,campos, filtrado, "Horas de vuelo desde " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem(),"" );
+									dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+									dialog.setVisible(true);
+									setAction(MainController.ACTION_CONTINUE);
+									Informes.this.dispose();
+									
+									
+									
+									
+									
+									
+									*/
+									
+									
+									
+									
+									
+									
+									
+								}
+							});
+							btnVerUltimasRevisiones.setToolTipText("");
+							GridBagConstraints gbc_btnVerUltimasRevisiones = new GridBagConstraints();
+							gbc_btnVerUltimasRevisiones.fill = GridBagConstraints.HORIZONTAL;
+							gbc_btnVerUltimasRevisiones.gridx = 1;
+							gbc_btnVerUltimasRevisiones.gridy = 0;
+							panel_1.add(btnVerUltimasRevisiones, gbc_btnVerUltimasRevisiones);
+						}
+					}
+					{
+						JPanel panel_1 = new JPanel();
 						panel_1.setBorder(new CompoundBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Stock", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 4, 4, 4)));
 						GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 						gbc_panel_1.gridwidth = 11;
 						gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 						gbc_panel_1.fill = GridBagConstraints.BOTH;
-						gbc_panel_1.gridx = 1;
-						gbc_panel_1.gridy = 3;
+						gbc_panel_1.gridx = 2;
+						gbc_panel_1.gridy = 4;
 						contentPanel.add(panel_1, gbc_panel_1);
 						GridBagLayout gbl_panel_1 = new GridBagLayout();
 						gbl_panel_1.columnWidths = new int[]{0, 200, 0};
@@ -264,10 +365,7 @@ public class Informes extends JDialogExtended {
 							JButton btnVerStockDe = new JButton("Ver stock de combustible");
 							btnVerStockDe.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent arg0) {
-									
-									
-									
-									
+											
 									// Create columns names
 									String columnNames[] = {"Recurso", "Stock_disponible"};
 
@@ -283,9 +381,7 @@ public class Informes extends JDialogExtended {
 									dialog.setVisible(true);
 									setAction(MainController.ACTION_CONTINUE);
 									Informes.this.dispose();					
-									
-																	
-									
+
 								}
 							});
 							GridBagConstraints gbc_btnVerStockDe = new GridBagConstraints();
@@ -302,8 +398,8 @@ public class Informes extends JDialogExtended {
 						gbc_panel_1.gridwidth = 11;
 						gbc_panel_1.insets = new Insets(0, 0, 0, 5);
 						gbc_panel_1.fill = GridBagConstraints.BOTH;
-						gbc_panel_1.gridx = 1;
-						gbc_panel_1.gridy = 4;
+						gbc_panel_1.gridx = 2;
+						gbc_panel_1.gridy = 5;
 						contentPanel.add(panel_1, gbc_panel_1);
 						GridBagLayout gbl_panel_1 = new GridBagLayout();
 						gbl_panel_1.columnWidths = new int[]{0, 200, 0};
@@ -324,13 +420,6 @@ public class Informes extends JDialogExtended {
 							JButton btnVerCuentasCorrientes = new JButton("Ver detalle de cuenta corriente");
 							btnVerCuentasCorrientes.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent arg0) {
-									
-									
-									
-									
-									
-									
-									
 									
 									// Create columns names
 									String columnNames[] = {"fecha","total", "detalle"};
@@ -359,20 +448,7 @@ public class Informes extends JDialogExtended {
 									dialog.setVisible(true);
 									setAction(MainController.ACTION_CONTINUE);
 									Informes.this.dispose();	
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
+																		
 								}
 							});
 							GridBagConstraints gbc_btnVerCuentasCorrientes = new GridBagConstraints();
@@ -401,7 +477,7 @@ public class Informes extends JDialogExtended {
 								e.printStackTrace();
 							}
 
-	
+							
 
 							List<Vuelo> vuelos = Vuelo.loadFromDB();
 							List<List<String>> filtrado = new ArrayList<List<String>>();
@@ -418,7 +494,10 @@ public class Informes extends JDialogExtended {
 							}
 							
 							
-							
+							if (filtrado.isEmpty()){
+								JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem());
+								return;
+							}
 											
 							
 							// Create columns names
@@ -450,38 +529,19 @@ public class Informes extends JDialogExtended {
 					
 						
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-						Date fechaInicioSimple=null;
+						Date fechaInicioSimple=null, fechaFinalSimple=null;
 						try {
 							fechaInicioSimple = format.parse(inicioAnio.getSelectedItem()+"-"+inicioMes.getSelectedItem()+"-1");
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						Date fechaFinalSimple=null;
-						try {
 							fechaFinalSimple = format.parse(finAnio.getSelectedItem()+"-"+finMes.getSelectedItem()+"-1");
 						} catch (ParseException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
-	
 
-						List<Vuelo> vuelos = Vuelo.loadFromDB();
+						
 						List<List<String>> filtrado = new ArrayList<List<String>>();
 						
-						Hashtable<String, Integer> horasVoladas= new Hashtable<String, Integer>();
-						
-						for (Vuelo vuelo : vuelos) {
-							if (vuelo.getHoraInicio()>fechaInicioSimple.getTime() && vuelo.getHoraFinal()<fechaFinalSimple.getTime())
-							{
-								
-								if (!horasVoladas.containsKey(vuelo.getIdAvion()+""))
-										horasVoladas.put(vuelo.getIdAvion()+"", 0);
-								
-								horasVoladas.put(vuelo.getIdAvion()+"", horasVoladas.get(vuelo.getIdAvion()+"")+Utils.minutesBetweenDates(new Date(vuelo.getHoraInicio()), new Date(vuelo.getHoraFinal())));
-							}
-						}
+						Hashtable<String, Integer> horasVoladas= getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple);
 						
 						for (String list : horasVoladas.keySet()) {
 							List<String> aa = new ArrayList<String>();
@@ -493,7 +553,10 @@ public class Informes extends JDialogExtended {
 
 						}
 						
-										
+						if (filtrado.isEmpty()){
+							JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem());
+							return;
+						}
 						
 						// Create columns names
 						String columnNames[] = {"Avion", "Tiempo de vuelo"};
@@ -544,4 +607,23 @@ public class Informes extends JDialogExtended {
 		
 	}
 
+	private Hashtable<String, Integer> getHorasVoladasSince( Date fechaInicioSimple, Date fechaFinalSimple){
+		return getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple, -1+"");
+	}
+	private Hashtable<String, Integer> getHorasVoladasSince( Date fechaInicioSimple, Date fechaFinalSimple, String id){
+		List<Vuelo> vuelos = Vuelo.loadFromDB();
+		Hashtable<String, Integer> horasVoladas= new Hashtable<String, Integer>();
+		
+		for (Vuelo vuelo : vuelos) {
+			if (vuelo.getHoraInicio()>fechaInicioSimple.getTime() && vuelo.getHoraFinal()<fechaFinalSimple.getTime() && (id.equals("-1")|| id.equals(vuelo.getIdAvion()+"")))
+			{				
+				if (!horasVoladas.containsKey(vuelo.getIdAvion()+""))
+						horasVoladas.put(vuelo.getIdAvion()+"", 0);
+				
+				horasVoladas.put(vuelo.getIdAvion()+"", horasVoladas.get(vuelo.getIdAvion()+"")+Utils.minutesBetweenDates(new Date(vuelo.getHoraInicio()), new Date(vuelo.getHoraFinal())));
+			}
+		}
+		return horasVoladas;
+	}
+	
 }
