@@ -14,8 +14,8 @@ import java.text.SimpleDateFormat;
 
 import javax.annotation.PostConstruct;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -108,7 +108,7 @@ public class Venta_Vuelo extends JDialogExtended {
 					panelDerecho.add(scrollPane, gbc_scrollPane);
 					list = new JList<Vuelo>();
 					scrollPane.setViewportView(list);
-					list.setFont(new Font("Consolas", Font.PLAIN, 11));
+					list.setFont(new Font("Consolas", Font.ITALIC,14));
 					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					list.setModel(vuelosList);
 					FileListCellRenderer renderer = new FileListCellRenderer();
@@ -155,17 +155,34 @@ public class Venta_Vuelo extends JDialogExtended {
 				});
 				{
 					crearVueloBtn = new JButton("Crear Nuevo Vuelo    ");
+					crearVueloBtn.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							Venta_Vuelo_Nuevo dialog = new Venta_Vuelo_Nuevo(parent);
+							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.setVisible(true);
+							setAction(MainController.ACTION_EXIT);
+							Venta_Vuelo.this.dispose();
+						}
+					});
 					GridBagConstraints gbc_crearVueloBtn = new GridBagConstraints();
-					gbc_crearVueloBtn.fill = GridBagConstraints.HORIZONTAL;
+					gbc_crearVueloBtn.fill = GridBagConstraints.BOTH;
 					gbc_crearVueloBtn.insets = new Insets(0, 0, 5, 0);
 					gbc_crearVueloBtn.gridx = 0;
 					gbc_crearVueloBtn.gridy = 1;
 					panelDerecho.add(crearVueloBtn, gbc_crearVueloBtn);
-					crearVueloBtn.setHorizontalTextPosition(SwingConstants.LEADING);
-					crearVueloBtn.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_vuelo.png")));
 				}
 				{
 					btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
+					btnCerrarVuelo.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							Venta_Vuelo_Cerrar dialog = new Venta_Vuelo_Cerrar(parent);
+							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.inic(list.getSelectedValue());
+							dialog.setVisible(true);
+							setAction(MainController.ACTION_EXIT);
+							Venta_Vuelo.this.dispose();
+						}
+					});
 					GridBagConstraints gbc_btnCerrarVuelo = new GridBagConstraints();
 					gbc_btnCerrarVuelo.fill = GridBagConstraints.BOTH;
 					gbc_btnCerrarVuelo.insets = new Insets(0, 0, 5, 0);
