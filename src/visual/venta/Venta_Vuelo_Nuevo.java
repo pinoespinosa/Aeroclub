@@ -51,10 +51,8 @@ public class Venta_Vuelo_Nuevo extends JDialogExtended {
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
 	private DefaultComboBoxModel<Piloto> pilotosList;
-	// private DefaultListModel<Vuelo> vuelosList;
 	private JSpinner aceiteSpinner, combustibleSpinner;
 	private JSpinner inicioSpinner;
-	private Vuelo current;
 	private JRadioButton pagoEfectivo, pagoCuentaCorriente;
 	private JLabel costoVuelo;
 
@@ -417,11 +415,7 @@ public class Venta_Vuelo_Nuevo extends JDialogExtended {
 		for (Avion avion : aviones) {
 			avionesList.addElement(avion);
 		}
-		if (!aviones.isEmpty())
-			current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), avionesList.getElementAt(0).getPrecio());
-		else
-			current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), 0);
-
+	
 		// Cargo los pilotos en el combo
 		pilotosList.removeAllElements();
 		List<Piloto> pilotos = Piloto.loadFromDB();
@@ -451,43 +445,6 @@ public class Venta_Vuelo_Nuevo extends JDialogExtended {
 
 	}
 
-	/**
-	 * Pone en la vista los datos de un vuelo almacenado
-	 * 
-	 * @return
-	 */
-	public void setViewFromVueloStored() {
-		/*
-		 * Vuelo aux = list.getSelectedValue();
-		 * 
-		 * current=aux;
-		 * 
-		 * pilotoComboBox.setSelectedIndex(pilotosList.getIndexOf(new
-		 * Piloto(aux.getIdPiloto())) );
-		 * 
-		 * pagoEfectivo.setSelected(aux.getFormaDePago()==Precios.EFECTIVO);
-		 * pagoCuentaCorriente
-		 * .setSelected(aux.getFormaDePago()==Precios.CUENTA_CORRIENTE);
-		 * 
-		 * instructorComboBox.setSelectedIndex(instructorList.getIndexOf(new
-		 * Instructor(aux.getIdInstructor())));
-		 * avionComboBox.setSelectedIndex(avionesList.getIndexOf(new
-		 * Avion(aux.getIdAvion())));
-		 * 
-		 * aceiteSpinner.setValue(aux.getCantAceite());
-		 * combustibleSpinner.setValue(aux.getCantCombustible());
-		 * inicioSpinner.setValue(new Date(aux.getHoraInicio()));
-		 * finalizacionSpinner.setValue(new Date(aux.getHoraFinal()));
-		 * 
-		 * // guardarEdicionBtn.setEnabled(true); //
-		 * cancelarEdicionBtn.setEnabled(true); // editarBtn.setEnabled(false);
-		 * list.setEnabled(false);
-		 * 
-		 * crearVueloBtn.setEnabled(false);
-		 * 
-		 * updatePrecio();
-		 */
-	}
 
 	/**
 	 * Crea un vuelo a partir de los datos de la pantalla

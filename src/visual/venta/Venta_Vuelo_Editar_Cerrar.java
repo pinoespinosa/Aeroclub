@@ -49,42 +49,47 @@ import data.Vuelo;
 import extended.JDialogExtended;
 import extended.MainController;
 
-public class Venta_Vuelo_Cerrar extends JDialogExtended {
+public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public static final int MODE_EDICION = 0, MODE_CERRAR=1;
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
 	private DefaultComboBoxModel<Piloto> pilotosList;
-	// private DefaultListModel<Vuelo> vuelosList;
 	private JSpinner aceiteSpinner, combustibleSpinner;
 	private JSpinner inicioSpinner, finalizacionSpinner;
 	private Vuelo current;
 	private JRadioButton pagoEfectivo, pagoCuentaCorriente;
-	private JLabel costoVuelo;
+	private JLabel lblcostoVuelo, costoVuelo;
 
 	private JComboBox<Piloto> pilotoComboBox;
 	private JComboBox<Instructor> instructorComboBox;
 	private JComboBox<Avion> avionComboBox;
 
+	private JButton btnNuevoPiloto, btnNuevoInstructor;
+	
 	private JPanel panelIzquierdo;
 	private JLabel ordenDeVuelo;
 	private JComboBox<String> tipoVueloComboBox;
 	private JLabel lblTipoDeVuelo;
 	private JButton btnNewButton;
-
+	
+	private JLabel lblHoraFinalizacin;
+	
 	/**
 	 * Create the dialog.
 	 * 
 	 * @param frmSistemaDeGestin
 	 */
-	public Venta_Vuelo_Cerrar(final JFrame parent) {
+	public Venta_Vuelo_Editar_Cerrar(final JFrame parent) {
 		super(parent);
 		setResizable(false);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 547, 600);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{5, 176, 5, 0};
 		gridBagLayout.rowHeights = new int[]{5, 241, 33, 0};
@@ -140,24 +145,24 @@ public class Venta_Vuelo_Cerrar extends JDialogExtended {
 				pilotoComboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
-				JButton btnNuevoPiloto = new JButton("");
+				btnNuevoPiloto = new JButton("");
 				btnNuevoPiloto.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 
-						Nuevo_Piloto dialog = new Nuevo_Piloto(Venta_Vuelo_Cerrar.this);
+						Nuevo_Piloto dialog = new Nuevo_Piloto(Venta_Vuelo_Editar_Cerrar.this);
 						dialog.setAction(MainController.ACTION_EXIT);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 
-						Venta_Vuelo_Cerrar.this.setEnabled(false);
+						Venta_Vuelo_Editar_Cerrar.this.setEnabled(false);
 					}
 				});
 				btnNuevoPiloto.setToolTipText("Nuevo Piloto");
 				btnNuevoPiloto.setMaximumSize(new Dimension(40, 40));
 				btnNuevoPiloto.setMinimumSize(new Dimension(40, 40));
 				btnNuevoPiloto.setPreferredSize(new Dimension(40, 40));
-				btnNuevoPiloto.setIcon(new ImageIcon(Venta_Vuelo_Cerrar.class.getResource("/resources/icon_instructor.png")));
+				btnNuevoPiloto.setIcon(new ImageIcon(Venta_Vuelo_Editar_Cerrar.class.getResource("/resources/icon_instructor.png")));
 				GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 				gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 				gbc_btnNewButton.gridx = 4;
@@ -238,20 +243,20 @@ public class Venta_Vuelo_Cerrar extends JDialogExtended {
 				});
 			}
 			{
-				JButton btnNuevoInstructor = new JButton("");
+				btnNuevoInstructor = new JButton("");
 				btnNuevoInstructor.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 
-						Nuevo_Instructor dialog = new Nuevo_Instructor(Venta_Vuelo_Cerrar.this);
+						Nuevo_Instructor dialog = new Nuevo_Instructor(Venta_Vuelo_Editar_Cerrar.this);
 						dialog.setAction(MainController.ACTION_EXIT);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 
-						Venta_Vuelo_Cerrar.this.setEnabled(false);
+						Venta_Vuelo_Editar_Cerrar.this.setEnabled(false);
 					}
 				});
-				btnNuevoInstructor.setIcon(new ImageIcon(Venta_Vuelo_Cerrar.class.getResource("/resources/icon_instructor.png")));
+				btnNuevoInstructor.setIcon(new ImageIcon(Venta_Vuelo_Editar_Cerrar.class.getResource("/resources/icon_instructor.png")));
 				btnNuevoInstructor.setToolTipText("Nuevo Instructor");
 				btnNuevoInstructor.setPreferredSize(new Dimension(40, 40));
 				btnNuevoInstructor.setMinimumSize(new Dimension(40, 40));
@@ -385,7 +390,7 @@ public class Venta_Vuelo_Cerrar extends JDialogExtended {
 
 			}
 			{
-				JLabel lblHoraFinalizacin = new JLabel("Hora Finalizaci\u00F3n");
+				lblHoraFinalizacin = new JLabel("Hora Finalizaci\u00F3n");
 				GridBagConstraints gbc_lblHoraFinalizacin = new GridBagConstraints();
 				gbc_lblHoraFinalizacin.anchor = GridBagConstraints.WEST;
 				gbc_lblHoraFinalizacin.insets = new Insets(0, 0, 5, 5);
@@ -407,13 +412,13 @@ public class Venta_Vuelo_Cerrar extends JDialogExtended {
 				finalizacionSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
 			}
 			{
-				JLabel lblCargosPorEl = new JLabel("Cargos por el vuelo:    $");
+				lblcostoVuelo = new JLabel("Cargos por el vuelo:    $");
 				GridBagConstraints gbc_lblCargosPorEl = new GridBagConstraints();
 				gbc_lblCargosPorEl.anchor = GridBagConstraints.EAST;
 				gbc_lblCargosPorEl.insets = new Insets(0, 0, 5, 5);
 				gbc_lblCargosPorEl.gridx = 3;
 				gbc_lblCargosPorEl.gridy = 10;
-				panelIzquierdo.add(lblCargosPorEl, gbc_lblCargosPorEl);
+				panelIzquierdo.add(lblcostoVuelo, gbc_lblCargosPorEl);
 			}
 			{
 				costoVuelo = new JLabel("");
@@ -453,10 +458,30 @@ public class Venta_Vuelo_Cerrar extends JDialogExtended {
 	}
 
 	@PostConstruct
-	public void inic(Vuelo vuelo) {
-
+	public void inic(Vuelo vuelo, int modoApertura) {
 
 		
+		{
+			aceiteSpinner.setEnabled(modoApertura!=MODE_CERRAR);
+			combustibleSpinner.setEnabled(modoApertura!=MODE_CERRAR);
+			inicioSpinner.setEnabled(modoApertura!=MODE_CERRAR);
+			pilotoComboBox.setEnabled(modoApertura!=MODE_CERRAR);
+			instructorComboBox.setEnabled(modoApertura!=MODE_CERRAR);
+			avionComboBox.setEnabled(modoApertura!=MODE_CERRAR);
+			tipoVueloComboBox.setEnabled(modoApertura!=MODE_CERRAR);
+			btnNuevoInstructor.setVisible(modoApertura!=MODE_CERRAR);
+			btnNuevoPiloto.setVisible(modoApertura!=MODE_CERRAR);
+			pagoEfectivo.setEnabled(modoApertura!=MODE_CERRAR);
+			pagoCuentaCorriente.setEnabled(modoApertura!=MODE_CERRAR);
+
+			finalizacionSpinner.setVisible(modoApertura==MODE_CERRAR);
+			lblHoraFinalizacin.setVisible(modoApertura==MODE_CERRAR);
+			lblcostoVuelo.setVisible(modoApertura==MODE_CERRAR);
+			costoVuelo.setVisible(modoApertura==MODE_CERRAR);
+
+			
+		}
+			
 		ordenDeVuelo.setText("Orden de vuelo: " + managerDB.getNextId("vuelo"));
 
 		// Cargo los aviones en el combo
