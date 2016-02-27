@@ -85,6 +85,7 @@ public class Venta_Vuelo extends JDialogExtended {
 	private JLabel ordenDeVuelo;
 	private JComboBox <String> tipoVueloComboBox;
 	private JLabel lblTipoDeVuelo;
+	private JButton btnCerrarVuelo;
 	
 	/**
 	 * Create the dialog.
@@ -113,9 +114,9 @@ public class Venta_Vuelo extends JDialogExtended {
 			getContentPane().add(panelIzquierdo, gbc_panelIzquierdo);
 			panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Nuevo vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 			GridBagLayout gbl_panelIzquierdo = new GridBagLayout();
-			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 0, 0, 0, 10, 0};
+			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 10, 0};
 			gbl_panelIzquierdo.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0};
-			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 			panelIzquierdo.setLayout(gbl_panelIzquierdo);
 			{
@@ -448,13 +449,13 @@ public class Venta_Vuelo extends JDialogExtended {
 				gbc_panel_1.gridy = 11;
 				panelIzquierdo.add(panel_1, gbc_panel_1);
 				GridBagLayout gbl_panel_1 = new GridBagLayout();
-				gbl_panel_1.columnWidths = new int[]{0, 0};
+				gbl_panel_1.columnWidths = new int[]{0, 0, 0};
 				gbl_panel_1.rowHeights = new int[]{0, 0};
-				gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+				gbl_panel_1.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 				gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 				panel_1.setLayout(gbl_panel_1);
 				{
-					crearVueloBtn = new JButton("Crear Vuelo    ");
+					crearVueloBtn = new JButton("Abrir Vuelo    ");
 					crearVueloBtn.setHorizontalTextPosition(SwingConstants.LEADING);
 					crearVueloBtn.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_vuelo.png")));
 					
@@ -473,10 +474,20 @@ public class Venta_Vuelo extends JDialogExtended {
 						}
 					});
 					GridBagConstraints gbc_crearVueloBtn = new GridBagConstraints();
+					gbc_crearVueloBtn.insets = new Insets(0, 0, 0, 5);
 					gbc_crearVueloBtn.fill = GridBagConstraints.BOTH;
 					gbc_crearVueloBtn.gridx = 0;
 					gbc_crearVueloBtn.gridy = 0;
 					panel_1.add(crearVueloBtn, gbc_crearVueloBtn);
+				}
+				{
+					btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
+					btnCerrarVuelo.setHorizontalTextPosition(SwingConstants.LEADING);
+					GridBagConstraints gbc_btnCerrarVuelo = new GridBagConstraints();
+					gbc_btnCerrarVuelo.fill = GridBagConstraints.BOTH;
+					gbc_btnCerrarVuelo.gridx = 1;
+					gbc_btnCerrarVuelo.gridy = 0;
+					panel_1.add(btnCerrarVuelo, gbc_btnCerrarVuelo);
 				}
 			}
 		}
