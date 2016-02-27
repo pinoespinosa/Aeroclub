@@ -72,7 +72,7 @@ public class Venta_Vuelo extends JDialogExtended {
 	private JSpinner inicioSpinner, finalizacionSpinner;
 	private JList<Vuelo> list;
 	private Vuelo current;
-	private JButton guardarEdicionBtn, cancelarEdicionBtn, crearVueloBtn, editarBtn, imprimirComprobanteBtn ;
+	private JButton crearVueloBtn, imprimirComprobanteBtn ;
 	private JRadioButton pagoEfectivo, pagoCuentaCorriente;
 	private JLabel costoVuelo;
 	
@@ -115,9 +115,9 @@ public class Venta_Vuelo extends JDialogExtended {
 			panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Nuevo vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 			GridBagLayout gbl_panelIzquierdo = new GridBagLayout();
 			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 10, 0};
-			gbl_panelIzquierdo.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0};
+			gbl_panelIzquierdo.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0};
 			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 			panelIzquierdo.setLayout(gbl_panelIzquierdo);
 			{
 				ordenDeVuelo = new JLabel("");
@@ -439,23 +439,117 @@ public class Venta_Vuelo extends JDialogExtended {
 				gbc_costoVuelo.gridy = 10;
 				panelIzquierdo.add(costoVuelo, gbc_costoVuelo);
 			}
+		}
+		{
+			final JPanel panelDerecho = new JPanel();
+			panelDerecho.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Últimos vuelos realizados", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+			GridBagConstraints gbc_panelDerecho = new GridBagConstraints();
+			gbc_panelDerecho.insets = new Insets(0, 0, 5, 5);
+			gbc_panelDerecho.fill = GridBagConstraints.BOTH;
+			gbc_panelDerecho.gridx = 3;
+			gbc_panelDerecho.gridy = 1;
+			getContentPane().add(panelDerecho, gbc_panelDerecho);
+			GridBagLayout gbl_panelDerecho = new GridBagLayout();
+			gbl_panelDerecho.columnWidths = new int[]{0, 0};
+			gbl_panelDerecho.rowHeights = new int[]{0, 35, 35, 35, 0};
+			gbl_panelDerecho.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+			gbl_panelDerecho.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panelDerecho.setLayout(gbl_panelDerecho);
 			{
-				JPanel panel_1 = new JPanel();
-				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-				gbc_panel_1.gridwidth = 4;
-				gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-				gbc_panel_1.fill = GridBagConstraints.BOTH;
-				gbc_panel_1.gridx = 1;
-				gbc_panel_1.gridy = 11;
-				panelIzquierdo.add(panel_1, gbc_panel_1);
-				GridBagLayout gbl_panel_1 = new GridBagLayout();
-				gbl_panel_1.columnWidths = new int[]{0, 0, 0};
-				gbl_panel_1.rowHeights = new int[]{0, 0};
-				gbl_panel_1.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-				gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-				panel_1.setLayout(gbl_panel_1);
+				
+				vuelosList = new DefaultListModel<Vuelo>();
+				updateListVuelos();
+			}
+			{
+				{
+					JScrollPane scrollPane = new JScrollPane();
+					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+					gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+					gbc_scrollPane.fill = GridBagConstraints.BOTH;
+					gbc_scrollPane.gridx = 0;
+					gbc_scrollPane.gridy = 0;
+					panelDerecho.add(scrollPane, gbc_scrollPane);
+					list = new JList<Vuelo>();
+					scrollPane.setViewportView(list);
+					list.setFont(new Font("Consolas", Font.PLAIN, 11));
+					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					
+					list.setModel(vuelosList);
+				}
+			}
+			{
+			}
+			{
+				imprimirComprobanteBtn = new JButton("Imprimir comprobante");
+				imprimirComprobanteBtn.setEnabled(false);
+				imprimirComprobanteBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+												
+						
+						
+			
+				        PrinterJob job = PrinterJob.getPrinterJob();
+				        PageFormat pf = job.defaultPage();
+				        Paper paper = new Paper();
+				        paper.setSize(612.0, 832.0);
+				        double margin = 10;
+				        paper.setImageableArea(margin, margin, paper.getWidth() - margin, paper.getHeight() - margin);
+				        pf.setPaper(paper);
+				        pf.setOrientation(PageFormat.REVERSE_LANDSCAPE);
+				        ObjetoDeImpresion pin = new ObjetoDeImpresion();
+				        					        
+				        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY HH:mm");		
+						
+				    	
+				        
+						Venta_Vuelo_Imprimible dialog = new Venta_Vuelo_Imprimible(parent);
+						dialog.inic(
+								current.getId()+"", 
+								Avion.getAvionById(current.getIdAvion()+"").getName(), 
+								"", 
+								format.format(new Date( ((Date)inicioSpinner.getValue()).getTime())), 
+								format.format(new Date( ((Date)finalizacionSpinner.getValue()).getTime())),
+								Piloto.getPilotoById(current.getIdPiloto()+"").getName()+" "+Piloto.getPilotoById(current.getIdPiloto()+"").getApellido(), 
+								format.format(new Date( Piloto.getPilotoById(current.getIdPiloto()+"").getFecha_licencia())), 
+								aceiteSpinner.getValue()+"", 
+								combustibleSpinner.getValue()+"",
+								((Instructor)instructorList.getSelectedItem()).toString()+"");      
+				        dialog.setVisible(true);
+				        
+				        pin.setP(dialog.getImprimible());
+				        job.setPrintable(pin, pf);
+				        job.setJobName("funciona?");
+	
+				        try {
+				        	if (job.printDialog())
+				        		job.print();
+				        	dialog.dispose();
+				        } catch (Exception e) {
+				            System.out.println(e);
+				        }
+						
+													
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+					}
+				});
 				{
 					crearVueloBtn = new JButton("Abrir Vuelo    ");
+					GridBagConstraints gbc_crearVueloBtn = new GridBagConstraints();
+					gbc_crearVueloBtn.fill = GridBagConstraints.HORIZONTAL;
+					gbc_crearVueloBtn.insets = new Insets(0, 0, 5, 0);
+					gbc_crearVueloBtn.gridx = 0;
+					gbc_crearVueloBtn.gridy = 1;
+					panelDerecho.add(crearVueloBtn, gbc_crearVueloBtn);
 					crearVueloBtn.setHorizontalTextPosition(SwingConstants.LEADING);
 					crearVueloBtn.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_vuelo.png")));
 					
@@ -473,226 +567,22 @@ public class Venta_Vuelo extends JDialogExtended {
 							
 						}
 					});
-					GridBagConstraints gbc_crearVueloBtn = new GridBagConstraints();
-					gbc_crearVueloBtn.insets = new Insets(0, 0, 0, 5);
-					gbc_crearVueloBtn.fill = GridBagConstraints.BOTH;
-					gbc_crearVueloBtn.gridx = 0;
-					gbc_crearVueloBtn.gridy = 0;
-					panel_1.add(crearVueloBtn, gbc_crearVueloBtn);
 				}
 				{
 					btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
-					btnCerrarVuelo.setHorizontalTextPosition(SwingConstants.LEADING);
 					GridBagConstraints gbc_btnCerrarVuelo = new GridBagConstraints();
-					gbc_btnCerrarVuelo.fill = GridBagConstraints.BOTH;
-					gbc_btnCerrarVuelo.gridx = 1;
-					gbc_btnCerrarVuelo.gridy = 0;
-					panel_1.add(btnCerrarVuelo, gbc_btnCerrarVuelo);
+					gbc_btnCerrarVuelo.fill = GridBagConstraints.HORIZONTAL;
+					gbc_btnCerrarVuelo.insets = new Insets(0, 0, 5, 0);
+					gbc_btnCerrarVuelo.gridx = 0;
+					gbc_btnCerrarVuelo.gridy = 2;
+					panelDerecho.add(btnCerrarVuelo, gbc_btnCerrarVuelo);
+					btnCerrarVuelo.setHorizontalTextPosition(SwingConstants.LEADING);
 				}
-			}
-		}
-		{
-			final JPanel panelDerecho = new JPanel();
-			panelDerecho.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Últimos vuelos realizados", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
-			GridBagConstraints gbc_panelDerecho = new GridBagConstraints();
-			gbc_panelDerecho.insets = new Insets(0, 0, 5, 5);
-			gbc_panelDerecho.fill = GridBagConstraints.BOTH;
-			gbc_panelDerecho.gridx = 3;
-			gbc_panelDerecho.gridy = 1;
-			getContentPane().add(panelDerecho, gbc_panelDerecho);
-			GridBagLayout gbl_panelDerecho = new GridBagLayout();
-			gbl_panelDerecho.columnWidths = new int[]{0, 0};
-			gbl_panelDerecho.rowHeights = new int[]{0, 35, 35, 35, 35, 0};
-			gbl_panelDerecho.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-			gbl_panelDerecho.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			panelDerecho.setLayout(gbl_panelDerecho);
-			{
-				
-				vuelosList = new DefaultListModel<Vuelo>();
-				updateListVuelos();
-			}
-			{
-				editarBtn = new JButton("Editar");
-				editarBtn.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						
-					if(list.getSelectedValue()!=null){
-						setViewFromVueloStored();
-						panelIzquierdo.setBackground(new Color(204, 204, 102));
-						panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Editando vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
-						imprimirComprobanteBtn.setEnabled(true);
-					}
-						
-					}
-				});
-				{
-					JScrollPane scrollPane = new JScrollPane();
-					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-					gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
-					gbc_scrollPane.fill = GridBagConstraints.BOTH;
-					gbc_scrollPane.gridx = 0;
-					gbc_scrollPane.gridy = 0;
-					panelDerecho.add(scrollPane, gbc_scrollPane);
-					list = new JList<Vuelo>();
-					scrollPane.setViewportView(list);
-					list.setFont(new Font("Consolas", Font.PLAIN, 11));
-					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					
-					list.setModel(vuelosList);
-				}
-				GridBagConstraints gbc_editarBtn = new GridBagConstraints();
-				gbc_editarBtn.fill = GridBagConstraints.BOTH;
-				gbc_editarBtn.insets = new Insets(0, 0, 5, 0);
-				gbc_editarBtn.gridx = 0;
-				gbc_editarBtn.gridy = 1;
-				panelDerecho.add(editarBtn, gbc_editarBtn);
-			}
-			{
-				guardarEdicionBtn = new JButton("Guardar cambios");
-				guardarEdicionBtn.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						
-						if (!modelValidation())
-							return;
-						
-						Vuelo nuevo = getVueloFromView();
-						nuevo.setId(current.getId());
-						
-						nuevo.setPrecioAceite(current.getPrecioAceite());
-						nuevo.setPrecioCombustible(current.getPrecioCombustible());
-						
-						managerDB.updateAsset(nuevo);	
-						
-						updateListVuelos();
-						
-						guardarEdicionBtn.setEnabled(false);
-						cancelarEdicionBtn.setEnabled(false);
-						crearVueloBtn.setEnabled(true);
-						editarBtn.setEnabled(true);
-						list.setEnabled(true);
-						imprimirComprobanteBtn.setEnabled(false);
-						
-						current.setPrecioAceite(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB));
-						current.setPrecioCombustible(Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB));
-						current.setPrecioAvion(((Avion)avionesList.getSelectedItem()).getPrecio());
-												
-						updatePrecio();
-						
-						aceiteSpinner.setValue(new Float("0.0"));
-						combustibleSpinner.setValue(new Float("0.0"));
-						inicioSpinner.setValue(new Date (System.currentTimeMillis()));
-						finalizacionSpinner.setValue(new Date (System.currentTimeMillis()));
-						panelIzquierdo.setBackground(new Color(153, 204, 153));
-						panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Nuevo vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
-
-					}
-				});
-				{
-					imprimirComprobanteBtn = new JButton("Imprimir comprobante");
-					imprimirComprobanteBtn.setEnabled(false);
-					imprimirComprobanteBtn.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-													
-							
-							
-				
-					        PrinterJob job = PrinterJob.getPrinterJob();
-					        PageFormat pf = job.defaultPage();
-					        Paper paper = new Paper();
-					        paper.setSize(612.0, 832.0);
-					        double margin = 10;
-					        paper.setImageableArea(margin, margin, paper.getWidth() - margin, paper.getHeight() - margin);
-					        pf.setPaper(paper);
-					        pf.setOrientation(PageFormat.REVERSE_LANDSCAPE);
-					        ObjetoDeImpresion pin = new ObjetoDeImpresion();
-					        					        
-					        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY HH:mm");		
-							
-					    	
-					        
-							Venta_Vuelo_Imprimible dialog = new Venta_Vuelo_Imprimible(parent);
-							dialog.inic(
-									current.getId()+"", 
-									Avion.getAvionById(current.getIdAvion()+"").getName(), 
-									"", 
-									format.format(new Date( ((Date)inicioSpinner.getValue()).getTime())), 
-									format.format(new Date( ((Date)finalizacionSpinner.getValue()).getTime())),
-									Piloto.getPilotoById(current.getIdPiloto()+"").getName()+" "+Piloto.getPilotoById(current.getIdPiloto()+"").getApellido(), 
-									format.format(new Date( Piloto.getPilotoById(current.getIdPiloto()+"").getFecha_licencia())), 
-									aceiteSpinner.getValue()+"", 
-									combustibleSpinner.getValue()+"",
-									((Instructor)instructorList.getSelectedItem()).toString()+"");      
-					        dialog.setVisible(true);
-					        
-					        pin.setP(dialog.getImprimible());
-					        job.setPrintable(pin, pf);
-					        job.setJobName("funciona?");
-	
-					        try {
-					        	if (job.printDialog())
-					        		job.print();
-					        	dialog.dispose();
-					        } catch (Exception e) {
-					            System.out.println(e);
-					        }
-							
-														
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-						}
-					});
-					GridBagConstraints gbc_imprimirComprobanteBtn = new GridBagConstraints();
-					gbc_imprimirComprobanteBtn.fill = GridBagConstraints.BOTH;
-					gbc_imprimirComprobanteBtn.insets = new Insets(0, 0, 5, 0);
-					gbc_imprimirComprobanteBtn.gridx = 0;
-					gbc_imprimirComprobanteBtn.gridy = 2;
-					panelDerecho.add(imprimirComprobanteBtn, gbc_imprimirComprobanteBtn);
-				}
-				guardarEdicionBtn.setEnabled(false);
-				GridBagConstraints gbc_guardarEdicionBtn = new GridBagConstraints();
-				gbc_guardarEdicionBtn.fill = GridBagConstraints.BOTH;
-				gbc_guardarEdicionBtn.insets = new Insets(0, 0, 5, 0);
-				gbc_guardarEdicionBtn.gridx = 0;
-				gbc_guardarEdicionBtn.gridy = 3;
-				panelDerecho.add(guardarEdicionBtn, gbc_guardarEdicionBtn);
-			}
-			{
-				cancelarEdicionBtn = new JButton("Cancelar edici\u00F3n");
-				cancelarEdicionBtn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						
-						guardarEdicionBtn.setEnabled(false);
-						cancelarEdicionBtn.setEnabled(false);
-						crearVueloBtn.setEnabled(true);
-						editarBtn.setEnabled(true);
-						list.setEnabled(true);
-						imprimirComprobanteBtn.setEnabled(false);
-						
-						aceiteSpinner.setValue(new Float("0.0"));
-						combustibleSpinner.setValue(new Float("0.0"));
-						inicioSpinner.setValue(new Date (System.currentTimeMillis()));
-						finalizacionSpinner.setValue(new Date (System.currentTimeMillis()));
-						panelIzquierdo.setBackground(new Color(153, 204, 153));
-						panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Nuevo vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
-					}
-				});
-				cancelarEdicionBtn.setEnabled(false);
-				GridBagConstraints gbc_cancelarEdicionBtn = new GridBagConstraints();
-				gbc_cancelarEdicionBtn.fill = GridBagConstraints.BOTH;
-				gbc_cancelarEdicionBtn.gridx = 0;
-				gbc_cancelarEdicionBtn.gridy = 4;
-				panelDerecho.add(cancelarEdicionBtn, gbc_cancelarEdicionBtn);
+				GridBagConstraints gbc_imprimirComprobanteBtn = new GridBagConstraints();
+				gbc_imprimirComprobanteBtn.fill = GridBagConstraints.BOTH;
+				gbc_imprimirComprobanteBtn.gridx = 0;
+				gbc_imprimirComprobanteBtn.gridy = 3;
+				panelDerecho.add(imprimirComprobanteBtn, gbc_imprimirComprobanteBtn);
 			}
 		}
 		{
@@ -814,9 +704,9 @@ public class Venta_Vuelo extends JDialogExtended {
 		inicioSpinner.setValue(new Date(aux.getHoraInicio()));
 		finalizacionSpinner.setValue(new Date(aux.getHoraFinal()));
 
-		guardarEdicionBtn.setEnabled(true);
-		cancelarEdicionBtn.setEnabled(true);
-		editarBtn.setEnabled(false);
+//		guardarEdicionBtn.setEnabled(true);
+//		cancelarEdicionBtn.setEnabled(true);
+//		editarBtn.setEnabled(false);
 		list.setEnabled(false);
 		
 		crearVueloBtn.setEnabled(false);
