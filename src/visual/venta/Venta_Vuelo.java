@@ -163,7 +163,6 @@ public class Venta_Vuelo extends JDialogExtended {
 					panelDerecho.add(crearVueloBtn, gbc_crearVueloBtn);
 					crearVueloBtn.setHorizontalTextPosition(SwingConstants.LEADING);
 					crearVueloBtn.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_vuelo.png")));
-
 				}
 				{
 					btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
