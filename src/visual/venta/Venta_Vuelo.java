@@ -195,7 +195,7 @@ public class Venta_Vuelo extends JDialogExtended {
 								dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_EDICION);
 								dialog.setVisible(true);
 								setAction(MainController.ACTION_EXIT);
-								Venta_Vuelo.this.dispose();
+			//					Venta_Vuelo.this.dispose();
 							}
 						});
 						GridBagConstraints gbc_btnEditarVuelo = new GridBagConstraints();
