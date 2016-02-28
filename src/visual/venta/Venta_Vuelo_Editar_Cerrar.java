@@ -518,7 +518,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 			// Seteo a las fechas el tiempo actual
 			Date fecha = new Date(System.currentTimeMillis());
 			inicioSpinner.getModel().setValue(fecha);
-			finalizacionSpinner.getModel().setValue(fecha);
+			finalizacionSpinner.getModel().setValue(new Date(0));
 
 			// Creo el validador para las fechas de inicio y fin
 			ChangeListener spinListener = new ChangeListener() {
@@ -585,9 +585,19 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Cerrar vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					panelIzquierdo.setBackground(new Color(255, 128, 128));
 					setViewFromVueloStored(vuelo);
+					finalizacionSpinner.getModel().setValue(fecha);
 					btnEdition.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							Vuelo nuevo = getVueloFromView();
+							nuevo.setId(current.getId());
+							nuevo.setPrecioAceite(current.getPrecioAceite());
+							nuevo.setPrecioCombustible(current.getPrecioCombustible());
+							
+							managerDB.updateAsset(nuevo);	
+							
+							JOptionPane.showMessageDialog(null,"Se ha cerrado exitosamente el vuelo.");
 							Venta_Vuelo_Editar_Cerrar.this.dispose();
+	
 						}
 					});
 				}
@@ -658,7 +668,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	 */
 	public Vuelo getVueloFromView() {
 
-		Vuelo nuevo = new Vuelo(managerDB.getNextId("vuelo"), ((Date) inicioSpinner.getModel().getValue()).getTime(), 0, Float.parseFloat(aceiteSpinner.getValue() + ""), Float.parseFloat(combustibleSpinner.getValue() + ""), ((Avion) avionesList.getSelectedItem()).getId(), ((Piloto) pilotosList.getSelectedItem()).getId(), ((Instructor) instructorList.getSelectedItem()).getId(), Float.parseFloat(costoVuelo.getText()), Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
+		Vuelo nuevo = new Vuelo(managerDB.getNextId("vuelo"), ((Date) inicioSpinner.getModel().getValue()).getTime(), ((Date) finalizacionSpinner.getModel().getValue()).getTime(), Float.parseFloat(aceiteSpinner.getValue() + ""), Float.parseFloat(combustibleSpinner.getValue() + ""), ((Avion) avionesList.getSelectedItem()).getId(), ((Piloto) pilotosList.getSelectedItem()).getId(), ((Instructor) instructorList.getSelectedItem()).getId(), Float.parseFloat(costoVuelo.getText()), Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
 				((Avion) avionesList.getSelectedItem()).getPrecio(), pagoEfectivo.isSelected() ? Precios.EFECTIVO : Precios.CUENTA_CORRIENTE, Vuelo.TipoVuelo.valueOf((String) tipoVueloComboBox.getSelectedItem()).ordinal());
 
 		return nuevo;

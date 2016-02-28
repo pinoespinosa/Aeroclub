@@ -139,7 +139,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 
 						Venta_Vuelo_Imprimible dialog = new Venta_Vuelo_Imprimible(parent);
-
+						dialog.inic(list.getSelectedValue());
 						dialog.setVisible(true);
 
 						pin.setP(dialog.getImprimible());
@@ -176,6 +176,7 @@ public class Venta_Vuelo extends JDialogExtended {
 				{
 					{
 						btnEditarVuelo = new JButton("Editar Vuelo");
+						btnEditarVuelo.setEnabled(false);
 						btnEditarVuelo.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
 			
@@ -195,6 +196,7 @@ public class Venta_Vuelo extends JDialogExtended {
 					}
 				}
 				btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
+				btnCerrarVuelo.setEnabled(false);
 				btnCerrarVuelo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if (list.getSelectedValue()!=null){
@@ -213,6 +215,7 @@ public class Venta_Vuelo extends JDialogExtended {
 				btnCerrarVuelo.setHorizontalTextPosition(SwingConstants.LEADING);
 				{
 					btnVerVuelo = new JButton("Ver informaci\u00F3n del vuelo");
+					btnVerVuelo.setEnabled(false);
 					GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 					gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 					gbc_btnNewButton.gridwidth = 3;
@@ -245,7 +248,26 @@ public class Venta_Vuelo extends JDialogExtended {
 
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-
+				Vuelo selected = list.getSelectedValue();
+				
+				if (selected == null){
+					btnEditarVuelo.setEnabled(false);
+					btnCerrarVuelo.setEnabled(false);
+					btnVerVuelo.setEnabled(false);
+					imprimirComprobanteBtn.setEnabled(false);
+				}
+				else
+				{
+					if (selected.getHoraFinal()==0)
+					{
+						btnEditarVuelo.setEnabled(true);
+						btnCerrarVuelo.setEnabled(true);
+						imprimirComprobanteBtn.setEnabled(false);
+					}
+					else
+						imprimirComprobanteBtn.setEnabled(true);
+					btnVerVuelo.setEnabled(true);			
+				}
 			}
 		});
 

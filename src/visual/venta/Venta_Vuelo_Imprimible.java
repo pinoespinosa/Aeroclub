@@ -49,11 +49,11 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 
 		setResizable(false);
 		setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
-		setBounds(100, 100, 462, 671);
+		setBounds(100, 100, 436, 725);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{5, 0, 10, 0, 5, 0};
+		gridBagLayout.columnWidths = new int[]{10, 0, 10, 0};
 		gridBagLayout.rowHeights = new int[]{15, 0, 0, 10, 0, 15, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 
@@ -62,7 +62,6 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel.setBorder(null);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.anchor = GridBagConstraints.NORTH;
-		gbc_panel.gridwidth = 3;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.gridx = 1;
@@ -89,7 +88,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		lblNewLabel_1.setIcon(new ImageIcon(img.getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+		lblNewLabel_1.setIcon(new ImageIcon(img.getScaledInstance(400, 150, Image.SCALE_SMOOTH)));
 
 //		new BufferedImage(new File(Venta_Vuelo_Imprimible.class.getResource("/resources/logo.png")));
 		/*
@@ -139,7 +138,6 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBorder(new LineBorder(new Color(128, 128, 128), 2, true));
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridwidth = 3;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_1.gridx = 1;
@@ -197,7 +195,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut_2 = new GridBagConstraints();
 		gbc_horizontalStrut_2.insets = new Insets(0, 0, 5, 0);
-		gbc_horizontalStrut_2.gridx = 4;
+		gbc_horizontalStrut_2.gridx = 2;
 		gbc_horizontalStrut_2.gridy = 2;
 		getContentPane().add(horizontalStrut_2, gbc_horizontalStrut_2);
 
@@ -212,213 +210,173 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		getContentPane().add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{5, 0, 5, 0};
-		gbl_panel_2.rowHeights = new int[]{30, 0, 10, 0, 0, 0, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
-
-		JLabel lblAvion = new JLabel("Avion:");
-		GridBagConstraints gbc_lblAvion = new GridBagConstraints();
-		gbc_lblAvion.anchor = GridBagConstraints.WEST;
-		gbc_lblAvion.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAvion.gridx = 1;
-		gbc_lblAvion.gridy = 0;
-		panel_2.add(lblAvion, gbc_lblAvion);
-		lblAvion.setBackground(Color.WHITE);
-		lblAvion.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-
-		avion = new JLabel("New label");
-		avion.setBackground(Color.WHITE);
-		GridBagConstraints gbc_avion = new GridBagConstraints();
-		gbc_avion.anchor = GridBagConstraints.WEST;
-		gbc_avion.insets = new Insets(0, 0, 5, 5);
-		gbc_avion.gridx = 1;
-		gbc_avion.gridy = 1;
-		panel_2.add(avion, gbc_avion);
-		avion.setFont(new Font("Calibri", Font.ITALIC, 18));
-
-		JLabel lblPiloto_1 = new JLabel("Piloto:");
-		lblPiloto_1.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		lblPiloto_1.setBackground(Color.WHITE);
-		GridBagConstraints gbc_lblPiloto_1 = new GridBagConstraints();
-		gbc_lblPiloto_1.anchor = GridBagConstraints.WEST;
-		gbc_lblPiloto_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPiloto_1.gridx = 1;
-		gbc_lblPiloto_1.gridy = 2;
-		panel_2.add(lblPiloto_1, gbc_lblPiloto_1);
-
-		piloto = new JLabel("New label");
-		GridBagConstraints gbc_piloto = new GridBagConstraints();
-		gbc_piloto.anchor = GridBagConstraints.WEST;
-		gbc_piloto.insets = new Insets(0, 0, 5, 5);
-		gbc_piloto.gridx = 1;
-		gbc_piloto.gridy = 3;
-		panel_2.add(piloto, gbc_piloto);
-		piloto.setBackground(Color.WHITE);
-		piloto.setFont(new Font("Calibri", Font.ITALIC, 18));
-
-		JLabel lblPiloto = new JLabel("Instructor:");
-		GridBagConstraints gbc_lblPiloto = new GridBagConstraints();
-		gbc_lblPiloto.anchor = GridBagConstraints.WEST;
-		gbc_lblPiloto.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPiloto.gridx = 1;
-		gbc_lblPiloto.gridy = 4;
-		panel_2.add(lblPiloto, gbc_lblPiloto);
-		lblPiloto.setBackground(Color.WHITE);
-		lblPiloto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-
-		instructor = new JLabel("New label");
-		instructor.setFont(new Font("Calibri", Font.ITALIC, 18));
-		instructor.setBackground(Color.WHITE);
-		GridBagConstraints gbc_instructorlabel = new GridBagConstraints();
-		gbc_instructorlabel.anchor = GridBagConstraints.WEST;
-		gbc_instructorlabel.insets = new Insets(0, 0, 5, 5);
-		gbc_instructorlabel.gridx = 1;
-		gbc_instructorlabel.gridy = 5;
-		panel_2.add(instructor, gbc_instructorlabel);
-
-		JLabel lblVencPsicofisico = new JLabel("Venc Psicof\u00EDsico:");
-		GridBagConstraints gbc_lblVencPsicofisico = new GridBagConstraints();
-		gbc_lblVencPsicofisico.anchor = GridBagConstraints.WEST;
-		gbc_lblVencPsicofisico.insets = new Insets(0, 0, 5, 5);
-		gbc_lblVencPsicofisico.gridx = 1;
-		gbc_lblVencPsicofisico.gridy = 6;
-		panel_2.add(lblVencPsicofisico, gbc_lblVencPsicofisico);
-		lblVencPsicofisico.setBackground(Color.WHITE);
-		lblVencPsicofisico.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-
-		vencimientoPsicofisico = new JLabel("New label");
-		GridBagConstraints gbc_vencimientoPsicofisico = new GridBagConstraints();
-		gbc_vencimientoPsicofisico.anchor = GridBagConstraints.WEST;
-		gbc_vencimientoPsicofisico.insets = new Insets(0, 0, 0, 5);
-		gbc_vencimientoPsicofisico.gridx = 1;
-		gbc_vencimientoPsicofisico.gridy = 7;
-		panel_2.add(vencimientoPsicofisico, gbc_vencimientoPsicofisico);
-		vencimientoPsicofisico.setBackground(Color.WHITE);
-		vencimientoPsicofisico.setFont(new Font("Calibri", Font.ITALIC, 18));
-
-		Component horizontalStrut = Box.createHorizontalStrut(20);
-		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
-		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_horizontalStrut.gridx = 2;
-		gbc_horizontalStrut.gridy = 4;
-		getContentPane().add(horizontalStrut, gbc_horizontalStrut);
-
+		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBorder(new LineBorder(new Color(128, 128, 128), 2, true));
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.anchor = GridBagConstraints.WEST;
 		gbc_panel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_3.fill = GridBagConstraints.BOTH;
-		gbc_panel_3.gridx = 3;
-		gbc_panel_3.gridy = 4;
-		getContentPane().add(panel_3, gbc_panel_3);
-		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[]{5, 0, 5, 0};
-		gbl_panel_3.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_3.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_3.setLayout(gbl_panel_3);
+		gbc_panel_3.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_3.gridx = 1;
+		gbc_panel_3.gridy = 0;
+		panel_2.add(panel_3, gbc_panel_3);
+		
+				JLabel lblAvion = new JLabel("Avion:");
+				panel_3.add(lblAvion);
+				lblAvion.setBackground(Color.WHITE);
+				lblAvion.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+		
+				avion = new JLabel("New label");
+				panel_3.add(avion);
+				avion.setBackground(Color.WHITE);
+				avion.setFont(new Font("Calibri", Font.ITALIC, 25));
+				
+				JPanel panel_4 = new JPanel();
+				GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+				gbc_panel_4.anchor = GridBagConstraints.WEST;
+				gbc_panel_4.insets = new Insets(0, 0, 5, 5);
+				gbc_panel_4.fill = GridBagConstraints.VERTICAL;
+				gbc_panel_4.gridx = 1;
+				gbc_panel_4.gridy = 1;
+				panel_2.add(panel_4, gbc_panel_4);
+				
+						JLabel lblPiloto_1 = new JLabel("Piloto:");
+						panel_4.add(lblPiloto_1);
+						lblPiloto_1.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+						lblPiloto_1.setBackground(Color.WHITE);
+				
+						piloto = new JLabel("New label");
+						panel_4.add(piloto);
+						piloto.setBackground(Color.WHITE);
+						piloto.setFont(new Font("Calibri", Font.ITALIC, 25));
+				
+				JPanel panel_5 = new JPanel();
+				GridBagConstraints gbc_panel_5 = new GridBagConstraints();
+				gbc_panel_5.anchor = GridBagConstraints.WEST;
+				gbc_panel_5.insets = new Insets(0, 0, 5, 5);
+				gbc_panel_5.fill = GridBagConstraints.VERTICAL;
+				gbc_panel_5.gridx = 1;
+				gbc_panel_5.gridy = 2;
+				panel_2.add(panel_5, gbc_panel_5);
+				
+						JLabel lblVencPsicofisico = new JLabel("Venc Psicof\u00EDsico:");
+						panel_5.add(lblVencPsicofisico);
+						lblVencPsicofisico.setBackground(Color.WHITE);
+						lblVencPsicofisico.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+		
+				vencimientoPsicofisico = new JLabel("New label");
+				panel_5.add(vencimientoPsicofisico);
+				vencimientoPsicofisico.setBackground(Color.WHITE);
+				vencimientoPsicofisico.setFont(new Font("Calibri", Font.ITALIC, 25));
+		
+		JPanel panel_6 = new JPanel();
+		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
+		gbc_panel_6.anchor = GridBagConstraints.WEST;
+		gbc_panel_6.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_6.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_6.gridx = 1;
+		gbc_panel_6.gridy = 3;
+		panel_2.add(panel_6, gbc_panel_6);
+		
+				JLabel lblPiloto = new JLabel("Instructor:");
+				panel_6.add(lblPiloto);
+				lblPiloto.setBackground(Color.WHITE);
+				lblPiloto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+				
+						instructor = new JLabel("New label");
+						panel_6.add(instructor);
+						instructor.setFont(new Font("Calibri", Font.ITALIC, 25));
+						instructor.setBackground(Color.WHITE);
+				
+				JPanel panel_7 = new JPanel();
+				GridBagConstraints gbc_panel_7 = new GridBagConstraints();
+				gbc_panel_7.anchor = GridBagConstraints.WEST;
+				gbc_panel_7.insets = new Insets(0, 0, 5, 5);
+				gbc_panel_7.fill = GridBagConstraints.VERTICAL;
+				gbc_panel_7.gridx = 1;
+				gbc_panel_7.gridy = 4;
+				panel_2.add(panel_7, gbc_panel_7);
 				
 						JLabel lblPartida = new JLabel("Despegue:");
-						GridBagConstraints gbc_lblPartida = new GridBagConstraints();
-						gbc_lblPartida.anchor = GridBagConstraints.WEST;
-						gbc_lblPartida.insets = new Insets(0, 0, 5, 5);
-						gbc_lblPartida.gridx = 1;
-						gbc_lblPartida.gridy = 0;
-						panel_3.add(lblPartida, gbc_lblPartida);
+						panel_7.add(lblPartida);
 						lblPartida.setBackground(Color.WHITE);
-						lblPartida.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		
-				fechaPartida = new JLabel("New label");
-				GridBagConstraints gbc_fechaPartida = new GridBagConstraints();
-				gbc_fechaPartida.anchor = GridBagConstraints.WEST;
-				gbc_fechaPartida.insets = new Insets(0, 0, 5, 5);
-				gbc_fechaPartida.gridx = 1;
-				gbc_fechaPartida.gridy = 1;
-				panel_3.add(fechaPartida, gbc_fechaPartida);
-				fechaPartida.setBackground(Color.WHITE);
-				fechaPartida.setFont(new Font("Calibri", Font.ITALIC, 18));
+						lblPartida.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+						
+								fechaPartida = new JLabel("New label");
+								panel_7.add(fechaPartida);
+								fechaPartida.setBackground(Color.WHITE);
+								fechaPartida.setFont(new Font("Calibri", Font.ITALIC, 25));
+				
+				JPanel panel_8 = new JPanel();
+				GridBagConstraints gbc_panel_8 = new GridBagConstraints();
+				gbc_panel_8.anchor = GridBagConstraints.WEST;
+				gbc_panel_8.insets = new Insets(0, 0, 5, 5);
+				gbc_panel_8.fill = GridBagConstraints.VERTICAL;
+				gbc_panel_8.gridx = 1;
+				gbc_panel_8.gridy = 5;
+				panel_2.add(panel_8, gbc_panel_8);
 				
 						JLabel lblAterrizaje = new JLabel("Aterrizaje:");
-						GridBagConstraints gbc_lblAterrizaje = new GridBagConstraints();
-						gbc_lblAterrizaje.anchor = GridBagConstraints.WEST;
-						gbc_lblAterrizaje.insets = new Insets(0, 0, 5, 5);
-						gbc_lblAterrizaje.gridx = 1;
-						gbc_lblAterrizaje.gridy = 2;
-						panel_3.add(lblAterrizaje, gbc_lblAterrizaje);
+						panel_8.add(lblAterrizaje);
 						lblAterrizaje.setBackground(Color.WHITE);
-						lblAterrizaje.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		
-				fechaLlegada = new JLabel("New label");
-				GridBagConstraints gbc_fechaLlegada = new GridBagConstraints();
-				gbc_fechaLlegada.anchor = GridBagConstraints.WEST;
-				gbc_fechaLlegada.insets = new Insets(0, 0, 5, 5);
-				gbc_fechaLlegada.gridx = 1;
-				gbc_fechaLlegada.gridy = 3;
-				panel_3.add(fechaLlegada, gbc_fechaLlegada);
-				fechaLlegada.setBackground(Color.WHITE);
-				fechaLlegada.setFont(new Font("Calibri", Font.ITALIC, 18));
-
-		JLabel label_5 = new JLabel("Aceite (L):");
-		label_5.setBackground(Color.WHITE);
-		label_5.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		GridBagConstraints gbc_label_5 = new GridBagConstraints();
-		gbc_label_5.anchor = GridBagConstraints.WEST;
-		gbc_label_5.insets = new Insets(0, 0, 5, 5);
-		gbc_label_5.gridx = 1;
-		gbc_label_5.gridy = 4;
-		panel_3.add(label_5, gbc_label_5);
-
-		aceite = new JLabel("New label");
-		aceite.setBackground(Color.WHITE);
-		aceite.setFont(new Font("Calibri", Font.ITALIC, 18));
-		GridBagConstraints gbc_aceite = new GridBagConstraints();
-		gbc_aceite.anchor = GridBagConstraints.WEST;
-		gbc_aceite.insets = new Insets(0, 0, 5, 5);
-		gbc_aceite.gridx = 1;
-		gbc_aceite.gridy = 5;
-		panel_3.add(aceite, gbc_aceite);
-
-		JLabel lblCombl = new JLabel("Combustible (L):");
-		lblCombl.setBackground(Color.WHITE);
-		lblCombl.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 18));
-		GridBagConstraints gbc_lblCombl = new GridBagConstraints();
-		gbc_lblCombl.anchor = GridBagConstraints.WEST;
-		gbc_lblCombl.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCombl.gridx = 1;
-		gbc_lblCombl.gridy = 6;
-		panel_3.add(lblCombl, gbc_lblCombl);
-
-		combustible = new JLabel("New label");
-		combustible.setBackground(Color.WHITE);
-		combustible.setFont(new Font("Calibri", Font.ITALIC, 18));
-		GridBagConstraints gbc_combustible = new GridBagConstraints();
-		gbc_combustible.anchor = GridBagConstraints.WEST;
-		gbc_combustible.insets = new Insets(0, 0, 0, 5);
-		gbc_combustible.gridx = 1;
-		gbc_combustible.gridy = 7;
-		panel_3.add(combustible, gbc_combustible);
+						lblAterrizaje.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+												
+														fechaLlegada = new JLabel("New label");
+														panel_8.add(fechaLlegada);
+														fechaLlegada.setBackground(Color.WHITE);
+														fechaLlegada.setFont(new Font("Calibri", Font.ITALIC, 25));
+												
+												JPanel panel_9 = new JPanel();
+												GridBagConstraints gbc_panel_9 = new GridBagConstraints();
+												gbc_panel_9.anchor = GridBagConstraints.WEST;
+												gbc_panel_9.insets = new Insets(0, 0, 5, 5);
+												gbc_panel_9.fill = GridBagConstraints.VERTICAL;
+												gbc_panel_9.gridx = 1;
+												gbc_panel_9.gridy = 6;
+												panel_2.add(panel_9, gbc_panel_9);
+												
+														JLabel label_5 = new JLabel("Aceite (L):");
+														panel_9.add(label_5);
+														label_5.setBackground(Color.WHITE);
+														label_5.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+												
+														aceite = new JLabel("New label");
+														panel_9.add(aceite);
+														aceite.setBackground(Color.WHITE);
+														aceite.setFont(new Font("Calibri", Font.ITALIC, 25));
+														
+																JLabel lblCombl = new JLabel("     Comb (L):");
+																panel_9.add(lblCombl);
+																lblCombl.setBackground(Color.WHITE);
+																lblCombl.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+																
+																		combustible = new JLabel("New label");
+																		panel_9.add(combustible);
+																		combustible.setBackground(Color.WHITE);
+																		combustible.setFont(new Font("Calibri", Font.ITALIC, 25));
 	}
 
 	public void inic(Vuelo vuelo) {
 
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
-		this.fechaVuelo.setText(format.format(new Date(System.currentTimeMillis())));
+		SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/YYYY");
+		SimpleDateFormat formatHour = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+		this.fechaVuelo.setText(formatDay.format(new Date(System.currentTimeMillis())));
 		this.ordenDeVuelo.setText(vuelo.getId()+"");
 		this.avion.setText(Avion.getAvionById(vuelo.getIdAvion()+"").toString());
 		this.instructor.setText(Instructor.getInstructorById(vuelo.getIdInstructor()+"").toString());
 		
-		this.fechaPartida.setText(format.format(new Date(vuelo.getHoraInicio())));
+		this.fechaPartida.setText(formatHour.format(new Date(vuelo.getHoraInicio())));
 		
 		if (vuelo.getHoraFinal()==0)
 			this.fechaLlegada.setText("En vuelo");
 		else
-			this.fechaLlegada.setText(format.format(new Date(vuelo.getHoraFinal())));
+			this.fechaLlegada.setText(formatHour.format(new Date(vuelo.getHoraFinal())));
 			
-		
-		this.piloto.setText(vuelo.getIdPiloto()+"");
-		this.vencimientoPsicofisico.setText(format.format(new Date(Piloto.getPilotoById(vuelo.getIdPiloto()+"").getFecha_licencia())));
+		this.piloto.setText(Piloto.getPilotoById(vuelo.getIdPiloto()+"").toString());
+		this.vencimientoPsicofisico.setText(formatDay.format(new Date(Piloto.getPilotoById(vuelo.getIdPiloto()+"").getFecha_licencia())));
 		this.aceite.setText(vuelo.getCantAceite()+"");
 		this.combustible.setText(vuelo.getCantCombustible()+"");
 	}
