@@ -49,14 +49,10 @@ public class Venta extends JDialogExtended {
 			JButton btnVuelo = new JButton("Nuevo Vuelo");
 			btnVuelo.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(MouseEvent arg0) {	
-					parent.setEnabled(false);
-					Venta.this.setAction(MainController.ACTION_CONTINUE);
-					Venta_Vuelo dialog = new Venta_Vuelo(parent);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
-					dialog.setVisible(true);
-					Venta.this.dispose();					
+				public void mouseClicked(MouseEvent arg0) {
+
+					MainController.closeActualAndCreateNew(parent, Venta.this, new Venta_Vuelo(parent));
+
 				}
 			});
 			btnVuelo.setFont(MainController.getDefaultFont(MainController.BUTTON));
