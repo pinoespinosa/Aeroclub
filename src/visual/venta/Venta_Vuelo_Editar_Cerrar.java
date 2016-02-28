@@ -152,11 +152,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 					public void mouseClicked(MouseEvent arg0) {
 
 						Nuevo_Piloto dialog = new Nuevo_Piloto(Venta_Vuelo_Editar_Cerrar.this);
-						dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-
-						Venta_Vuelo_Editar_Cerrar.this.setEnabled(false);
+						MainController.sleepActualAndCreateNew(Venta_Vuelo_Editar_Cerrar.this, dialog);
 					}
 				});
 				btnNuevoPiloto.setToolTipText("Nuevo Piloto");

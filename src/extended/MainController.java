@@ -81,7 +81,7 @@ public class MainController {
 		return properties;
 	}
 
-	public static void closeActualAndCreateNew(JFrame parent, JDialogExtended actual, JDialogExtended nueva){
+	public static void closeActualAndCreateNew(JDialogExtended actual, JDialogExtended nueva){
 		actual.setAction(MainController.ACTION_CONTINUE);
 		nueva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		nueva.setAction(MainController.ACTION_REACTIVAR_PADRE);
@@ -91,8 +91,11 @@ public class MainController {
 		
 	};
 	
-	public void disposeActualAndCreateNew(JDialogExtended actual, JDialogExtended nueva){
-		
+	public static void sleepActualAndCreateNew(JDialogExtended actual, JDialogExtended nueva){
+		actual.setAction(MainController.ACTION_CONTINUE);
+		nueva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		nueva.setAction(MainController.ACTION_REACTIVAR_PADRE);
+		nueva.setVisible(true);
 	};
 	
 }

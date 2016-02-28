@@ -51,7 +51,7 @@ public class Venta extends JDialogExtended {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 
-					MainController.closeActualAndCreateNew(parent, Venta.this, new Venta_Vuelo(parent));
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo(parent));
 
 				}
 			});

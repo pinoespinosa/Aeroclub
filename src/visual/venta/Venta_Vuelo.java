@@ -161,7 +161,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						public void actionPerformed(ActionEvent arg0) {
 							
 							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
-							MainController.closeActualAndCreateNew(parent, Venta_Vuelo.this, dialog);
+							MainController.sleepActualAndCreateNew(Venta_Vuelo.this, dialog);
 							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CREAR);
 											}
 					});
