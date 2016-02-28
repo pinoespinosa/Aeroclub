@@ -159,13 +159,11 @@ public class Venta_Vuelo extends JDialogExtended {
 					crearVueloBtn = new JButton("Crear Nuevo Vuelo    ");
 					crearVueloBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							
 							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
-							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							MainController.closeActualAndCreateNew(parent, Venta_Vuelo.this, dialog);
 							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CREAR);
-							dialog.setVisible(true);
-							setAction(MainController.ACTION_REACTIVAR_PADRE);
-							Venta_Vuelo.this.dispose();
-						}
+											}
 					});
 					GridBagConstraints gbc_crearVueloBtn = new GridBagConstraints();
 					gbc_crearVueloBtn.fill = GridBagConstraints.BOTH;
