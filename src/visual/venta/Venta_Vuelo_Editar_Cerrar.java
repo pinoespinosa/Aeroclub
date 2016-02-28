@@ -55,7 +55,8 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final int MODE_EDICION = 0, MODE_CERRAR=1;
+	public enum TYPE {	MODE_CREAR, MODE_EDICION, MODE_CERRAR }
+	
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
 	private DefaultComboBoxModel<Piloto> pilotosList;
@@ -75,7 +76,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	private JLabel ordenDeVuelo;
 	private JComboBox<String> tipoVueloComboBox;
 	private JLabel lblTipoDeVuelo;
-	private JButton btnNewButton;
+	private JButton btnEdition;
 	
 	private JLabel lblHoraFinalizacin;
 	
@@ -448,8 +449,8 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 					}
 				});
 				{
-					btnNewButton = new JButton("Crear");
-					buttonPane.add(btnNewButton);
+					btnEdition = new JButton("Crear");
+					buttonPane.add(btnEdition);
 				}
 				cancelButton.setActionCommand("Salir");
 				buttonPane.add(cancelButton);
@@ -458,28 +459,37 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	}
 
 	@PostConstruct
-	public void inic(Vuelo vuelo, int modoApertura) {
+	public void inic(Vuelo vuelo, TYPE modoApertura) {
 
 		
 		{
-			aceiteSpinner.setEnabled(modoApertura!=MODE_CERRAR);
-			combustibleSpinner.setEnabled(modoApertura!=MODE_CERRAR);
-			inicioSpinner.setEnabled(modoApertura!=MODE_CERRAR);
-			pilotoComboBox.setEnabled(modoApertura!=MODE_CERRAR);
-			instructorComboBox.setEnabled(modoApertura!=MODE_CERRAR);
-			avionComboBox.setEnabled(modoApertura!=MODE_CERRAR);
-			tipoVueloComboBox.setEnabled(modoApertura!=MODE_CERRAR);
-			btnNuevoInstructor.setVisible(modoApertura!=MODE_CERRAR);
-			btnNuevoPiloto.setVisible(modoApertura!=MODE_CERRAR);
-			pagoEfectivo.setEnabled(modoApertura!=MODE_CERRAR);
-			pagoCuentaCorriente.setEnabled(modoApertura!=MODE_CERRAR);
+			aceiteSpinner.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			combustibleSpinner.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			inicioSpinner.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			pilotoComboBox.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			instructorComboBox.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			avionComboBox.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			tipoVueloComboBox.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			btnNuevoInstructor.setVisible(modoApertura!=TYPE.MODE_CERRAR);
+			btnNuevoPiloto.setVisible(modoApertura!=TYPE.MODE_CERRAR);
+			pagoEfectivo.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
+			pagoCuentaCorriente.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
 
-			finalizacionSpinner.setVisible(modoApertura==MODE_CERRAR);
-			lblHoraFinalizacin.setVisible(modoApertura==MODE_CERRAR);
-			lblcostoVuelo.setVisible(modoApertura==MODE_CERRAR);
-			costoVuelo.setVisible(modoApertura==MODE_CERRAR);
+			finalizacionSpinner.setVisible(modoApertura==TYPE.MODE_CERRAR);
+			lblHoraFinalizacin.setVisible(modoApertura==TYPE.MODE_CERRAR);
+			lblcostoVuelo.setVisible(modoApertura==TYPE.MODE_CERRAR);
+			costoVuelo.setVisible(modoApertura==TYPE.MODE_CERRAR);
 
-			
+			switch (modoApertura) {
+				case MODE_CERRAR :
+					break;
+				case MODE_CREAR :
+					break;
+				case MODE_EDICION :
+					break;
+				default :
+					break;
+			}
 		}
 			
 		ordenDeVuelo.setText("Orden de vuelo: " + managerDB.getNextId("vuelo"));
@@ -548,7 +558,8 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 		// Cargo el valor del total en base a los precios
 		updatePrecio();
 
-		setViewFromVueloStored(vuelo);
+		if (!modoApertura.equals(TYPE.MODE_CREAR))
+			setViewFromVueloStored(vuelo);
 	}
 
 	/**

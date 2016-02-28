@@ -12,7 +12,6 @@ import java.awt.print.Paper;
 import java.awt.print.PrinterJob;
 import java.text.SimpleDateFormat;
 
-import javax.annotation.PostConstruct;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,6 +23,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import data.Vuelo;
 import extended.JDialogExtended;
@@ -158,8 +159,9 @@ public class Venta_Vuelo extends JDialogExtended {
 					crearVueloBtn = new JButton("Crear Nuevo Vuelo    ");
 					crearVueloBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							Venta_Vuelo_Nuevo dialog = new Venta_Vuelo_Nuevo(parent);
+							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CREAR);
 							dialog.setVisible(true);
 							setAction(MainController.ACTION_EXIT);
 							Venta_Vuelo.this.dispose();
@@ -178,7 +180,7 @@ public class Venta_Vuelo extends JDialogExtended {
 						public void actionPerformed(ActionEvent arg0) {
 							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.MODE_CERRAR);
+							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CERRAR);
 							dialog.setVisible(true);
 							setAction(MainController.ACTION_EXIT);
 							Venta_Vuelo.this.dispose();
@@ -190,7 +192,7 @@ public class Venta_Vuelo extends JDialogExtended {
 							public void actionPerformed(ActionEvent arg0) {
 								Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
 								dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-								dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.MODE_EDICION);
+								dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_EDICION);
 								dialog.setVisible(true);
 								setAction(MainController.ACTION_EXIT);
 								Venta_Vuelo.this.dispose();
@@ -219,12 +221,18 @@ public class Venta_Vuelo extends JDialogExtended {
 			}
 		}
 
+		list.addListSelectionListener( new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+
+				
+				
+			}
+		});
+		
 	}
 
-	@PostConstruct
-	/**
-	 * Actualiza la lista de vuelos desde la BD
-	 */
 	public void updateListVuelos() {
 		vuelosList.removeAllElements();
 		for (Vuelo vuelo : Vuelo.loadFromDB())
