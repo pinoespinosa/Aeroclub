@@ -50,6 +50,7 @@ public class Venta extends JDialogExtended {
 			btnVuelo.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {	
+					parent.setEnabled(false);
 					Venta_Vuelo dialog = new Venta_Vuelo(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
