@@ -42,8 +42,12 @@ import data.Vencimiento;
 import extended.JDialogExtended;
 import extended.MainController;
 
-public class main extends JDialogExtended{
+public class MainClass extends JDialogExtended{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JList<Vencimiento> list;
 	private DefaultListModel<Vencimiento> vencimientoList;
@@ -85,7 +89,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	/**
 	 * Create the application.
 	 */
-	public main(final String perfil, final Window parent) {
+	public MainClass(final String perfil, final Window parent) {
 		super(parent);
 
 		// Administrar_General.this.setEnabled(false);
@@ -185,7 +189,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		btnNuevaVenta = new JButton("Nueva Venta / Deposito");
-		btnNuevaVenta.setIcon(new ImageIcon(main.class.getResource("/resources/icon_nueva_venta.png")));
+		btnNuevaVenta.setIcon(new ImageIcon(MainClass.class.getResource("/resources/icon_nueva_venta.png")));
 		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnNuevaVenta.addMouseListener(new MouseAdapter() {
 			@Override
@@ -194,10 +198,10 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Venta -----------------
 				 */
-				frame.setEnabled(false);
 				Venta dialog = new Venta(frame);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
+				
 			}
 		});
 
@@ -253,7 +257,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 		panel.add(list, gbc_list);
 
 		btnNuevaCompra = new JButton("Nueva Compra");
-		btnNuevaCompra.setIcon(new ImageIcon(main.class.getResource("/resources/icon_nueva_compra.png")));
+		btnNuevaCompra.setIcon(new ImageIcon(MainClass.class.getResource("/resources/icon_nueva_compra.png")));
 		btnNuevaCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -275,7 +279,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 		frame.getContentPane().add(btnNuevaCompra, gbc_btnNewButton);
 
 		btnVerInformes = new JButton("Ver informes");
-		btnVerInformes.setIcon(new ImageIcon(main.class.getResource("/resources/icon_informes.png")));
+		btnVerInformes.setIcon(new ImageIcon(MainClass.class.getResource("/resources/icon_informes.png")));
 		btnVerInformes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnVerInformes.addMouseListener(new MouseAdapter() {
 			@Override
@@ -298,7 +302,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 		frame.getContentPane().add(btnVerInformes, gbc_btnNewButton_2);
 
 		btnAdministrar = new JButton("Administrar");
-		btnAdministrar.setIcon(new ImageIcon(main.class.getResource("/resources/icon_admi.png")));
+		btnAdministrar.setIcon(new ImageIcon(MainClass.class.getResource("/resources/icon_admi.png")));
 		btnAdministrar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnAdministrar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -397,7 +401,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
-		
+	System.out.println();
 	}
 
 }

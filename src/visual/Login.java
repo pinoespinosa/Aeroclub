@@ -190,7 +190,7 @@ public class Login extends JDialogExtended {
 							@Override
 							public void run() {
 
-								main window = new main(perfil.get(0), Login.this);
+								MainClass window = new MainClass(perfil.get(0), Login.this);
 
 							}
 						});
