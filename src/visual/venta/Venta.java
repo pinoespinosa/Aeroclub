@@ -51,6 +51,7 @@ public class Venta extends JDialogExtended {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {	
 					parent.setEnabled(false);
+					Venta.this.setAction(MainController.ACTION_CONTINUE);
 					Venta_Vuelo dialog = new Venta_Vuelo(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
