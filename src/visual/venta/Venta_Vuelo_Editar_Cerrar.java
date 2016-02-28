@@ -449,7 +449,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 					}
 				});
 				{
-					btnEdition = new JButton("Crear");
+					btnEdition = new JButton("");
 					buttonPane.add(btnEdition);
 				}
 				cancelButton.setActionCommand("Salir");
@@ -482,11 +482,49 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 
 			switch (modoApertura) {
 				case MODE_CERRAR :
-					break;
+				{
+					btnEdition.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							
+						}
+					});
+				}
+				break;
+				
 				case MODE_CREAR :
-					break;
+				{
+					btnEdition.setText("Crear");
+					btnEdition.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							managerDB.executeScript_Void(getVueloFromView().getCreateScriptDataBase());
+							JOptionPane.showMessageDialog(null,"Se ha registrado un nuevo vuelo.");
+						}
+					});
+				}
+				break;
+				
 				case MODE_EDICION :
-					break;
+				{
+					btnEdition.setText("Editar");
+					btnEdition.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+											
+							Vuelo nuevo = getVueloFromView();
+							nuevo.setId(current.getId());
+							
+							nuevo.setPrecioAceite(current.getPrecioAceite());
+							nuevo.setPrecioCombustible(current.getPrecioCombustible());
+							
+							managerDB.updateAsset(nuevo);	
+							
+							JOptionPane.showMessageDialog(null,"Se ha editado exitosamente el vuelo.");
+							
+							
+						}
+					});
+				}
+				break;
+				
 				default :
 					break;
 			}
@@ -595,7 +633,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	 */
 	public Vuelo getVueloFromView() {
 
-		Vuelo nuevo = new Vuelo(managerDB.getNextId("vuelo"), ((Date) inicioSpinner.getModel().getValue()).getTime(), ((Date) finalizacionSpinner.getModel().getValue()).getTime(), Float.parseFloat(aceiteSpinner.getValue() + ""), Float.parseFloat(combustibleSpinner.getValue() + ""), ((Avion) avionesList.getSelectedItem()).getId(), ((Piloto) pilotosList.getSelectedItem()).getId(), ((Instructor) instructorList.getSelectedItem()).getId(), Float.parseFloat(costoVuelo.getText()), Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
+		Vuelo nuevo = new Vuelo(managerDB.getNextId("vuelo"), ((Date) inicioSpinner.getModel().getValue()).getTime(), 0, Float.parseFloat(aceiteSpinner.getValue() + ""), Float.parseFloat(combustibleSpinner.getValue() + ""), ((Avion) avionesList.getSelectedItem()).getId(), ((Piloto) pilotosList.getSelectedItem()).getId(), ((Instructor) instructorList.getSelectedItem()).getId(), Float.parseFloat(costoVuelo.getText()), Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
 				((Avion) avionesList.getSelectedItem()).getPrecio(), pagoEfectivo.isSelected() ? Precios.EFECTIVO : Precios.CUENTA_CORRIENTE, Vuelo.TipoVuelo.valueOf((String) tipoVueloComboBox.getSelectedItem()).ordinal());
 
 		return nuevo;

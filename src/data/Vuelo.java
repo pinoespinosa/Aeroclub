@@ -10,11 +10,12 @@ import java.util.List;
 import base_datos.managerDB;
 import extended.MainController;
 
+public class Vuelo implements Comparable<Vuelo> {
 
-public class Vuelo implements Comparable<Vuelo>{
+	public enum TipoVuelo {
+		Diurno, Nocturno
+	}
 
-	public enum TipoVuelo {		Diurno, Nocturno	}
-	
 	private int id;
 
 	private long horaInicio, horaFinal;
@@ -25,12 +26,12 @@ public class Vuelo implements Comparable<Vuelo>{
 
 	private int idAvion, idPiloto, idInstructor, formaDePago, tipoVuelo;
 
-	
 	/**
-	 * En el momento que se crea el vuelo se guardan los precios y no se pueden modificar mas adelante
+	 * En el momento que se crea el vuelo se guardan los precios y no se pueden
+	 * modificar mas adelante
 	 */
 	private float precio, precioAceite, precioCombustible, precioAvion;
-	
+
 	public Vuelo(float precioAceite, float precioCombustible, float precioAvion) {
 		super();
 		this.precioAceite = precioAceite;
@@ -38,9 +39,7 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.setPrecioAvion(precioAvion);
 	}
 
-
-	public Vuelo(int id, long horaInicio, long horaFinal, float cantAceite, float cantCombustible, int idAvion, int idPiloto, int idInstructor,
-			float precio, float precioAceite, float precioCombustible, float precioAvion, int formaDePago, int tipoVuelo) {
+	public Vuelo(int id, long horaInicio, long horaFinal, float cantAceite, float cantCombustible, int idAvion, int idPiloto, int idInstructor, float precio, float precioAceite, float precioCombustible, float precioAvion, int formaDePago, int tipoVuelo) {
 		super();
 		this.id = id;
 		this.horaInicio = horaInicio;
@@ -54,11 +53,9 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.precio = precio;
 		this.precioAceite = precioAceite;
 		this.precioCombustible = precioCombustible;
-		this.tipoVuelo=tipoVuelo;
+		this.tipoVuelo = tipoVuelo;
 		this.setPrecioAvion(precioAvion);
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -123,55 +120,41 @@ public class Vuelo implements Comparable<Vuelo>{
 	public void setIdInstructor(int idInstructor) {
 		this.idInstructor = idInstructor;
 	}
-	
+
 	@Override
 	public String toString() {
-		
+
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm dd/MMM ");
-		
+
 		Date inicio = new Date(horaInicio);
 		Date fin = new Date(horaFinal);
-		
+
 		String id;
-		
-		if (getId()<10)
-			id="00"+getId();
+
+		if (getId() < 10)
+			id = "00" + getId();
+		else if (getId() > 9 && getId() < 100)
+			id = "0" + getId();
 		else
-			if (getId()>9 && getId()<100)
-				id="0"+getId();
-			else
-				id=""+getId();
-			
-		return "Vuelo "+ id +" - " + getPiloto().getApellido()+ " - " + format.format(inicio) + "~ " + format.format(fin);
+			id = "" + getId();
+
+		if (horaFinal!=0)
+			return "Vuelo " + id + " - " + getPiloto().getApellido() + " - " + format.format(inicio) + "~ " + format.format(fin);
+		else
+			return "Vuelo " + id + " - " + getPiloto().getApellido() + " - " + format.format(inicio);
+
 	}
 
 	public float getPrecio() {
 		return precio;
-	}	
-	
+	}
+
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	
 
-	
-	public String getCreateScriptDataBase(){
-		return "INSERT INTO `"+MainController.getEsquema()+"`.`vuelo` values ( " +
-				" " + getId()  +
-				", " + getHoraInicio() +
-				", " + getHoraFinal() +
-				", " + getCantAceite() +
-				", " + getCantCombustible() +
-				", " + getIdAvion() +
-				", " + getIdPiloto() + 
-				", " + getIdInstructor() +
-				", " + getPrecio() +
-				", " + getPrecioAceite() +
-				", " + getPrecioCombustible() +
-				", " + getPrecioAvion() +
-				", " + getFormaDePago() +
-				", " + getTipoVuelo() +
-				 ");"; 
+	public String getCreateScriptDataBase() {
+		return "INSERT INTO `" + MainController.getEsquema() + "`.`vuelo` values ( " + " " + getId() + ", " + getHoraInicio() + ", " + getHoraFinal() + ", " + getCantAceite() + ", " + getCantCombustible() + ", " + getIdAvion() + ", " + getIdPiloto() + ", " + getIdInstructor() + ", " + getPrecio() + ", " + getPrecioAceite() + ", " + getPrecioCombustible() + ", " + getPrecioAvion() + ", " + getFormaDePago() + ", " + getTipoVuelo() + ");";
 	}
 
 	public float getPrecioAceite() {
@@ -189,55 +172,38 @@ public class Vuelo implements Comparable<Vuelo>{
 	public void setPrecioCombustible(float precioCombustible) {
 		this.precioCombustible = precioCombustible;
 	}
-	
-	
-	
-	private static String getScriptDataBase(){
-		return 	"	SELECT *" +
-				"	FROM "+MainController.getEsquema()+".vuelo;";
+
+	private static String getScriptDataBase() {
+		return "	SELECT *" + "	FROM " + MainController.getEsquema() + ".vuelo;";
 	}
-	
-	private static List<String> getFieldScriptBase(){
-		return Arrays.asList(new String[]{"id","horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible","precioAvion","formaDePago", "tipoVuelo"});
+
+	private static List<String> getFieldScriptBase() {
+		return Arrays.asList(new String[]{"id", "horaInicio", "horaFinal", "cantAceite", "cantCombustible", "idAvion", "idPiloto", "idInstructor", "precio", "precioAceite", "precioCombustible", "precioAvion", "formaDePago", "tipoVuelo"});
 	}
-	
-	private static Vuelo loadFromList(List<String> valores){		
-		return new Vuelo(
-							Integer.parseInt(valores.get(0)),
-							Long.parseLong(valores.get(1)),
-							Long.parseLong(valores.get(2)),
-							Float.parseFloat(valores.get(3)),
-							Float.parseFloat(valores.get(4)),
-							Integer.parseInt(valores.get(5)),
-							Integer.parseInt(valores.get(6)),
-							Integer.parseInt(valores.get(7)),
-							Float.parseFloat(valores.get(8)),
-							Float.parseFloat(valores.get(9)),
-							Float.parseFloat(valores.get(10)),
-							Float.parseFloat(valores.get(11)),
-							Integer.parseInt(valores.get(12)),
-							Integer.parseInt(valores.get(13)));
-		
+
+	private static Vuelo loadFromList(List<String> valores) {
+		return new Vuelo(Integer.parseInt(valores.get(0)), Long.parseLong(valores.get(1)), Long.parseLong(valores.get(2)), Float.parseFloat(valores.get(3)), Float.parseFloat(valores.get(4)), Integer.parseInt(valores.get(5)), Integer.parseInt(valores.get(6)), Integer.parseInt(valores.get(7)), Float.parseFloat(valores.get(8)), Float.parseFloat(valores.get(9)), Float.parseFloat(valores.get(10)), Float.parseFloat(valores.get(11)), Integer.parseInt(valores.get(12)), Integer.parseInt(valores.get(13)));
+
 	}
-	
-	public static List<Vuelo> loadFromDB(){
+
+	public static List<Vuelo> loadFromDB() {
 		List<List<String>> vuelosData = managerDB.executeScript_Query(Vuelo.getScriptDataBase(), Vuelo.getFieldScriptBase());
 		List<Vuelo> aviones = new ArrayList<Vuelo>();
-		
+
 		for (List<String> list : vuelosData) {
 			aviones.add(loadFromList(list));
 		}
-		
+
 		Collections.sort(aviones);
-		
-	return aviones;
+
+		return aviones;
 	}
 
 	@Override
 	public int compareTo(Vuelo arg0) {
-		if (getId()==arg0.getId())
+		if (getId() == arg0.getId())
 			return 0;
-		if (getId()<arg0.getId())
+		if (getId() < arg0.getId())
 			return 1;
 		else
 			return -1;
@@ -251,32 +217,24 @@ public class Vuelo implements Comparable<Vuelo>{
 		this.formaDePago = formaDePago;
 	}
 
-
-
 	public float getPrecioAvion() {
 		return precioAvion;
 	}
-
-
 
 	public void setPrecioAvion(float precioAvion) {
 		this.precioAvion = precioAvion;
 	}
 
-
-
 	public Piloto getPiloto() {
-		return Piloto.getPilotoById(idPiloto+"");
+		return Piloto.getPilotoById(idPiloto + "");
 	}
-
 
 	public int getTipoVuelo() {
 		return tipoVuelo;
 	}
 
-
 	public void setTipoVuelo(int tipoVuelo) {
 		this.tipoVuelo = tipoVuelo;
 	}
-	
+
 }
