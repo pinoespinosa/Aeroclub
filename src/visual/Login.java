@@ -166,7 +166,7 @@ public class Login extends JDialogExtended {
 	@PostConstruct
 	private void inic() {
 
-		setAction(MainController.ACTION_EXIT);
+		setAction(MainController.ACTION_REACTIVAR_PADRE);
 
 		loginButton.addMouseListener(new MouseAdapter() {
 			@Override

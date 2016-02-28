@@ -136,7 +136,7 @@ public class Nuevo_Avion extends JDialogExtended {
 	
 	@PostConstruct
 	private void inic() {
-		setAction(MainController.ACTION_EXIT);
+		setAction(MainController.ACTION_REACTIVAR_PADRE);
 		aviones = Avion.loadFromDB();
 	
 		nombreAvionTextField.addKeyListener(new KeyAdapter(){

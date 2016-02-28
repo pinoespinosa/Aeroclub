@@ -28,7 +28,7 @@ public abstract class JDialogExtended extends JDialog {
 			public void windowClosed(WindowEvent arg0) {
 				
 				switch (action) {
-					case MainController.ACTION_EXIT:
+					case MainController.ACTION_REACTIVAR_PADRE:
 					{		
 						parent.setEnabled(true);
 						parent.setVisible(true);

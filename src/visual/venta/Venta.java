@@ -74,7 +74,7 @@ public class Venta extends JDialogExtended {
 					Venta_Combustible dialog = new Venta_Combustible(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					setAction(MainController.ACTION_EXIT);
+					setAction(MainController.ACTION_REACTIVAR_PADRE);
 					Venta.this.dispose();	
 					
 				}
@@ -95,7 +95,7 @@ public class Venta extends JDialogExtended {
 					Venta_Campo dialog = new Venta_Campo(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					setAction(MainController.ACTION_EXIT);
+					setAction(MainController.ACTION_REACTIVAR_PADRE);
 					Venta.this.dispose();						
 					
 				}
@@ -116,7 +116,7 @@ public class Venta extends JDialogExtended {
 					Venta_Deposito_Dinero dialog = new Venta_Deposito_Dinero(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					setAction(MainController.ACTION_EXIT);
+					setAction(MainController.ACTION_REACTIVAR_PADRE);
 					Venta.this.dispose();	
 					
 				}
@@ -149,7 +149,7 @@ public class Venta extends JDialogExtended {
 	@PostConstruct 
 	private void inic()
 	{
-		setAction(MainController.ACTION_EXIT);
+		setAction(MainController.ACTION_REACTIVAR_PADRE);
 	}
 	@Override
 	public void updateUi() {

@@ -330,7 +330,7 @@ public class Administrar_General extends JDialogExtended {
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
 								Nuevo_Avion dialog = new Nuevo_Avion(Administrar_General.this);
-								dialog.setAction(MainController.ACTION_EXIT);
+								dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
 								dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 								dialog.setVisible(true);
 								
@@ -561,7 +561,7 @@ public class Administrar_General extends JDialogExtended {
 	}
 
 	private void inic() {
-		setAction(MainController.ACTION_EXIT);
+		setAction(MainController.ACTION_REACTIVAR_PADRE);
 
 		updateUi();
 

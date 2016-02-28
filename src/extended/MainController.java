@@ -37,7 +37,7 @@ public class MainController {
 	
 	public static final int 
 		ACTION_CONTINUE=0,
-		ACTION_EXIT=1;
+		ACTION_REACTIVAR_PADRE=1;
 	
 	private static boolean licenciaValida;
 

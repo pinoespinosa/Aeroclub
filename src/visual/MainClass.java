@@ -34,6 +34,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import visual.venta.Venta;
 import base_datos.DateUtils;
 import base_datos.Utils;
 import base_datos.managerDB;
@@ -197,12 +198,11 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Venta -----------------
 				 */
-				MainClass.this.setEnabled(false);
-			//	Venta dialog = new Venta(frame);
-			//	dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			//	dialog.setVisible(true);
-				
-			//	dialog.setAction(MainController.ACTION_EXIT);
+				frame.setEnabled(false);
+				Venta dialog = new Venta(frame);
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
 			}
 		});
 

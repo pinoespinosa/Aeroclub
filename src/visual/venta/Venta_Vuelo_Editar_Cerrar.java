@@ -152,7 +152,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 					public void mouseClicked(MouseEvent arg0) {
 
 						Nuevo_Piloto dialog = new Nuevo_Piloto(Venta_Vuelo_Editar_Cerrar.this);
-						dialog.setAction(MainController.ACTION_EXIT);
+						dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 
@@ -250,7 +250,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 					public void mouseClicked(MouseEvent arg0) {
 
 						Nuevo_Instructor dialog = new Nuevo_Instructor(Venta_Vuelo_Editar_Cerrar.this);
-						dialog.setAction(MainController.ACTION_EXIT);
+						dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 

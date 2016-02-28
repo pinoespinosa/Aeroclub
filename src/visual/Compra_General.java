@@ -215,7 +215,7 @@ public class Compra_General extends JDialogExtended {
 	@PostConstruct
 	public void init(){
 
-		setAction(MainController.ACTION_EXIT);
+		setAction(MainController.ACTION_REACTIVAR_PADRE);
 		
 		List<Gasto> gastos = Gasto.loadFromDB();
 		

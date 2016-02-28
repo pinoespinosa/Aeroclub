@@ -163,7 +163,7 @@ public class Venta_Vuelo extends JDialogExtended {
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CREAR);
 							dialog.setVisible(true);
-							setAction(MainController.ACTION_EXIT);
+							setAction(MainController.ACTION_REACTIVAR_PADRE);
 							Venta_Vuelo.this.dispose();
 						}
 					});
@@ -182,7 +182,7 @@ public class Venta_Vuelo extends JDialogExtended {
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CERRAR);
 							dialog.setVisible(true);
-							setAction(MainController.ACTION_EXIT);
+							setAction(MainController.ACTION_REACTIVAR_PADRE);
 							Venta_Vuelo.this.dispose();
 						}
 					});
@@ -194,7 +194,7 @@ public class Venta_Vuelo extends JDialogExtended {
 								dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 								dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_EDICION);
 								dialog.setVisible(true);
-								setAction(MainController.ACTION_EXIT);
+								setAction(MainController.ACTION_REACTIVAR_PADRE);
 			//					Venta_Vuelo.this.dispose();
 							}
 						});
