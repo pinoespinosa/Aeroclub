@@ -5,14 +5,12 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,16 +32,8 @@ public class Informes_Table extends JDialogExtended {
 	/**
 	 * Create the dialog.
 	 */
-	public Informes_Table(final JFrame parent, List<String> columnNames, List<List<String>> dataValues, String titulo, String extraInformation) {
+	public Informes_Table(final Window parent, List<String> columnNames, List<List<String>> dataValues, String titulo, String extraInformation) {
 		super(parent);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				parent.setEnabled(true);
-				parent.setVisible(true);
-			}
-		});
 
 		// Set the frame characteristics
 		setTitle(titulo);

@@ -132,12 +132,7 @@ public class Informes extends JDialogExtended {
 							list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
 						}
 						
-						Informes_Table dialog = new Informes_Table(parent,campos, datos, "Vencimiento del psicofísico" ,"");
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-						setAction(MainController.ACTION_CONTINUE);
-						Informes.this.dispose();					
-						
+						MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this,campos, datos,"Vencimiento del psicofísico",""));
 					}
 				});
 			}

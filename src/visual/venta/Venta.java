@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -50,9 +49,7 @@ public class Venta extends JDialogExtended {
 			btnVuelo.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-
 					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo(parent));
-
 				}
 			});
 			btnVuelo.setFont(MainController.getDefaultFont(MainController.BUTTON));
@@ -68,12 +65,7 @@ public class Venta extends JDialogExtended {
 			btnCombustible.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					Venta_Combustible dialog = new Venta_Combustible(parent);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-					setAction(MainController.ACTION_REACTIVAR_PADRE);
-					Venta.this.dispose();	
-					
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible(parent));
 				}
 			});
 			btnCombustible.setFont(MainController.getDefaultFont(MainController.BUTTON));
@@ -88,13 +80,7 @@ public class Venta extends JDialogExtended {
 			JButton btnNuevoAlquilerDe = new JButton("Nuevo Alquiler de Tierra");
 			btnNuevoAlquilerDe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					
-					Venta_Campo dialog = new Venta_Campo(parent);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-					setAction(MainController.ACTION_REACTIVAR_PADRE);
-					Venta.this.dispose();						
-					
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Campo(parent));
 				}
 			});
 			btnNuevoAlquilerDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
@@ -110,12 +96,7 @@ public class Venta extends JDialogExtended {
 			btnNuevoDepositoDe.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					Venta_Deposito_Dinero dialog = new Venta_Deposito_Dinero(parent);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-					setAction(MainController.ACTION_REACTIVAR_PADRE);
-					Venta.this.dispose();	
-					
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Deposito_Dinero(parent));
 				}
 			});
 			btnNuevoDepositoDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
