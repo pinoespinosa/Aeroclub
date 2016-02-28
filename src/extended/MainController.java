@@ -87,12 +87,10 @@ public class MainController {
 		nueva.setAction(MainController.ACTION_REACTIVAR_PADRE);
 		nueva.setVisible(true);
 		actual.dispose();					
-
-		
 	};
 	
 	public static void sleepActualAndCreateNew(JDialogExtended actual, JDialogExtended nueva){
-		actual.setAction(MainController.ACTION_CONTINUE);
+		actual.setEnabled(true);
 		nueva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		nueva.setAction(MainController.ACTION_REACTIVAR_PADRE);
 		nueva.setVisible(true);

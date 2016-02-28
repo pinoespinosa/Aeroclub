@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -41,6 +40,7 @@ public class Venta_Vuelo extends JDialogExtended {
 	private JButton crearVueloBtn, imprimirComprobanteBtn;
 	private JButton btnCerrarVuelo;
 	private JButton btnEditarVuelo;
+	private JButton btnVerVuelo;
 
 	/**
 	 * Create the dialog.
@@ -89,10 +89,10 @@ public class Venta_Vuelo extends JDialogExtended {
 			gbc_panelDerecho.gridy = 1;
 			getContentPane().add(panelDerecho, gbc_panelDerecho);
 			GridBagLayout gbl_panelDerecho = new GridBagLayout();
-			gbl_panelDerecho.columnWidths = new int[]{0, 0};
-			gbl_panelDerecho.rowHeights = new int[]{0, 35, 35, 35, 35, 0};
-			gbl_panelDerecho.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-			gbl_panelDerecho.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panelDerecho.columnWidths = new int[]{0, 0, 0, 0};
+			gbl_panelDerecho.rowHeights = new int[]{0, 35, 35, 35, 0};
+			gbl_panelDerecho.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panelDerecho.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panelDerecho.setLayout(gbl_panelDerecho);
 			{
 
@@ -103,6 +103,7 @@ public class Venta_Vuelo extends JDialogExtended {
 				{
 					JScrollPane scrollPane = new JScrollPane();
 					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+					gbc_scrollPane.gridwidth = 3;
 					gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 					gbc_scrollPane.fill = GridBagConstraints.BOTH;
 					gbc_scrollPane.gridx = 0;
@@ -110,11 +111,11 @@ public class Venta_Vuelo extends JDialogExtended {
 					panelDerecho.add(scrollPane, gbc_scrollPane);
 					list = new JList<Vuelo>();
 					scrollPane.setViewportView(list);
-					list.setFont(new Font("Consolas", Font.ITALIC,14));
+					list.setFont(new Font("Consolas", Font.ITALIC, 14));
 					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					list.setModel(vuelosList);
 					FileListCellRenderer renderer = new FileListCellRenderer();
-				    list.setCellRenderer(renderer);
+					list.setCellRenderer(renderer);
 				}
 			}
 			{
@@ -159,76 +160,95 @@ public class Venta_Vuelo extends JDialogExtended {
 					crearVueloBtn = new JButton("Crear Nuevo Vuelo    ");
 					crearVueloBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							
-							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
+
+							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(Venta_Vuelo.this);
 							MainController.sleepActualAndCreateNew(Venta_Vuelo.this, dialog);
 							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CREAR);
-											}
+						}
 					});
 					GridBagConstraints gbc_crearVueloBtn = new GridBagConstraints();
 					gbc_crearVueloBtn.fill = GridBagConstraints.BOTH;
-					gbc_crearVueloBtn.insets = new Insets(0, 0, 5, 0);
+					gbc_crearVueloBtn.insets = new Insets(0, 0, 5, 5);
 					gbc_crearVueloBtn.gridx = 0;
 					gbc_crearVueloBtn.gridy = 1;
 					panelDerecho.add(crearVueloBtn, gbc_crearVueloBtn);
 				}
 				{
-					btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
-					btnCerrarVuelo.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
-							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CERRAR);
-							dialog.setVisible(true);
-							setAction(MainController.ACTION_REACTIVAR_PADRE);
-							Venta_Vuelo.this.dispose();
-						}
-					});
 					{
 						btnEditarVuelo = new JButton("Editar Vuelo");
 						btnEditarVuelo.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
-								Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(parent);
-								dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-								dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_EDICION);
-								dialog.setVisible(true);
-								setAction(MainController.ACTION_REACTIVAR_PADRE);
-			//					Venta_Vuelo.this.dispose();
+			
+								if (list.getSelectedValue()!=null){
+									Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(Venta_Vuelo.this);
+									MainController.sleepActualAndCreateNew(Venta_Vuelo.this, dialog);
+									dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_EDICION);
+								}
 							}
 						});
 						GridBagConstraints gbc_btnEditarVuelo = new GridBagConstraints();
 						gbc_btnEditarVuelo.fill = GridBagConstraints.BOTH;
-						gbc_btnEditarVuelo.insets = new Insets(0, 0, 5, 0);
-						gbc_btnEditarVuelo.gridx = 0;
-						gbc_btnEditarVuelo.gridy = 2;
+						gbc_btnEditarVuelo.insets = new Insets(0, 0, 5, 5);
+						gbc_btnEditarVuelo.gridx = 1;
+						gbc_btnEditarVuelo.gridy = 1;
 						panelDerecho.add(btnEditarVuelo, gbc_btnEditarVuelo);
 					}
-					GridBagConstraints gbc_btnCerrarVuelo = new GridBagConstraints();
-					gbc_btnCerrarVuelo.fill = GridBagConstraints.BOTH;
-					gbc_btnCerrarVuelo.insets = new Insets(0, 0, 5, 0);
-					gbc_btnCerrarVuelo.gridx = 0;
-					gbc_btnCerrarVuelo.gridy = 3;
-					panelDerecho.add(btnCerrarVuelo, gbc_btnCerrarVuelo);
-					btnCerrarVuelo.setHorizontalTextPosition(SwingConstants.LEADING);
+				}
+				btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
+				btnCerrarVuelo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if (list.getSelectedValue()!=null){
+							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(Venta_Vuelo.this);
+							MainController.sleepActualAndCreateNew(Venta_Vuelo.this, dialog);
+							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CERRAR);
+						}
+					}
+				});
+				GridBagConstraints gbc_btnCerrarVuelo = new GridBagConstraints();
+				gbc_btnCerrarVuelo.fill = GridBagConstraints.BOTH;
+				gbc_btnCerrarVuelo.insets = new Insets(0, 0, 5, 0);
+				gbc_btnCerrarVuelo.gridx = 2;
+				gbc_btnCerrarVuelo.gridy = 1;
+				panelDerecho.add(btnCerrarVuelo, gbc_btnCerrarVuelo);
+				btnCerrarVuelo.setHorizontalTextPosition(SwingConstants.LEADING);
+				{
+					btnVerVuelo = new JButton("Ver informaci\u00F3n del vuelo");
+					GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+					gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+					gbc_btnNewButton.gridwidth = 3;
+					gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+					gbc_btnNewButton.gridx = 0;
+					gbc_btnNewButton.gridy = 2;
+					panelDerecho.add(btnVerVuelo, gbc_btnNewButton);
+					btnVerVuelo.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							
+							
+							if (list.getSelectedValue() != null ) {
+								Venta_Vuelo_Imprimible dialog = new Venta_Vuelo_Imprimible(parent);
+								dialog.inic(list.getSelectedValue());
+								dialog.setVisible(true);
+							}
+										}
+					});
 				}
 				GridBagConstraints gbc_imprimirComprobanteBtn = new GridBagConstraints();
+				gbc_imprimirComprobanteBtn.gridwidth = 3;
 				gbc_imprimirComprobanteBtn.fill = GridBagConstraints.BOTH;
 				gbc_imprimirComprobanteBtn.gridx = 0;
-				gbc_imprimirComprobanteBtn.gridy = 4;
+				gbc_imprimirComprobanteBtn.gridy = 3;
 				panelDerecho.add(imprimirComprobanteBtn, gbc_imprimirComprobanteBtn);
 			}
 		}
 
-		list.addListSelectionListener( new ListSelectionListener() {
-			
+		list.addListSelectionListener(new ListSelectionListener() {
+
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 
-				
-				
 			}
 		});
-		
+
 	}
 
 	public void updateListVuelos() {
@@ -240,7 +260,6 @@ public class Venta_Vuelo extends JDialogExtended {
 
 	@Override
 	public void updateUi() {
-		// TODO Auto-generated method stub
-
+		updateListVuelos();
 	}
 }

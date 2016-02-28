@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -24,7 +25,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -55,7 +55,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum TYPE {	MODE_CREAR, MODE_EDICION, MODE_CERRAR }
+	public enum TYPE {	MODE_CREAR, MODE_EDICION, MODE_CERRAR, MODE_VER }
 	
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
@@ -85,7 +85,7 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 	 * 
 	 * @param frmSistemaDeGestin
 	 */
-	public Venta_Vuelo_Editar_Cerrar(final JFrame parent) {
+	public Venta_Vuelo_Editar_Cerrar(final Window parent) {
 		super(parent);
 		setResizable(false);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -105,7 +105,6 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 			gbc_panelIzquierdo.gridx = 1;
 			gbc_panelIzquierdo.gridy = 1;
 			getContentPane().add(panelIzquierdo, gbc_panelIzquierdo);
-			panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Nuevo vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 			GridBagLayout gbl_panelIzquierdo = new GridBagLayout();
 			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 20, 0, 0, 0, 10, 0};
 			gbl_panelIzquierdo.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0};
@@ -475,25 +474,82 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 			lblHoraFinalizacin.setVisible(modoApertura==TYPE.MODE_CERRAR);
 			lblcostoVuelo.setVisible(modoApertura==TYPE.MODE_CERRAR);
 			costoVuelo.setVisible(modoApertura==TYPE.MODE_CERRAR);
+				
 
-			switch (modoApertura) {
-				case MODE_CERRAR :
-				{
-					btnEdition.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							
-						}
-					});
+			// Cargo los aviones en el combo
+			avionesList.removeAllElements();
+			List<Avion> aviones = Avion.loadFromDB();
+			for (Avion avion : aviones) {
+				avionesList.addElement(avion);
+			}
+			if (!aviones.isEmpty())
+				current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), avionesList.getElementAt(0).getPrecio());
+			else
+				current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), 0);
+
+			
+			ActionListener precioDirty = new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					updatePrecio();
+				};
+			};
+				
+			tipoVueloComboBox.addActionListener(precioDirty);
+			avionComboBox.addActionListener(precioDirty);
+
+			// Cargo los pilotos en el combo
+			pilotosList.removeAllElements();
+			List<Piloto> pilotos = Piloto.loadFromDB();
+			for (Piloto piloto : pilotos) {
+				pilotosList.addElement(piloto);
+			}
+
+			// Cargo los instructores en el combo
+			instructorList.removeAllElements();
+			List<Instructor> intructores = Instructor.loadFromDB();
+
+			instructorList.addElement(new Instructor(-1, "Sin instructor", "", new Long(-1), new Long(-1), -1, new Float(0)));
+			for (Instructor instructor : intructores) {
+				instructorList.addElement(instructor);
+			}
+
+			// Seteo a las fechas el tiempo actual
+			Date fecha = new Date(System.currentTimeMillis());
+			inicioSpinner.getModel().setValue(fecha);
+			finalizacionSpinner.getModel().setValue(fecha);
+
+			// Creo el validador para las fechas de inicio y fin
+			ChangeListener spinListener = new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					updatePrecio();
 				}
-				break;
+			};
+			finalizacionSpinner.addChangeListener(spinListener);
+			inicioSpinner.addChangeListener(spinListener);
+
+			// Formateo las fechas
+			inicioSpinner.setEditor(new JSpinner.DateEditor(inicioSpinner, "dd/MM/yyyy HH:mm"));
+			finalizacionSpinner.setEditor(new JSpinner.DateEditor(finalizacionSpinner, "dd/MM/yyyy HH:mm"));
+
+			for (Vuelo.TipoVuelo tipo : Vuelo.TipoVuelo.values()) {
+				tipoVueloComboBox.addItem(tipo.toString());
+			}
+			
+			switch (modoApertura) {
 				
 				case MODE_CREAR :
 				{
 					btnEdition.setText("Crear");
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Nuevo vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBackground(new Color(170, 215, 124));
+					ordenDeVuelo.setText("Orden de vuelo: " + managerDB.getNextId("vuelo"));
 					btnEdition.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							managerDB.executeScript_Void(getVueloFromView().getCreateScriptDataBase());
 							JOptionPane.showMessageDialog(null,"Se ha registrado un nuevo vuelo.");
+							Venta_Vuelo_Editar_Cerrar.this.dispose();
 						}
 					});
 				}
@@ -502,98 +558,65 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 				case MODE_EDICION :
 				{
 					btnEdition.setText("Editar");
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Edición de vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBackground(new Color(255, 255, 128));
+					setViewFromVueloStored(vuelo);
 					btnEdition.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 											
 							Vuelo nuevo = getVueloFromView();
 							nuevo.setId(current.getId());
-							
 							nuevo.setPrecioAceite(current.getPrecioAceite());
 							nuevo.setPrecioCombustible(current.getPrecioCombustible());
 							
 							managerDB.updateAsset(nuevo);	
 							
 							JOptionPane.showMessageDialog(null,"Se ha editado exitosamente el vuelo.");
-							
+							Venta_Vuelo_Editar_Cerrar.this.dispose();
 							
 						}
 					});
 				}
 				break;
 				
-				default :
+				case MODE_CERRAR :
+				{
+					btnEdition.setText("Cerrar");
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Cerrar vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBackground(new Color(255, 128, 128));
+					setViewFromVueloStored(vuelo);
+					btnEdition.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							Venta_Vuelo_Editar_Cerrar.this.dispose();
+						}
+					});
+				}
+				break;
+				
+				case MODE_VER :
+				{
+					btnEdition.setVisible(false);
+					setViewFromVueloStored(vuelo);
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Información del vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBackground(new Color(153, 217, 234));
+					setViewFromVueloStored(vuelo);
+					btnEdition.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							Venta_Vuelo_Editar_Cerrar.this.dispose();
+						}
+					});	
+				}
 					break;
+	
 			}
 		}
 			
-		ordenDeVuelo.setText("Orden de vuelo: " + managerDB.getNextId("vuelo"));
+	
 
-		// Cargo los aviones en el combo
-		avionesList.removeAllElements();
-		List<Avion> aviones = Avion.loadFromDB();
-		for (Avion avion : aviones) {
-			avionesList.addElement(avion);
-		}
-		if (!aviones.isEmpty())
-			current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), avionesList.getElementAt(0).getPrecio());
-		else
-			current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), 0);
-
-		
-		ActionListener precioDirty = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				updatePrecio();
-			};
-		};
-			
-		tipoVueloComboBox.addActionListener(precioDirty);
-		avionComboBox.addActionListener(precioDirty);
-
-		// Cargo los pilotos en el combo
-		pilotosList.removeAllElements();
-		List<Piloto> pilotos = Piloto.loadFromDB();
-		for (Piloto piloto : pilotos) {
-			pilotosList.addElement(piloto);
-		}
-
-		// Cargo los instructores en el combo
-		instructorList.removeAllElements();
-		List<Instructor> intructores = Instructor.loadFromDB();
-
-		instructorList.addElement(new Instructor(-1, "Sin instructor", "", new Long(-1), new Long(-1), -1, new Float(0)));
-		for (Instructor instructor : intructores) {
-			instructorList.addElement(instructor);
-		}
-
-		// Seteo a las fechas el tiempo actual
-		Date fecha = new Date(System.currentTimeMillis());
-		inicioSpinner.getModel().setValue(fecha);
-		finalizacionSpinner.getModel().setValue(fecha);
-
-		// Creo el validador para las fechas de inicio y fin
-		ChangeListener spinListener = new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				updatePrecio();
-			}
-		};
-		finalizacionSpinner.addChangeListener(spinListener);
-		inicioSpinner.addChangeListener(spinListener);
-
-		// Formateo las fechas
-		inicioSpinner.setEditor(new JSpinner.DateEditor(inicioSpinner, "dd/MM/yyyy HH:mm"));
-		finalizacionSpinner.setEditor(new JSpinner.DateEditor(finalizacionSpinner, "dd/MM/yyyy HH:mm"));
-
-		for (Vuelo.TipoVuelo tipo : Vuelo.TipoVuelo.values()) {
-			tipoVueloComboBox.addItem(tipo.toString());
-		}
 
 		// Cargo el valor del total en base a los precios
 		updatePrecio();
 
-		if (!modoApertura.equals(TYPE.MODE_CREAR))
-			setViewFromVueloStored(vuelo);
 	}
 
 	/**
@@ -605,6 +628,8 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 
 		current = aux;
 
+		ordenDeVuelo.setText("Orden de vuelo: " + aux.getId());
+		
 		pilotoComboBox.setSelectedIndex(pilotosList.getIndexOf(new Piloto(aux.getIdPiloto())));
 
 		pagoEfectivo.setSelected(aux.getFormaDePago() == Precios.EFECTIVO);
@@ -616,7 +641,11 @@ public class Venta_Vuelo_Editar_Cerrar extends JDialogExtended {
 		aceiteSpinner.setValue(aux.getCantAceite());
 		combustibleSpinner.setValue(aux.getCantCombustible());
 		inicioSpinner.setValue(new Date(aux.getHoraInicio()));
-		finalizacionSpinner.setValue(new Date(aux.getHoraFinal()));
+		
+		if (aux.getHoraFinal()==0)
+			finalizacionSpinner.setValue(new Date());
+		else
+			finalizacionSpinner.setValue(new Date(aux.getHoraFinal()));
 
 		updatePrecio();
 

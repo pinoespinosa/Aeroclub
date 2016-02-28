@@ -133,11 +133,12 @@ public class Instructor {
 	}
 	
 	public static Instructor getInstructorById(String id){
-
+		if (id.equals("-1"))
+			return new Instructor(-1, "Sin instructor", "", new Long(-1), new Long(-1), -1, new Float(0));
 		String script = 	"SELECT DISTINCT pe.*, inst.* " +
 							"FROM "+MainController.getEsquema()+".instructor as inst " +
 							"inner join "+MainController.getEsquema()+".persona as pe " +
-							"on pe.id=inst.id and id like '"+id+"' " +
+							"on pe.id=inst.id and pe.id like '"+id+"' " +
 							"order by apellido;";
 		return loadFromDB(script).get(0);
 	}
