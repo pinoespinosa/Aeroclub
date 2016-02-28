@@ -53,7 +53,7 @@ public class Venta extends JDialogExtended {
 					parent.setEnabled(false);
 					Venta_Vuelo dialog = new Venta_Vuelo(parent);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					//dialog.setAction(MainController.ACTION_EXIT);
+					dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
 					dialog.setVisible(true);
 					Venta.this.dispose();					
 				}
