@@ -161,9 +161,9 @@ public class Venta_Vuelo extends JDialogExtended {
 					crearVueloBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 
-							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(Venta_Vuelo.this);
+							Venta_Vuelo_Nuevo_Editar_Cerrar dialog = new Venta_Vuelo_Nuevo_Editar_Cerrar(Venta_Vuelo.this);
 							MainController.sleepActualAndCreateNew(Venta_Vuelo.this, dialog);
-							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CREAR);
+							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Nuevo_Editar_Cerrar.TYPE.MODE_CREAR);
 						}
 					});
 					GridBagConstraints gbc_crearVueloBtn = new GridBagConstraints();
@@ -181,9 +181,9 @@ public class Venta_Vuelo extends JDialogExtended {
 							public void actionPerformed(ActionEvent arg0) {
 			
 								if (list.getSelectedValue()!=null){
-									Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(Venta_Vuelo.this);
+									Venta_Vuelo_Nuevo_Editar_Cerrar dialog = new Venta_Vuelo_Nuevo_Editar_Cerrar(Venta_Vuelo.this);
 									MainController.sleepActualAndCreateNew(Venta_Vuelo.this, dialog);
-									dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_EDICION);
+									dialog.inic(list.getSelectedValue(), Venta_Vuelo_Nuevo_Editar_Cerrar.TYPE.MODE_EDICION);
 								}
 							}
 						});
@@ -200,9 +200,9 @@ public class Venta_Vuelo extends JDialogExtended {
 				btnCerrarVuelo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if (list.getSelectedValue()!=null){
-							Venta_Vuelo_Editar_Cerrar dialog = new Venta_Vuelo_Editar_Cerrar(Venta_Vuelo.this);
+							Venta_Vuelo_Nuevo_Editar_Cerrar dialog = new Venta_Vuelo_Nuevo_Editar_Cerrar(Venta_Vuelo.this);
 							MainController.sleepActualAndCreateNew(Venta_Vuelo.this, dialog);
-							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Editar_Cerrar.TYPE.MODE_CERRAR);
+							dialog.inic(list.getSelectedValue(), Venta_Vuelo_Nuevo_Editar_Cerrar.TYPE.MODE_CERRAR);
 						}
 					}
 				});
