@@ -595,9 +595,18 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 					ordenDeVuelo.setText("Orden de vuelo: " + managerDB.getNextId("vuelo"));
 					btnEdition.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							
+					
+					int continuarConLicenciaVencida = JOptionPane.YES_OPTION;		
+					if ( Utils.minutesBetweenDates(new Date(System.currentTimeMillis()), new Date(((Piloto)pilotoComboBox.getSelectedItem()).getFecha_licencia())) < 0 )
+						continuarConLicenciaVencida = JOptionPane.showConfirmDialog(null,"La licencia del piloto se encuentra vencida. ¿Desea crear el vuelo de todas formas?");
+							
+					if (continuarConLicenciaVencida == JOptionPane.YES_OPTION)
+					{
 							managerDB.executeScript_Void(getVueloFromView().getCreateScriptDataBase());
 							JOptionPane.showMessageDialog(null,"Se ha registrado un nuevo vuelo.");
 							Venta_Vuelo_Nuevo_Editar_Cerrar.this.dispose();
+					}
 						}
 					});
 				}
