@@ -79,6 +79,8 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private JButton btnEdition;
 	
 	private JLabel lblHoraFinalizacin;
+	private JButton refreshButton;
+	private JRadioButton pagoCheque;
 	
 	/**
 	 * Create the dialog.
@@ -107,16 +109,16 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			getContentPane().add(panelIzquierdo, gbc_panelIzquierdo);
 			GridBagLayout gbl_panelIzquierdo = new GridBagLayout();
 			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 20, 0, 0, 0, 10, 0};
-			gbl_panelIzquierdo.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0};
+			gbl_panelIzquierdo.rowHeights = new int[]{0, 40, 40, 40, 40, 40, 40, 40, 0, 40, 20, 0, 0};
 			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 			panelIzquierdo.setLayout(gbl_panelIzquierdo);
 			{
 				ordenDeVuelo = new JLabel("");
 				ordenDeVuelo.setFont(new Font("Tahoma", Font.BOLD, 12));
 				GridBagConstraints gbc_ordenDeVuelo = new GridBagConstraints();
 				gbc_ordenDeVuelo.anchor = GridBagConstraints.EAST;
-				gbc_ordenDeVuelo.gridwidth = 2;
+				gbc_ordenDeVuelo.gridwidth = 3;
 				gbc_ordenDeVuelo.insets = new Insets(0, 0, 5, 5);
 				gbc_ordenDeVuelo.gridx = 3;
 				gbc_ordenDeVuelo.gridy = 0;
@@ -137,6 +139,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				pilotosList = new DefaultComboBoxModel<Piloto>();
 				pilotoComboBox.setModel(pilotosList);
 				GridBagConstraints gbc_pilotoComboBox = new GridBagConstraints();
+				gbc_pilotoComboBox.gridwidth = 2;
 				gbc_pilotoComboBox.fill = GridBagConstraints.BOTH;
 				gbc_pilotoComboBox.insets = new Insets(0, 0, 5, 5);
 				gbc_pilotoComboBox.gridx = 3;
@@ -161,51 +164,13 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				btnNuevoPiloto.setIcon(new ImageIcon(Venta_Vuelo_Nuevo_Editar_Cerrar.class.getResource("/resources/icon_instructor.png")));
 				GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 				gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-				gbc_btnNewButton.gridx = 4;
+				gbc_btnNewButton.gridx = 5;
 				gbc_btnNewButton.gridy = 1;
 				panelIzquierdo.add(btnNuevoPiloto, gbc_btnNewButton);
 			}
 			{
-				JPanel panel_1 = new JPanel();
-				panel_1.setOpaque(false);
-				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-				gbc_panel_1.gridwidth = 2;
-				gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-				gbc_panel_1.fill = GridBagConstraints.BOTH;
-				gbc_panel_1.gridx = 3;
-				gbc_panel_1.gridy = 2;
-				panelIzquierdo.add(panel_1, gbc_panel_1);
-				GridBagLayout gbl_panel_1 = new GridBagLayout();
-				gbl_panel_1.columnWidths = new int[]{109, 0, 0};
-				gbl_panel_1.rowHeights = new int[]{23, 0};
-				gbl_panel_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-				gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-				panel_1.setLayout(gbl_panel_1);
-				{
-					pagoEfectivo = new JRadioButton("Efectivo");
-					pagoEfectivo.setOpaque(false);
-					pagoEfectivo.setSelected(true);
-					GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
-					gbc_rdbtnNewRadioButton.fill = GridBagConstraints.VERTICAL;
-					gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 0, 5);
-					gbc_rdbtnNewRadioButton.gridx = 0;
-					gbc_rdbtnNewRadioButton.gridy = 0;
-					panel_1.add(pagoEfectivo, gbc_rdbtnNewRadioButton);
-				}
-				{
 
-					pagoCuentaCorriente = new JRadioButton("Cuenta Corriente");
-					pagoCuentaCorriente.setOpaque(false);
-					GridBagConstraints gbc_rdbtnNewRadioButton_1 = new GridBagConstraints();
-					gbc_rdbtnNewRadioButton_1.fill = GridBagConstraints.VERTICAL;
-					gbc_rdbtnNewRadioButton_1.gridx = 1;
-					gbc_rdbtnNewRadioButton_1.gridy = 0;
-					panel_1.add(pagoCuentaCorriente, gbc_rdbtnNewRadioButton_1);
-				}
-
-				ButtonGroup bG = new ButtonGroup();
-				bG.add(pagoEfectivo);
-				bG.add(pagoCuentaCorriente);
+			
 
 			}
 			{
@@ -214,7 +179,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblIntructor.anchor = GridBagConstraints.WEST;
 				gbc_lblIntructor.insets = new Insets(0, 0, 5, 5);
 				gbc_lblIntructor.gridx = 1;
-				gbc_lblIntructor.gridy = 3;
+				gbc_lblIntructor.gridy = 2;
 				panelIzquierdo.add(lblIntructor, gbc_lblIntructor);
 				lblIntructor.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
@@ -223,10 +188,11 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				instructorList = new DefaultComboBoxModel<Instructor>();
 				instructorComboBox.setModel(instructorList);
 				GridBagConstraints gbc_instructorComboBox = new GridBagConstraints();
+				gbc_instructorComboBox.gridwidth = 2;
 				gbc_instructorComboBox.fill = GridBagConstraints.BOTH;
 				gbc_instructorComboBox.insets = new Insets(0, 0, 5, 5);
 				gbc_instructorComboBox.gridx = 3;
-				gbc_instructorComboBox.gridy = 3;
+				gbc_instructorComboBox.gridy = 2;
 				panelIzquierdo.add(instructorComboBox, gbc_instructorComboBox);
 				instructorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
@@ -259,8 +225,8 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				btnNuevoInstructor.setMaximumSize(new Dimension(40, 40));
 				GridBagConstraints gbc_btnNuevoInstructor = new GridBagConstraints();
 				gbc_btnNuevoInstructor.insets = new Insets(0, 0, 5, 5);
-				gbc_btnNuevoInstructor.gridx = 4;
-				gbc_btnNuevoInstructor.gridy = 3;
+				gbc_btnNuevoInstructor.gridx = 5;
+				gbc_btnNuevoInstructor.gridy = 2;
 				panelIzquierdo.add(btnNuevoInstructor, gbc_btnNuevoInstructor);
 			}
 			{
@@ -269,7 +235,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblAvin.anchor = GridBagConstraints.WEST;
 				gbc_lblAvin.insets = new Insets(0, 0, 5, 5);
 				gbc_lblAvin.gridx = 1;
-				gbc_lblAvin.gridy = 4;
+				gbc_lblAvin.gridy = 3;
 				panelIzquierdo.add(lblAvin, gbc_lblAvin);
 				lblAvin.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
@@ -280,10 +246,11 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				avionesList = new DefaultComboBoxModel<Avion>();
 				avionComboBox.setModel(avionesList);
 				GridBagConstraints gbc_avionComboBox = new GridBagConstraints();
+				gbc_avionComboBox.gridwidth = 2;
 				gbc_avionComboBox.fill = GridBagConstraints.BOTH;
 				gbc_avionComboBox.insets = new Insets(0, 0, 5, 5);
 				gbc_avionComboBox.gridx = 3;
-				gbc_avionComboBox.gridy = 4;
+				gbc_avionComboBox.gridy = 3;
 				panelIzquierdo.add(avionComboBox, gbc_avionComboBox);
 				avionComboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
@@ -294,7 +261,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblTipoDeVuelo.anchor = GridBagConstraints.WEST;
 				gbc_lblTipoDeVuelo.insets = new Insets(0, 0, 5, 5);
 				gbc_lblTipoDeVuelo.gridx = 1;
-				gbc_lblTipoDeVuelo.gridy = 5;
+				gbc_lblTipoDeVuelo.gridy = 4;
 				panelIzquierdo.add(lblTipoDeVuelo, gbc_lblTipoDeVuelo);
 			}
 			{
@@ -302,10 +269,11 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				tipoVueloComboBox.setPreferredSize(new Dimension(28, 40));
 				tipoVueloComboBox.setSize(new Dimension(28, 40));
 				GridBagConstraints gbc_comboBox = new GridBagConstraints();
+				gbc_comboBox.gridwidth = 2;
 				gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 				gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 				gbc_comboBox.gridx = 3;
-				gbc_comboBox.gridy = 5;
+				gbc_comboBox.gridy = 4;
 				panelIzquierdo.add(tipoVueloComboBox, gbc_comboBox);
 			}
 			{
@@ -314,7 +282,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblAceite.anchor = GridBagConstraints.WEST;
 				gbc_lblAceite.insets = new Insets(0, 0, 5, 5);
 				gbc_lblAceite.gridx = 1;
-				gbc_lblAceite.gridy = 6;
+				gbc_lblAceite.gridy = 5;
 				panelIzquierdo.add(lblAceite, gbc_lblAceite);
 				lblAceite.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
@@ -329,10 +297,11 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 				aceiteSpinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
 				GridBagConstraints gbc_aceiteSpinner = new GridBagConstraints();
+				gbc_aceiteSpinner.gridwidth = 2;
 				gbc_aceiteSpinner.fill = GridBagConstraints.BOTH;
 				gbc_aceiteSpinner.insets = new Insets(0, 0, 5, 5);
 				gbc_aceiteSpinner.gridx = 3;
-				gbc_aceiteSpinner.gridy = 6;
+				gbc_aceiteSpinner.gridy = 5;
 				panelIzquierdo.add(aceiteSpinner, gbc_aceiteSpinner);
 				aceiteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
@@ -342,7 +311,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblCombustible.anchor = GridBagConstraints.WEST;
 				gbc_lblCombustible.insets = new Insets(0, 0, 5, 5);
 				gbc_lblCombustible.gridx = 1;
-				gbc_lblCombustible.gridy = 7;
+				gbc_lblCombustible.gridy = 6;
 				panelIzquierdo.add(lblCombustible, gbc_lblCombustible);
 				lblCombustible.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
@@ -356,10 +325,11 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				});
 				combustibleSpinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
 				GridBagConstraints gbc_combustibleSpinner = new GridBagConstraints();
+				gbc_combustibleSpinner.gridwidth = 2;
 				gbc_combustibleSpinner.fill = GridBagConstraints.BOTH;
 				gbc_combustibleSpinner.insets = new Insets(0, 0, 5, 5);
 				gbc_combustibleSpinner.gridx = 3;
-				gbc_combustibleSpinner.gridy = 7;
+				gbc_combustibleSpinner.gridy = 6;
 				panelIzquierdo.add(combustibleSpinner, gbc_combustibleSpinner);
 				combustibleSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
@@ -369,17 +339,18 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblHoraInicio.anchor = GridBagConstraints.WEST;
 				gbc_lblHoraInicio.insets = new Insets(0, 0, 5, 5);
 				gbc_lblHoraInicio.gridx = 1;
-				gbc_lblHoraInicio.gridy = 8;
+				gbc_lblHoraInicio.gridy = 7;
 				panelIzquierdo.add(lblHoraInicio, gbc_lblHoraInicio);
 				lblHoraInicio.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
 			{
 				inicioSpinner = new JSpinner();
 				GridBagConstraints gbc_inicioSpinner = new GridBagConstraints();
+				gbc_inicioSpinner.gridwidth = 2;
 				gbc_inicioSpinner.fill = GridBagConstraints.BOTH;
 				gbc_inicioSpinner.insets = new Insets(0, 0, 5, 5);
 				gbc_inicioSpinner.gridx = 3;
-				gbc_inicioSpinner.gridy = 8;
+				gbc_inicioSpinner.gridy = 7;
 				panelIzquierdo.add(inicioSpinner, gbc_inicioSpinner);
 				inicioSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				inicioSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
@@ -391,21 +362,86 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblHoraFinalizacin.anchor = GridBagConstraints.WEST;
 				gbc_lblHoraFinalizacin.insets = new Insets(0, 0, 5, 5);
 				gbc_lblHoraFinalizacin.gridx = 1;
-				gbc_lblHoraFinalizacin.gridy = 9;
+				gbc_lblHoraFinalizacin.gridy = 8;
 				panelIzquierdo.add(lblHoraFinalizacin, gbc_lblHoraFinalizacin);
 				lblHoraFinalizacin.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
 			{
 				finalizacionSpinner = new JSpinner();
-
+			
 				GridBagConstraints gbc_finalizacionSpinner = new GridBagConstraints();
 				gbc_finalizacionSpinner.fill = GridBagConstraints.BOTH;
 				gbc_finalizacionSpinner.insets = new Insets(0, 0, 5, 5);
 				gbc_finalizacionSpinner.gridx = 3;
-				gbc_finalizacionSpinner.gridy = 9;
+				gbc_finalizacionSpinner.gridy = 8;
 				panelIzquierdo.add(finalizacionSpinner, gbc_finalizacionSpinner);
 				finalizacionSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				finalizacionSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
+			}
+			{
+				refreshButton = new JButton("");
+				refreshButton.setToolTipText("Actualizar el precio del vuelo");
+				refreshButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						updatePrecio();
+					}
+				});
+				refreshButton.setMinimumSize(new Dimension(40, 40));
+				refreshButton.setMaximumSize(new Dimension(40, 40));
+				refreshButton.setSize(new Dimension(40, 40));
+				refreshButton.setPreferredSize(new Dimension(40, 40));
+				refreshButton.setIcon(new ImageIcon(Venta_Vuelo_Nuevo_Editar_Cerrar.class.getResource("/resources/icon_refresh.png")));
+				GridBagConstraints gbc_refreshButton = new GridBagConstraints();
+				gbc_refreshButton.fill = GridBagConstraints.VERTICAL;
+				gbc_refreshButton.insets = new Insets(0, 0, 5, 5);
+				gbc_refreshButton.gridx = 4;
+				gbc_refreshButton.gridy = 8;
+				panelIzquierdo.add(refreshButton, gbc_refreshButton);
+			}
+			JPanel panel_1 = new JPanel();
+			panel_1.setOpaque(false);
+			GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+			gbc_panel_1.gridwidth = 4;
+			gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+			gbc_panel_1.fill = GridBagConstraints.BOTH;
+			gbc_panel_1.gridx = 1;
+			gbc_panel_1.gridy = 9;
+			panelIzquierdo.add(panel_1, gbc_panel_1);
+			GridBagLayout gbl_panel_1 = new GridBagLayout();
+			gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0};
+			gbl_panel_1.rowHeights = new int[]{23, 0};
+			gbl_panel_1.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+			panel_1.setLayout(gbl_panel_1);
+			{
+				pagoEfectivo = new JRadioButton("Efectivo");
+				pagoEfectivo.setOpaque(false);
+				pagoEfectivo.setSelected(true);
+				GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
+				gbc_rdbtnNewRadioButton.fill = GridBagConstraints.VERTICAL;
+				gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 0, 5);
+				gbc_rdbtnNewRadioButton.gridx = 0;
+				gbc_rdbtnNewRadioButton.gridy = 0;
+				panel_1.add(pagoEfectivo, gbc_rdbtnNewRadioButton);
+			}
+			{
+				pagoCheque = new JRadioButton("Cheque");
+				pagoCheque.setOpaque(false);
+				GridBagConstraints gbc_cheque = new GridBagConstraints();
+				gbc_cheque.insets = new Insets(0, 0, 0, 5);
+				gbc_cheque.gridx = 1;
+				gbc_cheque.gridy = 0;
+				panel_1.add(pagoCheque, gbc_cheque);
+			}
+			{
+
+				pagoCuentaCorriente = new JRadioButton("Cuenta Corriente");
+				pagoCuentaCorriente.setOpaque(false);
+				GridBagConstraints gbc_rdbtnNewRadioButton_1 = new GridBagConstraints();
+				gbc_rdbtnNewRadioButton_1.fill = GridBagConstraints.VERTICAL;
+				gbc_rdbtnNewRadioButton_1.gridx = 2;
+				gbc_rdbtnNewRadioButton_1.gridy = 0;
+				panel_1.add(pagoCuentaCorriente, gbc_rdbtnNewRadioButton_1);
 			}
 			{
 				lblcostoVuelo = new JLabel("Cargos por el vuelo:    $");
@@ -421,7 +457,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				GridBagConstraints gbc_costoVuelo = new GridBagConstraints();
 				gbc_costoVuelo.anchor = GridBagConstraints.WEST;
 				gbc_costoVuelo.insets = new Insets(0, 0, 5, 5);
-				gbc_costoVuelo.gridx = 4;
+				gbc_costoVuelo.gridx = 5;
 				gbc_costoVuelo.gridy = 10;
 				panelIzquierdo.add(costoVuelo, gbc_costoVuelo);
 			}
@@ -455,9 +491,13 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 	@PostConstruct
 	public void inic(Vuelo vuelo, TYPE modoApertura) {
-
 		
 		{
+			ButtonGroup bG = new ButtonGroup();
+			bG.add(pagoEfectivo);
+			bG.add(pagoCuentaCorriente);
+			bG.add(pagoCheque);
+			
 			aceiteSpinner.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
 			combustibleSpinner.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
 			inicioSpinner.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
@@ -467,10 +507,14 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			tipoVueloComboBox.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
 			btnNuevoInstructor.setVisible(modoApertura!=TYPE.MODE_CERRAR);
 			btnNuevoPiloto.setVisible(modoApertura!=TYPE.MODE_CERRAR);
-			pagoEfectivo.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
-			pagoCuentaCorriente.setEnabled(modoApertura!=TYPE.MODE_CERRAR);
-
+			
+			
+			pagoEfectivo.setVisible(modoApertura==TYPE.MODE_CERRAR);
+			pagoCuentaCorriente.setVisible(modoApertura==TYPE.MODE_CERRAR);
+			pagoCheque.setVisible(modoApertura==TYPE.MODE_CERRAR);
+			
 			finalizacionSpinner.setVisible(modoApertura==TYPE.MODE_CERRAR);
+			refreshButton.setVisible(modoApertura==TYPE.MODE_CERRAR);
 			lblHoraFinalizacin.setVisible(modoApertura==TYPE.MODE_CERRAR);
 			lblcostoVuelo.setVisible(modoApertura==TYPE.MODE_CERRAR);
 			costoVuelo.setVisible(modoApertura==TYPE.MODE_CERRAR);
@@ -526,9 +570,13 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 					updatePrecio();
 				}
 			};
-			finalizacionSpinner.addChangeListener(spinListener);
 			inicioSpinner.addChangeListener(spinListener);
-
+			finalizacionSpinner.addChangeListener(spinListener);
+			
+			
+			
+			
+			
 			// Formateo las fechas
 			inicioSpinner.setEditor(new JSpinner.DateEditor(inicioSpinner, "dd/MM/yyyy HH:mm"));
 			finalizacionSpinner.setEditor(new JSpinner.DateEditor(finalizacionSpinner, "dd/MM/yyyy HH:mm"));
@@ -568,7 +616,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 							nuevo.setId(current.getId());
 							nuevo.setPrecioAceite(current.getPrecioAceite());
 							nuevo.setPrecioCombustible(current.getPrecioCombustible());
-							
+							nuevo.setHoraFinal(0);
 							managerDB.updateAsset(nuevo);	
 							
 							JOptionPane.showMessageDialog(null,"Se ha editado exitosamente el vuelo.");
@@ -621,9 +669,6 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			}
 		}
 			
-	
-
-
 		// Cargo el valor del total en base a los precios
 		updatePrecio();
 
@@ -647,7 +692,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 		instructorComboBox.setSelectedIndex(instructorList.getIndexOf(new Instructor(aux.getIdInstructor())));
 		avionComboBox.setSelectedIndex(avionesList.getIndexOf(new Avion(aux.getIdAvion())));
-
+	
+		tipoVueloComboBox.setSelectedItem(Vuelo.TipoVuelo.values()[aux.getTipoVuelo()]+"");
+		
 		aceiteSpinner.setValue(aux.getCantAceite());
 		combustibleSpinner.setValue(aux.getCantCombustible());
 		inicioSpinner.setValue(new Date(aux.getHoraInicio()));
@@ -688,7 +735,12 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 		float minutosVuelo = Utils.minutesBetweenDates((Date) inicioSpinner.getModel().getValue(), (Date) finalizacionSpinner.getModel().getValue());
 
-		float valor = (minutosVuelo / 60) * ((Avion) avionesList.getSelectedItem()).getPrecio() + (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
+		float valorAvion = (minutosVuelo / 60) * ((Avion) avionesList.getSelectedItem()).getPrecio();
+			
+		if (tipoVueloComboBox.getSelectedItem()!=null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Nocturno+""))
+			valorAvion = (float) (valorAvion * 1.1);
+		float valorPiloto = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
+		float valor = valorAvion + valorPiloto;
 
 		valor = Math.round(valor * 100);
 		valor = valor / 100;

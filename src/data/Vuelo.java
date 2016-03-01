@@ -236,5 +236,9 @@ public class Vuelo implements Comparable<Vuelo> {
 	public void setTipoVuelo(int tipoVuelo) {
 		this.tipoVuelo = tipoVuelo;
 	}
+	
+	public boolean isOpen(){
+		return getHoraFinal()==0;
+	}
 
 }

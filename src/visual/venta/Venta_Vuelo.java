@@ -7,19 +7,21 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterJob;
 import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -122,6 +124,7 @@ public class Venta_Vuelo extends JDialogExtended {
 			}
 			{
 				imprimirComprobanteBtn = new JButton("Imprimir comprobante");
+				imprimirComprobanteBtn.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_imprimir.png")));
 				imprimirComprobanteBtn.setEnabled(false);
 				imprimirComprobanteBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -157,7 +160,8 @@ public class Venta_Vuelo extends JDialogExtended {
 					}
 				});
 				{
-					crearVueloBtn = new JButton("Crear Nuevo Vuelo    ");
+					crearVueloBtn = new JButton("Nuevo Vuelo    ");
+					crearVueloBtn.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_aterrizaje.png")));
 					crearVueloBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 
@@ -176,6 +180,7 @@ public class Venta_Vuelo extends JDialogExtended {
 				{
 					{
 						btnEditarVuelo = new JButton("Editar Vuelo");
+						btnEditarVuelo.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_editar.png")));
 						btnEditarVuelo.setEnabled(false);
 						btnEditarVuelo.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
@@ -196,6 +201,7 @@ public class Venta_Vuelo extends JDialogExtended {
 					}
 				}
 				btnCerrarVuelo = new JButton("Cerrar Vuelo    ");
+				btnCerrarVuelo.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_despegue.png")));
 				btnCerrarVuelo.setEnabled(false);
 				btnCerrarVuelo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -212,9 +218,9 @@ public class Venta_Vuelo extends JDialogExtended {
 				gbc_btnCerrarVuelo.gridx = 2;
 				gbc_btnCerrarVuelo.gridy = 1;
 				panelDerecho.add(btnCerrarVuelo, gbc_btnCerrarVuelo);
-				btnCerrarVuelo.setHorizontalTextPosition(SwingConstants.LEADING);
 				{
 					btnVerVuelo = new JButton("Ver informaci\u00F3n del vuelo");
+					btnVerVuelo.setIcon(new ImageIcon(Venta_Vuelo.class.getResource("/resources/icon_ver.png")));
 					btnVerVuelo.setEnabled(false);
 					GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 					gbc_btnNewButton.fill = GridBagConstraints.BOTH;
@@ -244,33 +250,27 @@ public class Venta_Vuelo extends JDialogExtended {
 			}
 		}
 
+		list.addKeyListener( new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				adjustButtons();
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent arg0) {	}
+			
+			@Override
+			public void keyPressed(KeyEvent arg0) {		}
+		});
+		
 		list.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-				Vuelo selected = list.getSelectedValue();
-				
-				if (selected == null){
-					btnEditarVuelo.setEnabled(false);
-					btnCerrarVuelo.setEnabled(false);
-					btnVerVuelo.setEnabled(false);
-					imprimirComprobanteBtn.setEnabled(false);
-				}
-				else
-				{
-					if (selected.getHoraFinal()==0)
-					{
-						btnEditarVuelo.setEnabled(true);
-						btnCerrarVuelo.setEnabled(true);
-						imprimirComprobanteBtn.setEnabled(false);
-					}
-					else
-						imprimirComprobanteBtn.setEnabled(true);
-					btnVerVuelo.setEnabled(true);			
-				}
+				adjustButtons();
 			}
 		});
-
 	}
 
 	public void updateListVuelos() {
@@ -280,8 +280,29 @@ public class Venta_Vuelo extends JDialogExtended {
 
 	}
 
+	public void adjustButtons(){
+		Vuelo selected = list.getSelectedValue();
+		
+		if (selected == null){
+			btnEditarVuelo.setEnabled(false);
+			btnCerrarVuelo.setEnabled(false);
+			btnVerVuelo.setEnabled(false);
+			imprimirComprobanteBtn.setEnabled(false);
+		}
+		else
+		{
+			
+			btnEditarVuelo.setEnabled(selected.isOpen());
+			btnCerrarVuelo.setEnabled(selected.isOpen());
+			imprimirComprobanteBtn.setEnabled(!selected.isOpen());
+			btnVerVuelo.setEnabled(true);			
+		}
+		
+	}
+	
 	@Override
 	public void updateUi() {
 		updateListVuelos();
+
 	}
 }

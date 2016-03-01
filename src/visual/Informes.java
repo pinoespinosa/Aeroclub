@@ -21,7 +21,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,7 +49,7 @@ public class Informes extends JDialogExtended {
 
 	private JComboBox<String> inicioAnio, finAnio, inicioMes, finMes;
 	private JComboBox<Persona> personasCuentaCorriente;
-	
+
 	/**
 	 * Create the dialog.
 	 */
@@ -59,7 +58,7 @@ public class Informes extends JDialogExtended {
 		setTitle("Mostrar informes");
 		setBounds(100, 100, 645, 412);
 		getContentPane().setLayout(new BorderLayout());
-		
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
@@ -100,39 +99,27 @@ public class Informes extends JDialogExtended {
 				panel.add(btnVencimientoDeLicencia, gbc_btnVencimientoDeLicencia);
 				btnVencimientoDeLicencia.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
-						
+
 						// Create columns names
 						String columnNames[] = {"fecha", "detalle"};
 
-						String script = "(	" +
-											"select `pi`.`fechaVencimientoLicencia` AS `fecha`, " +
-											"concat(`pe`.`apellido`,' , ',`pe`.`nombre`) AS `detalle` " +
-											"from (`"+MainController.getEsquema()+"`.`piloto` `pi` join `"+MainController.getEsquema()+"`.`persona` `pe` on((`pe`.`id` = `pi`.`id`))) " +
-											"where (`pi`.`fechaVencimientoLicencia` is not null)" +
-										")" +
-										
-										"union" +
-										
-										"(" +
-										"	select 	`pi`.`fecha_psicofisico` AS `fecha`," +
-										"	concat(`pe`.`apellido`,' , ',`pe`.`nombre`) AS `detalle` " +
-										"   from (`"+MainController.getEsquema()+"`.`instructor` `pi` join `"+MainController.getEsquema()+"`.`persona` `pe` on((`pe`.`id` = `pi`.`id`))) " +
-										"   where (`pi`.`fecha_psicofisico` is not null)" +
-										") ";
-						
+						String script = "(	" + "select `pi`.`fechaVencimientoLicencia` AS `fecha`, " + "concat(`pe`.`apellido`,' , ',`pe`.`nombre`) AS `detalle` " + "from (`" + MainController.getEsquema() + "`.`piloto` `pi` join `" + MainController.getEsquema() + "`.`persona` `pe` on((`pe`.`id` = `pi`.`id`))) " + "where (`pi`.`fechaVencimientoLicencia` is not null)" + ")" +
+
+						"union" +
+
+						"(" + "	select 	`pi`.`fecha_psicofisico` AS `fecha`," + "	concat(`pe`.`apellido`,' , ',`pe`.`nombre`) AS `detalle` " + "   from (`" + MainController.getEsquema() + "`.`instructor` `pi` join `" + MainController.getEsquema() + "`.`persona` `pe` on((`pe`.`id` = `pi`.`id`))) " + "   where (`pi`.`fecha_psicofisico` is not null)" + ") ";
+
 						List<String> campos = Arrays.asList(columnNames);
-						
+
 						List<List<String>> datos = managerDB.executeScript_Query(script, campos);
-						
-						SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd ");		
-											
-						
+
+						SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd ");
+
 						for (List<String> list : datos) {
 							list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
 						}
-						
-						MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this,campos, datos,"Vencimiento del psicofísico",""));
+
+						MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Vencimiento del psicofísico", ""));
 					}
 				});
 			}
@@ -140,8 +127,8 @@ public class Informes extends JDialogExtended {
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new CompoundBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Horas de vuelo", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 4, 4, 4)));
-						GridBagConstraints gbc_panel = new GridBagConstraints();
-						gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 			gbc_panel.gridwidth = 11;
 			gbc_panel.insets = new Insets(0, 0, 5, 5);
 			gbc_panel.gridx = 2;
@@ -170,7 +157,7 @@ public class Informes extends JDialogExtended {
 				gbc_inicioMes.gridx = 1;
 				gbc_inicioMes.gridy = 0;
 				panel.add(inicioMes, gbc_inicioMes);
-				inicioMes.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+				inicioMes.setModel(new DefaultComboBoxModel<String>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 			}
 			{
 				JLabel label = new JLabel("/");
@@ -189,7 +176,7 @@ public class Informes extends JDialogExtended {
 				gbc_inicioAnio.gridx = 3;
 				gbc_inicioAnio.gridy = 0;
 				panel.add(inicioAnio, gbc_inicioAnio);
-				inicioAnio.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020"}));
+				inicioAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020"}));
 			}
 			{
 				JLabel lblHasta = new JLabel("hasta");
@@ -208,7 +195,7 @@ public class Informes extends JDialogExtended {
 				gbc_finMes.gridx = 5;
 				gbc_finMes.gridy = 0;
 				panel.add(finMes, gbc_finMes);
-				finMes.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+				finMes.setModel(new DefaultComboBoxModel<String>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 			}
 			{
 				JLabel label = new JLabel("/");
@@ -227,7 +214,7 @@ public class Informes extends JDialogExtended {
 				gbc_finAnio.gridx = 7;
 				gbc_finAnio.gridy = 0;
 				panel.add(finAnio, gbc_finAnio);
-				finAnio.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020"}));
+				finAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020"}));
 			}
 			{
 				JButton btnHorasDeVuelo = new JButton("Horas de vuelo simples");
@@ -264,72 +251,86 @@ public class Informes extends JDialogExtended {
 							JButton btnVerUltimasRevisiones = new JButton("Ver ultimas revisiones");
 							btnVerUltimasRevisiones.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent arg0) {
-								/*	
-									
-									List<String> columnas = new ArrayList<String>();
-									
-									
-									String columnNames[] = {"idAvion", "tipoInspeccion", "fecha"};
-									
-									List<String> campos = Arrays.asList(columnNames);
-									managerDB.executeScript_Query("SELECT idAvion, tipoInspeccion, max(fechaInspeccion) as fecha FROM aviones.inspeccion group by tipoInspeccion, idAvion order by idAvion;", Arrays.asList(columnNames));
-									
-									
-									
+									/*
+									 * 
+									 * List<String> columnas = new
+									 * ArrayList<String>();
+									 * 
+									 * 
+									 * String columnNames[] = {"idAvion",
+									 * "tipoInspeccion", "fecha"};
+									 * 
+									 * List<String> campos =
+									 * Arrays.asList(columnNames);
+									 * managerDB.executeScript_Query(
+									 * "SELECT idAvion, tipoInspeccion, max(fechaInspeccion) as fecha FROM aviones.inspeccion group by tipoInspeccion, idAvion order by idAvion;"
+									 * , Arrays.asList(columnNames));
+									 * 
+									 * 
+									 * 
+									 * 
+									 * SimpleDateFormat format = new
+									 * SimpleDateFormat("yyyy-MM-dd"); Date
+									 * fechaInicioSimple=null,
+									 * fechaFinalSimple=null; try {
+									 * fechaInicioSimple =
+									 * format.parse("1980-1-1");
+									 * fechaFinalSimple =
+									 * format.parse(finAnio.getSelectedItem
+									 * ()+"-"+finMes.getSelectedItem()+"-1"); }
+									 * catch (ParseException e) {
+									 * e.printStackTrace(); }
+									 * 
+									 * 
+									 * 
+									 * List<List<String>> filtrado = new
+									 * ArrayList<List<String>>();
+									 * 
+									 * Hashtable<String, Integer> horasVoladas=
+									 * getHorasVoladasSince(fechaInicioSimple,
+									 * fechaFinalSimple, );
+									 * 
+									 * for (String list : horasVoladas.keySet())
+									 * { List<String> aa = new
+									 * ArrayList<String>();
+									 * aa.add(Avion.getAvionById
+									 * (list).getName()); float valor =
+									 * horasVoladas.get(list); valor=valor/60;
+									 * aa.add(horasVoladas.get(list)+
+									 * " minutos (" + valor + " horas)");
+									 * filtrado.add (aa );
+									 * 
+									 * }
+									 * 
+									 * if (filtrado.isEmpty()){
+									 * JOptionPane.showMessageDialog(null,
+									 * "No se encontraron vuelos en el intervalo del "
+									 * + "01/" +inicioMes.getSelectedItem() +
+									 * "/"
+									 * +inicioAnio.getSelectedItem()+" a 01/" +
+									 * finMes.getSelectedItem() + "/"
+									 * +finAnio.getSelectedItem()); return; }
+									 * 
+									 * // Create columns names String
+									 * columnNames[] = {"Avion",
+									 * "Tiempo de vuelo"}; List<String> campos =
+									 * Arrays.asList(columnNames);
+									 * 
+									 * Informes_Table dialog = new
+									 * Informes_Table(parent,campos, filtrado,
+									 * "Horas de vuelo desde " + "01/"
+									 * +inicioMes.getSelectedItem() + "/"
+									 * +inicioAnio.getSelectedItem()+" a 01/" +
+									 * finMes.getSelectedItem() + "/"
+									 * +finAnio.getSelectedItem(),"" );
+									 * dialog.setDefaultCloseOperation
+									 * (JDialog.DISPOSE_ON_CLOSE);
+									 * dialog.setVisible(true);
+									 * setAction(MainController
+									 * .ACTION_CONTINUE);
+									 * Informes.this.dispose();
+									 */
 
-									SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-									Date fechaInicioSimple=null, fechaFinalSimple=null;
-									try {
-										fechaInicioSimple = format.parse("1980-1-1");
-										fechaFinalSimple = format.parse(finAnio.getSelectedItem()+"-"+finMes.getSelectedItem()+"-1");
-									} catch (ParseException e) {
-										e.printStackTrace();
-									}
-
-									
-									
-									List<List<String>> filtrado = new ArrayList<List<String>>();
-									
-									Hashtable<String, Integer> horasVoladas= getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple, );
-									
-									for (String list : horasVoladas.keySet()) {
-										List<String> aa = new ArrayList<String>();
-										aa.add(Avion.getAvionById(list).getName());
-										float valor = horasVoladas.get(list);
-										valor=valor/60;
-										aa.add(horasVoladas.get(list)+ " minutos (" + valor + " horas)");
-										filtrado.add (aa );
-
-									}
-									
-									if (filtrado.isEmpty()){
-										JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem());
-										return;
-									}
-									
-									// Create columns names
-									String columnNames[] = {"Avion", "Tiempo de vuelo"};
-									List<String> campos = Arrays.asList(columnNames);
-									
-									Informes_Table dialog = new Informes_Table(parent,campos, filtrado, "Horas de vuelo desde " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem(),"" );
-									dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-									dialog.setVisible(true);
-									setAction(MainController.ACTION_CONTINUE);
-									Informes.this.dispose();
-									
-									
-									
-									
-									
-									
-									*/
-									
-									
-									
-									
-									
-									
-									
 								}
 							});
 							btnVerUltimasRevisiones.setToolTipText("");
@@ -360,23 +361,17 @@ public class Informes extends JDialogExtended {
 							JButton btnVerStockDe = new JButton("Ver stock de combustible");
 							btnVerStockDe.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent arg0) {
-											
+
 									// Create columns names
 									String columnNames[] = {"Recurso", "Stock_disponible"};
 
-									String script = "SELECT tipo as Recurso, SUM(unidades) as Stock_disponible FROM `"+MainController.getEsquema()+"`.gastos_normalizados GROUP BY TIPO;";
-									
-									List<String> campos = Arrays.asList(columnNames);
-									
-									List<List<String>> datos = managerDB.executeScript_Query(script, campos);
-									
-					
-									Informes_Table dialog = new Informes_Table(parent,campos, datos, "Ver stock de combustible","" );
-									dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-									dialog.setVisible(true);
-									setAction(MainController.ACTION_CONTINUE);
-									Informes.this.dispose();					
+									String script = "SELECT tipo as Recurso, SUM(unidades) as Stock_disponible FROM `" + MainController.getEsquema() + "`.gastos_normalizados GROUP BY TIPO;";
 
+									List<String> campos = Arrays.asList(columnNames);
+
+									List<List<String>> datos = managerDB.executeScript_Query(script, campos);
+
+									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Ver stock de combustible", ""));
 								}
 							});
 							GridBagConstraints gbc_btnVerStockDe = new GridBagConstraints();
@@ -415,35 +410,30 @@ public class Informes extends JDialogExtended {
 							JButton btnVerCuentasCorrientes = new JButton("Ver detalle de cuenta corriente");
 							btnVerCuentasCorrientes.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent arg0) {
-									
-									// Create columns names
-									String columnNames[] = {"fecha","total", "detalle"};
 
-									String script = "SELECT fecha, total, detalle FROM aviones.cuenta_corriente WHERE idPersona like'"+((Persona)personasCuentaCorriente.getSelectedItem()).getId()+"';";
-									
+									// Create columns names
+									String columnNames[] = {"fecha", "total", "detalle"};
+
+									String script = "SELECT fecha, total, detalle FROM aviones.cuenta_corriente WHERE idPersona like'" + ((Persona) personasCuentaCorriente.getSelectedItem()).getId() + "';";
+
 									List<String> campos = Arrays.asList(columnNames);
-									
+
 									List<List<String>> datos = managerDB.executeScript_Query(script, campos);
-														
-									if(datos.isEmpty()){
+
+									if (datos.isEmpty()) {
 										JOptionPane.showMessageDialog(null, "No se registran movimientos.");
-									return;
+										return;
 									}
-									SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd ");		
-																
+									SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd ");
+
 									float total = 0;
-									
+
 									for (List<String> list : datos) {
 										list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
 										total += Float.parseFloat(list.get(1));
 									}
-									
-									Informes_Table dialog = new Informes_Table(parent,campos, datos, "Vencimiento del psicofísico", "Monto actual: "+total   );
-									dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-									dialog.setVisible(true);
-									setAction(MainController.ACTION_CONTINUE);
-									Informes.this.dispose();	
-																		
+
+									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Vencimiento del psicofísico", "Monto actual: " + total));
 								}
 							});
 							GridBagConstraints gbc_btnVerCuentasCorrientes = new GridBagConstraints();
@@ -455,117 +445,87 @@ public class Informes extends JDialogExtended {
 					}
 					btnNewButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							
-							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-							Date fechaInicioSimple=null;
-							try {
-								fechaInicioSimple = format.parse(inicioAnio.getSelectedItem()+"-"+inicioMes.getSelectedItem()+"-1");
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							Date fechaFinalSimple=null;
-							try {
-								fechaFinalSimple = format.parse(finAnio.getSelectedItem()+"-"+finMes.getSelectedItem()+"-1");
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
 
-							
+							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+							Date fechaInicioSimple = null;
+							try {
+								fechaInicioSimple = format.parse(inicioAnio.getSelectedItem() + "-" + inicioMes.getSelectedItem() + "-1");
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							Date fechaFinalSimple = null;
+							try {
+								fechaFinalSimple = format.parse(finAnio.getSelectedItem() + "-" + finMes.getSelectedItem() + "-1");
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 
 							List<Vuelo> vuelos = Vuelo.loadFromDB();
 							List<List<String>> filtrado = new ArrayList<List<String>>();
-							
+
 							for (Vuelo vuelo : vuelos) {
-								if (vuelo.getHoraInicio()>fechaInicioSimple.getTime() && vuelo.getHoraFinal()<fechaFinalSimple.getTime())
-								{
+								if (vuelo.getHoraInicio() > fechaInicioSimple.getTime() && vuelo.getHoraFinal() < fechaFinalSimple.getTime()) {
 									List<String> aa = new ArrayList<String>();
-									aa.add(format.format(new Date(vuelo.getHoraInicio()))+"");
-									aa.add(Utils.minutesBetweenDates(new Date(vuelo.getHoraInicio()), new Date(vuelo.getHoraFinal()))+ " minutos ");
-									aa.add(Avion.getAvionById(vuelo.getIdAvion()+"").getName());
-									filtrado.add (aa );
+									aa.add(format.format(new Date(vuelo.getHoraInicio())) + "");
+									aa.add(Utils.minutesBetweenDates(new Date(vuelo.getHoraInicio()), new Date(vuelo.getHoraFinal())) + " minutos ");
+									aa.add(Avion.getAvionById(vuelo.getIdAvion() + "").getName());
+									filtrado.add(aa);
 								}
 							}
-							
-							
-							if (filtrado.isEmpty()){
-								JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem());
+
+							if (filtrado.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" + inicioMes.getSelectedItem() + "/" + inicioAnio.getSelectedItem() + " a 01/" + finMes.getSelectedItem() + "/" + finAnio.getSelectedItem());
 								return;
 							}
-											
-							
+
 							// Create columns names
 							String columnNames[] = {"fecha", "detalle", "avion"};
 							List<String> campos = Arrays.asList(columnNames);
-							
-							Informes_Table dialog = new Informes_Table(parent,campos, filtrado, "Horas de vuelo desde " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem(),"" );
-							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-							dialog.setVisible(true);
-							setAction(MainController.ACTION_CONTINUE);
-							Informes.this.dispose();
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
+
+							MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, filtrado, "Horas de vuelo desde " + "01/" + inicioMes.getSelectedItem() + "/" + inicioAnio.getSelectedItem() + " a 01/" + finMes.getSelectedItem() + "/" + finAnio.getSelectedItem(), ""));
+
 						}
 					});
 				}
 				btnHorasDeVuelo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-					
-					
-					
-						
+
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-						Date fechaInicioSimple=null, fechaFinalSimple=null;
+						Date fechaInicioSimple = null, fechaFinalSimple = null;
 						try {
-							fechaInicioSimple = format.parse(inicioAnio.getSelectedItem()+"-"+inicioMes.getSelectedItem()+"-1");
-							fechaFinalSimple = format.parse(finAnio.getSelectedItem()+"-"+finMes.getSelectedItem()+"-1");
+							fechaInicioSimple = format.parse(inicioAnio.getSelectedItem() + "-" + inicioMes.getSelectedItem() + "-1");
+							fechaFinalSimple = format.parse(finAnio.getSelectedItem() + "-" + finMes.getSelectedItem() + "-1");
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
 
-
-						
 						List<List<String>> filtrado = new ArrayList<List<String>>();
-						
-						Hashtable<String, Integer> horasVoladas= getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple);
-						
+
+						Hashtable<String, Integer> horasVoladas = getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple);
+
 						for (String list : horasVoladas.keySet()) {
 							List<String> aa = new ArrayList<String>();
 							aa.add(Avion.getAvionById(list).getName());
 							float valor = horasVoladas.get(list);
-							valor=valor/60;
-							aa.add(horasVoladas.get(list)+ " minutos (" + valor + " horas)");
-							filtrado.add (aa );
+							valor = valor / 60;
+							aa.add(horasVoladas.get(list) + " minutos (" + valor + " horas)");
+							filtrado.add(aa);
 
 						}
-						
-						if (filtrado.isEmpty()){
-							JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem());
+
+						if (filtrado.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" + inicioMes.getSelectedItem() + "/" + inicioAnio.getSelectedItem() + " a 01/" + finMes.getSelectedItem() + "/" + finAnio.getSelectedItem());
 							return;
 						}
-						
+
 						// Create columns names
 						String columnNames[] = {"Avion", "Tiempo de vuelo"};
 						List<String> campos = Arrays.asList(columnNames);
-						
-						Informes_Table dialog = new Informes_Table(parent,campos, filtrado, "Horas de vuelo desde " + "01/" +inicioMes.getSelectedItem() + "/" +inicioAnio.getSelectedItem()+" a 01/" + finMes.getSelectedItem() + "/" +finAnio.getSelectedItem(),"" );
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-						setAction(MainController.ACTION_CONTINUE);
-						Informes.this.dispose();
-					
-					
-					
-					
+
+						MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, filtrado, "Horas de vuelo desde " + "01/" + inicioMes.getSelectedItem() + "/" + inicioAnio.getSelectedItem() + " a 01/" + finMes.getSelectedItem() + "/" + finAnio.getSelectedItem(), ""));
+
 					}
 				});
 			}
@@ -585,40 +545,39 @@ public class Informes extends JDialogExtended {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
+
 		inic();
 	}
 
-	public void inic(){
+	public void inic() {
 		List<Persona> personas = Persona.loadFromDB();
 		for (Persona persona : personas) {
 			personasCuentaCorriente.addItem(persona);
 		}
 	}
-	
+
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	private Hashtable<String, Integer> getHorasVoladasSince( Date fechaInicioSimple, Date fechaFinalSimple){
-		return getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple, -1+"");
+	private Hashtable<String, Integer> getHorasVoladasSince(Date fechaInicioSimple, Date fechaFinalSimple) {
+		return getHorasVoladasSince(fechaInicioSimple, fechaFinalSimple, -1 + "");
 	}
-	private Hashtable<String, Integer> getHorasVoladasSince( Date fechaInicioSimple, Date fechaFinalSimple, String id){
+	private Hashtable<String, Integer> getHorasVoladasSince(Date fechaInicioSimple, Date fechaFinalSimple, String id) {
 		List<Vuelo> vuelos = Vuelo.loadFromDB();
-		Hashtable<String, Integer> horasVoladas= new Hashtable<String, Integer>();
-		
+		Hashtable<String, Integer> horasVoladas = new Hashtable<String, Integer>();
+
 		for (Vuelo vuelo : vuelos) {
-			if (vuelo.getHoraInicio()>fechaInicioSimple.getTime() && vuelo.getHoraFinal()<fechaFinalSimple.getTime() && (id.equals("-1")|| id.equals(vuelo.getIdAvion()+"")))
-			{				
-				if (!horasVoladas.containsKey(vuelo.getIdAvion()+""))
-						horasVoladas.put(vuelo.getIdAvion()+"", 0);
-				
-				horasVoladas.put(vuelo.getIdAvion()+"", horasVoladas.get(vuelo.getIdAvion()+"")+Utils.minutesBetweenDates(new Date(vuelo.getHoraInicio()), new Date(vuelo.getHoraFinal())));
+			if (vuelo.getHoraInicio() > fechaInicioSimple.getTime() && vuelo.getHoraFinal() < fechaFinalSimple.getTime() && (id.equals("-1") || id.equals(vuelo.getIdAvion() + ""))) {
+				if (!horasVoladas.containsKey(vuelo.getIdAvion() + ""))
+					horasVoladas.put(vuelo.getIdAvion() + "", 0);
+
+				horasVoladas.put(vuelo.getIdAvion() + "", horasVoladas.get(vuelo.getIdAvion() + "") + Utils.minutesBetweenDates(new Date(vuelo.getHoraInicio()), new Date(vuelo.getHoraFinal())));
 			}
 		}
 		return horasVoladas;
 	}
-	
+
 }
