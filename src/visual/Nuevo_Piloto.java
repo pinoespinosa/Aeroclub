@@ -50,15 +50,16 @@ public class Nuevo_Piloto extends JDialogExtended {
 	private JLabel lblNombre, lblApellido, lblFechaNaciemiento, lblFechaVencimientoLicencia;
 	private JSpinner nacimientoSpinner;
 	private JButton okButton;
-	
+
 	/**
 	 * Create the dialog.
-	 * @param parent 
+	 * 
+	 * @param parent
 	 */
 	public Nuevo_Piloto(Window parent) {
 		super(parent);
 		setTitle("Nuevo Piloto");
-		
+
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -81,7 +82,6 @@ public class Nuevo_Piloto extends JDialogExtended {
 		{
 			dniTextField = new JTextField();
 
-			
 			GridBagConstraints gbc_dniTextField = new GridBagConstraints();
 			gbc_dniTextField.insets = new Insets(0, 0, 5, 5);
 			gbc_dniTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -90,7 +90,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 			contentPanel.add(dniTextField, gbc_dniTextField);
 			dniTextField.setColumns(10);
 		}
-		
+
 		{
 			info = new JTextPane();
 			GridBagConstraints gbc_info = new GridBagConstraints();
@@ -167,7 +167,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 		}
 		{
 			vencimientoLicenciaSpinner = new JSpinner();
-						
+
 			GridBagConstraints gbc_VencimientoLicenciaSpinner = new GridBagConstraints();
 			gbc_VencimientoLicenciaSpinner.insets = new Insets(0, 0, 5, 5);
 			gbc_VencimientoLicenciaSpinner.fill = GridBagConstraints.HORIZONTAL;
@@ -198,7 +198,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 		}
 		inic();
 	}
-	
+
 	@PostConstruct
 	private void inic() {
 		personas = Persona.loadFromDB();
@@ -207,123 +207,119 @@ public class Nuevo_Piloto extends JDialogExtended {
 		nacimientoSpinner.setModel(new SpinnerDateModel(new Date(System.currentTimeMillis()), null, null, Calendar.DAY_OF_YEAR));
 		vencimientoLicenciaSpinner.setModel(new SpinnerDateModel(new Date(System.currentTimeMillis()), null, null, Calendar.DAY_OF_YEAR));
 
-		dniTextField.addKeyListener(new KeyAdapter(){
-	        public void keyReleased(KeyEvent ke){
-	          updateView();
-	        }
-	    });
-		
+		dniTextField.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent ke) {
+				updateView();
+			}
+		});
+
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
 				// Validacion
-				if (nombreTextField.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null,"El nombre del piloto no puede ser vacio.");	
+				if (nombreTextField.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "El nombre del piloto no puede ser vacio.");
 					return;
 				}
-				if (apellidoTextField.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null,"El apellido del piloto no puede ser vacio.");	
+				if (apellidoTextField.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "El apellido del piloto no puede ser vacio.");
 					return;
 				}
-				
+
 				int dni = Integer.parseInt(dniTextField.getText());
 				Persona pe = new Persona(dni);
-				
+
 				// Creo la persona si no existia
 				if (!personas.contains(pe)) {
-					managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`persona` VALUES ('"+managerDB.getNextId("persona")+"', '"+dni+"' ,'"+nombreTextField.getText()+"','"+apellidoTextField.getText()+"','"+((Date) nacimientoSpinner.getModel().getValue()).getTime()+"');");
+					managerDB.executeScript_Void("INSERT INTO `" + MainController.getEsquema() + "`.`persona` VALUES ('" + managerDB.getNextId("persona") + "', '" + dni + "' ,'" + nombreTextField.getText() + "','" + apellidoTextField.getText() + "','" + ((Date) nacimientoSpinner.getModel().getValue()).getTime() + "');");
 					personas = Persona.loadFromDB();
 				}
-				
+
 				// Creo el piloto
-				pe= personas.get(personas.indexOf(pe));
-				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`piloto` VALUES ('"+ pe.getId()+"','"+ ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() +"');");
-				JOptionPane.showMessageDialog(null,"Se creo un nuevo piloto.");					
-				Nuevo_Piloto.this.dispose();	
+				pe = personas.get(personas.indexOf(pe));
+				managerDB.executeScript_Void(" INSERT INTO `" + MainController.getEsquema() + "`.`piloto` VALUES ('" + pe.getId() + "','" + ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() + "');");
+				JOptionPane.showMessageDialog(null, "Se creo un nuevo piloto.");
+				Nuevo_Piloto.this.dispose();
 			}
 		});
 		updateView();
 	}
-	
-	private void updateView(){
-		
+
+	private void updateView() {
+
 		personas = Persona.loadFromDB();
 		pilotos = Piloto.loadFromDB();
-				
-		if (dniTextField.getText().isEmpty()){
+
+		if (dniTextField.getText().isEmpty()) {
 			setEditable(false);
 			return;
 		}
-		
+
 		int dni = Integer.parseInt(dniTextField.getText());
-		
+
 		Piloto pi = new Piloto();
 		pi.setDni(dni);
-		
-		if (pilotos.contains(pi) ){
-			
-			pi= pilotos.get(pilotos.indexOf(pi));
-			
+
+		if (pilotos.contains(pi)) {
+
+			pi = pilotos.get(pilotos.indexOf(pi));
+
 			setEditable(false);
 			info.setText("Ya se encuentra registrado el piloto");
 			vencimientoLicenciaSpinner.setEnabled(false);
 			lblFechaVencimientoLicencia.setEnabled(false);
 			nombreTextField.setText(pi.getName());
 			apellidoTextField.setText(pi.getApellido());
-			nacimientoSpinner.getModel().setValue( new Date(pi.getNacimiento()) );
-			vencimientoLicenciaSpinner.getModel().setValue( new Date(pi.getFecha_licencia()) );
+			nacimientoSpinner.getModel().setValue(new Date(pi.getNacimiento()));
+			vencimientoLicenciaSpinner.getModel().setValue(new Date(pi.getFecha_licencia()));
 			okButton.setEnabled(false);
 			return;
 		}
-		
+
 		Persona pe = new Persona(dni);
-		
-		if (personas.contains(pe) ){
-			pe= personas.get(personas.indexOf(pe));
+
+		if (personas.contains(pe)) {
+			pe = personas.get(personas.indexOf(pe));
 			setEditable(false);
 			info.setText("Los datos de esta persona ya se encuentran en el sistema. Se registrara a continuación como piloto");
 			nombreTextField.setText(pe.getName());
 			apellidoTextField.setText(pe.getApellido());
-			nacimientoSpinner.getModel().setValue( new Date(pe.getNacimiento()) );
-			vencimientoLicenciaSpinner.getModel().setValue( new Date( System.currentTimeMillis() ) );
-			
-		}
-		else{
+			nacimientoSpinner.getModel().setValue(new Date(pe.getNacimiento()));
+			vencimientoLicenciaSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
+
+		} else {
 			setEditable(true);
 			info.setText("");
 			nombreTextField.setText("");
 			apellidoTextField.setText("");
-			nacimientoSpinner.getModel().setValue( new Date( System.currentTimeMillis()) );
-			vencimientoLicenciaSpinner.getModel().setValue( new Date( System.currentTimeMillis() ) );
-			
+			nacimientoSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
+			vencimientoLicenciaSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
+
 		}
-		
+
 	}
-	
-	private void setEditable(boolean editable){
+
+	private void setEditable(boolean editable) {
 		nombreTextField.setEnabled(editable);
 		lblNombre.setEnabled(editable);
-		
+
 		apellidoTextField.setEnabled(editable);
 		lblApellido.setEnabled(editable);
-		
+
 		nacimientoSpinner.setEnabled(editable);
 		lblFechaNaciemiento.setEnabled(editable);
-		
+
 		lblFechaVencimientoLicencia.setEnabled(true);
 		vencimientoLicenciaSpinner.setEnabled(true);
-		
-		okButton.setEnabled(true);
-		
 
-		
-		
+		okButton.setEnabled(true);
+
 	}
 
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

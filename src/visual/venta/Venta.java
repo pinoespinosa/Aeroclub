@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import extended.JDialogExtended;
 import extended.MainController;
 
-
 public class Venta extends JDialogExtended {
 
 	/**
@@ -27,7 +26,7 @@ public class Venta extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
- 
+
 	/**
 	 * Create the dialog.
 	 */
@@ -68,21 +67,21 @@ public class Venta extends JDialogExtended {
 					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible(parent));
 				}
 			});
-			{
-				JButton btnNuevoVueloPor = new JButton("Nuevo Vuelo por Adelantado");
-				btnNuevoVueloPor.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						MainController.sleepActualAndCreateNew(Venta.this, new Venta_Vuelo_Adelantado(parent));
-					}
-				});
-				btnNuevoVueloPor.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-				GridBagConstraints gbc_btnNuevoVueloPor = new GridBagConstraints();
-				gbc_btnNuevoVueloPor.fill = GridBagConstraints.BOTH;
-				gbc_btnNuevoVueloPor.insets = new Insets(0, 0, 5, 0);
-				gbc_btnNuevoVueloPor.gridx = 0;
-				gbc_btnNuevoVueloPor.gridy = 1;
-				contentPanel.add(btnNuevoVueloPor, gbc_btnNuevoVueloPor);
-			}
+		{
+			JButton btnNuevoVueloPor = new JButton("Nuevo Vuelo por Adelantado");
+			btnNuevoVueloPor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo_Adelantado(parent));
+				}
+			});
+			btnNuevoVueloPor.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+			GridBagConstraints gbc_btnNuevoVueloPor = new GridBagConstraints();
+			gbc_btnNuevoVueloPor.fill = GridBagConstraints.BOTH;
+			gbc_btnNuevoVueloPor.insets = new Insets(0, 0, 5, 0);
+			gbc_btnNuevoVueloPor.gridx = 0;
+			gbc_btnNuevoVueloPor.gridy = 1;
+			contentPanel.add(btnNuevoVueloPor, gbc_btnNuevoVueloPor);
+		}
 			btnCombustible.setFont(MainController.getDefaultFont(MainController.BUTTON));
 			GridBagConstraints gbc_btnCombustibleAceite = new GridBagConstraints();
 			gbc_btnCombustibleAceite.insets = new Insets(0, 0, 5, 0);
@@ -139,15 +138,14 @@ public class Venta extends JDialogExtended {
 		}
 		inic();
 	}
-	@PostConstruct 
-	private void inic()
-	{
+	@PostConstruct
+	private void inic() {
 		setAction(MainController.ACTION_REACTIVAR_PADRE);
 	}
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

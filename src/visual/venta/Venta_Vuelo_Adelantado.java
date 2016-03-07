@@ -11,12 +11,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -24,9 +26,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import base_datos.managerDB;
 import data.Avion;
 import data.Piloto;
 import extended.JDialogExtended;
+import extended.MainController;
 
 public class Venta_Vuelo_Adelantado extends JDialogExtended {
 
@@ -45,6 +49,9 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 	private JLabel monto;
 	private JLabel lblNewLabel;
 	private JSpinner cantidadHorasSpinner;
+	private Date fechaMaximaVuelo;
+	private JPanel panel;
+	private JLabel label;
 
 	/**
 	 * Create the dialog.
@@ -61,8 +68,8 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 20, 0};
-		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 30, 0, 0, 30, 0, 20, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 30, 0, 0, 30, 20, 20, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -139,13 +146,22 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
-			monto = new JLabel("$ 0");
-			GridBagConstraints gbc_monto = new GridBagConstraints();
-			gbc_monto.anchor = GridBagConstraints.NORTHEAST;
-			gbc_monto.insets = new Insets(0, 0, 5, 5);
-			gbc_monto.gridx = 2;
-			gbc_monto.gridy = 8;
-			contentPanel.add(monto, gbc_monto);
+			panel = new JPanel();
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.anchor = GridBagConstraints.EAST;
+			gbc_panel.insets = new Insets(0, 0, 5, 5);
+			gbc_panel.fill = GridBagConstraints.VERTICAL;
+			gbc_panel.gridx = 2;
+			gbc_panel.gridy = 8;
+			contentPanel.add(panel, gbc_panel);
+			{
+				label = new JLabel("$");
+				panel.add(label);
+			}
+			{
+				monto = new JLabel("0");
+				panel.add(monto);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -153,6 +169,23 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				chequeButton = new JButton("Crear Venta por adelantado");
+				chequeButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						if ((int)cantidadHorasSpinner.getValue()==0)
+							return;
+												
+						managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`horas_vendida_adelantado` VALUES " +
+								"('" +managerDB.getNextId("horas_vendida_adelantado")    + "'," +
+								"'" + ((Piloto)pilotoComboBox.getSelectedItem()).getId() + "'," +
+								"'" + ((Avion)avionComboBox.getSelectedItem()).getId()   + "'," +
+								"'" + fechaMaximaVuelo.getTime() + "', " +
+								"'" + cantidadHorasSpinner.getValue() + "', " 
+								+ monto.getText() + ");");
+						JOptionPane.showMessageDialog(null, "Se cargaron "+cantidadHorasSpinner.getValue() + " hora/s de vuelo adelantado a " + pilotoComboBox.getSelectedItem().toString() + ".");
+						Venta_Vuelo_Adelantado.this.dispose();
+					}
+				});
 				chequeButton.setActionCommand("OK");
 				buttonPane.add(chequeButton);
 				getRootPane().setDefaultButton(chequeButton);
@@ -185,7 +218,9 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 		}
 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		etiqueta.setText("Las horas vendidas son validas hasta el " + formato.format(System.currentTimeMillis()) + ",");
+		long valor = 24*60*60;
+		fechaMaximaVuelo = new Date (valor*1000*30 + System.currentTimeMillis());
+		etiqueta.setText("Las horas vendidas son validas hasta el " + formato.format(fechaMaximaVuelo) + ",");
 
 		avionComboBox.addItemListener(new ItemListener() {
 			@Override
@@ -207,7 +242,7 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 	@Override
 	public void updateUi() {
 		float valor = ((int) cantidadHorasSpinner.getValue()) * ((Avion) avionComboBox.getSelectedItem()).getPrecio();
-		monto.setText("$ " + valor + "");
+		monto.setText(valor+"");
 
 	}
 }

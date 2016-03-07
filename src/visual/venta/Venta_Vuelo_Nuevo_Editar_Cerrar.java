@@ -24,7 +24,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -213,11 +212,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 					public void mouseClicked(MouseEvent arg0) {
 
 						Nuevo_Instructor dialog = new Nuevo_Instructor(Venta_Vuelo_Nuevo_Editar_Cerrar.this);
-						dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-
-						Venta_Vuelo_Nuevo_Editar_Cerrar.this.setEnabled(false);
+						MainController.sleepActualAndCreateNew(Venta_Vuelo_Nuevo_Editar_Cerrar.this, dialog);
+						
+					
 					}
 				});
 				btnNuevoInstructor.setIcon(new ImageIcon(Venta_Vuelo_Nuevo_Editar_Cerrar.class.getResource("/resources/icon_instructor.png")));
