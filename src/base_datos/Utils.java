@@ -92,6 +92,11 @@ public class Utils {
 		}
 
 		return (int) resultado;
+	}
+	
+	public static boolean alredyOcurred(Date date){
+		return 	(Utils.minutesBetweenDates(new Date(System.currentTimeMillis()), date) < 0);
 
+		
 	}
 }

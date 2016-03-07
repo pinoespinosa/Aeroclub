@@ -40,9 +40,9 @@ public class Venta extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{424, 0};
-		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnVuelo = new JButton("Nuevo Vuelo");
@@ -68,12 +68,27 @@ public class Venta extends JDialogExtended {
 					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible(parent));
 				}
 			});
+			{
+				JButton btnNuevoVueloPor = new JButton("Nuevo Vuelo por Adelantado");
+				btnNuevoVueloPor.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						MainController.sleepActualAndCreateNew(Venta.this, new Venta_Vuelo_Adelantado(parent));
+					}
+				});
+				btnNuevoVueloPor.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+				GridBagConstraints gbc_btnNuevoVueloPor = new GridBagConstraints();
+				gbc_btnNuevoVueloPor.fill = GridBagConstraints.BOTH;
+				gbc_btnNuevoVueloPor.insets = new Insets(0, 0, 5, 0);
+				gbc_btnNuevoVueloPor.gridx = 0;
+				gbc_btnNuevoVueloPor.gridy = 1;
+				contentPanel.add(btnNuevoVueloPor, gbc_btnNuevoVueloPor);
+			}
 			btnCombustible.setFont(MainController.getDefaultFont(MainController.BUTTON));
 			GridBagConstraints gbc_btnCombustibleAceite = new GridBagConstraints();
 			gbc_btnCombustibleAceite.insets = new Insets(0, 0, 5, 0);
 			gbc_btnCombustibleAceite.fill = GridBagConstraints.BOTH;
 			gbc_btnCombustibleAceite.gridx = 0;
-			gbc_btnCombustibleAceite.gridy = 1;
+			gbc_btnCombustibleAceite.gridy = 2;
 			contentPanel.add(btnCombustible, gbc_btnCombustibleAceite);
 		}
 		{
@@ -88,7 +103,7 @@ public class Venta extends JDialogExtended {
 			gbc_btnNuevoAlquilerDe.insets = new Insets(0, 0, 5, 0);
 			gbc_btnNuevoAlquilerDe.fill = GridBagConstraints.BOTH;
 			gbc_btnNuevoAlquilerDe.gridx = 0;
-			gbc_btnNuevoAlquilerDe.gridy = 2;
+			gbc_btnNuevoAlquilerDe.gridy = 3;
 			contentPanel.add(btnNuevoAlquilerDe, gbc_btnNuevoAlquilerDe);
 		}
 		{
@@ -103,7 +118,7 @@ public class Venta extends JDialogExtended {
 			GridBagConstraints gbc_btnNuevoDepositoDe = new GridBagConstraints();
 			gbc_btnNuevoDepositoDe.fill = GridBagConstraints.BOTH;
 			gbc_btnNuevoDepositoDe.gridx = 0;
-			gbc_btnNuevoDepositoDe.gridy = 3;
+			gbc_btnNuevoDepositoDe.gridy = 4;
 			contentPanel.add(btnNuevoDepositoDe, gbc_btnNuevoDepositoDe);
 		}
 		{

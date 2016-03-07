@@ -33,7 +33,6 @@ public class managerDB {
 	 */
 	public static boolean executeScript_Void(String Script){
 		boolean resultado=false;
-		System.out.println(Script);
 		if (!Script.equals(""))		
 		try
 		{
@@ -171,9 +170,7 @@ public class managerDB {
 
 			}
 			string = string.substring(0, string.length() - 2) + " " + partefinal;
-		
-			
-			System.out.println(string);
+
 			managerDB.executeScript_Void(string);
 		} catch (IllegalAccessException | IllegalArgumentException	| InvocationTargetException e) {
 
