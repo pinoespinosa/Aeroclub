@@ -90,7 +90,7 @@ public class MainController {
 	};
 	
 	public static void sleepActualAndCreateNew(JDialogExtended actual, JDialogExtended nueva){
-		actual.setEnabled(true);
+		actual.setEnabled(false);
 		nueva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		nueva.setAction(MainController.ACTION_REACTIVAR_PADRE);
 		nueva.setVisible(true);
