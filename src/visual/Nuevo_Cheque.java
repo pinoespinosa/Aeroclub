@@ -1,15 +1,13 @@
 package visual;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,8 +15,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import base_datos.managerDB;
 import data.Avion;
@@ -38,165 +40,178 @@ public class Nuevo_Cheque extends JDialogExtended {
 	private JLabel lblNewLabel;
 	private JTextField numeroCheque;
 	private JTextField bancoCheque;
-	private JTextField montoCheque;
-	
+	private JPanel panel;
+	private JLabel lblNewLabel_1;
+	private JLabel lblVencimiento;
+	private JTextField vencimientoCheque;
+	private JSpinner montoSpinner;
+
 	/**
 	 * Create the dialog.
-	 * @param parent 
+	 * 
+	 * @param parent
 	 */
 	public Nuevo_Cheque(Window parent) {
 		super(parent);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
+		setBackground(Color.GREEN);
+		setUndecorated(true);
 		setTitle("Nuevo Cheque");
-		
+
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 20, 0};
-		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 20, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPanel.setLayout(gbl_contentPanel);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{450, 0};
+		gridBagLayout.rowHeights = new int[]{159, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
 		{
-			JLabel lblPersona = new JLabel("N\u00FAmero de cheque");
-			GridBagConstraints gbc_lblPersona = new GridBagConstraints();
-			gbc_lblPersona.anchor = GridBagConstraints.EAST;
-			gbc_lblPersona.insets = new Insets(0, 0, 5, 5);
-			gbc_lblPersona.gridx = 1;
-			gbc_lblPersona.gridy = 1;
-			contentPanel.add(lblPersona, gbc_lblPersona);
-		}
-		{
-			numeroCheque = new JTextField();
-			GridBagConstraints gbc_numeroCheque = new GridBagConstraints();
-			gbc_numeroCheque.insets = new Insets(0, 0, 5, 5);
-			gbc_numeroCheque.fill = GridBagConstraints.HORIZONTAL;
-			gbc_numeroCheque.gridx = 2;
-			gbc_numeroCheque.gridy = 1;
-			contentPanel.add(numeroCheque, gbc_numeroCheque);
-			numeroCheque.setColumns(10);
-		}
-		{
-			lblNewLabel = new JLabel("Banco emisor");
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel.gridx = 1;
-			gbc_lblNewLabel.gridy = 2;
-			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
-		}
-		{
-			bancoCheque = new JTextField();
-			GridBagConstraints gbc_bancoCheque = new GridBagConstraints();
-			gbc_bancoCheque.insets = new Insets(0, 0, 5, 5);
-			gbc_bancoCheque.fill = GridBagConstraints.HORIZONTAL;
-			gbc_bancoCheque.gridx = 2;
-			gbc_bancoCheque.gridy = 2;
-			contentPanel.add(bancoCheque, gbc_bancoCheque);
-			bancoCheque.setColumns(10);
-		}
-		{
-			lblNombre = new JLabel("Monto del cheque");
-			GridBagConstraints gbc_lblNombre = new GridBagConstraints();
-			gbc_lblNombre.anchor = GridBagConstraints.EAST;
-			gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNombre.gridx = 1;
-			gbc_lblNombre.gridy = 3;
-			contentPanel.add(lblNombre, gbc_lblNombre);
-		}
-		{
-			montoCheque = new JTextField();
-			GridBagConstraints gbc_montoCheque = new GridBagConstraints();
-			gbc_montoCheque.insets = new Insets(0, 0, 5, 5);
-			gbc_montoCheque.fill = GridBagConstraints.HORIZONTAL;
-			gbc_montoCheque.gridx = 2;
-			gbc_montoCheque.gridy = 3;
-			contentPanel.add(montoCheque, gbc_montoCheque);
-			montoCheque.setColumns(10);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			panel = new JPanel();
+			panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+			panel.setOpaque(false);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 0;
+			gbc_panel.gridy = 0;
+			getContentPane().add(panel, gbc_panel);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{40, 256, 0, 0};
+			gbl_panel.rowHeights = new int[]{0, 0, 145, 0, 10, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
 			{
-				chequeButton = new JButton("Crear Cheque");
-				chequeButton.setActionCommand("OK");
-				buttonPane.add(chequeButton);
-				getRootPane().setDefaultButton(chequeButton);
+				lblNewLabel_1 = new JLabel("Ingrese los datos del cheque");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+				GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+				gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
+				gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+				gbc_lblNewLabel_1.gridx = 1;
+				gbc_lblNewLabel_1.gridy = 1;
+				panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+			}
+			GridBagConstraints gbc_contentPanel = new GridBagConstraints();
+			gbc_contentPanel.fill = GridBagConstraints.HORIZONTAL;
+			gbc_contentPanel.anchor = GridBagConstraints.NORTH;
+			gbc_contentPanel.insets = new Insets(0, 0, 5, 5);
+			gbc_contentPanel.gridx = 1;
+			gbc_contentPanel.gridy = 2;
+			panel.add(contentPanel, gbc_contentPanel);
+			contentPanel.setOpaque(false);
+			contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+			GridBagLayout gbl_contentPanel = new GridBagLayout();
+			gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 20, 0};
+			gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 20, 0};
+			gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+			gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+			contentPanel.setLayout(gbl_contentPanel);
+			{
+				JLabel lblPersona = new JLabel("N\u00FAmero de cheque");
+				GridBagConstraints gbc_lblPersona = new GridBagConstraints();
+				gbc_lblPersona.anchor = GridBagConstraints.EAST;
+				gbc_lblPersona.insets = new Insets(0, 0, 5, 5);
+				gbc_lblPersona.gridx = 1;
+				gbc_lblPersona.gridy = 1;
+				contentPanel.add(lblPersona, gbc_lblPersona);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
+				numeroCheque = new JTextField();
+				GridBagConstraints gbc_numeroCheque = new GridBagConstraints();
+				gbc_numeroCheque.insets = new Insets(0, 0, 5, 5);
+				gbc_numeroCheque.fill = GridBagConstraints.HORIZONTAL;
+				gbc_numeroCheque.gridx = 2;
+				gbc_numeroCheque.gridy = 1;
+				contentPanel.add(numeroCheque, gbc_numeroCheque);
+				numeroCheque.setColumns(10);
+			}
+			{
+				lblNewLabel = new JLabel("Banco emisor");
+				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+				gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
+				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+				gbc_lblNewLabel.gridx = 1;
+				gbc_lblNewLabel.gridy = 2;
+				contentPanel.add(lblNewLabel, gbc_lblNewLabel);
+			}
+			{
+				bancoCheque = new JTextField();
+				GridBagConstraints gbc_bancoCheque = new GridBagConstraints();
+				gbc_bancoCheque.insets = new Insets(0, 0, 5, 5);
+				gbc_bancoCheque.fill = GridBagConstraints.HORIZONTAL;
+				gbc_bancoCheque.gridx = 2;
+				gbc_bancoCheque.gridy = 2;
+				contentPanel.add(bancoCheque, gbc_bancoCheque);
+				bancoCheque.setColumns(10);
+			}
+			{
+				lblNombre = new JLabel("Monto del cheque");
+				GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+				gbc_lblNombre.anchor = GridBagConstraints.EAST;
+				gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
+				gbc_lblNombre.gridx = 1;
+				gbc_lblNombre.gridy = 3;
+				contentPanel.add(lblNombre, gbc_lblNombre);
+			}
+			{
+				montoSpinner = new JSpinner();
+				montoSpinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
+				GridBagConstraints gbc_montoSpinner = new GridBagConstraints();
+				gbc_montoSpinner.fill = GridBagConstraints.HORIZONTAL;
+				gbc_montoSpinner.insets = new Insets(0, 0, 5, 5);
+				gbc_montoSpinner.gridx = 2;
+				gbc_montoSpinner.gridy = 3;
+				contentPanel.add(montoSpinner, gbc_montoSpinner);
+			}
+			{
+				lblVencimiento = new JLabel("Vencimiento");
+				GridBagConstraints gbc_lblVencimiento = new GridBagConstraints();
+				gbc_lblVencimiento.anchor = GridBagConstraints.EAST;
+				gbc_lblVencimiento.insets = new Insets(0, 0, 0, 5);
+				gbc_lblVencimiento.gridx = 1;
+				gbc_lblVencimiento.gridy = 4;
+				contentPanel.add(lblVencimiento, gbc_lblVencimiento);
+			}
+			{
+				vencimientoCheque = new JTextField();
+				GridBagConstraints gbc_vencimientoCheque = new GridBagConstraints();
+				gbc_vencimientoCheque.fill = GridBagConstraints.HORIZONTAL;
+				gbc_vencimientoCheque.insets = new Insets(0, 0, 0, 5);
+				gbc_vencimientoCheque.gridx = 2;
+				gbc_vencimientoCheque.gridy = 4;
+				contentPanel.add(vencimientoCheque, gbc_vencimientoCheque);
+				vencimientoCheque.setColumns(10);
+			}
+			{
+				chequeButton = new JButton("Crear Cheque");
+				GridBagConstraints gbc_chequeButton = new GridBagConstraints();
+				gbc_chequeButton.fill = GridBagConstraints.HORIZONTAL;
+				gbc_chequeButton.insets = new Insets(0, 0, 5, 5);
+				gbc_chequeButton.gridx = 1;
+				gbc_chequeButton.gridy = 3;
+				panel.add(chequeButton, gbc_chequeButton);
+				chequeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						dispose();
+						managerDB.executeScript_Void( " INSERT INTO `"+MainController.getEsquema()+"`.`cheque` VALUES ('" + managerDB.getNextId("cheque") + "','" + numeroCheque.getText() + "','" + bancoCheque.getText() + "','" + montoSpinner.getValue() + "','" + vencimientoCheque.getText() + "');");
+						JOptionPane.showMessageDialog(null, "Se han registrados los datos del cheque.");
+						Nuevo_Cheque.this.dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				chequeButton.setActionCommand("OK");
+				getRootPane().setDefaultButton(chequeButton);
 			}
 		}
 		inic();
 	}
-	
+
 	@PostConstruct
 	private void inic() {
-		setAction(MainController.ACTION_REACTIVAR_PADRE);
-		aviones = Avion.loadFromDB();
-		
-		chequeButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-				// Validacion
-				if (nombreAvionTextField.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null,"El nombre del avion no puede ser vacio.");	
-					return;
-				}
-				
-				for (Avion av : aviones) {
-					if(av.getName().equals(nombreAvionTextField.getText())){
-						setEditable(false);
-						JOptionPane.showMessageDialog(null,"Ya existe un avion con ese nombre.");	
-						return;}
-					else
-						setEditable(true);
-				}
-			// Creo el piloto
-				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`avion` VALUES ('"+ managerDB.getNextId("avion")+"','"+nombreAvionTextField.getText()+"','"+spinnerPrecio.getValue()+"" +"');");
-			//	JOptionPane.showMessageDialog(null,"Se creo un nuevo piloto.");					
-				Nuevo_Cheque.this.dispose();	
-			}
-		});
-		updateView();
-	
-	}
-	
-	private void updateView(){
-		
-		aviones = Avion.loadFromDB();
-				
-		if (nombreAvionTextField.getText().isEmpty()){
-			setEditable(false);
-			return;
-		}
-		
-
-			
-		
-		
-			
-	}
-	
-	private void setEditable(boolean editable){
-		
-		
-		
 	}
 
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

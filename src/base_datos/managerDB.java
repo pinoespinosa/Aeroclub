@@ -33,6 +33,7 @@ public class managerDB {
 	 */
 	public static boolean executeScript_Void(String Script){
 		boolean resultado=false;
+		System.out.println(Script);
 		if (!Script.equals(""))		
 		try
 		{

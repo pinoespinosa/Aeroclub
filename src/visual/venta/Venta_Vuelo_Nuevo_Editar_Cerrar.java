@@ -36,6 +36,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import visual.Nuevo_Cheque;
 import visual.Nuevo_Instructor;
 import visual.Nuevo_Piloto;
 import base_datos.Utils;
@@ -55,9 +56,8 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum TYPE {
-		MODE_CREAR, MODE_EDICION, MODE_CERRAR, MODE_VER
-	}
+	public enum TYPE { MODE_CREAR, MODE_EDICION, MODE_CERRAR, MODE_VER }
+	public enum TYPE_PAGO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE, HORAS_ADELANTADAS }
 
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
@@ -66,7 +66,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private JSpinner inicioSpinner, finalizacionSpinner;
 	private Vuelo current;
 	private JRadioButton pagoEfectivo, pagoCuentaCorriente;
-	private JLabel lblcostoVuelo, costoVuelo;
+	private JLabel lblcostoVuelo, costoVuelo, lblAceite, lblCombustible;
 
 	private JComboBox<Piloto> pilotoComboBox;
 	private JComboBox<Instructor> instructorComboBox;
@@ -84,6 +84,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private JButton refreshButton;
 	private JRadioButton pagoCheque;
 	private JRadioButton pagoHorasPreVendidas;
+	
+	private Window parent;
+	
+	boolean stateRefreshUpdate = false;
 
 	/**
 	 * Create the dialog.
@@ -92,6 +96,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	 */
 	public Venta_Vuelo_Nuevo_Editar_Cerrar(final Window parent) {
 		super(parent);
+		this.parent = parent;
 		setResizable(false);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
@@ -112,7 +117,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			getContentPane().add(panelIzquierdo, gbc_panelIzquierdo);
 			GridBagLayout gbl_panelIzquierdo = new GridBagLayout();
 			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 20, 0, 0, 0, 10, 0};
-			gbl_panelIzquierdo.rowHeights = new int[]{0, 40, 40, 40, 40, 40, 40, 40, 0, 40, 20, 0, 0};
+			gbl_panelIzquierdo.rowHeights = new int[]{0, 40, 40, 40, 40, 40, 0, 40, 40, 40, 20, 0, 0};
 			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 			panelIzquierdo.setLayout(gbl_panelIzquierdo);
@@ -197,13 +202,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				panelIzquierdo.add(instructorComboBox, gbc_instructorComboBox);
 				instructorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-				instructorComboBox.addItemListener(new ItemListener() {
 
-					@Override
-					public void itemStateChanged(ItemEvent event) {
-						updateUi();
-					}
-				});
 			}
 			{
 				btnNuevoInstructor = new JButton("");
@@ -270,67 +269,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				GridBagConstraints gbc_comboBox = new GridBagConstraints();
 				gbc_comboBox.gridwidth = 2;
 				gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-				gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+				gbc_comboBox.fill = GridBagConstraints.BOTH;
 				gbc_comboBox.gridx = 3;
 				gbc_comboBox.gridy = 4;
 				panelIzquierdo.add(tipoVueloComboBox, gbc_comboBox);
-			}
-			{
-				JLabel lblAceite = new JLabel("Aceite (Ltrs)");
-				GridBagConstraints gbc_lblAceite = new GridBagConstraints();
-				gbc_lblAceite.anchor = GridBagConstraints.WEST;
-				gbc_lblAceite.insets = new Insets(0, 0, 5, 5);
-				gbc_lblAceite.gridx = 1;
-				gbc_lblAceite.gridy = 5;
-				panelIzquierdo.add(lblAceite, gbc_lblAceite);
-				lblAceite.setFont(new Font("Tahoma", Font.BOLD, 12));
-			}
-			{
-				aceiteSpinner = new JSpinner();
-				aceiteSpinner.addChangeListener(new ChangeListener() {
-					@Override
-					public void stateChanged(ChangeEvent e) {
-						updateUi();
-					}
-				});
-
-				aceiteSpinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
-				GridBagConstraints gbc_aceiteSpinner = new GridBagConstraints();
-				gbc_aceiteSpinner.gridwidth = 2;
-				gbc_aceiteSpinner.fill = GridBagConstraints.BOTH;
-				gbc_aceiteSpinner.insets = new Insets(0, 0, 5, 5);
-				gbc_aceiteSpinner.gridx = 3;
-				gbc_aceiteSpinner.gridy = 5;
-				panelIzquierdo.add(aceiteSpinner, gbc_aceiteSpinner);
-				aceiteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			}
-			{
-				JLabel lblCombustible = new JLabel("Combustible (Ltrs)");
-				GridBagConstraints gbc_lblCombustible = new GridBagConstraints();
-				gbc_lblCombustible.anchor = GridBagConstraints.WEST;
-				gbc_lblCombustible.insets = new Insets(0, 0, 5, 5);
-				gbc_lblCombustible.gridx = 1;
-				gbc_lblCombustible.gridy = 6;
-				panelIzquierdo.add(lblCombustible, gbc_lblCombustible);
-				lblCombustible.setFont(new Font("Tahoma", Font.BOLD, 12));
-			}
-			{
-				combustibleSpinner = new JSpinner();
-				combustibleSpinner.addChangeListener(new ChangeListener() {
-					@Override
-					public void stateChanged(ChangeEvent e) {
-						updateUi();
-					}
-				});
-				combustibleSpinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
-				GridBagConstraints gbc_combustibleSpinner = new GridBagConstraints();
-				gbc_combustibleSpinner.gridwidth = 2;
-				gbc_combustibleSpinner.fill = GridBagConstraints.BOTH;
-				gbc_combustibleSpinner.insets = new Insets(0, 0, 5, 5);
-				gbc_combustibleSpinner.gridx = 3;
-				gbc_combustibleSpinner.gridy = 6;
-				panelIzquierdo.add(combustibleSpinner, gbc_combustibleSpinner);
-				combustibleSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
 				JLabel lblHoraInicio = new JLabel("Hora Inicio");
@@ -338,7 +280,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblHoraInicio.anchor = GridBagConstraints.WEST;
 				gbc_lblHoraInicio.insets = new Insets(0, 0, 5, 5);
 				gbc_lblHoraInicio.gridx = 1;
-				gbc_lblHoraInicio.gridy = 7;
+				gbc_lblHoraInicio.gridy = 5;
 				panelIzquierdo.add(lblHoraInicio, gbc_lblHoraInicio);
 				lblHoraInicio.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
@@ -349,7 +291,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_inicioSpinner.fill = GridBagConstraints.BOTH;
 				gbc_inicioSpinner.insets = new Insets(0, 0, 5, 5);
 				gbc_inicioSpinner.gridx = 3;
-				gbc_inicioSpinner.gridy = 7;
+				gbc_inicioSpinner.gridy = 5;
 				panelIzquierdo.add(inicioSpinner, gbc_inicioSpinner);
 				inicioSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				inicioSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
@@ -361,7 +303,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_lblHoraFinalizacin.anchor = GridBagConstraints.WEST;
 				gbc_lblHoraFinalizacin.insets = new Insets(0, 0, 5, 5);
 				gbc_lblHoraFinalizacin.gridx = 1;
-				gbc_lblHoraFinalizacin.gridy = 8;
+				gbc_lblHoraFinalizacin.gridy = 6;
 				panelIzquierdo.add(lblHoraFinalizacin, gbc_lblHoraFinalizacin);
 				lblHoraFinalizacin.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
@@ -372,7 +314,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_finalizacionSpinner.fill = GridBagConstraints.BOTH;
 				gbc_finalizacionSpinner.insets = new Insets(0, 0, 5, 5);
 				gbc_finalizacionSpinner.gridx = 3;
-				gbc_finalizacionSpinner.gridy = 8;
+				gbc_finalizacionSpinner.gridy = 6;
 				panelIzquierdo.add(finalizacionSpinner, gbc_finalizacionSpinner);
 				finalizacionSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				finalizacionSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
@@ -394,7 +336,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_refreshButton.fill = GridBagConstraints.VERTICAL;
 				gbc_refreshButton.insets = new Insets(0, 0, 5, 5);
 				gbc_refreshButton.gridx = 4;
-				gbc_refreshButton.gridy = 8;
+				gbc_refreshButton.gridy = 6;
 				panelIzquierdo.add(refreshButton, gbc_refreshButton);
 			}
 			JPanel panel_1 = new JPanel();
@@ -404,7 +346,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 			gbc_panel_1.fill = GridBagConstraints.BOTH;
 			gbc_panel_1.gridx = 1;
-			gbc_panel_1.gridy = 9;
+			gbc_panel_1.gridy = 7;
 			panelIzquierdo.add(panel_1, gbc_panel_1);
 			GridBagLayout gbl_panel_1 = new GridBagLayout();
 			gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0};
@@ -450,6 +392,63 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_rdbtnNewRadioButton_1.gridx = 3;
 				gbc_rdbtnNewRadioButton_1.gridy = 0;
 				panel_1.add(pagoCuentaCorriente, gbc_rdbtnNewRadioButton_1);
+			}
+			{
+				lblCombustible = new JLabel("Combustible (Ltrs)");
+				GridBagConstraints gbc_lblCombustible = new GridBagConstraints();
+				gbc_lblCombustible.anchor = GridBagConstraints.WEST;
+				gbc_lblCombustible.insets = new Insets(0, 0, 5, 5);
+				gbc_lblCombustible.gridx = 1;
+				gbc_lblCombustible.gridy = 8;
+				panelIzquierdo.add(lblCombustible, gbc_lblCombustible);
+				lblCombustible.setFont(new Font("Tahoma", Font.BOLD, 12));
+			}
+			{
+				combustibleSpinner = new JSpinner();
+				combustibleSpinner.addChangeListener(new ChangeListener() {
+					@Override
+					public void stateChanged(ChangeEvent e) {
+						updateUi();
+					}
+				});
+				combustibleSpinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
+				GridBagConstraints gbc_combustibleSpinner = new GridBagConstraints();
+				gbc_combustibleSpinner.gridwidth = 2;
+				gbc_combustibleSpinner.fill = GridBagConstraints.BOTH;
+				gbc_combustibleSpinner.insets = new Insets(0, 0, 5, 5);
+				gbc_combustibleSpinner.gridx = 3;
+				gbc_combustibleSpinner.gridy = 8;
+				panelIzquierdo.add(combustibleSpinner, gbc_combustibleSpinner);
+				combustibleSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			}
+			{
+				lblAceite = new JLabel("Aceite (Ltrs)");
+				GridBagConstraints gbc_lblAceite = new GridBagConstraints();
+				gbc_lblAceite.anchor = GridBagConstraints.WEST;
+				gbc_lblAceite.insets = new Insets(0, 0, 5, 5);
+				gbc_lblAceite.gridx = 1;
+				gbc_lblAceite.gridy = 9;
+				panelIzquierdo.add(lblAceite, gbc_lblAceite);
+				lblAceite.setFont(new Font("Tahoma", Font.BOLD, 12));
+			}
+			{
+				aceiteSpinner = new JSpinner();
+				aceiteSpinner.addChangeListener(new ChangeListener() {
+					@Override
+					public void stateChanged(ChangeEvent e) {
+						updateUi();
+					}
+				});
+
+				aceiteSpinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
+				GridBagConstraints gbc_aceiteSpinner = new GridBagConstraints();
+				gbc_aceiteSpinner.gridwidth = 2;
+				gbc_aceiteSpinner.fill = GridBagConstraints.BOTH;
+				gbc_aceiteSpinner.insets = new Insets(0, 0, 5, 5);
+				gbc_aceiteSpinner.gridx = 3;
+				gbc_aceiteSpinner.gridy = 9;
+				panelIzquierdo.add(aceiteSpinner, gbc_aceiteSpinner);
+				aceiteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
 				lblcostoVuelo = new JLabel("Cargos por el vuelo:    $");
@@ -507,8 +506,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			formaDePago.add(pagoCheque);
 			formaDePago.add(pagoHorasPreVendidas);
 
-			aceiteSpinner.setEnabled(modoApertura != TYPE.MODE_CERRAR);
-			combustibleSpinner.setEnabled(modoApertura != TYPE.MODE_CERRAR);
+			
 			inicioSpinner.setEnabled(modoApertura != TYPE.MODE_CERRAR);
 			pilotoComboBox.setEnabled(modoApertura != TYPE.MODE_CERRAR);
 			instructorComboBox.setEnabled(modoApertura != TYPE.MODE_CERRAR);
@@ -522,6 +520,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			pagoCheque.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			pagoHorasPreVendidas.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			
+			lblCombustible.setVisible(modoApertura == TYPE.MODE_CERRAR);
+			lblAceite.setVisible(modoApertura == TYPE.MODE_CERRAR);
+			aceiteSpinner.setVisible(modoApertura == TYPE.MODE_CERRAR);
+			combustibleSpinner.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			finalizacionSpinner.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			refreshButton.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			lblHoraFinalizacin.setVisible(modoApertura == TYPE.MODE_CERRAR);
@@ -549,22 +551,6 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 			tipoVueloComboBox.addActionListener(precioDirty);
 			avionComboBox.addActionListener(precioDirty);
-
-			// Cargo los pilotos en el combo
-			pilotosList.removeAllElements();
-			List<Piloto> pilotos = Piloto.loadFromDB();
-			for (Piloto piloto : pilotos) {
-				pilotosList.addElement(piloto);
-			}
-
-			// Cargo los instructores en el combo
-			instructorList.removeAllElements();
-			List<Instructor> intructores = Instructor.loadFromDB();
-
-			instructorList.addElement(new Instructor(-1, "Sin instructor", "", new Long(-1), new Long(-1), -1, new Float(0)));
-			for (Instructor instructor : intructores) {
-				instructorList.addElement(instructor);
-			}
 
 			// Seteo a las fechas el tiempo actual
 			Date fecha = new Date(System.currentTimeMillis());
@@ -604,7 +590,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 								continuarConLicenciaVencida = JOptionPane.showConfirmDialog(null, "El psicofísoco del piloto se encuentra vencido. ¿Desea crear el vuelo de todas formas?");
 
 							if (continuarConLicenciaVencida == JOptionPane.YES_OPTION) {
-								managerDB.executeScript_Void(getVueloFromView().getCreateScriptDataBase());
+								Vuelo current = getVueloFromView();
+								current.setPrecio(0);
+								
+								managerDB.executeScript_Void(current.getCreateScriptDataBase());
 								JOptionPane.showMessageDialog(null, "Se ha registrado un nuevo vuelo.");
 								Venta_Vuelo_Nuevo_Editar_Cerrar.this.dispose();
 							}
@@ -664,14 +653,22 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 									}
 									
 								}
+															
 								Vuelo nuevo = getVueloFromView();
 								nuevo.setId(current.getId());
 								nuevo.setPrecioAceite(current.getPrecioAceite());
 								nuevo.setPrecioCombustible(current.getPrecioCombustible());
+								nuevo.setPrecio(Float.parseFloat(costoVuelo.getText()));
+								nuevo.setFormaDePago(getFormaPago());
 
 								managerDB.updateAsset(nuevo);
 
 								JOptionPane.showMessageDialog(null, "Se ha cerrado exitosamente el vuelo.");
+								
+								if (pagoCheque.isSelected()){
+										JOptionPane.showMessageDialog(null, "Ingrese por favor, los datos del cheque.");
+										MainController.closeActualAndCreateNew(Venta_Vuelo_Nuevo_Editar_Cerrar.this, new Nuevo_Cheque(parent));
+								}
 								Venta_Vuelo_Nuevo_Editar_Cerrar.this.dispose();
 							}
 						}
@@ -699,6 +696,14 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		// Cargo el valor del total en base a los precios
 		updateUi();
 
+		instructorComboBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if(!stateRefreshUpdate)
+					updateUi();
+			}
+		});
+		
 	}
 
 	/**
@@ -714,9 +719,11 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 		pilotoComboBox.setSelectedIndex(pilotosList.getIndexOf(new Piloto(aux.getIdPiloto())));
 
-		pagoEfectivo.setSelected(aux.getFormaDePago() == Precios.EFECTIVO);
-		pagoCuentaCorriente.setSelected(aux.getFormaDePago() == Precios.CUENTA_CORRIENTE);
-
+		pagoEfectivo.setSelected(aux.getFormaDePago() == TYPE_PAGO.EFECTIVO.ordinal());
+		pagoCuentaCorriente.setSelected(aux.getFormaDePago() == TYPE_PAGO.CUENTA_CORRIENTE.ordinal());
+		pagoCheque.setSelected(aux.getFormaDePago() == TYPE_PAGO.CHEQUE.ordinal());
+		pagoHorasPreVendidas.setSelected(aux.getFormaDePago() == TYPE_PAGO.HORAS_ADELANTADAS.ordinal());
+		
 		instructorComboBox.setSelectedIndex(instructorList.getIndexOf(new Instructor(aux.getIdInstructor())));
 		avionComboBox.setSelectedIndex(avionesList.getIndexOf(new Avion(aux.getIdAvion())));
 
@@ -742,8 +749,21 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	 */
 	public Vuelo getVueloFromView() {
 
-		Vuelo nuevo = new Vuelo(managerDB.getNextId("vuelo"), ((Date) inicioSpinner.getModel().getValue()).getTime(), ((Date) finalizacionSpinner.getModel().getValue()).getTime(), Float.parseFloat(aceiteSpinner.getValue() + ""), Float.parseFloat(combustibleSpinner.getValue() + ""), ((Avion) avionesList.getSelectedItem()).getId(), ((Piloto) pilotosList.getSelectedItem()).getId(), ((Instructor) instructorList.getSelectedItem()).getId(), Float.parseFloat(costoVuelo.getText()), Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
-				((Avion) avionesList.getSelectedItem()).getPrecio(), pagoEfectivo.isSelected() ? Precios.EFECTIVO : Precios.CUENTA_CORRIENTE, Vuelo.TipoVuelo.valueOf((String) tipoVueloComboBox.getSelectedItem()).ordinal());
+		Vuelo nuevo = new Vuelo(
+				managerDB.getNextId("vuelo"), 
+				((Date) inicioSpinner.getModel().getValue()).getTime(), 
+				((Date) finalizacionSpinner.getModel().getValue()).getTime(), 
+				Float.parseFloat(aceiteSpinner.getValue() + ""), 
+				Float.parseFloat(combustibleSpinner.getValue() + ""), 
+				((Avion) avionesList.getSelectedItem()).getId(), 
+				((Piloto) pilotosList.getSelectedItem()).getId(), 
+				((Instructor) instructorList.getSelectedItem()).getId(), 
+				Float.parseFloat(costoVuelo.getText()), 
+				Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), 
+				Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
+				((Avion) avionesList.getSelectedItem()).getPrecio(), 
+				pagoEfectivo.isSelected() ? Precios.EFECTIVO : Precios.CUENTA_CORRIENTE, 
+				Vuelo.TipoVuelo.valueOf((String) tipoVueloComboBox.getSelectedItem()).ordinal());
 
 		return nuevo;
 	}
@@ -796,6 +816,25 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 	@Override
 	public void updateUi() {
+		
+		stateRefreshUpdate=true;
+		
+		// Cargo los pilotos en el combo
+		pilotosList.removeAllElements();
+		List<Piloto> pilotos = Piloto.loadFromDB();
+		for (Piloto piloto : pilotos) {
+			pilotosList.addElement(piloto);
+		}
+
+		// Cargo los instructores en el combo
+		instructorList.removeAllElements();
+		List<Instructor> intructores = Instructor.loadFromDB();
+
+		instructorList.addElement(new Instructor(-1, "Sin instructor", "", new Long(-1), new Long(-1), -1, new Float(0)));
+		for (Instructor instructor : intructores) {
+			instructorList.addElement(instructor);
+		}
+		
 		updatePrecio();
 
 		List<horas_vendida_adelantado> listaHorasAdelantadas = horas_vendida_adelantado.getHorasByAvionPiloto(((Avion) avionComboBox.getSelectedItem()).getId() + "", ((Piloto) pilotoComboBox.getSelectedItem()).getId() + "");
@@ -812,6 +851,25 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		} else
 			pagoHorasPreVendidas.setEnabled(true);
 
+		stateRefreshUpdate = false;
 	}
 
+	
+	public int getFormaPago(){
+		
+		if (pagoEfectivo.isSelected())
+			return TYPE_PAGO.EFECTIVO.ordinal();
+		
+		if (pagoCuentaCorriente.isSelected())
+			return TYPE_PAGO.CUENTA_CORRIENTE.ordinal();
+		
+		if (pagoCheque.isSelected())
+			return TYPE_PAGO.CHEQUE.ordinal();
+		
+		if (pagoHorasPreVendidas.isSelected())
+			return TYPE_PAGO.HORAS_ADELANTADAS.ordinal();
+		else
+			return -1;
+		
+	}
 }
