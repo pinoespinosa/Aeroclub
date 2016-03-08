@@ -7,9 +7,8 @@ import extended.MainController;
 
 public class Precios {
 
-	public static final int EFECTIVO = 0, 
-							CUENTA_CORRIENTE=1;
-
+	public enum TYPE_PAGO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE }
+	public enum TYPE_PAGO_VUELO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE, HORAS_ADELANTADAS }
 	
 	
 	public static final String COMBUSTIBLE_PRECIO_AEROCLUB = "combustiblePrecioAeroclub";

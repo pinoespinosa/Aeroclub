@@ -45,6 +45,7 @@ import data.Avion;
 import data.Instructor;
 import data.Piloto;
 import data.Precios;
+import data.Precios.TYPE_PAGO_VUELO;
 import data.Vuelo;
 import data.horas_vendida_adelantado;
 import extended.JDialogExtended;
@@ -57,7 +58,6 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private static final long serialVersionUID = 1L;
 
 	public enum TYPE { MODE_CREAR, MODE_EDICION, MODE_CERRAR, MODE_VER }
-	public enum TYPE_PAGO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE, HORAS_ADELANTADAS }
 
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
@@ -719,10 +719,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 		pilotoComboBox.setSelectedIndex(pilotosList.getIndexOf(new Piloto(aux.getIdPiloto())));
 
-		pagoEfectivo.setSelected(aux.getFormaDePago() == TYPE_PAGO.EFECTIVO.ordinal());
-		pagoCuentaCorriente.setSelected(aux.getFormaDePago() == TYPE_PAGO.CUENTA_CORRIENTE.ordinal());
-		pagoCheque.setSelected(aux.getFormaDePago() == TYPE_PAGO.CHEQUE.ordinal());
-		pagoHorasPreVendidas.setSelected(aux.getFormaDePago() == TYPE_PAGO.HORAS_ADELANTADAS.ordinal());
+		pagoEfectivo.setSelected(aux.getFormaDePago() == TYPE_PAGO_VUELO.EFECTIVO.ordinal());
+		pagoCuentaCorriente.setSelected(aux.getFormaDePago() == TYPE_PAGO_VUELO.CUENTA_CORRIENTE.ordinal());
+		pagoCheque.setSelected(aux.getFormaDePago() == TYPE_PAGO_VUELO.CHEQUE.ordinal());
+		pagoHorasPreVendidas.setSelected(aux.getFormaDePago() == TYPE_PAGO_VUELO.HORAS_ADELANTADAS.ordinal());
 		
 		instructorComboBox.setSelectedIndex(instructorList.getIndexOf(new Instructor(aux.getIdInstructor())));
 		avionComboBox.setSelectedIndex(avionesList.getIndexOf(new Avion(aux.getIdAvion())));
@@ -762,7 +762,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), 
 				Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
 				((Avion) avionesList.getSelectedItem()).getPrecio(), 
-				pagoEfectivo.isSelected() ? Precios.EFECTIVO : Precios.CUENTA_CORRIENTE, 
+				getFormaPago(), 
 				Vuelo.TipoVuelo.valueOf((String) tipoVueloComboBox.getSelectedItem()).ordinal());
 
 		return nuevo;
@@ -858,16 +858,16 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	public int getFormaPago(){
 		
 		if (pagoEfectivo.isSelected())
-			return TYPE_PAGO.EFECTIVO.ordinal();
+			return TYPE_PAGO_VUELO.EFECTIVO.ordinal();
 		
 		if (pagoCuentaCorriente.isSelected())
-			return TYPE_PAGO.CUENTA_CORRIENTE.ordinal();
+			return TYPE_PAGO_VUELO.CUENTA_CORRIENTE.ordinal();
 		
 		if (pagoCheque.isSelected())
-			return TYPE_PAGO.CHEQUE.ordinal();
+			return TYPE_PAGO_VUELO.CHEQUE.ordinal();
 		
 		if (pagoHorasPreVendidas.isSelected())
-			return TYPE_PAGO.HORAS_ADELANTADAS.ordinal();
+			return TYPE_PAGO_VUELO.HORAS_ADELANTADAS.ordinal();
 		else
 			return -1;
 		

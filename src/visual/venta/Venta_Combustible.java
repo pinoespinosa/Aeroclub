@@ -18,7 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
@@ -40,7 +39,7 @@ public class Venta_Combustible extends JDialogExtended {
 	private JComboBox<String> tipoDeGasto;	
 	private JTextField detalleTextField;
 	private JSpinner cantidad, fechaVenta; 
-	private JRadioButton rdbtnCuenta, rdbtnEfectivo;
+	private JComboBox<Precios.TYPE_PAGO> formaDePago;
 	/**
 	 * Create the dialog.
 	 * @param parent 
@@ -54,9 +53,9 @@ public class Venta_Combustible extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 0, 20, 0};
-		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblFecha = new JLabel("Fecha");
@@ -155,31 +154,35 @@ public class Venta_Combustible extends JDialogExtended {
 			detalleTextField.setColumns(10);
 		}
 		{
-			JPanel panel = new JPanel();
-			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.gridwidth = 3;
-			gbc_panel.insets = new Insets(0, 0, 5, 5);
-			gbc_panel.fill = GridBagConstraints.BOTH;
-			gbc_panel.gridx = 1;
-			gbc_panel.gridy = 6;
-			contentPanel.add(panel, gbc_panel);
 			{
 				ButtonGroup botones = new ButtonGroup();
-				rdbtnCuenta = new JRadioButton("Cuenta Corriente");
-				rdbtnEfectivo = new JRadioButton("Efectivo");
-				rdbtnEfectivo.setSelected(true);
-				panel.add(rdbtnCuenta);
-				panel.add(rdbtnEfectivo);
-				botones.add(rdbtnEfectivo);
-				botones.add(rdbtnCuenta);
 			}
+		}
+		{
+			JLabel lblFormaDePago = new JLabel("Forma de pago");
+			GridBagConstraints gbc_lblFormaDePago = new GridBagConstraints();
+			gbc_lblFormaDePago.anchor = GridBagConstraints.EAST;
+			gbc_lblFormaDePago.insets = new Insets(0, 0, 5, 5);
+			gbc_lblFormaDePago.gridx = 1;
+			gbc_lblFormaDePago.gridy = 6;
+			contentPanel.add(lblFormaDePago, gbc_lblFormaDePago);
+		}
+		{
+			formaDePago = new JComboBox<Precios.TYPE_PAGO>();
+			GridBagConstraints gbc_comboBox = new GridBagConstraints();
+			gbc_comboBox.gridwidth = 2;
+			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+			gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+			gbc_comboBox.gridx = 2;
+			gbc_comboBox.gridy = 6;
+			contentPanel.add(formaDePago, gbc_comboBox);
 		}
 		{
 			JLabel lblNewLabel = new JLabel("Total: $");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
 			gbc_lblNewLabel.gridx = 2;
-			gbc_lblNewLabel.gridy = 7;
+			gbc_lblNewLabel.gridy = 8;
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
@@ -196,7 +199,7 @@ public class Venta_Combustible extends JDialogExtended {
 						managerDB.executeScript_Void(
 								"INSERT INTO "+MainController.getEsquema()+".`gasto` VALUES ('" +managerDB.getNextId("gasto")+"','VENTA','"	+tipoDeGasto.getSelectedItem()+"','" 
 											+Precios.getPrecio( Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " ")) )+"', '"+cantidad.getValue()+"','" 
-											+detalleTextField.getText() +"','"+total+"','"+rdbtnEfectivo.isSelected()+"','"+((Date)fechaVenta.getValue()).getTime()+"','"+((Persona) destinatarios.getSelectedItem()).getId()+"');");
+											+detalleTextField.getText() +"','"+total+"','"+((Precios.TYPE_PAGO)formaDePago.getSelectedItem()).ordinal()+"','"+((Date)fechaVenta.getValue()).getTime()+"','"+((Persona) destinatarios.getSelectedItem()).getId()+"');");
 						
 						JOptionPane.showMessageDialog(null,"Se registro la venta.");
 					}
@@ -230,6 +233,10 @@ public class Venta_Combustible extends JDialogExtended {
 		fechaVenta.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
 		fechaVenta.getModel().setValue( new Date(System.currentTimeMillis()) );
 		fechaVenta.setEditor(new JSpinner.DateEditor(fechaVenta, "dd/MM/yyyy"));
+		
+		for ( Precios.TYPE_PAGO forma : Precios.TYPE_PAGO.values()) {
+			formaDePago.addItem(forma);	
+		}
 	}
 	
 	@Override

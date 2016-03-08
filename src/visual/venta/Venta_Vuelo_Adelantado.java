@@ -29,6 +29,7 @@ import javax.swing.event.ChangeListener;
 import base_datos.managerDB;
 import data.Avion;
 import data.Piloto;
+import data.Precios;
 import extended.JDialogExtended;
 import extended.MainController;
 
@@ -52,6 +53,8 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 	private Date fechaMaximaVuelo;
 	private JPanel panel;
 	private JLabel label;
+	private JLabel lblFormaDePago;
+	private JComboBox<Precios.TYPE_PAGO> formaDePago;
 
 	/**
 	 * Create the dialog.
@@ -68,9 +71,9 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 20, 0};
-		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 30, 0, 0, 30, 20, 20, 0};
+		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 30, 0, 0, 30, 20, 20, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			lblAvion = new JLabel("Avion");
@@ -111,6 +114,7 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 		{
 			lblCantidadHoras = new JLabel("Cantidad Horas");
 			GridBagConstraints gbc_lblCantidadHoras = new GridBagConstraints();
+			gbc_lblCantidadHoras.anchor = GridBagConstraints.WEST;
 			gbc_lblCantidadHoras.insets = new Insets(0, 0, 5, 5);
 			gbc_lblCantidadHoras.gridx = 1;
 			gbc_lblCantidadHoras.gridy = 3;
@@ -127,13 +131,31 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 			contentPanel.add(cantidadHorasSpinner, gbc_cantidadHorasSpinner);
 		}
 		{
+			lblFormaDePago = new JLabel("Forma de pago");
+			GridBagConstraints gbc_lblFormaDePago = new GridBagConstraints();
+			gbc_lblFormaDePago.anchor = GridBagConstraints.EAST;
+			gbc_lblFormaDePago.insets = new Insets(0, 0, 5, 5);
+			gbc_lblFormaDePago.gridx = 1;
+			gbc_lblFormaDePago.gridy = 4;
+			contentPanel.add(lblFormaDePago, gbc_lblFormaDePago);
+		}
+		{
+			formaDePago = new JComboBox<Precios.TYPE_PAGO>();
+			GridBagConstraints gbc_formaDePago = new GridBagConstraints();
+			gbc_formaDePago.insets = new Insets(0, 0, 5, 5);
+			gbc_formaDePago.fill = GridBagConstraints.HORIZONTAL;
+			gbc_formaDePago.gridx = 2;
+			gbc_formaDePago.gridy = 4;
+			contentPanel.add(formaDePago, gbc_formaDePago);
+		}
+		{
 			etiqueta = new JLabel("validez");
 			GridBagConstraints gbc_etiqueta = new GridBagConstraints();
 			gbc_etiqueta.anchor = GridBagConstraints.EAST;
 			gbc_etiqueta.gridwidth = 2;
 			gbc_etiqueta.insets = new Insets(0, 0, 5, 5);
 			gbc_etiqueta.gridx = 1;
-			gbc_etiqueta.gridy = 5;
+			gbc_etiqueta.gridy = 6;
 			contentPanel.add(etiqueta, gbc_etiqueta);
 		}
 		{
@@ -142,7 +164,7 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel.gridx = 2;
-			gbc_lblNewLabel.gridy = 6;
+			gbc_lblNewLabel.gridy = 7;
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
@@ -152,7 +174,7 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 			gbc_panel.insets = new Insets(0, 0, 5, 5);
 			gbc_panel.fill = GridBagConstraints.VERTICAL;
 			gbc_panel.gridx = 2;
-			gbc_panel.gridy = 8;
+			gbc_panel.gridy = 9;
 			contentPanel.add(panel, gbc_panel);
 			{
 				label = new JLabel("$");
@@ -180,8 +202,8 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 								"'" + ((Piloto)pilotoComboBox.getSelectedItem()).getId() + "'," +
 								"'" + ((Avion)avionComboBox.getSelectedItem()).getId()   + "'," +
 								"'" + fechaMaximaVuelo.getTime() + "', " +
-								"'" + cantidadHorasSpinner.getValue() + "', " 
-								+ monto.getText() + ");");
+								"'" + cantidadHorasSpinner.getValue() + "',' " 
+								+ monto.getText() + "','"+monto.getText()+"','"+((Precios.TYPE_PAGO)formaDePago.getSelectedItem()).ordinal()+"','"+System.currentTimeMillis()+"');");
 						JOptionPane.showMessageDialog(null, "Se cargaron "+cantidadHorasSpinner.getValue() + " hora/s de vuelo adelantado a " + pilotoComboBox.getSelectedItem().toString() + ".");
 						Venta_Vuelo_Adelantado.this.dispose();
 					}
@@ -237,6 +259,10 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 				updateUi();
 			}
 		});
+		
+		for ( Precios.TYPE_PAGO forma : Precios.TYPE_PAGO.values()) {
+			formaDePago.addItem(forma);	
+		}
 	}
 
 	@Override

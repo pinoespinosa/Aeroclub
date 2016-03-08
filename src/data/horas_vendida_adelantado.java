@@ -12,22 +12,26 @@ import extended.MainController;
 public class horas_vendida_adelantado {
 
 	private String id;
-	private int pilotoId, avionId;
-	private long fechaVencimiento;
-	private float saldo, cantidadHoras;
+	private int pilotoId, avionId, formaDePago;
+	private long fechaVencimiento, fecha;
+	private float saldo, saldoOriginal, cantidadHoras;
 
+	
 	public horas_vendida_adelantado() {
 		super();
 	}
 
-	public horas_vendida_adelantado(String id, int pilotoId, int avionId, float cantidadHoras, long fechaVencimiento, float saldo) {
+	public horas_vendida_adelantado(String id, int pilotoId, int avionId, float cantidadHoras, long fechaVencimiento, float saldo, float saldoOriginal, int formaDePago, long fecha) {
 		super();
 		this.id = id;
 		this.pilotoId = pilotoId;
 		this.avionId = avionId;
-		this.cantidadHoras = cantidadHoras;
+		this.formaDePago = formaDePago;
 		this.fechaVencimiento = fechaVencimiento;
 		this.saldo = saldo;
+		this.saldoOriginal = saldoOriginal;
+		this.cantidadHoras = cantidadHoras;
+		this.setFecha(fecha);
 	}
 
 	public String getId() {
@@ -67,16 +71,41 @@ public class horas_vendida_adelantado {
 		this.saldo = saldo;
 	}
 
+	public int getFormaDePago() {
+		return formaDePago;
+	}
+
+	public void setFormaDePago(int formaDePago) {
+		this.formaDePago = formaDePago;
+	}
+
+	public float getSaldoOriginal() {
+		return saldoOriginal;
+	}
+
+	public void setSaldoOriginal(float saldoOriginal) {
+		this.saldoOriginal = saldoOriginal;
+	}
+	
 	private static String getScriptDataBase() {
 		return "	SELECT *" + "	FROM " + MainController.getEsquema() + ".horas_vendida_adelantado;";
 	}
 
 	private static List<String> getFieldScriptBase() {
-		return Arrays.asList(new String[]{"id", "pilotoId", "avionId", "cantidadHoras", "fechaVencimiento", "saldo"});
+		return Arrays.asList(new String[]{"id", "pilotoId", "avionId", "cantidadHoras", "fechaVencimiento", "saldo", "saldoOriginal", "formaDePago", "fecha"});
 	}
 
 	private static horas_vendida_adelantado loadFromList(List<String> valores) {
-		return new horas_vendida_adelantado(valores.get(0), Integer.parseInt(valores.get(1)), Integer.parseInt(valores.get(2)), Float.parseFloat(valores.get(3)), Long.parseLong(valores.get(4)), Float.parseFloat(valores.get(5)));
+		return new horas_vendida_adelantado(
+				valores.get(0),
+				Integer.parseInt(valores.get(1)), 
+				Integer.parseInt(valores.get(2)), 
+				Float.parseFloat(valores.get(3)), 
+				Long.parseLong(valores.get(4)), 
+				Float.parseFloat(valores.get(5)), 
+				Float.parseFloat(valores.get(6)), 
+				Integer.parseInt(valores.get(7)),
+				Long.parseLong(valores.get(8)));
 	}
 
 	private static List<horas_vendida_adelantado> loadFromDB(String script) {
@@ -168,4 +197,13 @@ public class horas_vendida_adelantado {
 		return total;
 	}
 
+	public long getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(long fecha) {
+		this.fecha = fecha;
+	}
+
+	
 }
