@@ -98,7 +98,7 @@ public class Vencimiento implements Comparable<Vencimiento>{
 				"		SELECT 	'1' as fecha, " +
 				"				concat('Alerta de stock. ',SUM(unidades),' litros de combustible') as detalle " +
 				"		FROM `" + MainController.getEsquema() + "`.gastos_normalizados " +
-				"		WHERE tipo like 'COMBUSTIBLE' " +
+				"		WHERE tipo like 'COMBUSTIBLE%' " +
 				"		GROUP BY TIPO " +
 				"		having sum(unidades)<"+MainController.getProperties().get("MINIMO_COMBUSTIBLE") +
 				")" +
@@ -110,7 +110,7 @@ public class Vencimiento implements Comparable<Vencimiento>{
 				"		SELECT 	'1' as fecha, " +
 				"				concat('Alerta de stock. ',SUM(unidades),' litros de aceite') as detalle " +
 				"		FROM `" + MainController.getEsquema() + "`.gastos_normalizados " +
-				"		WHERE tipo like 'ACEITE' " +
+				"		WHERE tipo like 'ACEITE%' " +
 				"		GROUP BY TIPO " +
 				"		having sum(unidades)<"+MainController.getProperties().get("MINIMO_ACEITE") +
 				"		) " +
