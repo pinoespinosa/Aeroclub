@@ -198,11 +198,9 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Venta -----------------
 				 */
-				frame.setEnabled(false);
 				Venta dialog = new Venta(frame);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-				dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
+				MainController.sleepActualAndCreateNew(MainClass.this, dialog);
+				
 			}
 		});
 
