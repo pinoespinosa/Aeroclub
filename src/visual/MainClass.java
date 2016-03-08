@@ -402,10 +402,10 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 		updateVencimientos();
 	}
 
-	@Override
+/*	@Override
 	public void setEnabled(boolean arg0) {
 		frame.setEnabled(arg0);
 		super.setEnabled(arg0);
 	}
-
+*/
 }
