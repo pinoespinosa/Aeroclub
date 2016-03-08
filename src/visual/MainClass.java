@@ -401,8 +401,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 
 	@Override
 	public void updateUi() {
-		// TODO Auto-generated method stub
-	System.out.println();
+		updateVencimientos();
 	}
 
 }
