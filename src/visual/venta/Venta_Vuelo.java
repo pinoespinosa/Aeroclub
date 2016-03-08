@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -49,7 +48,7 @@ public class Venta_Vuelo extends JDialogExtended {
 	 * 
 	 * @param frmSistemaDeGestin
 	 */
-	public Venta_Vuelo(final JFrame parent) {
+	public Venta_Vuelo(final JDialogExtended parent) {
 		super(parent);
 		setResizable(false);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));

@@ -13,7 +13,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -39,7 +38,7 @@ public class Venta_Campo extends JDialogExtended {
 	 * Create the dialog.
 	 * @param parent 
 	 */
-	public Venta_Campo(JFrame parent) {
+	public Venta_Campo(JDialogExtended parent) {
 		super(parent);
 		setTitle("Arrendamiento de campo");
 		setBounds(100, 100, 469, 307);

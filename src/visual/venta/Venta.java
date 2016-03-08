@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -30,7 +29,7 @@ public class Venta extends JDialogExtended {
 	/**
 	 * Create the dialog.
 	 */
-	public Venta(final JFrame parent) {
+	public Venta(final JDialogExtended parent) {
 		super(parent);
 		setTitle("Tipos de venta");
 		setBounds(100, 100, 450, 300);
@@ -155,7 +154,7 @@ public class Venta extends JDialogExtended {
 	}
 	@PostConstruct
 	private void inic() {
-		setAction(MainController.ACTION_REACTIVAR_PADRE);
+
 	}
 	@Override
 	public void updateUi() {

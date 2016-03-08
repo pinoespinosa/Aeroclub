@@ -51,10 +51,9 @@ public class Gasto implements Comparable<Gasto>{
 		for (List<String> list : vuelosData) {
 			gastos.add(loadFromList(list));
 		}
-		
+
 		Collections.sort(gastos);
-		
-		
+	
 	return gastos;
 	}
 	

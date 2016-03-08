@@ -198,7 +198,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Venta -----------------
 				 */
-				Venta dialog = new Venta(frame);
+				Venta dialog = new Venta(MainClass.this);
 				MainController.sleepActualAndCreateNew(MainClass.this, dialog);
 				
 			}
@@ -263,10 +263,10 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Compra -----------------
 				 */
-				frame.setEnabled(false);
+		/*		frame.setEnabled(false);
 				Compra_General dialog = new Compra_General(frame);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
+				dialog.setVisible(true);*/
 			}
 		});
 		btnNuevaCompra.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
@@ -287,10 +287,10 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Venta -----------------
 				 */
-				frame.setEnabled(false);
+		/*		frame.setEnabled(false);
 				Informes dialog = new Informes(frame);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
+				dialog.setVisible(true);*/
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
@@ -310,10 +310,10 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * ------------ Administrar ---------------------
 				 */
-				frame.setEnabled(false);
+		/*		frame.setEnabled(false);
 				Administrar_General dialog = new Administrar_General(frame);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
+				dialog.setVisible(true);*/
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
@@ -400,6 +400,12 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	@Override
 	public void updateUi() {
 		updateVencimientos();
+	}
+
+	@Override
+	public void setEnabled(boolean arg0) {
+		frame.setEnabled(arg0);
+		super.setEnabled(arg0);
 	}
 
 }

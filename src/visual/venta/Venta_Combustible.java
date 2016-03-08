@@ -14,7 +14,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,7 +43,7 @@ public class Venta_Combustible extends JDialogExtended {
 	 * Create the dialog.
 	 * @param parent 
 	 */
-	public Venta_Combustible(JFrame parent) {
+	public Venta_Combustible(JDialogExtended parent) {
 		super(parent);
 		setTitle("Venta de Combustible/Aceite");
 		setBounds(100, 100, 469, 307);

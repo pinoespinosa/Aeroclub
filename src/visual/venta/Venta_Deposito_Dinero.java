@@ -13,7 +13,6 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,7 +36,7 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 	 * Create the dialog.
 	 * @param parent 
 	 */
-	public Venta_Deposito_Dinero(JFrame parent) {
+	public Venta_Deposito_Dinero(JDialogExtended parent) {
 		super(parent);
 		setTitle("Venta de Combustible/Aceite");
 		setBounds(100, 100, 469, 307);

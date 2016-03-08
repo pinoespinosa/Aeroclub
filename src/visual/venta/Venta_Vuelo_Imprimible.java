@@ -17,7 +17,6 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -42,7 +41,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 	 * 
 	 * @param frmSistemaDeGestin
 	 */
-	public Venta_Vuelo_Imprimible(final JFrame parent) {
+	public Venta_Vuelo_Imprimible(final JDialogExtended parent) {
 		super(parent);
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 14));
