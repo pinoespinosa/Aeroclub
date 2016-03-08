@@ -9,7 +9,6 @@ CREATE VIEW `vencimientosproximos` AS
 			' litros de combustible') AS `detalle` 
 	from `gastos_normalizados` 
 	where (`gastos_normalizados`.`tipo` like 'COMBUSTIBLE%') 
-	group by `gastos_normalizados`.`tipo` 
 	having (sum(`gastos_normalizados`.`unidades`) < 80000)
 ) 
 union 
@@ -20,7 +19,6 @@ union
 			' litros de aceite') AS `detalle` 
 	from `gastos_normalizados` 
 	where (`gastos_normalizados`.`tipo` like 'ACEITE%') 
-	group by `gastos_normalizados`.`tipo` 
 	having (sum(`gastos_normalizados`.`unidades`) < 50)
 ) 
 union 
