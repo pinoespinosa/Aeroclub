@@ -193,14 +193,19 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 						String movimiento ="";
 						if (tipoMovimiento.getSelectedItem().equals("EXTRACCION")){
 							
-							List<String> cantidadMaxima = managerDB.executeScript_Query( 
+							float cantidadMaxima = Float.parseFloat(managerDB.executeScript_Query( 
 									"select sum(unidades) as max " +
-									"from gastos_normalizados " +
+									"from "+MainController.getEsquema()+".gastos_normalizados " +
 									"where " +
 										"tipo like '"+recursoAdministrado.getSelectedItem()+"' and '" +
 										((Persona) destinatarios.getSelectedItem()).getId()+"' " +
-									"like '1' group by tipo;", "max");
+									"like '1' group by tipo;", "max").get(0));
 
+							float cantidadSolicitada = ((float)cantidad.getValue());
+							if (cantidadMaxima<cantidadSolicitada){
+								JOptionPane.showMessageDialog(null,"No puede extraer más combustible del que tiene depositado. El máximo es " + cantidadMaxima + " litros. Puede extraer el máximo y vender la cantidad restante.");
+								return;
+							}
 							movimiento="VENTA";
 
 						}
@@ -214,7 +219,7 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 											+"0', '"+cantidad.getValue()+"','" 
 											+detalleTextField.getText() +"','0','-1','"+((Date)fechaVenta.getValue()).getTime()+"','"+((Persona) destinatarios.getSelectedItem()).getId()+"');");
 						
-						JOptionPane.showMessageDialog(null,"Se registro la venta.");
+						JOptionPane.showMessageDialog(null,"Se registro el movimiento exitosamente.");
 					}
 				});
 				okButton.setActionCommand("OK");
