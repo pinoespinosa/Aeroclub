@@ -409,6 +409,8 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 
 	@Override
 	public void setVisible(boolean arg0) {
+		System.out.println();
+		this.setVisible(arg0);
 	}
 
 	

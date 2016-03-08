@@ -32,7 +32,7 @@ public abstract class JDialogExtended extends JDialog {
 					{		
 						parent.setEnabled(true);
 						parent.setVisible(true);
-						}
+					}
 					break;
 					
 					default:					
