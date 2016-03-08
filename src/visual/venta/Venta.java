@@ -97,27 +97,12 @@ public class Venta extends JDialogExtended {
 					MainController.closeActualAndCreateNew(Venta.this, new Venta_Campo(parent));
 				}
 			});
-			{
-				JButton btnExtraccinDeCombustibleaceite = new JButton("Extracci\u00F3n de Combustible/Aceite propio");
-				btnExtraccinDeCombustibleaceite.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible_Propio(parent));
-					}
-				});
-				btnExtraccinDeCombustibleaceite.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-				GridBagConstraints gbc_btnExtraccinDeCombustibleaceite = new GridBagConstraints();
-				gbc_btnExtraccinDeCombustibleaceite.fill = GridBagConstraints.BOTH;
-				gbc_btnExtraccinDeCombustibleaceite.insets = new Insets(0, 0, 5, 0);
-				gbc_btnExtraccinDeCombustibleaceite.gridx = 0;
-				gbc_btnExtraccinDeCombustibleaceite.gridy = 3;
-				contentPanel.add(btnExtraccinDeCombustibleaceite, gbc_btnExtraccinDeCombustibleaceite);
-			}
 			btnNuevoAlquilerDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 			GridBagConstraints gbc_btnNuevoAlquilerDe = new GridBagConstraints();
 			gbc_btnNuevoAlquilerDe.insets = new Insets(0, 0, 5, 0);
 			gbc_btnNuevoAlquilerDe.fill = GridBagConstraints.BOTH;
 			gbc_btnNuevoAlquilerDe.gridx = 0;
-			gbc_btnNuevoAlquilerDe.gridy = 4;
+			gbc_btnNuevoAlquilerDe.gridy = 3;
 			contentPanel.add(btnNuevoAlquilerDe, gbc_btnNuevoAlquilerDe);
 		}
 		{
@@ -130,10 +115,25 @@ public class Venta extends JDialogExtended {
 			});
 			btnNuevoDepositoDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 			GridBagConstraints gbc_btnNuevoDepositoDe = new GridBagConstraints();
+			gbc_btnNuevoDepositoDe.insets = new Insets(0, 0, 5, 0);
 			gbc_btnNuevoDepositoDe.fill = GridBagConstraints.BOTH;
 			gbc_btnNuevoDepositoDe.gridx = 0;
-			gbc_btnNuevoDepositoDe.gridy = 5;
+			gbc_btnNuevoDepositoDe.gridy = 4;
 			contentPanel.add(btnNuevoDepositoDe, gbc_btnNuevoDepositoDe);
+		}
+		{
+			JButton btnExtraccinDeCombustibleaceite = new JButton("Administrar Combustible/Aceite ajeno");
+			btnExtraccinDeCombustibleaceite.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible_Propio(parent));
+				}
+			});
+			btnExtraccinDeCombustibleaceite.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+			GridBagConstraints gbc_btnExtraccinDeCombustibleaceite = new GridBagConstraints();
+			gbc_btnExtraccinDeCombustibleaceite.fill = GridBagConstraints.BOTH;
+			gbc_btnExtraccinDeCombustibleaceite.gridx = 0;
+			gbc_btnExtraccinDeCombustibleaceite.gridy = 5;
+			contentPanel.add(btnExtraccinDeCombustibleaceite, gbc_btnExtraccinDeCombustibleaceite);
 		}
 		{
 			JPanel buttonPane = new JPanel();

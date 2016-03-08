@@ -10,7 +10,7 @@ CREATE VIEW `gastos_normalizados` AS
 	
 	select 	`gasto`.`id` AS `id`,
 			`gasto`.`claseDeGasto` AS `claseDeGasto`,
-			'ACEITE' AS `tipo`,
+			`gasto`.`tipo` AS `tipo`,
 			`gasto`.`unidades` AS `unidades`,
 			`gasto`.`detalle` AS `detalle`,
 			`gasto`.`total` AS `total`,
@@ -19,28 +19,13 @@ CREATE VIEW `gastos_normalizados` AS
 			`gasto`.`idPersona` AS `idPersona` 
 			
 			from `gasto` 
-			where ((`gasto`.`claseDeGasto` like 'COMPRA%') and (`gasto`.`tipo` like 'ACEITE%'))
+			where ((`gasto`.`claseDeGasto` like 'COMPRA%') and ((`gasto`.`tipo` like 'ACEITE%') OR (`gasto`.`tipo` like 'COMBUSTIBLE%')))
 ) 
 union 
 (
 	select 	`gasto`.`id` AS `id`,
 			`gasto`.`claseDeGasto` AS `claseDeGasto`,
-			'COMBUSTIBLE' AS `tipo`,
-			`gasto`.`unidades` AS `unidades`,
-			`gasto`.`detalle` AS `detalle`,
-			`gasto`.`total` AS `total`,
-			`gasto`.`formaPago` AS `enEfectivo`,
-			`gasto`.`fecha` AS `fecha`,
-			`gasto`.`idPersona` AS `idPersona` 
-			
-			from `gasto` 
-			where ((`gasto`.`claseDeGasto` like 'COMPRA%') and (`gasto`.`tipo` like 'COMBUSTIBLE%'))
-) 
-union 
-(
-	select 	`gasto`.`id` AS `id`,
-			`gasto`.`claseDeGasto` AS `claseDeGasto`,
-			'ACEITE' AS `tipo`,
+			`gasto`.`tipo` AS `tipo`,
 			(`gasto`.`unidades` * -(1)) AS `unidades`,
 			`gasto`.`detalle` AS `detalle`,
 			`gasto`.`total` AS `total`,
@@ -49,28 +34,13 @@ union
 			`gasto`.`idPersona` AS `idPersona` 
 			
 			from `gasto` 
-			where ((`gasto`.`claseDeGasto` like 'VENTA%') and (`gasto`.`tipo` like 'ACEITE%'))
-) 
-union 
-(
-	select 	`gasto`.`id` AS `id`,
-			`gasto`.`claseDeGasto` AS `claseDeGasto`,
-			'COMBUSTIBLE' AS `tipo`,
-			(`gasto`.`unidades` * -(1)) AS `unidades`,
-			`gasto`.`detalle` AS `detalle`,
-			`gasto`.`total` AS `total`,
-			`gasto`.`formaPago` AS `enEfectivo`,
-			`gasto`.`fecha` AS `fecha`,
-			`gasto`.`idPersona` AS `idPersona` 
-			
-			from `gasto` 
-			where ((`gasto`.`claseDeGasto` like 'VENTA%') and (`gasto`.`tipo` like 'COMBUSTIBLE%'))
+			where ((`gasto`.`claseDeGasto` like 'VENTA%') and ((`gasto`.`tipo` like 'COMBUSTIBLE%')OR(`gasto`.`tipo` like 'ACEITE%')))
 ) 
 union 
 (
 		select 	`vuelo`.`id` AS `id`,
 				'VENTA' AS `VENTA`,
-				'ACEITE' AS `tipo`,
+				'ACEITE_VUELO' AS `tipo`,
 				(`vuelo`.`cantAceite` * -(1)) AS `unidades`,
 				'VUELO' AS `detalle`,
 				'' AS `total`,		
@@ -83,7 +53,7 @@ union
 (
 		select 	`vuelo`.`id` AS `id`,
 				'VENTA' AS `VENTA`,
-				'COMBUSTIBLE' AS `tipo`,
+				'COMBUSTIBLE_VUELO' AS `tipo`,
 				(`vuelo`.`cantCombustible` * -(1)) AS `unidades`,
 				'VUELO' AS `detalle`,
 				'' AS `total`,
