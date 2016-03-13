@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -28,8 +29,8 @@ public class Venta extends JDialogExtended {
 	/**
 	 * Create the dialog.
 	 */
-	public Venta(final JDialogExtended parent) {
-		super(parent);
+	public Venta(final Window frame) {
+		super(frame);
 		setTitle("Tipos de venta");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -46,7 +47,7 @@ public class Venta extends JDialogExtended {
 			btnVuelo.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo(parent));
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo(frame));
 				}
 			});
 			btnVuelo.setFont(MainController.getDefaultFont(MainController.BUTTON));
@@ -62,14 +63,14 @@ public class Venta extends JDialogExtended {
 			btnCombustible.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible(parent));
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible(frame));
 				}
 			});
 		{
 			JButton btnNuevoVueloPor = new JButton("Nuevo Vuelo por Adelantado");
 			btnNuevoVueloPor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo_Adelantado(parent));
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo_Adelantado(frame));
 				}
 			});
 			btnNuevoVueloPor.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
@@ -93,7 +94,7 @@ public class Venta extends JDialogExtended {
 			btnNuevoDepositoDe.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					MainController.closeActualAndCreateNew(Venta.this, new Venta_Deposito_Dinero(parent));
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Deposito_Dinero(frame));
 				}
 			});
 			btnNuevoDepositoDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
@@ -108,7 +109,7 @@ public class Venta extends JDialogExtended {
 			JButton btnExtraccinDeCombustibleaceite = new JButton("Administrar Combustible/Aceite ajeno");
 			btnExtraccinDeCombustibleaceite.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible_Propio(parent));
+					MainController.closeActualAndCreateNew(Venta.this, new Venta_Combustible_Propio(frame));
 				}
 			});
 			btnExtraccinDeCombustibleaceite.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));

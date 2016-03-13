@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 	 * 
 	 * @param frmSistemaDeGestin
 	 */
-	public Venta_Vuelo_Imprimible(final JDialogExtended parent) {
+	public Venta_Vuelo_Imprimible(final Window parent) {
 		super(parent);
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 14));

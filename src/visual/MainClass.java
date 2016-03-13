@@ -198,7 +198,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Venta -----------------
 				 */
-				Venta dialog = new Venta(MainClass.this);
+				Venta dialog = new Venta(frame);
 				MainController.sleepActualAndCreateNew(MainClass.this, dialog);
 				
 			}
@@ -402,16 +402,4 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 		updateVencimientos();
 	}
 
-	@Override
-	public void setEnabled(boolean arg0) {
-		frame.setEnabled(arg0);
-		super.setEnabled(arg0);
-	}
-
-	@Override
-	public void setVisible(boolean arg0) {
-		frame.setVisible(arg0);
-	}
-
-	
 }

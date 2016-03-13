@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -46,7 +47,7 @@ public class Venta_Combustible extends JDialogExtended {
 	 * Create the dialog.
 	 * @param parent 
 	 */
-	public Venta_Combustible(JDialogExtended parent) {
+	public Venta_Combustible(Window parent) {
 		super(parent);
 		setTitle("Venta de Combustible/Aceite");
 		setBounds(100, 100, 469, 307);

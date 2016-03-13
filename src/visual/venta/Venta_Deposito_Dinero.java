@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -39,7 +40,7 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 	 * Create the dialog.
 	 * @param parent 
 	 */
-	public Venta_Deposito_Dinero(JDialogExtended parent) {
+	public Venta_Deposito_Dinero(Window parent) {
 		super(parent);
 		setTitle("Venta de Combustible/Aceite");
 		setBounds(100, 100, 469, 307);
