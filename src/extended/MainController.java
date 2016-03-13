@@ -96,7 +96,7 @@ public class MainController {
 		actual.dispose();					
 	};
 	
-	public static void sleepActualAndCreateNewMain(JDialogExtended actual, JDialogExtended nueva, JFrame frame){
+	public static void sleepActualFrameAndCreateNew(JDialogExtended actual, JDialogExtended nueva, JFrame frame){
 		frame.setEnabled(false);
 		actual.setEnabled(false);
 		nueva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

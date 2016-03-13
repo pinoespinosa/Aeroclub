@@ -55,8 +55,8 @@ public class MainClass extends JDialogExtended{
 	private JLabel lblTiempoLicencia;
 	private JButton btnNuevaVenta, btnNuevaCompra, btnVerInformes, btnAdministrar;
 
-
-public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
+	public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -142,7 +142,15 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(String perfil) {
-		frame = new JFrame();
+		frame = new JFrame(){
+
+			@Override
+			public void setEnabled(boolean arg0) {
+				super.setEnabled(arg0);
+				MainClass.this.updateUi();
+			}
+			
+		};
 		
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -199,8 +207,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				 * --------------- Nueva Venta -----------------
 				 */
 				Venta dialog = new Venta(frame);
-				MainController.sleepActualAndCreateNewMain(MainClass.this, dialog, frame);
-				
+				MainController.sleepActualFrameAndCreateNew(MainClass.this, dialog, frame);
 			}
 		});
 
@@ -263,10 +270,8 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * --------------- Nueva Compra -----------------
 				 */
-		/*		frame.setEnabled(false);
 				Compra_General dialog = new Compra_General(frame);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);*/
+				MainController.sleepActualFrameAndCreateNew(MainClass.this, dialog, frame);
 			}
 		});
 		btnNuevaCompra.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
@@ -285,12 +290,11 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 			public void mouseClicked(MouseEvent arg0) {
 
 				/*
-				 * --------------- Nueva Venta -----------------
+				 * --------------- Nuevo Informe -----------------
 				 */
-		/*		frame.setEnabled(false);
+				
 				Informes dialog = new Informes(frame);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);*/
+				MainController.sleepActualFrameAndCreateNew(MainClass.this, dialog, frame);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
@@ -310,10 +314,9 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				/*
 				 * ------------ Administrar ---------------------
 				 */
-		/*		frame.setEnabled(false);
+				
 				Administrar_General dialog = new Administrar_General(frame);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);*/
+				MainController.sleepActualFrameAndCreateNew(MainClass.this, dialog, frame);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
