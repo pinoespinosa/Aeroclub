@@ -199,7 +199,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 				 * --------------- Nueva Venta -----------------
 				 */
 				Venta dialog = new Venta(frame);
-				MainController.sleepActualAndCreateNew(MainClass.this, dialog);
+				MainController.sleepActualAndCreateNewMain(MainClass.this, dialog, frame);
 				
 			}
 		});
