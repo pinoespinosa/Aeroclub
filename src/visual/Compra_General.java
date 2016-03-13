@@ -155,8 +155,9 @@ public class Compra_General extends JDialogExtended {
 			contentPanel.add(fechaCompra, gbc_spinner);
 		}
 		{
-			JLabel lblCantidad = new JLabel("Monto $");
+			JLabel lblCantidad = new JLabel("Monto Total $");
 			GridBagConstraints gbc_lblCantidad = new GridBagConstraints();
+			gbc_lblCantidad.anchor = GridBagConstraints.EAST;
 			gbc_lblCantidad.insets = new Insets(0, 0, 5, 5);
 			gbc_lblCantidad.gridx = 1;
 			gbc_lblCantidad.gridy = 6;

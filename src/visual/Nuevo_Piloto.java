@@ -242,16 +242,18 @@ public class Nuevo_Piloto extends JDialogExtended {
 				if (pilotos.contains(pi)) {
 					Piloto current = pilotos.get(pilotos.indexOf(pi));
 					current.setFecha_licencia(((Date) vencimientoPsicoFisicoSpinner.getValue()).getTime());
-					managerDB.executeScript_Void("UPDATE '"+MainController.getEsquema()+"'.`piloto` SET `id` = '"+current.getId()+"', `fechaVencimientoLicencia` = '"+current.getFecha_licencia()+"' WHERE `id` = '"+current.getId()+"';");
+					managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`piloto` SET `id` = '"+current.getId()+"', `fechaVencimientoLicencia` = '"+current.getFecha_licencia()+"' WHERE `id` = '"+current.getId()+"';");
 					JOptionPane.showMessageDialog(null, "Se actualizó el psicofísico");
 					Nuevo_Piloto.this.dispose();
 				}
-				
-				// Creo el piloto
-				pe = personas.get(personas.indexOf(pe));
-				managerDB.executeScript_Void(" INSERT INTO `" + MainController.getEsquema() + "`.`piloto` VALUES ('" + pe.getId() + "','" + ((Date) vencimientoPsicoFisicoSpinner.getModel().getValue()).getTime() + "');");
-				JOptionPane.showMessageDialog(null, "Se creo un nuevo piloto.");
-				Nuevo_Piloto.this.dispose();
+				else
+				{
+					// Creo el piloto
+					pe = personas.get(personas.indexOf(pe));
+					managerDB.executeScript_Void(" INSERT INTO `" + MainController.getEsquema() + "`.`piloto` VALUES ('" + pe.getId() + "','" + ((Date) vencimientoPsicoFisicoSpinner.getModel().getValue()).getTime() + "');");
+					JOptionPane.showMessageDialog(null, "Se creo un nuevo piloto.");
+					Nuevo_Piloto.this.dispose();
+				}
 			}
 		});
 		updateView();
@@ -285,6 +287,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 			nacimientoSpinner.getModel().setValue(new Date(pi.getNacimiento()));
 			vencimientoPsicoFisicoSpinner.getModel().setValue(new Date(pi.getFecha_licencia()));
 			okButton.setEnabled(true);
+			okButton.setText("Actualizar Psicofisico");
 			return;
 		}
 
@@ -298,6 +301,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 			apellidoTextField.setText(pe.getApellido());
 			nacimientoSpinner.getModel().setValue(new Date(pe.getNacimiento()));
 			vencimientoPsicoFisicoSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
+			okButton.setText("Crear piloto");
 
 		} else {
 			setEditable(true);
@@ -306,7 +310,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 			apellidoTextField.setText("");
 			nacimientoSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
 			vencimientoPsicoFisicoSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
-
+			okButton.setText("Crear piloto");
 		}
 
 	}

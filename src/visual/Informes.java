@@ -243,9 +243,9 @@ public class Informes extends JDialogExtended {
 						contentPanel.add(panel_1, gbc_panel_1);
 						GridBagLayout gbl_panel_1 = new GridBagLayout();
 						gbl_panel_1.columnWidths = new int[]{0, 200, 0};
-						gbl_panel_1.rowHeights = new int[]{0, 0};
+						gbl_panel_1.rowHeights = new int[]{0, 0, 0};
 						gbl_panel_1.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-						gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+						gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 						panel_1.setLayout(gbl_panel_1);
 						{
 							JButton btnVerUltimasRevisiones = new JButton("Ver ultimas revisiones");
@@ -335,10 +335,19 @@ public class Informes extends JDialogExtended {
 							});
 							btnVerUltimasRevisiones.setToolTipText("");
 							GridBagConstraints gbc_btnVerUltimasRevisiones = new GridBagConstraints();
+							gbc_btnVerUltimasRevisiones.insets = new Insets(0, 0, 5, 0);
 							gbc_btnVerUltimasRevisiones.fill = GridBagConstraints.HORIZONTAL;
 							gbc_btnVerUltimasRevisiones.gridx = 1;
 							gbc_btnVerUltimasRevisiones.gridy = 0;
 							panel_1.add(btnVerUltimasRevisiones, gbc_btnVerUltimasRevisiones);
+						}
+						{
+							JButton btnNewButton_1 = new JButton("Gasto de Aceite p/ avion p/ hora");
+							GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+							gbc_btnNewButton_1.fill = GridBagConstraints.HORIZONTAL;
+							gbc_btnNewButton_1.gridx = 1;
+							gbc_btnNewButton_1.gridy = 1;
+							panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
 						}
 					}
 					{
