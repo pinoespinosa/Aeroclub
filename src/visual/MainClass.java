@@ -405,7 +405,7 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	@Override
 	public void setEnabled(boolean arg0) {
 		frame.setEnabled(arg0);
-		this.setEnabled(arg0);
+		super.setEnabled(arg0);
 	}
 
 	@Override
