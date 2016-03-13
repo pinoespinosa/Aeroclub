@@ -12,7 +12,8 @@ import extended.MainController;
 public class horas_vendida_adelantado {
 
 	private String id;
-	private int pilotoId, avionId, formaDePago;
+	private int pilotoId, avionId;
+	Precios.TYPE_PAGO formaDePago;
 	private long fechaVencimiento, fecha;
 	private float saldo, saldoOriginal, cantidadHoras;
 
@@ -21,7 +22,7 @@ public class horas_vendida_adelantado {
 		super();
 	}
 
-	public horas_vendida_adelantado(String id, int pilotoId, int avionId, float cantidadHoras, long fechaVencimiento, float saldo, float saldoOriginal, int formaDePago, long fecha) {
+	public horas_vendida_adelantado(String id, int pilotoId, int avionId, float cantidadHoras, long fechaVencimiento, float saldo, float saldoOriginal, Precios.TYPE_PAGO formaDePago, long fecha) {
 		super();
 		this.id = id;
 		this.pilotoId = pilotoId;
@@ -71,14 +72,6 @@ public class horas_vendida_adelantado {
 		this.saldo = saldo;
 	}
 
-	public int getFormaDePago() {
-		return formaDePago;
-	}
-
-	public void setFormaDePago(int formaDePago) {
-		this.formaDePago = formaDePago;
-	}
-
 	public float getSaldoOriginal() {
 		return saldoOriginal;
 	}
@@ -104,7 +97,7 @@ public class horas_vendida_adelantado {
 				Long.parseLong(valores.get(4)), 
 				Float.parseFloat(valores.get(5)), 
 				Float.parseFloat(valores.get(6)), 
-				Integer.parseInt(valores.get(7)),
+				Precios.TYPE_PAGO.values()[Integer.parseInt(valores.get(7))],
 				Long.parseLong(valores.get(8)));
 	}
 

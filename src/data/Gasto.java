@@ -17,13 +17,13 @@ public class Gasto implements Comparable<Gasto>{
 	private String tipo, detalle, claseDeGasto;
 	private long id;
 	private float monto, unidades, total;
-	private boolean enEfectivo;
+	private  Precios.TYPE_PAGO formaPago;
 	private double fecha;
 	private int idPersona;
 	
 
 
-	public Gasto(long id, String claseDeGasto, String tipo,  float monto, float unidades, String detalle, float total, boolean enEfectivo, double fecha, int idPersona) {
+	public Gasto(long id, String claseDeGasto, String tipo,  float monto, float unidades, String detalle, float total, Precios.TYPE_PAGO formaPago, double fecha, int idPersona) {
 		super();
 		this.tipo = tipo;
 		this.detalle = detalle;
@@ -32,7 +32,7 @@ public class Gasto implements Comparable<Gasto>{
 		this.monto = monto;
 		this.unidades = unidades;
 		this.total = total;
-		this.enEfectivo = enEfectivo;
+		this.setFormaPago(formaPago);
 		this.fecha = fecha;
 		this.idPersona = idPersona;
 	}
@@ -41,7 +41,7 @@ public class Gasto implements Comparable<Gasto>{
 	public static List<Gasto> loadFromDB(){
 		
 		String script = "SELECT * FROM "+MainController.getEsquema()+".gasto;";
-		List<String> campos = Arrays.asList(new String[]{"id","claseDeGasto","tipo","precio_por_unidad","unidades", "detalle","total","enEfectivo","fecha","idPersona" });
+		List<String> campos = Arrays.asList(new String[]{"id","claseDeGasto","tipo","precio_por_unidad","unidades", "detalle","total","formaPago","fecha","idPersona" });
 				
 		List<List<String>> vuelosData = managerDB.executeScript_Query(script,campos);
 
@@ -67,7 +67,7 @@ public class Gasto implements Comparable<Gasto>{
 							Float.parseFloat(valores.get(4)),
 							valores.get(5),
 							Float.parseFloat(valores.get(6)),
-							Boolean.parseBoolean(valores.get(7)),
+							Precios.TYPE_PAGO.values()[Integer.parseInt(valores.get(7))],
 							Double.parseDouble(valores.get(8)),
 							Integer.parseInt(valores.get(9))
 							);
@@ -149,17 +149,6 @@ public class Gasto implements Comparable<Gasto>{
 		this.total = total;
 	}
 
-
-	public boolean getEnEfectivo() {
-		return enEfectivo;
-	}
-
-
-	public void setEnEfectivo(boolean enEfectivo) {
-		this.enEfectivo = enEfectivo;
-	}
-
-
 	public double getFecha() {
 		return fecha;
 	}
@@ -177,5 +166,15 @@ public class Gasto implements Comparable<Gasto>{
 
 	public void setIdPersona(int idPersona) {
 		this.idPersona = idPersona;
+	}
+
+
+	public Precios.TYPE_PAGO getFormaPago() {
+		return formaPago;
+	}
+
+
+	public void setFormaPago(Precios.TYPE_PAGO formaPago) {
+		this.formaPago = formaPago;
 	}
 }
