@@ -410,7 +410,6 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 
 	@Override
 	public void setVisible(boolean arg0) {
-		System.out.println();
 		frame.setVisible(arg0);
 	}
 
