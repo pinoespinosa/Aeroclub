@@ -40,7 +40,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JSpinner vencimientoLicenciaSpinner;
+	private JSpinner vencimientoPsicoFisicoSpinner;
 	private JTextField dniTextField;
 	private JTextField nombreTextField;
 	private JTextField apellidoTextField;
@@ -166,14 +166,14 @@ public class Nuevo_Piloto extends JDialogExtended {
 			contentPanel.add(lblFechaVencimientoLicencia, gbc_lblFechaVencimientoLicencia);
 		}
 		{
-			vencimientoLicenciaSpinner = new JSpinner();
+			vencimientoPsicoFisicoSpinner = new JSpinner();
 
 			GridBagConstraints gbc_VencimientoLicenciaSpinner = new GridBagConstraints();
 			gbc_VencimientoLicenciaSpinner.insets = new Insets(0, 0, 5, 5);
 			gbc_VencimientoLicenciaSpinner.fill = GridBagConstraints.HORIZONTAL;
 			gbc_VencimientoLicenciaSpinner.gridx = 2;
 			gbc_VencimientoLicenciaSpinner.gridy = 6;
-			contentPanel.add(vencimientoLicenciaSpinner, gbc_VencimientoLicenciaSpinner);
+			contentPanel.add(vencimientoPsicoFisicoSpinner, gbc_VencimientoLicenciaSpinner);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -205,7 +205,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 		pilotos = Piloto.loadFromDB();
 
 		nacimientoSpinner.setModel(new SpinnerDateModel(new Date(System.currentTimeMillis()), null, null, Calendar.DAY_OF_YEAR));
-		vencimientoLicenciaSpinner.setModel(new SpinnerDateModel(new Date(System.currentTimeMillis()), null, null, Calendar.DAY_OF_YEAR));
+		vencimientoPsicoFisicoSpinner.setModel(new SpinnerDateModel(new Date(System.currentTimeMillis()), null, null, Calendar.DAY_OF_YEAR));
 
 		dniTextField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent ke) {
@@ -236,9 +236,20 @@ public class Nuevo_Piloto extends JDialogExtended {
 					personas = Persona.loadFromDB();
 				}
 
+				// Actualizo la licencia si es que ya existe
+				Piloto pi = new Piloto();
+				pi.setDni(dni);
+				if (pilotos.contains(pi)) {
+					Piloto current = pilotos.get(pilotos.indexOf(pi));
+					current.setFecha_licencia(((Date) vencimientoPsicoFisicoSpinner.getValue()).getTime());
+					managerDB.executeScript_Void("UPDATE '"+MainController.getEsquema()+"'.`piloto` SET `id` = '"+current.getId()+"', `fechaVencimientoLicencia` = '"+current.getFecha_licencia()+"' WHERE `id` = '"+current.getId()+"';");
+					JOptionPane.showMessageDialog(null, "Se actualizó el psicofísico");
+					Nuevo_Piloto.this.dispose();
+				}
+				
 				// Creo el piloto
 				pe = personas.get(personas.indexOf(pe));
-				managerDB.executeScript_Void(" INSERT INTO `" + MainController.getEsquema() + "`.`piloto` VALUES ('" + pe.getId() + "','" + ((Date) vencimientoLicenciaSpinner.getModel().getValue()).getTime() + "');");
+				managerDB.executeScript_Void(" INSERT INTO `" + MainController.getEsquema() + "`.`piloto` VALUES ('" + pe.getId() + "','" + ((Date) vencimientoPsicoFisicoSpinner.getModel().getValue()).getTime() + "');");
 				JOptionPane.showMessageDialog(null, "Se creo un nuevo piloto.");
 				Nuevo_Piloto.this.dispose();
 			}
@@ -267,13 +278,13 @@ public class Nuevo_Piloto extends JDialogExtended {
 
 			setEditable(false);
 			info.setText("Ya se encuentra registrado el piloto");
-			vencimientoLicenciaSpinner.setEnabled(false);
+			vencimientoPsicoFisicoSpinner.setEnabled(true);
 			lblFechaVencimientoLicencia.setEnabled(false);
 			nombreTextField.setText(pi.getName());
 			apellidoTextField.setText(pi.getApellido());
 			nacimientoSpinner.getModel().setValue(new Date(pi.getNacimiento()));
-			vencimientoLicenciaSpinner.getModel().setValue(new Date(pi.getFecha_licencia()));
-			okButton.setEnabled(false);
+			vencimientoPsicoFisicoSpinner.getModel().setValue(new Date(pi.getFecha_licencia()));
+			okButton.setEnabled(true);
 			return;
 		}
 
@@ -286,7 +297,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 			nombreTextField.setText(pe.getName());
 			apellidoTextField.setText(pe.getApellido());
 			nacimientoSpinner.getModel().setValue(new Date(pe.getNacimiento()));
-			vencimientoLicenciaSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
+			vencimientoPsicoFisicoSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
 
 		} else {
 			setEditable(true);
@@ -294,7 +305,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 			nombreTextField.setText("");
 			apellidoTextField.setText("");
 			nacimientoSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
-			vencimientoLicenciaSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
+			vencimientoPsicoFisicoSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
 
 		}
 
@@ -311,7 +322,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 		lblFechaNaciemiento.setEnabled(editable);
 
 		lblFechaVencimientoLicencia.setEnabled(true);
-		vencimientoLicenciaSpinner.setEnabled(true);
+		vencimientoPsicoFisicoSpinner.setEnabled(true);
 
 		okButton.setEnabled(true);
 
