@@ -1,6 +1,5 @@
 package visual.venta;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -38,9 +37,9 @@ public class Venta extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{424, 0};
-		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnVuelo = new JButton("Nuevo Vuelo");
@@ -90,21 +89,6 @@ public class Venta extends JDialogExtended {
 			contentPanel.add(btnCombustible, gbc_btnCombustibleAceite);
 		}
 		{
-			JButton btnNuevoAlquilerDe = new JButton("Nuevo Alquiler de Tierra");
-			btnNuevoAlquilerDe.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					MainController.closeActualAndCreateNew(Venta.this, new Venta_Campo(parent));
-				}
-			});
-			btnNuevoAlquilerDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-			GridBagConstraints gbc_btnNuevoAlquilerDe = new GridBagConstraints();
-			gbc_btnNuevoAlquilerDe.insets = new Insets(0, 0, 5, 0);
-			gbc_btnNuevoAlquilerDe.fill = GridBagConstraints.BOTH;
-			gbc_btnNuevoAlquilerDe.gridx = 0;
-			gbc_btnNuevoAlquilerDe.gridy = 3;
-			contentPanel.add(btnNuevoAlquilerDe, gbc_btnNuevoAlquilerDe);
-		}
-		{
 			JButton btnNuevoDepositoDe = new JButton("Nuevo Deposito de Dinero");
 			btnNuevoDepositoDe.addMouseListener(new MouseAdapter() {
 				@Override
@@ -117,7 +101,7 @@ public class Venta extends JDialogExtended {
 			gbc_btnNuevoDepositoDe.insets = new Insets(0, 0, 5, 0);
 			gbc_btnNuevoDepositoDe.fill = GridBagConstraints.BOTH;
 			gbc_btnNuevoDepositoDe.gridx = 0;
-			gbc_btnNuevoDepositoDe.gridy = 4;
+			gbc_btnNuevoDepositoDe.gridy = 3;
 			contentPanel.add(btnNuevoDepositoDe, gbc_btnNuevoDepositoDe);
 		}
 		{
@@ -131,24 +115,8 @@ public class Venta extends JDialogExtended {
 			GridBagConstraints gbc_btnExtraccinDeCombustibleaceite = new GridBagConstraints();
 			gbc_btnExtraccinDeCombustibleaceite.fill = GridBagConstraints.BOTH;
 			gbc_btnExtraccinDeCombustibleaceite.gridx = 0;
-			gbc_btnExtraccinDeCombustibleaceite.gridy = 5;
+			gbc_btnExtraccinDeCombustibleaceite.gridy = 4;
 			contentPanel.add(btnExtraccinDeCombustibleaceite, gbc_btnExtraccinDeCombustibleaceite);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
 		}
 		inic();
 	}

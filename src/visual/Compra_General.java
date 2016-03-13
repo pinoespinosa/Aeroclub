@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -90,7 +89,7 @@ public class Compra_General extends JDialogExtended {
 		}
 		{
 			tipoDeGasto = new JComboBox<String>();
-			tipoDeGasto.setModel(new DefaultComboBoxModel(new String[] {"ACTIVACION DE BIEN DE USO", "GASTO"}));
+			tipoDeGasto.setModel(new DefaultComboBoxModel<String>(new String[] {"ACTIVACION DE BIEN DE USO", "GASTO"}));
 			GridBagConstraints gbc_tipoDeGastoComboBox = new GridBagConstraints();
 			gbc_tipoDeGastoComboBox.gridwidth = 2;
 			gbc_tipoDeGastoComboBox.insets = new Insets(0, 0, 5, 5);
@@ -173,11 +172,6 @@ public class Compra_General extends JDialogExtended {
 			gbc_totalSpinner.gridx = 2;
 			gbc_totalSpinner.gridy = 6;
 			contentPanel.add(totalSpinner, gbc_totalSpinner);
-		}
-		{
-			
-			
-			ButtonGroup bG = new ButtonGroup();
 		}
 		{
 			JPanel buttonPane = new JPanel();

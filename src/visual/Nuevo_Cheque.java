@@ -8,7 +8,6 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
@@ -23,7 +22,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import base_datos.managerDB;
-import data.Avion;
 import extended.JDialogExtended;
 import extended.MainController;
 
@@ -34,7 +32,6 @@ public class Nuevo_Cheque extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private List<Avion> aviones;
 	private JLabel lblNombre;
 	private JButton chequeButton;
 	private JLabel lblNewLabel;

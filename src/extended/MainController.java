@@ -11,7 +11,14 @@ import base_datos.SimpleFile;
 
 public class MainController {
 
-	private static final String UBICACION_MYSQL = "UBICACION_MYSQL", USUARIO = "USUARIO", PASSWORD = "PASSWORD", ESQUEMA = "ESQUEMA", CARPETA_FILES = "CARPETA_FILES", IP_WEB_SERVICE = "IP_WEB_SERVICE";
+	@SuppressWarnings("unused")
+	private static final String 
+	UBICACION_MYSQL = "UBICACION_MYSQL", 
+	USUARIO = "USUARIO", 
+	PASSWORD = "PASSWORD", 
+	ESQUEMA = "ESQUEMA", 
+	CARPETA_FILES = "CARPETA_FILES", 
+	IP_WEB_SERVICE = "IP_WEB_SERVICE";
 
 	private static Hashtable<String, String> properties;
 

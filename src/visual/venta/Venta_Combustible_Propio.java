@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -31,6 +30,10 @@ import extended.MainController;
 
 public class Venta_Combustible_Propio extends JDialogExtended {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<Persona> destinatarios; 
 	private JComboBox<String> recursoAdministrado, tipoMovimiento;	
@@ -50,13 +53,14 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 0, 20, 0};
-		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblTipoDeMovimiento = new JLabel("Tipo de movimiento");
 			GridBagConstraints gbc_lblTipoDeMovimiento = new GridBagConstraints();
+			gbc_lblTipoDeMovimiento.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblTipoDeMovimiento.insets = new Insets(0, 0, 5, 5);
 			gbc_lblTipoDeMovimiento.gridx = 1;
 			gbc_lblTipoDeMovimiento.gridy = 1;
@@ -64,7 +68,7 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		}
 		{
 			tipoMovimiento = new JComboBox<String>();
-			tipoMovimiento.setModel(new DefaultComboBoxModel(new String[] {"EXTRACCION", "DEPOSITO"}));
+			tipoMovimiento.setModel(new DefaultComboBoxModel<String>(new String[] {"EXTRACCION", "DEPOSITO"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -76,6 +80,7 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		{
 			JLabel lblFecha = new JLabel("Fecha");
 			GridBagConstraints gbc_lblFecha = new GridBagConstraints();
+			gbc_lblFecha.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
 			gbc_lblFecha.gridx = 1;
 			gbc_lblFecha.gridy = 2;
@@ -95,6 +100,7 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		{
 			JLabel lblDestinatario = new JLabel("Destinatario");
 			GridBagConstraints gbc_lblDestinatario = new GridBagConstraints();
+			gbc_lblDestinatario.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblDestinatario.insets = new Insets(0, 0, 5, 5);
 			gbc_lblDestinatario.gridx = 1;
 			gbc_lblDestinatario.gridy = 3;
@@ -113,14 +119,15 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		{
 			JLabel lblTipoDeVenta = new JLabel("Tipo de Venta");
 			GridBagConstraints gbc_lblTipoDeVenta = new GridBagConstraints();
+			gbc_lblTipoDeVenta.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblTipoDeVenta.insets = new Insets(0, 0, 5, 5);
 			gbc_lblTipoDeVenta.gridx = 1;
 			gbc_lblTipoDeVenta.gridy = 4;
 			contentPanel.add(lblTipoDeVenta, gbc_lblTipoDeVenta);
 		}
 		{
-			recursoAdministrado = new JComboBox();
-			recursoAdministrado.setModel(new DefaultComboBoxModel(new String[] {"COMBUSTIBLE_PROPIO", "ACEITE_PRECIO_PROPIO"}));
+			recursoAdministrado = new JComboBox<String>();
+			recursoAdministrado.setModel(new DefaultComboBoxModel<String>(new String[] {"COMBUSTIBLE_PROPIO", "ACEITE_PRECIO_PROPIO"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -132,6 +139,7 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		{
 			JLabel lblCantidad = new JLabel("Cantidad (Litros)");
 			GridBagConstraints gbc_lblCantidad = new GridBagConstraints();
+			gbc_lblCantidad.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblCantidad.insets = new Insets(0, 0, 5, 5);
 			gbc_lblCantidad.gridx = 1;
 			gbc_lblCantidad.gridy = 5;
@@ -151,6 +159,7 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		{
 			JLabel lblDetalle = new JLabel("Detalle");
 			GridBagConstraints gbc_lblDetalle = new GridBagConstraints();
+			gbc_lblDetalle.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblDetalle.insets = new Insets(0, 0, 5, 5);
 			gbc_lblDetalle.gridx = 1;
 			gbc_lblDetalle.gridy = 6;
@@ -168,24 +177,11 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 			detalleTextField.setColumns(10);
 		}
 		{
-			{
-				ButtonGroup botones = new ButtonGroup();
-			}
-		}
-		{
-			JLabel lblNewLabel = new JLabel("Total: $");
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-			gbc_lblNewLabel.gridx = 2;
-			gbc_lblNewLabel.gridy = 9;
-			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
-		}
-		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Registrar venta");
+				JButton okButton = new JButton("Registrar movimiento");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 										

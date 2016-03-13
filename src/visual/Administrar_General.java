@@ -35,6 +35,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import visual.venta.Venta_Campo;
 import base_datos.managerDB;
 import data.Avion;
 import data.Instructor;
@@ -64,7 +65,7 @@ public class Administrar_General extends JDialogExtended {
 	 * 
 	 * @param parent
 	 */
-	public Administrar_General(JFrame parent) {
+	public Administrar_General(final JFrame parent) {
 		super(parent);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -79,7 +80,7 @@ public class Administrar_General extends JDialogExtended {
 			}
 		});
 		setTitle("Nueva Compra");
-		setBounds(100, 100, 495, 559);
+		setBounds(100, 100, 593, 559);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{20, 444, 20, 0};
 		gridBagLayout.rowHeights = new int[]{20, 67, 33, 0};
@@ -109,7 +110,7 @@ public class Administrar_General extends JDialogExtended {
 						}
 					}
 				});
-				tabbedPane.addTab("Precios Combustibles/Aceites", null, preciosPanel, null);
+				tabbedPane.addTab("Precios Comb/Aceites", null, preciosPanel, null);
 				GridBagLayout gbl_preciosPanel = new GridBagLayout();
 				gbl_preciosPanel.columnWidths = new int[]{20, 0, 0, 20, 0};
 				gbl_preciosPanel.rowHeights = new int[]{20, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0};
@@ -449,7 +450,7 @@ public class Administrar_General extends JDialogExtended {
 			}
 			{
 				JPanel instructoresPanel = new JPanel();
-				tabbedPane.addTab("Editar datos de Instructores", null, instructoresPanel, null);
+				tabbedPane.addTab("Editar datos de Instruct", null, instructoresPanel, null);
 				GridBagLayout gbl_instructoresPanel = new GridBagLayout();
 				gbl_instructoresPanel.columnWidths = new int[]{0, 0, 0, 0};
 				gbl_instructoresPanel.rowHeights = new int[]{0, 0, 0, 0};
@@ -533,6 +534,28 @@ public class Administrar_General extends JDialogExtended {
 						gbc_button.gridy = 3;
 						updatePrecioInstructores.add(button, gbc_button);
 					}
+				}
+			}
+			{
+				JPanel campoPanel = new JPanel();
+				tabbedPane.addTab("Alquiler del campo", null, campoPanel, null);
+				GridBagLayout gbl_campoPanel = new GridBagLayout();
+				gbl_campoPanel.columnWidths = new int[]{0, 0};
+				gbl_campoPanel.rowHeights = new int[]{0, 0};
+				gbl_campoPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_campoPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				campoPanel.setLayout(gbl_campoPanel);
+				{
+					JButton btnAlquilarCampo = new JButton("Alquilar campo");
+					btnAlquilarCampo.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							MainController.closeActualAndCreateNew(Administrar_General.this, new Venta_Campo(parent));
+						}
+					});
+					GridBagConstraints gbc_btnAlquilarCampo = new GridBagConstraints();
+					gbc_btnAlquilarCampo.gridx = 0;
+					gbc_btnAlquilarCampo.gridy = 0;
+					campoPanel.add(btnAlquilarCampo, gbc_btnAlquilarCampo);
 				}
 			}
 		}

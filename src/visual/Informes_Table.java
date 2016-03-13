@@ -22,7 +22,10 @@ import extended.JDialogExtended;
 
 public class Informes_Table extends JDialogExtended {
 
-	private final JPanel contentPanel = new JPanel();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private JPanel topPanel;
 	private JTable table;
@@ -69,6 +72,11 @@ public class Informes_Table extends JDialogExtended {
 
 		// instance table model
 		DefaultTableModel tableModel = new DefaultTableModel(listOfListToArray(dataValues), columnNames.toArray()) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isCellEditable(int row, int column) {

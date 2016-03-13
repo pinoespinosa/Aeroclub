@@ -194,18 +194,19 @@ public class Venta_Vuelo_Adelantado extends JDialogExtended {
 				chequeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
-						if ((int)cantidadHorasSpinner.getValue()==0)
-							return;
-												
-						managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`horas_vendida_adelantado` VALUES " +
+						if ((int)cantidadHorasSpinner.getValue()>0){	
+							managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`horas_vendida_adelantado` VALUES " +
 								"('" +managerDB.getNextId("horas_vendida_adelantado")    + "'," +
 								"'" + ((Piloto)pilotoComboBox.getSelectedItem()).getId() + "'," +
 								"'" + ((Avion)avionComboBox.getSelectedItem()).getId()   + "'," +
 								"'" + fechaMaximaVuelo.getTime() + "', " +
 								"'" + cantidadHorasSpinner.getValue() + "',' " 
 								+ monto.getText() + "','"+monto.getText()+"','"+((Precios.TYPE_PAGO)formaDePago.getSelectedItem()).ordinal()+"','"+System.currentTimeMillis()+"');");
-						JOptionPane.showMessageDialog(null, "Se cargaron "+cantidadHorasSpinner.getValue() + " hora/s de vuelo adelantado a " + pilotoComboBox.getSelectedItem().toString() + ".");
-						Venta_Vuelo_Adelantado.this.dispose();
+							JOptionPane.showMessageDialog(null, "Se cargaron "+cantidadHorasSpinner.getValue() + " hora/s de vuelo adelantado a " + pilotoComboBox.getSelectedItem().toString() + ".");
+							Venta_Vuelo_Adelantado.this.dispose();
+						}
+						else
+							JOptionPane.showMessageDialog(null, "No se pueden cargar 0 horas de vuelo adelantado.");
 					}
 				});
 				chequeButton.setActionCommand("OK");

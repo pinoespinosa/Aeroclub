@@ -12,7 +12,6 @@ import java.awt.event.KeyListener;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterJob;
-import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -137,8 +136,6 @@ public class Venta_Vuelo extends JDialogExtended {
 						pf.setPaper(paper);
 						pf.setOrientation(PageFormat.REVERSE_LANDSCAPE);
 						ObjetoDeImpresion pin = new ObjetoDeImpresion();
-
-						SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 
 						Venta_Vuelo_Imprimible dialog = new Venta_Vuelo_Imprimible(parent);
 						dialog.inic(list.getSelectedValue());

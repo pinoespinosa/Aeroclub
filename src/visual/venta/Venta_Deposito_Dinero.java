@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -29,6 +28,10 @@ import extended.MainController;
 
 public class Venta_Deposito_Dinero extends JDialogExtended {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<Persona> destinatarios; 
 	private JSpinner total, fechaVenta; 
@@ -106,11 +109,6 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 			gbc_total.gridx = 2;
 			gbc_total.gridy = 3;
 			contentPanel.add(total, gbc_total);
-		}
-		{
-			{
-				ButtonGroup botones = new ButtonGroup();
-			}
 		}
 		{
 			JLabel lblNewLabel = new JLabel("Total: $");

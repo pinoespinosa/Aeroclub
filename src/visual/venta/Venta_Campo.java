@@ -13,6 +13,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,6 +30,10 @@ import extended.MainController;
 
 public class Venta_Campo extends JDialogExtended {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<String> tipoDeGasto;	
 	private JTextField detalleTextField;
@@ -38,7 +43,7 @@ public class Venta_Campo extends JDialogExtended {
 	 * Create the dialog.
 	 * @param parent 
 	 */
-	public Venta_Campo(JDialogExtended parent) {
+	public Venta_Campo(JFrame parent) {
 		super(parent);
 		setTitle("Arrendamiento de campo");
 		setBounds(100, 100, 469, 307);
@@ -84,7 +89,7 @@ public class Venta_Campo extends JDialogExtended {
 		}
 		{
 			tipoDeGasto = new JComboBox<String>();
-			tipoDeGasto.setModel(new DefaultComboBoxModel(new String[] {"ARRENDAMIENTO_DE_TIERRA"}));
+			tipoDeGasto.setModel(new DefaultComboBoxModel<String>(new String[] {"ARRENDAMIENTO_DE_TIERRA"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);

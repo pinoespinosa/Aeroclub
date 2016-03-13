@@ -83,6 +83,7 @@ public class Login extends JDialogExtended {
 		}
 		{
 			dniTextField = new JTextField();
+			dniTextField.setText("36442114");
 
 			GridBagConstraints gbc_dniTextField = new GridBagConstraints();
 			gbc_dniTextField.insets = new Insets(0, 0, 5, 5);
@@ -103,6 +104,7 @@ public class Login extends JDialogExtended {
 		}
 		{
 			passwordField = new JPasswordField();
+			passwordField.setText("1028");
 			GridBagConstraints gbc_passwordField = new GridBagConstraints();
 			gbc_passwordField.insets = new Insets(0, 0, 5, 5);
 			gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
@@ -169,6 +171,7 @@ public class Login extends JDialogExtended {
 		setAction(MainController.ACTION_REACTIVAR_PADRE);
 
 		loginButton.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
@@ -187,6 +190,7 @@ public class Login extends JDialogExtended {
 					try {
 						SwingUtilities.invokeLater(new Runnable() {
 
+							@SuppressWarnings("unused")
 							@Override
 							public void run() {
 

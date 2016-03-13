@@ -405,12 +405,13 @@ public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	@Override
 	public void setEnabled(boolean arg0) {
 		frame.setEnabled(arg0);
+		this.setEnabled(arg0);
 	}
 
 	@Override
 	public void setVisible(boolean arg0) {
 		System.out.println();
-		this.setVisible(arg0);
+		frame.setVisible(arg0);
 	}
 
 	

@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,6 +32,10 @@ import extended.MainController;
 
 public class Venta_Combustible extends JDialogExtended {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<Persona> destinatarios; 
 	private JComboBox<String> tipoDeGasto;	
@@ -104,8 +107,8 @@ public class Venta_Combustible extends JDialogExtended {
 			contentPanel.add(lblTipoDeVenta, gbc_lblTipoDeVenta);
 		}
 		{
-			tipoDeGasto = new JComboBox();
-			tipoDeGasto.setModel(new DefaultComboBoxModel(new String[] {"COMBUSTIBLE_PRECIO_AEROCLUB", "COMBUSTIBLE_PRECIO_SOCIO", "ACEITE_PRECIO_AEROCLUB", "ACEITE_PRECIO_SOCIO"}));
+			tipoDeGasto = new JComboBox<String>();
+			tipoDeGasto.setModel(new DefaultComboBoxModel<String>(new String[] {"COMBUSTIBLE_PRECIO_AEROCLUB", "COMBUSTIBLE_PRECIO_SOCIO", "ACEITE_PRECIO_AEROCLUB", "ACEITE_PRECIO_SOCIO"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -151,11 +154,6 @@ public class Venta_Combustible extends JDialogExtended {
 			gbc_detalleTextField.gridy = 5;
 			contentPanel.add(detalleTextField, gbc_detalleTextField);
 			detalleTextField.setColumns(10);
-		}
-		{
-			{
-				ButtonGroup botones = new ButtonGroup();
-			}
 		}
 		{
 			JLabel lblFormaDePago = new JLabel("Forma de pago");
