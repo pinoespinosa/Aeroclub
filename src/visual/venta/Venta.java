@@ -43,7 +43,7 @@ public class Venta extends JDialogExtended {
 		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JButton btnVuelo = new JButton("Nuevo Vuelo");
+			JButton btnVuelo = new JButton("Vuelos");
 			btnVuelo.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
@@ -67,7 +67,7 @@ public class Venta extends JDialogExtended {
 				}
 			});
 		{
-			JButton btnNuevoVueloPor = new JButton("Nuevo Vuelo por Adelantado");
+			JButton btnNuevoVueloPor = new JButton("Venta de horas de vuelo por Adelantado");
 			btnNuevoVueloPor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					MainController.closeActualAndCreateNew(Venta.this, new Venta_Vuelo_Adelantado(frame));
@@ -90,7 +90,7 @@ public class Venta extends JDialogExtended {
 			contentPanel.add(btnCombustible, gbc_btnCombustibleAceite);
 		}
 		{
-			JButton btnNuevoDepositoDe = new JButton("Nuevo Deposito de Dinero");
+			JButton btnNuevoDepositoDe = new JButton("Nuevo Dep\u00F3sito de Dinero");
 			btnNuevoDepositoDe.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
