@@ -48,6 +48,7 @@ public class Informes extends JDialogExtended {
 	private final JPanel contentPanel = new JPanel();
 
 	private JComboBox<String> inicioAnio, finAnio, inicioMes, finMes;
+	private JComboBox<String> inicioMesComboBox, inicioAnioComboBox, finMesComboBox, finAnioComboBox;
 	private JComboBox<Persona> personasCuentaCorriente;
 
 	/**
@@ -176,7 +177,7 @@ public class Informes extends JDialogExtended {
 				gbc_inicioAnio.gridx = 3;
 				gbc_inicioAnio.gridy = 0;
 				panel.add(inicioAnio, gbc_inicioAnio);
-				inicioAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020"}));
+				inicioAnio.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 			}
 			{
 				JLabel lblHasta = new JLabel("hasta");
@@ -214,7 +215,7 @@ public class Informes extends JDialogExtended {
 				gbc_finAnio.gridx = 7;
 				gbc_finAnio.gridy = 0;
 				panel.add(finAnio, gbc_finAnio);
-				finAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020"}));
+				finAnio.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 			}
 			{
 				JButton btnHorasDeVuelo = new JButton("Horas de vuelo simples");
@@ -242,9 +243,9 @@ public class Informes extends JDialogExtended {
 						gbc_panel_1.gridy = 3;
 						contentPanel.add(panel_1, gbc_panel_1);
 						GridBagLayout gbl_panel_1 = new GridBagLayout();
-						gbl_panel_1.columnWidths = new int[]{0, 200, 0};
+						gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 0};
 						gbl_panel_1.rowHeights = new int[]{0, 0, 0};
-						gbl_panel_1.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+						gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 						gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 						panel_1.setLayout(gbl_panel_1);
 						{
@@ -337,17 +338,122 @@ public class Informes extends JDialogExtended {
 							GridBagConstraints gbc_btnVerUltimasRevisiones = new GridBagConstraints();
 							gbc_btnVerUltimasRevisiones.insets = new Insets(0, 0, 5, 0);
 							gbc_btnVerUltimasRevisiones.fill = GridBagConstraints.HORIZONTAL;
-							gbc_btnVerUltimasRevisiones.gridx = 1;
+							gbc_btnVerUltimasRevisiones.gridx = 9;
 							gbc_btnVerUltimasRevisiones.gridy = 0;
 							panel_1.add(btnVerUltimasRevisiones, gbc_btnVerUltimasRevisiones);
 						}
 						{
 							JButton btnNewButton_1 = new JButton("Gasto de Aceite p/ avion p/ hora");
+							{
+								JLabel label = new JLabel("desde");
+								GridBagConstraints gbc_label = new GridBagConstraints();
+								gbc_label.anchor = GridBagConstraints.EAST;
+								gbc_label.insets = new Insets(0, 0, 0, 5);
+								gbc_label.gridx = 0;
+								gbc_label.gridy = 1;
+								panel_1.add(label, gbc_label);
+							}
+							{
+								inicioMesComboBox = new JComboBox<String>();
+								inicioMesComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+								GridBagConstraints gbc_inicioMesComboBox = new GridBagConstraints();
+								gbc_inicioMesComboBox.insets = new Insets(0, 0, 0, 5);
+								gbc_inicioMesComboBox.fill = GridBagConstraints.HORIZONTAL;
+								gbc_inicioMesComboBox.gridx = 1;
+								gbc_inicioMesComboBox.gridy = 1;
+								panel_1.add(inicioMesComboBox, gbc_inicioMesComboBox);
+							}
+							{
+								JLabel label = new JLabel("/");
+								GridBagConstraints gbc_label = new GridBagConstraints();
+								gbc_label.anchor = GridBagConstraints.EAST;
+								gbc_label.insets = new Insets(0, 0, 0, 5);
+								gbc_label.gridx = 2;
+								gbc_label.gridy = 1;
+								panel_1.add(label, gbc_label);
+							}
+							{
+								inicioAnioComboBox = new JComboBox<String>();
+								inicioAnioComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
+								GridBagConstraints gbc_inicioAnioComboBox = new GridBagConstraints();
+								gbc_inicioAnioComboBox.insets = new Insets(0, 0, 0, 5);
+								gbc_inicioAnioComboBox.fill = GridBagConstraints.HORIZONTAL;
+								gbc_inicioAnioComboBox.gridx = 3;
+								gbc_inicioAnioComboBox.gridy = 1;
+								panel_1.add(inicioAnioComboBox, gbc_inicioAnioComboBox);
+							}
+							{
+								JLabel label = new JLabel("hasta");
+								GridBagConstraints gbc_label = new GridBagConstraints();
+								gbc_label.anchor = GridBagConstraints.EAST;
+								gbc_label.insets = new Insets(0, 0, 0, 5);
+								gbc_label.gridx = 4;
+								gbc_label.gridy = 1;
+								panel_1.add(label, gbc_label);
+							}
+							{
+								finMesComboBox = new JComboBox<String>();
+								finMesComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+								GridBagConstraints gbc_finMesComboBox = new GridBagConstraints();
+								gbc_finMesComboBox.insets = new Insets(0, 0, 0, 5);
+								gbc_finMesComboBox.fill = GridBagConstraints.HORIZONTAL;
+								gbc_finMesComboBox.gridx = 5;
+								gbc_finMesComboBox.gridy = 1;
+								panel_1.add(finMesComboBox, gbc_finMesComboBox);
+							}
+							{
+								JLabel label = new JLabel("/");
+								GridBagConstraints gbc_label = new GridBagConstraints();
+								gbc_label.anchor = GridBagConstraints.EAST;
+								gbc_label.insets = new Insets(0, 0, 0, 5);
+								gbc_label.gridx = 6;
+								gbc_label.gridy = 1;
+								panel_1.add(label, gbc_label);
+							}
+							{
+								finAnioComboBox = new JComboBox<String>();
+								finAnioComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
+								GridBagConstraints gbc_finMesComboBox = new GridBagConstraints();
+								gbc_finMesComboBox.insets = new Insets(0, 0, 0, 5);
+								gbc_finMesComboBox.fill = GridBagConstraints.HORIZONTAL;
+								gbc_finMesComboBox.gridx = 7;
+								gbc_finMesComboBox.gridy = 1;
+								panel_1.add(finAnioComboBox, gbc_finMesComboBox);
+							}
 							GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 							gbc_btnNewButton_1.fill = GridBagConstraints.HORIZONTAL;
-							gbc_btnNewButton_1.gridx = 1;
+							gbc_btnNewButton_1.gridx = 9;
 							gbc_btnNewButton_1.gridy = 1;
 							panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
+							
+							btnNewButton_1.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent arg0) {
+									
+									// Create columns names
+									String columnNames[] = {"Avion", "CantAceite"};
+
+									SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+									Date fechaInicioSimple = null, fechaFinalSimple = null;
+									try {
+										fechaInicioSimple = format.parse(inicioAnioComboBox.getSelectedItem() + "-" + inicioMesComboBox.getSelectedItem() + "-1");
+										fechaFinalSimple = format.parse(finAnioComboBox.getSelectedItem() + "-" + finMesComboBox.getSelectedItem() + "-1");
+									} catch (ParseException e) {
+										e.printStackTrace();
+									}
+									
+									String script = "SELECT name as Avion, avg(cantAceite) as CantAceite FROM `" + MainController.getEsquema() + "`.vuelo INNER JOIN `" + MainController.getEsquema() + "`.avion on idAvion like avion.id where horaInicio >'"+fechaInicioSimple.getTime()+"' and horaInicio < '"+fechaFinalSimple.getTime()+"' group by idAvion;";
+						
+									List<String> campos = Arrays.asList(columnNames);
+
+									List<List<String>> datos = managerDB.executeScript_Query(script, campos);
+
+									if (!datos.isEmpty())
+										MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Ver stock de combustible", ""));
+									else
+										JOptionPane.showMessageDialog(null, "No se encontraron vuelos entre las fechas consultadas.");
+									
+								}
+							});
 						}
 					}
 					{
