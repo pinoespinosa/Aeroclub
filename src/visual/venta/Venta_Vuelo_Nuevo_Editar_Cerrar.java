@@ -10,8 +10,6 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -694,16 +692,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		}
 
 		// Cargo el valor del total en base a los precios
-		updateUi();
-
-		instructorComboBox.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if(!stateRefreshUpdate)
-					updateUi();
-			}
-		});
-		
+		updateUi();		
 	}
 
 	/**
@@ -795,6 +784,25 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		costoVuelo.setText(valor + "");
 	}
 
+	public void validateHorasPrevendidas(){
+		// Valido que se el pago de las horas prevendidas sea válido
+		if (avionComboBox.getSelectedItem() != null && pilotoComboBox.getSelectedItem() != null) {
+			List<horas_vendida_adelantado> listaHorasAdelantadas = horas_vendida_adelantado.getHorasByAvionPiloto(((Avion) avionComboBox.getSelectedItem()).getId() + "", ((Piloto) pilotoComboBox.getSelectedItem()).getId() + "");
+
+			float minutosDeVuelo = Utils.minutesBetweenDates((Date) inicioSpinner.getModel().getValue(), (Date) finalizacionSpinner.getModel().getValue());
+			float minutosAcumulados = horas_vendida_adelantado.getMinutosAdelantados(listaHorasAdelantadas);
+
+			if (minutosDeVuelo > minutosAcumulados) {
+				pagoHorasPreVendidas.setEnabled(false);
+				if (pagoHorasPreVendidas.isSelected()) {
+					pagoEfectivo.setSelected(true);
+					pagoHorasPreVendidas.setSelected(false);
+				}
+			} else
+				pagoHorasPreVendidas.setEnabled(true);
+		}
+	}
+	
 	/**
 	 * Valida que los datos en el modelo sean apropiados y completos
 	 * 
@@ -836,20 +844,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		}
 		
 		updatePrecio();
-
-		List<horas_vendida_adelantado> listaHorasAdelantadas = horas_vendida_adelantado.getHorasByAvionPiloto(((Avion) avionComboBox.getSelectedItem()).getId() + "", ((Piloto) pilotoComboBox.getSelectedItem()).getId() + "");
-
-		float minutosDeVuelo = Utils.minutesBetweenDates((Date) inicioSpinner.getModel().getValue(), (Date) finalizacionSpinner.getModel().getValue());
-		float minutosAcumulados = horas_vendida_adelantado.getMinutosAdelantados(listaHorasAdelantadas);
-
-		if (minutosDeVuelo > minutosAcumulados) {
-			pagoHorasPreVendidas.setEnabled(false);
-			if (pagoHorasPreVendidas.isSelected()) {
-				pagoEfectivo.setSelected(true);
-				pagoHorasPreVendidas.setSelected(false);
-			}
-		} else
-			pagoHorasPreVendidas.setEnabled(true);
+		validateHorasPrevendidas();
 
 		stateRefreshUpdate = false;
 	}
