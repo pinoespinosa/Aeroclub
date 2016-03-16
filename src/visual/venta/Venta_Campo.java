@@ -17,13 +17,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.border.EmptyBorder;
 
 import base_datos.managerDB;
+import data.Precios;
 import extended.JDialogExtended;
 import extended.MainController;
 
@@ -38,7 +38,7 @@ public class Venta_Campo extends JDialogExtended {
 	private JComboBox<String> tipoDeGasto;	
 	private JTextField detalleTextField;
 	private JSpinner fechaVenta, total; 
-	private JRadioButton rdbtnEfectivo;
+	private JComboBox<Precios.TYPE_PAGO> formaDePago;
 	/**
 	 * Create the dialog.
 	 * @param parent 
@@ -52,13 +52,14 @@ public class Venta_Campo extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 0, 20, 0};
-		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblFecha = new JLabel("Fecha");
 			GridBagConstraints gbc_lblFecha = new GridBagConstraints();
+			gbc_lblFecha.anchor = GridBagConstraints.WEST;
 			gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
 			gbc_lblFecha.gridx = 1;
 			gbc_lblFecha.gridy = 1;
@@ -82,6 +83,7 @@ public class Venta_Campo extends JDialogExtended {
 		{
 			JLabel lblTipoDeVenta = new JLabel("Tipo de Venta");
 			GridBagConstraints gbc_lblTipoDeVenta = new GridBagConstraints();
+			gbc_lblTipoDeVenta.anchor = GridBagConstraints.WEST;
 			gbc_lblTipoDeVenta.insets = new Insets(0, 0, 5, 5);
 			gbc_lblTipoDeVenta.gridx = 1;
 			gbc_lblTipoDeVenta.gridy = 2;
@@ -99,27 +101,28 @@ public class Venta_Campo extends JDialogExtended {
 			contentPanel.add(tipoDeGasto, gbc_comboBox);
 		}
 		{
-			JLabel lblDetalle = new JLabel("Detalle");
-			GridBagConstraints gbc_lblDetalle = new GridBagConstraints();
-			gbc_lblDetalle.insets = new Insets(0, 0, 5, 5);
-			gbc_lblDetalle.gridx = 1;
-			gbc_lblDetalle.gridy = 3;
-			contentPanel.add(lblDetalle, gbc_lblDetalle);
+			JLabel lblNewLabel = new JLabel("Forma de pago");
+			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+			gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
+			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNewLabel.gridx = 1;
+			gbc_lblNewLabel.gridy = 3;
+			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
-			detalleTextField = new JTextField();
-			GridBagConstraints gbc_detalleTextField = new GridBagConstraints();
-			gbc_detalleTextField.gridwidth = 2;
-			gbc_detalleTextField.insets = new Insets(0, 0, 5, 5);
-			gbc_detalleTextField.fill = GridBagConstraints.HORIZONTAL;
-			gbc_detalleTextField.gridx = 2;
-			gbc_detalleTextField.gridy = 3;
-			contentPanel.add(detalleTextField, gbc_detalleTextField);
-			detalleTextField.setColumns(10);
+			formaDePago = new JComboBox<Precios.TYPE_PAGO>();
+			GridBagConstraints gbc_formaDePago = new GridBagConstraints();
+			gbc_formaDePago.gridwidth = 2;
+			gbc_formaDePago.insets = new Insets(0, 0, 5, 5);
+			gbc_formaDePago.fill = GridBagConstraints.BOTH;
+			gbc_formaDePago.gridx = 2;
+			gbc_formaDePago.gridy = 3;
+			contentPanel.add(formaDePago, gbc_formaDePago);
 		}
 		{
 			JLabel lblValor = new JLabel("Valor ($)");
 			GridBagConstraints gbc_lblValor = new GridBagConstraints();
+			gbc_lblValor.anchor = GridBagConstraints.WEST;
 			gbc_lblValor.insets = new Insets(0, 0, 5, 5);
 			gbc_lblValor.gridx = 1;
 			gbc_lblValor.gridy = 4;
@@ -136,20 +139,28 @@ public class Venta_Campo extends JDialogExtended {
 			contentPanel.add(total, gbc_total);
 		}
 		{
-			JPanel panel = new JPanel();
-			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.gridwidth = 3;
-			gbc_panel.insets = new Insets(0, 0, 5, 5);
-			gbc_panel.fill = GridBagConstraints.BOTH;
-			gbc_panel.gridx = 1;
-			gbc_panel.gridy = 5;
-			contentPanel.add(panel, gbc_panel);
+			JLabel lblDetalle = new JLabel("Detalle");
+			GridBagConstraints gbc_lblDetalle = new GridBagConstraints();
+			gbc_lblDetalle.anchor = GridBagConstraints.WEST;
+			gbc_lblDetalle.insets = new Insets(0, 0, 5, 5);
+			gbc_lblDetalle.gridx = 1;
+			gbc_lblDetalle.gridy = 5;
+			contentPanel.add(lblDetalle, gbc_lblDetalle);
+		}
+		{
+			detalleTextField = new JTextField();
+			GridBagConstraints gbc_detalleTextField = new GridBagConstraints();
+			gbc_detalleTextField.gridwidth = 2;
+			gbc_detalleTextField.insets = new Insets(0, 0, 5, 5);
+			gbc_detalleTextField.fill = GridBagConstraints.HORIZONTAL;
+			gbc_detalleTextField.gridx = 2;
+			gbc_detalleTextField.gridy = 5;
+			contentPanel.add(detalleTextField, gbc_detalleTextField);
+			detalleTextField.setColumns(10);
+		}
+		{
 			{
 				ButtonGroup botones = new ButtonGroup();
-				rdbtnEfectivo = new JRadioButton("Efectivo");
-				rdbtnEfectivo.setSelected(true);
-				panel.add(rdbtnEfectivo);
-				botones.add(rdbtnEfectivo);
 			}
 		}
 		{
@@ -161,11 +172,9 @@ public class Venta_Campo extends JDialogExtended {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
-					//	float total = Precios.getPrecio( Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) * (float)cantidad.getValue();
-						
 						managerDB.executeScript_Void(
 								"INSERT INTO "+MainController.getEsquema()+".`gasto` VALUES ('" +managerDB.getNextId("gasto")+"','VENTA','"	+tipoDeGasto.getSelectedItem()+"','1', '1','" 
-											+detalleTextField.getText() +"','"+total.getValue()+"','"+rdbtnEfectivo.isSelected()+"','"+((Date)fechaVenta.getValue()).getTime()+"','-1');");
+											+detalleTextField.getText() +"','"+total.getValue()+"','"+((Precios.TYPE_PAGO)formaDePago.getSelectedItem()).ordinal()+"','"+((Date)fechaVenta.getValue()).getTime()+"','-1');");
 						
 						JOptionPane.showMessageDialog(null,"Se registro el arrendamiento.");
 					}
@@ -190,6 +199,10 @@ public class Venta_Campo extends JDialogExtended {
 
 	
 	private void inic(){
+		
+		for (Precios.TYPE_PAGO tipo : Precios.TYPE_PAGO.values()) {
+			formaDePago.addItem(tipo);
+		}
 	}
 	
 	@Override

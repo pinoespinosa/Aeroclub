@@ -480,8 +480,8 @@ public class Informes extends JDialogExtended {
 									// Create columns names
 									String columnNames[] = {"Recurso", "Stock_disponible"};
 
-									String script = "SELECT tipo as Recurso, SUM(unidades) as Stock_disponible FROM `" + MainController.getEsquema() + "`.gastos_normalizados GROUP BY TIPO;";
-
+									String script = "SELECT * FROM `"+MainController.getEsquema()+"`.stock where not(Recurso like '');";
+									
 									List<String> campos = Arrays.asList(columnNames);
 
 									List<List<String>> datos = managerDB.executeScript_Query(script, campos);

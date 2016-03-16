@@ -35,13 +35,13 @@ public class Nuevo_Cheque extends JDialogExtended {
 	private JLabel lblNombre;
 	private JButton chequeButton;
 	private JLabel lblNewLabel;
-	private JTextField numeroCheque;
 	private JTextField bancoCheque;
 	private JPanel panel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblVencimiento;
 	private JTextField vencimientoCheque;
 	private JSpinner montoSpinner;
+	private JSpinner numeroCheque;
 
 	/**
 	 * Create the dialog.
@@ -112,14 +112,14 @@ public class Nuevo_Cheque extends JDialogExtended {
 				contentPanel.add(lblPersona, gbc_lblPersona);
 			}
 			{
-				numeroCheque = new JTextField();
+				numeroCheque = new JSpinner();
+				numeroCheque.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 				GridBagConstraints gbc_numeroCheque = new GridBagConstraints();
-				gbc_numeroCheque.insets = new Insets(0, 0, 5, 5);
 				gbc_numeroCheque.fill = GridBagConstraints.HORIZONTAL;
+				gbc_numeroCheque.insets = new Insets(0, 0, 5, 5);
 				gbc_numeroCheque.gridx = 2;
 				gbc_numeroCheque.gridy = 1;
 				contentPanel.add(numeroCheque, gbc_numeroCheque);
-				numeroCheque.setColumns(10);
 			}
 			{
 				lblNewLabel = new JLabel("Banco emisor");
@@ -188,9 +188,13 @@ public class Nuevo_Cheque extends JDialogExtended {
 				panel.add(chequeButton, gbc_chequeButton);
 				chequeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						managerDB.executeScript_Void( " INSERT INTO `"+MainController.getEsquema()+"`.`cheque` VALUES ('" + managerDB.getNextId("cheque") + "','" + numeroCheque.getText() + "','" + bancoCheque.getText() + "','" + montoSpinner.getValue() + "','" + vencimientoCheque.getText() + "');");
-						JOptionPane.showMessageDialog(null, "Se han registrados los datos del cheque.");
-						Nuevo_Cheque.this.dispose();
+						if (isValidCheque()){	
+							managerDB.executeScript_Void( " INSERT INTO `"+MainController.getEsquema()+"`.`cheque` VALUES ('" + managerDB.getNextId("cheque") + "','" + numeroCheque.getValue() + "','" + bancoCheque.getText() + "','" + montoSpinner.getValue() + "','" + vencimientoCheque.getText() + "');");
+							JOptionPane.showMessageDialog(null, "Se han registrados los datos del cheque.");
+							Nuevo_Cheque.this.dispose();
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Por favor complete TODOS los datos del cheque.");
 					}
 				});
 				chequeButton.setActionCommand("OK");
@@ -200,6 +204,10 @@ public class Nuevo_Cheque extends JDialogExtended {
 		inic();
 	}
 
+	private boolean isValidCheque(){
+		return !vencimientoCheque.getText().isEmpty() && !bancoCheque.getText().isEmpty();	
+	}
+	
 	@PostConstruct
 	private void inic() {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 
 import base_datos.managerDB;
 import data.Gasto;
+import data.Precios;
 import extended.JDialogExtended;
 import extended.MainController;
 
@@ -186,7 +187,7 @@ public class Compra_General extends JDialogExtended {
 						
 						managerDB.executeScript_Void(
 								"INSERT INTO "+MainController.getEsquema()+".`gasto` VALUES ('" +managerDB.getNextId("gasto")+"','COMPRA - "+tipoDeGasto.getSelectedItem()+"','"	+tipoCompra.getSelectedItem()+"','" 
-											+"-1', '"+cantidadSpinner.getValue()+"','" + detalleTextField.getText() +"','"+totalSpinner.getValue()+"','true','"+((Date)fechaCompra.getValue()).getTime()+"','-1');");
+											+"-1', '"+cantidadSpinner.getValue()+"','" + detalleTextField.getText() +"','"+totalSpinner.getValue()+"','"+Precios.TYPE_PAGO.EFECTIVO.ordinal()+"','"+((Date)fechaCompra.getValue()).getTime()+"','-1');");
 						
 						JOptionPane.showMessageDialog(null,"Se registro la compra.");
 

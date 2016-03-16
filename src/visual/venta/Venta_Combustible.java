@@ -22,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import base_datos.Utils;
 import base_datos.managerDB;
@@ -43,6 +45,7 @@ public class Venta_Combustible extends JDialogExtended {
 	private JTextField detalleTextField;
 	private JSpinner cantidad, fechaVenta; 
 	private JComboBox<Precios.TYPE_PAGO> formaDePago;
+	private JLabel monto;
 	/**
 	 * Create the dialog.
 	 * @param parent 
@@ -178,10 +181,20 @@ public class Venta_Combustible extends JDialogExtended {
 		{
 			JLabel lblNewLabel = new JLabel("Total: $");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
 			gbc_lblNewLabel.gridx = 2;
 			gbc_lblNewLabel.gridy = 8;
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
+		}
+		{
+			monto = new JLabel("0");
+			GridBagConstraints gbc_monto = new GridBagConstraints();
+			gbc_monto.anchor = GridBagConstraints.WEST;
+			gbc_monto.insets = new Insets(0, 0, 0, 5);
+			gbc_monto.gridx = 3;
+			gbc_monto.gridy = 8;
+			contentPanel.add(monto, gbc_monto);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -235,11 +248,34 @@ public class Venta_Combustible extends JDialogExtended {
 		for ( Precios.TYPE_PAGO forma : Precios.TYPE_PAGO.values()) {
 			formaDePago.addItem(forma);	
 		}
+		
+		// Creo el validador para las fechas de inicio y fin
+		ChangeListener spinListener = new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				updateUi();
+			}
+		};
+		ActionListener listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				updateUi();				
+			}
+		};
+		
+		cantidad.addChangeListener(spinListener);
+		tipoDeGasto.addActionListener(listener);
+		updateUi();
+	}
+	
+	public float getPrecio(){
+		return Precios.getPrecio( Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) * (float)cantidad.getValue();
+		
 	}
 	
 	@Override
 	public void updateUi() {
-		// TODO Auto-generated method stub
+		monto.setText(getPrecio()+"");
 		
 	}
 
