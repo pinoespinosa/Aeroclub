@@ -165,7 +165,7 @@ public class Nuevo_Avion extends JDialogExtended {
 				}
 			// Creo el piloto
 				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`avion` VALUES ('"+ managerDB.getNextId("avion")+"','"+nombreAvionTextField.getText()+"','"+spinnerPrecio.getValue()+"" +"');");
-			//	JOptionPane.showMessageDialog(null,"Se creo un nuevo piloto.");					
+				JOptionPane.showMessageDialog(null, "Se registró el nuevo avion.");	
 				Nuevo_Avion.this.dispose();	
 			}
 		});

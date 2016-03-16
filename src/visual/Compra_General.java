@@ -185,12 +185,19 @@ public class Compra_General extends JDialogExtended {
 				btnCrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
-						managerDB.executeScript_Void(
-								"INSERT INTO "+MainController.getEsquema()+".`gasto` VALUES ('" +managerDB.getNextId("gasto")+"','COMPRA - "+tipoDeGasto.getSelectedItem()+"','"	+tipoCompra.getSelectedItem()+"','" 
-											+"-1', '"+cantidadSpinner.getValue()+"','" + detalleTextField.getText() +"','"+totalSpinner.getValue()+"','"+Precios.TYPE_PAGO.EFECTIVO.ordinal()+"','"+((Date)fechaCompra.getValue()).getTime()+"','-1');");
+						Object element = tipoCompra.getSelectedItem();
 						
-						JOptionPane.showMessageDialog(null,"Se registro la compra.");
+						if (tipoCompra.getSelectedItem()== null || tipoCompra.getSelectedItem().equals(""))
+							JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de compra o crear uno nuevo.");
+						else {
+							
+							float precioTotal = Float.parseFloat(totalSpinner.getValue()+"");
+							float cantidadTotal = Float.parseFloat(cantidadSpinner.getValue()+"");
+							
+							managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','COMPRA - " + tipoDeGasto.getSelectedItem() + "','" + tipoCompra.getSelectedItem() + "','" + precioTotal/cantidadTotal+ "', '" + cantidadSpinner.getValue() + "','" + detalleTextField.getText() + "','" + totalSpinner.getValue() + "','" + Precios.TYPE_PAGO.EFECTIVO.ordinal() + "','" + ((Date) fechaCompra.getValue()).getTime() + "','-1');");
 
+							JOptionPane.showMessageDialog(null, "Se registro la compra.");
+						}
 					}
 				});
 			}
