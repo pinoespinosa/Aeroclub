@@ -35,7 +35,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JLabel fechaVuelo, ordenDeVuelo, avion, fechaPartida, fechaLlegada, piloto, vencimientoPsicofisico, aceite, combustible, instructor;
+	private JLabel fechaVuelo, ordenDeVuelo, avion, fechaPartida, fechaLlegada, piloto, vencimientoPsicofisico, aceite, combustible, instructor, tipoVuelo, montoTotal;
 
 	/**
 	 * Create the dialog.
@@ -49,7 +49,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 
 		setResizable(false);
 		setTitle("Sistema de Gesti\u00F3n Aeroclub Tandil");
-		setBounds(100, 100, 436, 725);
+		setBounds(100, 100, 436, 793);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 0, 10, 0};
 		gridBagLayout.rowHeights = new int[]{15, 0, 0, 10, 0, 15, 0};
@@ -210,9 +210,9 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		getContentPane().add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{5, 0, 5, 0};
-		gbl_panel_2.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
 		JPanel panel_3 = new JPanel();
@@ -357,6 +357,43 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 																		panel_9.add(combustible);
 																		combustible.setBackground(Color.WHITE);
 																		combustible.setFont(new Font("Calibri", Font.ITALIC, 25));
+																		
+																		JPanel panel_10 = new JPanel();
+																		GridBagConstraints gbc_panel_10 = new GridBagConstraints();
+																		gbc_panel_10.anchor = GridBagConstraints.WEST;
+																		gbc_panel_10.insets = new Insets(0, 0, 5, 5);
+																		gbc_panel_10.gridx = 1;
+																		gbc_panel_10.gridy = 7;
+																		panel_2.add(panel_10, gbc_panel_10);
+																		
+																		JLabel lblTipoDeVuelo = new JLabel("Tipo de vuelo:");
+																		lblTipoDeVuelo.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+																		lblTipoDeVuelo.setBackground(Color.WHITE);
+																		panel_10.add(lblTipoDeVuelo);
+																		
+																		tipoVuelo = new JLabel("New label");
+																		tipoVuelo.setFont(new Font("Calibri", Font.ITALIC, 25));
+																		tipoVuelo.setBackground(Color.WHITE);
+																		panel_10.add(tipoVuelo);
+																		
+																		JPanel panel_11 = new JPanel();
+																		GridBagConstraints gbc_panel_11 = new GridBagConstraints();
+																		gbc_panel_11.anchor = GridBagConstraints.WEST;
+																		gbc_panel_11.insets = new Insets(0, 0, 5, 5);
+																		gbc_panel_11.fill = GridBagConstraints.VERTICAL;
+																		gbc_panel_11.gridx = 1;
+																		gbc_panel_11.gridy = 8;
+																		panel_2.add(panel_11, gbc_panel_11);
+																		
+																		JLabel lblMonto = new JLabel("Monto:");
+																		lblMonto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
+																		lblMonto.setBackground(Color.WHITE);
+																		panel_11.add(lblMonto);
+																		
+																		montoTotal = new JLabel("New label");
+																		montoTotal.setFont(new Font("Calibri", Font.ITALIC, 25));
+																		montoTotal.setBackground(Color.WHITE);
+																		panel_11.add(montoTotal);
 	}
 
 	public void inic(Vuelo vuelo) {
@@ -379,22 +416,10 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		this.vencimientoPsicofisico.setText(formatDay.format(new Date(Piloto.getPilotoById(vuelo.getIdPiloto()+"").getFecha_licencia())));
 		this.aceite.setText(vuelo.getCantAceite()+"");
 		this.combustible.setText(vuelo.getCantCombustible()+"");
+		this.montoTotal.setText(vuelo.getPrecio()+"");
+		this.tipoVuelo.setText(Vuelo.TipoVuelo.values()[vuelo.getTipoVuelo()] + "");
 	}
 	
-	public void inic(String ordenDeVuelo, String avion, String tipoVuelo, String fechaPartida, String fechaLlegada, String piloto, String vencimientoPsicofisico, String aceite, String combustible, String instructor) {
-
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
-		this.fechaVuelo.setText(format.format(new Date(System.currentTimeMillis())));
-		this.ordenDeVuelo.setText(ordenDeVuelo);
-		this.avion.setText(avion);
-		this.instructor.setText(instructor);
-		this.fechaLlegada.setText(fechaLlegada);
-		this.fechaPartida.setText(fechaPartida);
-		this.piloto.setText(piloto);
-		this.vencimientoPsicofisico.setText(vencimientoPsicofisico);
-		this.aceite.setText(aceite);
-		this.combustible.setText(combustible);
-	}
 
 	@Override
 	public void updateUi() {
