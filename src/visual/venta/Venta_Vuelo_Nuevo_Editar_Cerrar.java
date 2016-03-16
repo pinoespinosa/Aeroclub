@@ -572,6 +572,21 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				tipoVueloComboBox.addItem(tipo.toString());
 			}
 
+			// Cargo los pilotos en el combo
+			pilotosList.removeAllElements();
+			List<Piloto> pilotos = Piloto.loadFromDB();
+			for (Piloto piloto : pilotos) {
+				pilotosList.addElement(piloto);
+			}
+
+			// Cargo los instructores en el combo
+			instructorList.removeAllElements();
+			List<Instructor> intructores = Instructor.loadFromDB();
+			instructorList.addElement(new Instructor(-1, "Sin instructor", "", new Long(-1), new Long(-1), -1, new Float(0)));
+			for (Instructor instructor : intructores) {
+				instructorList.addElement(instructor);
+			}
+			
 			switch (modoApertura) {
 
 				case MODE_CREAR : {
@@ -826,23 +841,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	public void updateUi() {
 		
 		stateRefreshUpdate=true;
-		
-		// Cargo los pilotos en el combo
-		pilotosList.removeAllElements();
-		List<Piloto> pilotos = Piloto.loadFromDB();
-		for (Piloto piloto : pilotos) {
-			pilotosList.addElement(piloto);
-		}
-
-		// Cargo los instructores en el combo
-		instructorList.removeAllElements();
-		List<Instructor> intructores = Instructor.loadFromDB();
-
-		instructorList.addElement(new Instructor(-1, "Sin instructor", "", new Long(-1), new Long(-1), -1, new Float(0)));
-		for (Instructor instructor : intructores) {
-			instructorList.addElement(instructor);
-		}
-		
+				
 		updatePrecio();
 		validateHorasPrevendidas();
 
