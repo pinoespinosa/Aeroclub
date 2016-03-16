@@ -131,7 +131,7 @@ public class Venta_Combustible extends JDialogExtended {
 		}
 		{
 			cantidad = new JSpinner();
-			cantidad.setModel(new SpinnerNumberModel(new Float(1), new Float(1), null, new Float(1)));
+			cantidad.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
 			GridBagConstraints gbc_spinner = new GridBagConstraints();
 			gbc_spinner.gridwidth = 2;
 			gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
@@ -205,14 +205,17 @@ public class Venta_Combustible extends JDialogExtended {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
-						float total = Precios.getPrecio( Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) * (float)cantidad.getValue();
-						
-						managerDB.executeScript_Void(
-								"INSERT INTO "+MainController.getEsquema()+".`gasto` VALUES ('" +managerDB.getNextId("gasto")+"','VENTA','"	+tipoDeGasto.getSelectedItem()+"','" 
-											+Precios.getPrecio( Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " ")) )+"', '"+cantidad.getValue()+"','" 
-											+detalleTextField.getText() +"','"+total+"','"+((Precios.TYPE_PAGO)formaDePago.getSelectedItem()).ordinal()+"','"+((Date)fechaVenta.getValue()).getTime()+"','"+((Persona) destinatarios.getSelectedItem()).getId()+"');");
-						
-						JOptionPane.showMessageDialog(null,"Se registro la venta.");
+						if (((Float)cantidad.getValue()) == 0) {
+							JOptionPane.showMessageDialog(null, "No puede vender 0 litros de combustible. Ingrese una cantidad válida.");
+						} 
+						else {
+
+							float total = Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) * (float) cantidad.getValue();
+
+							managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','VENTA','" + tipoDeGasto.getSelectedItem() + "','" + Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) + "', '" + cantidad.getValue() + "','" + detalleTextField.getText() + "','" + total + "','" + ((Precios.TYPE_PAGO) formaDePago.getSelectedItem()).ordinal() + "','" + ((Date) fechaVenta.getValue()).getTime() + "','" + ((Persona) destinatarios.getSelectedItem()).getId() + "');");
+
+							JOptionPane.showMessageDialog(null, "Se registro la venta.");
+						}
 					}
 				});
 				okButton.setActionCommand("OK");

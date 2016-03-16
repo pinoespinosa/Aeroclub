@@ -184,8 +184,12 @@ public class Compra_General extends JDialogExtended {
 				buttonPane.add(btnCrear);
 				btnCrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
-						Object element = tipoCompra.getSelectedItem();
+											
+						if (((int)cantidadSpinner.getValue())==0)
+						{
+							JOptionPane.showMessageDialog(null, "No puede comprar 0 elementos. Ingrese una cantidad válida de elementos comprados.");
+							return;
+						}
 						
 						if (tipoCompra.getSelectedItem()== null || tipoCompra.getSelectedItem().equals(""))
 							JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de compra o crear uno nuevo.");
@@ -194,9 +198,12 @@ public class Compra_General extends JDialogExtended {
 							float precioTotal = Float.parseFloat(totalSpinner.getValue()+"");
 							float cantidadTotal = Float.parseFloat(cantidadSpinner.getValue()+"");
 							
-							managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','COMPRA - " + tipoDeGasto.getSelectedItem() + "','" + tipoCompra.getSelectedItem() + "','" + precioTotal/cantidadTotal+ "', '" + cantidadSpinner.getValue() + "','" + detalleTextField.getText() + "','" + totalSpinner.getValue() + "','" + Precios.TYPE_PAGO.EFECTIVO.ordinal() + "','" + ((Date) fechaCompra.getValue()).getTime() + "','-1');");
+							boolean done = managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','COMPRA - " + tipoDeGasto.getSelectedItem() + "','" + tipoCompra.getSelectedItem() + "','" + precioTotal/cantidadTotal+ "', '" + cantidadSpinner.getValue() + "','" + detalleTextField.getText() + "','" + totalSpinner.getValue() + "','" + Precios.TYPE_PAGO.EFECTIVO.ordinal() + "','" + ((Date) fechaCompra.getValue()).getTime() + "','-1');");
 
-							JOptionPane.showMessageDialog(null, "Se registro la compra.");
+							if (done)
+								JOptionPane.showMessageDialog(null, "Se registro la compra.");
+							
+							updateUi();
 						}
 					}
 				});
@@ -241,8 +248,21 @@ public class Compra_General extends JDialogExtended {
 
 	@Override
 	public void updateUi() {
-		// TODO Auto-generated method stub
 		
+		String current = (String) tipoCompra.getSelectedItem();
+		
+		tipoCompra.removeAllItems();
+		List<Gasto> gastos = Gasto.loadFromDB();
+		Set<String> tiposGasto = new HashSet<String>(); 
+		for (Gasto gasto : gastos) {
+			if (gasto.getClaseDeGasto().startsWith("COMPRA"))
+				tiposGasto.add(gasto.getTipo());
+		}
+		for (String string : tiposGasto) {
+			tipoCompra.addItem(string);
+		}
+	
+		tipoCompra.setSelectedItem(current);
 	}
 	
 

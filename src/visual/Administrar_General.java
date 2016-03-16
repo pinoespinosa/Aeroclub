@@ -53,7 +53,7 @@ public class Administrar_General extends JDialogExtended {
 	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioCombustibleAeroclub, spinnerPrecioAceiteSocio, spinnerPrecioAceiteAeroclub, spinnerPrecioAvion, precioInstructorSpinner;
 	private boolean dirtyAvionCosto = false;
 	private boolean dirtyInstructorCosto = false;
-	private boolean updateAvion = false, updateInstructor=false;
+	private boolean updateAvion = false, updateInstructor = false;
 	private DefaultComboBoxModel<Avion> avionesPreciosList;
 	private JComboBox<Avion> avionComboBox;
 	private JButton btnGuardarCambios;
@@ -79,7 +79,7 @@ public class Administrar_General extends JDialogExtended {
 				}
 			}
 		});
-		setTitle("Nueva Compra");
+		setTitle("Administrar");
 		setBounds(100, 100, 593, 559);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{20, 444, 20, 0};
@@ -284,6 +284,7 @@ public class Administrar_General extends JDialogExtended {
 					}
 					{
 						spinnerPrecioAvion = new JSpinner();
+						spinnerPrecioAvion.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 						GridBagConstraints gbc_spinnerPrecioAvion = new GridBagConstraints();
 						gbc_spinnerPrecioAvion.fill = GridBagConstraints.HORIZONTAL;
 						gbc_spinnerPrecioAvion.insets = new Insets(0, 0, 5, 5);
@@ -302,11 +303,7 @@ public class Administrar_General extends JDialogExtended {
 						btnActualizarPrecio.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
-
-								Avion current = (Avion) avionesPreciosList.getSelectedItem();
-								managerDB.updateAsset(current);
-									updateUi();
-
+								saveChangesAviones();
 							}
 						});
 					}
@@ -334,9 +331,8 @@ public class Administrar_General extends JDialogExtended {
 								dialog.setAction(MainController.ACTION_REACTIVAR_PADRE);
 								dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 								dialog.setVisible(true);
-								Administrar_General.this.setEnabled(false);	
-								
-							
+								Administrar_General.this.setEnabled(false);
+
 							}
 						});
 						GridBagConstraints gbc_button = new GridBagConstraints();
@@ -362,13 +358,13 @@ public class Administrar_General extends JDialogExtended {
 					gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 					panel.setLayout(gbl_panel);
-					
-					final JSpinner fechaInspeccionSpinner= new JSpinner();
+
+					final JSpinner fechaInspeccionSpinner = new JSpinner();
 					final JComboBox<String> tipoInspeccionComboBox;
 					fechaInspeccionSpinner.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
-					fechaInspeccionSpinner.getModel().setValue( new Date(System.currentTimeMillis()) );
+					fechaInspeccionSpinner.getModel().setValue(new Date(System.currentTimeMillis()));
 					fechaInspeccionSpinner.setEditor(new JSpinner.DateEditor(fechaInspeccionSpinner, "dd/MM/yyyy"));
-					
+
 					{
 						JLabel lblFecha = new JLabel("Fecha");
 						GridBagConstraints gbc_lblFecha = new GridBagConstraints();
@@ -397,7 +393,7 @@ public class Administrar_General extends JDialogExtended {
 					}
 					{
 						avionInspeccionComboBox = new JComboBox<Avion>();
-						
+
 						for (Avion av : Avion.loadFromDB()) {
 							avionInspeccionComboBox.addItem(av);
 						}
@@ -419,7 +415,7 @@ public class Administrar_General extends JDialogExtended {
 					}
 					{
 						tipoInspeccionComboBox = new JComboBox<String>();
-						tipoInspeccionComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"25 horas", "50 horas", "100 horas"}));
+						tipoInspeccionComboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"25 horas", "50 horas", "100 horas"}));
 						GridBagConstraints gbc_comboBox = new GridBagConstraints();
 						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -431,9 +427,9 @@ public class Administrar_General extends JDialogExtended {
 						JButton btnRegistrarRevisin = new JButton("Registrar revisi\u00F3n");
 						btnRegistrarRevisin.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
-								
-								Avion selectedAvion =(Avion) avionInspeccionComboBox.getSelectedItem();
-								managerDB.executeScript_Void("INSERT INTO `"+MainController.getEsquema()+"`.`inspeccion` VALUES ('"+managerDB.getNextId("inspeccion")+"','"+selectedAvion.getId()+"','"+( (Date)fechaInspeccionSpinner.getValue()).getTime()+"','"+tipoInspeccionComboBox.getSelectedItem()+"') ");
+
+								Avion selectedAvion = (Avion) avionInspeccionComboBox.getSelectedItem();
+								managerDB.executeScript_Void("INSERT INTO `" + MainController.getEsquema() + "`.`inspeccion` VALUES ('" + managerDB.getNextId("inspeccion") + "','" + selectedAvion.getId() + "','" + ((Date) fechaInspeccionSpinner.getValue()).getTime() + "','" + tipoInspeccionComboBox.getSelectedItem() + "') ");
 								JOptionPane.showMessageDialog(null, "Se registro una nueva revisión");
 							}
 						});
@@ -481,7 +477,7 @@ public class Administrar_General extends JDialogExtended {
 					}
 					{
 						instructoresComboBox = new JComboBox<Instructor>();
-						
+
 						for (Instructor inst : Instructor.loadFromDB()) {
 							instructoresComboBox.addItem(inst);
 						}
@@ -502,9 +498,9 @@ public class Administrar_General extends JDialogExtended {
 						updatePrecioInstructores.add(label, gbc_label);
 					}
 					{
-						
+
 						precioInstructorSpinner = new JSpinner();
-						precioInstructorSpinner.setValue( ((Instructor)instructoresComboBox.getSelectedItem()).getPrecio());
+						precioInstructorSpinner.setValue(((Instructor) instructoresComboBox.getSelectedItem()).getPrecio());
 						GridBagConstraints gbc_spinner = new GridBagConstraints();
 						gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 						gbc_spinner.insets = new Insets(0, 0, 5, 5);
@@ -516,9 +512,9 @@ public class Administrar_General extends JDialogExtended {
 						JButton button = new JButton("Actualizar precio");
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
-								
+
 								saveChangesInstructores();
-							
+
 								updateInstructor = true;
 								precioInstructorSpinner.setValue(((Instructor) instructoresComboBox.getSelectedItem()).getPrecio());
 								updateInstructor = false;
@@ -587,15 +583,17 @@ public class Administrar_General extends JDialogExtended {
 		updateUi();
 
 		ChangeListener spinListenerAviones = new ChangeListener() {
-			// Este parametro update sirve para que cuando yo cambie el valor adrede no empiece un ciclo de evento de "me refresque" 
+			// Este parametro update sirve para que cuando yo cambie el valor
+			// adrede no empiece un ciclo de evento de "me refresque"
 			public void stateChanged(ChangeEvent e) {
 				if (!updateAvion)
 					dirtyAvionCosto = true;
 			}
 		};
-		
+
 		ChangeListener spinListenerInstructores = new ChangeListener() {
-			// Este parametro update sirve para que cuando yo cambie el valor adrede no empiece un ciclo de evento de "me refresque" 
+			// Este parametro update sirve para que cuando yo cambie el valor
+			// adrede no empiece un ciclo de evento de "me refresque"
 			public void stateChanged(ChangeEvent e) {
 				if (!updateInstructor)
 					dirtyInstructorCosto = true;
@@ -606,7 +604,7 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioAceiteAeroclub.addChangeListener(spinListenerAviones);
 		spinnerPrecioAceiteSocio.addChangeListener(spinListenerAviones);
 		spinnerPrecioAvion.addChangeListener(spinListenerAviones);
-		
+
 		precioInstructorSpinner.addChangeListener(spinListenerInstructores);
 
 		avionComboBox.addItemListener(new ItemListener() {
@@ -621,15 +619,16 @@ public class Administrar_General extends JDialogExtended {
 							saveChangesAviones();
 						}
 					}
-					updateAvion = true;
-					spinnerPrecioAvion.setValue(((Avion) avionesPreciosList.getSelectedItem()).getPrecio());
-					updateAvion = false;
-					dirtyAvionCosto = false;
-
+					else{
+						updateAvion = true;
+						spinnerPrecioAvion.setValue( ((Avion)event.getItem()).getPrecio());
+						updateAvion = false;
+					}
+						
 				}
 			}
 		});
-		
+
 		instructoresComboBox.addItemListener(new ItemListener() {
 
 			@Override
@@ -658,6 +657,10 @@ public class Administrar_General extends JDialogExtended {
 		current.setPrecio(Float.parseFloat(spinnerPrecioAvion.getValue() + ""));
 		managerDB.updateAsset(current);
 		JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
+		updateAvion = true;
+		spinnerPrecioAvion.setValue(((Avion) avionesPreciosList.getSelectedItem()).getPrecio());
+		updateAvion = false;
+		dirtyAvionCosto = false;
 	}
 
 	private void saveChangesInstructores() {
@@ -667,7 +670,7 @@ public class Administrar_General extends JDialogExtended {
 		JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
 
 	}
-	
+
 	private void saveChangesCombustiblesAceites() {
 		Precios.updatePrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB, spinnerPrecioCombustibleAeroclub.getValue() + "");
 		Precios.updatePrecio(Precios.COMBUSTIBLE_PRECIO_SOCIO, spinnerPrecioCombustibleSocio.getValue() + "");
@@ -684,23 +687,22 @@ public class Administrar_General extends JDialogExtended {
 		spinnerPrecioAceiteAeroclub.setValue(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB));
 		spinnerPrecioAceiteSocio.setValue(Precios.getPrecio(Precios.ACEITE_PRECIO_SOCIO));
 
+		updateAvion=true;
 		// Cargo los aviones en el combo
 		avionesPreciosList.removeAllElements();
 		avionInspeccionComboBox.removeAllItems();
+
 		List<Avion> aviones = Avion.loadFromDB();
 		for (Avion avion : aviones) {
 			avionesPreciosList.addElement(avion);
 			avionInspeccionComboBox.addItem(avion);
 		}
 
-		
-
-		
 		if (avionesPreciosList.getSize() > 0) {
 			avionesPreciosList.setSelectedItem(avionesPreciosList.getElementAt(0));
 			spinnerPrecioAvion.setValue(((Avion) avionesPreciosList.getSelectedItem()).getPrecio());
 		}
-
+		updateAvion=false;
 		dirtyAvionCosto = false;
 
 	}

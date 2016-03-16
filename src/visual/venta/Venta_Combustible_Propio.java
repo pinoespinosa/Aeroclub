@@ -69,7 +69,7 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 		}
 		{
 			tipoMovimiento = new JComboBox<String>();
-			tipoMovimiento.setModel(new DefaultComboBoxModel<String>(new String[] {"EXTRACCION", "DEPOSITO"}));
+			tipoMovimiento.setModel(new DefaultComboBoxModel(new String[] {" ", "EXTRACCION", "DEPOSITO"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -186,6 +186,13 @@ public class Venta_Combustible_Propio extends JDialogExtended {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 										
+						if (tipoMovimiento.getSelectedItem().equals(" "))
+						{
+							JOptionPane.showMessageDialog(null,"Debe seleccionar un tipo de movimiento válido. Seleccione EXTRACCION / DEPÓSITO");
+							return;
+				
+						}
+						
 						String movimiento ="";
 						if (tipoMovimiento.getSelectedItem().equals("EXTRACCION")){
 							

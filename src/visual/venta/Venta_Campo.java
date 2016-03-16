@@ -171,12 +171,15 @@ public class Venta_Campo extends JDialogExtended {
 				JButton okButton = new JButton("Registrar arrendamiento");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
+						if (((int)total.getValue()) == 0) {
+							JOptionPane.showMessageDialog(null, "No puede arrendar el campo por $0. Ingrese una cantidad válida.");
+						} 
+						else {
 						managerDB.executeScript_Void(
 								"INSERT INTO "+MainController.getEsquema()+".`gasto` VALUES ('" +managerDB.getNextId("gasto")+"','VENTA','"	+tipoDeGasto.getSelectedItem()+"','1', '1','" 
 											+detalleTextField.getText() +"','"+total.getValue()+"','"+((Precios.TYPE_PAGO)formaDePago.getSelectedItem()).ordinal()+"','"+((Date)fechaVenta.getValue()).getTime()+"','-1');");
 						
-						JOptionPane.showMessageDialog(null,"Se registro el arrendamiento.");
+						JOptionPane.showMessageDialog(null,"Se registro el arrendamiento.");}
 					}
 				});
 				okButton.setActionCommand("OK");

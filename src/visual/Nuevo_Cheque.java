@@ -8,6 +8,8 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
@@ -39,9 +42,9 @@ public class Nuevo_Cheque extends JDialogExtended {
 	private JPanel panel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblVencimiento;
-	private JTextField vencimientoCheque;
 	private JSpinner montoSpinner;
 	private JSpinner numeroCheque;
+	private JSpinner vencimientoSpinner;
 
 	/**
 	 * Create the dialog.
@@ -169,14 +172,15 @@ public class Nuevo_Cheque extends JDialogExtended {
 				contentPanel.add(lblVencimiento, gbc_lblVencimiento);
 			}
 			{
-				vencimientoCheque = new JTextField();
-				GridBagConstraints gbc_vencimientoCheque = new GridBagConstraints();
-				gbc_vencimientoCheque.fill = GridBagConstraints.HORIZONTAL;
-				gbc_vencimientoCheque.insets = new Insets(0, 0, 0, 5);
-				gbc_vencimientoCheque.gridx = 2;
-				gbc_vencimientoCheque.gridy = 4;
-				contentPanel.add(vencimientoCheque, gbc_vencimientoCheque);
-				vencimientoCheque.setColumns(10);
+				vencimientoSpinner = new JSpinner();
+				vencimientoSpinner.setModel(new SpinnerDateModel(new Date(1458010800000L), null, null, Calendar.DAY_OF_YEAR));
+				GridBagConstraints gbc_spinner = new GridBagConstraints();
+				gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
+				gbc_spinner.insets = new Insets(0, 0, 0, 5);
+				gbc_spinner.gridx = 2;
+				gbc_spinner.gridy = 4;
+				contentPanel.add(vencimientoSpinner, gbc_spinner);
+				vencimientoSpinner.setEditor(new JSpinner.DateEditor(vencimientoSpinner, "dd/MM/yyyy"));
 			}
 			{
 				chequeButton = new JButton("Crear Cheque");
@@ -189,7 +193,7 @@ public class Nuevo_Cheque extends JDialogExtended {
 				chequeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if (isValidCheque()){	
-							managerDB.executeScript_Void( " INSERT INTO `"+MainController.getEsquema()+"`.`cheque` VALUES ('" + managerDB.getNextId("cheque") + "','" + numeroCheque.getValue() + "','" + bancoCheque.getText() + "','" + montoSpinner.getValue() + "','" + vencimientoCheque.getText() + "');");
+							managerDB.executeScript_Void( " INSERT INTO `"+MainController.getEsquema()+"`.`cheque` VALUES ('" + managerDB.getNextId("cheque") + "','" + numeroCheque.getValue() + "','" + bancoCheque.getText() + "','" + montoSpinner.getValue() + "','" + ((Date)vencimientoSpinner.getValue()).getTime() + "');");
 							JOptionPane.showMessageDialog(null, "Se han registrados los datos del cheque.");
 							Nuevo_Cheque.this.dispose();
 						}
@@ -205,18 +209,18 @@ public class Nuevo_Cheque extends JDialogExtended {
 	}
 
 	private boolean isValidCheque(){
-		return !vencimientoCheque.getText().isEmpty() && !bancoCheque.getText().isEmpty();	
+		return !bancoCheque.getText().isEmpty();	
 	}
 	
 	@PostConstruct
 	private void inic() {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		
 
 	}
 
 	@Override
 	public void updateUi() {
-		// TODO Auto-generated method stub
-
+	
 	}
 }

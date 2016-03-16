@@ -23,9 +23,9 @@ import javax.swing.border.EmptyBorder;
 
 import base_datos.managerDB;
 import data.Persona;
+import data.Precios;
 import extended.JDialogExtended;
 import extended.MainController;
-
 
 public class Venta_Deposito_Dinero extends JDialogExtended {
 
@@ -34,15 +34,16 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JComboBox<Persona> destinatarios; 
-	private JSpinner total, fechaVenta; 
+	private JComboBox<Persona> destinatarios;
+	private JSpinner total, fechaVenta;
 	/**
 	 * Create the dialog.
-	 * @param parent 
+	 * 
+	 * @param parent
 	 */
 	public Venta_Deposito_Dinero(Window parent) {
 		super(parent);
-		setTitle("Venta de Combustible/Aceite");
+		setTitle("Nuevo Dep\u00F3sito de Dinero");
 		setBounds(100, 100, 469, 307);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,8 +65,6 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 		{
 			fechaVenta = new JSpinner();
 
-			
-			
 			GridBagConstraints gbc_spinner = new GridBagConstraints();
 			gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 			gbc_spinner.gridwidth = 2;
@@ -102,7 +101,7 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 		}
 		{
 			total = new JSpinner();
-			total.setModel(new SpinnerNumberModel(new Float(1), new Float(1), null, new Float(1)));
+			total.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
 			GridBagConstraints gbc_total = new GridBagConstraints();
 			gbc_total.gridwidth = 2;
 			gbc_total.fill = GridBagConstraints.HORIZONTAL;
@@ -112,14 +111,6 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 			contentPanel.add(total, gbc_total);
 		}
 		{
-			JLabel lblNewLabel = new JLabel("Total: $");
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-			gbc_lblNewLabel.gridx = 2;
-			gbc_lblNewLabel.gridy = 5;
-			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
-		}
-		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -127,12 +118,15 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 				JButton okButton = new JButton("Registrar venta");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
-						
-						managerDB.executeScript_Void(
-								"INSERT INTO "+MainController.getEsquema()+".`gasto` VALUES ('" +managerDB.getNextId("gasto")+"','DEPOSITO','DINERO','-1','-1','','"+total.getValue()+"','true','"+((Date)fechaVenta.getValue()).getTime()+"','"+((Persona) destinatarios.getSelectedItem()).getId()+"');");
-						
-						JOptionPane.showMessageDialog(null,"Se registro la venta.");
+
+						if ((Float) total.getValue() == 0)
+							JOptionPane.showMessageDialog(null, "Ingrese un monto mayor a 0.");
+						else 
+						{
+							boolean succefull =managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','DEPOSITO','DINERO','-1','-1','','" + total.getValue() + "','"+Precios.TYPE_PAGO.EFECTIVO.ordinal()+"','" + ((Date) fechaVenta.getValue()).getTime() + "','" + ((Persona) destinatarios.getSelectedItem()).getId() + "');");
+							if (succefull)						
+								JOptionPane.showMessageDialog(null, "Se registro la venta.");
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -153,23 +147,22 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 		inic();
 	}
 
-	
-	private void inic(){
-		
-		List<Persona> personasList= Persona.loadFromDB(); 
+	private void inic() {
+
+		List<Persona> personasList = Persona.loadFromDB();
 		for (Persona persona : personasList) {
 			destinatarios.addItem(persona);
 		}
-		
+
 		fechaVenta.setModel(new SpinnerDateModel(new Date(1447902000000L), null, null, Calendar.MINUTE));
-		fechaVenta.getModel().setValue( new Date(System.currentTimeMillis()) );
+		fechaVenta.getModel().setValue(new Date(System.currentTimeMillis()));
 		fechaVenta.setEditor(new JSpinner.DateEditor(fechaVenta, "dd/MM/yyyy"));
 	}
-	
+
 	@Override
 	public void updateUi() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
