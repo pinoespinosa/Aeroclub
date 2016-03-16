@@ -110,18 +110,22 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		lblMarconi.setFont(new Font("Calibri", Font.ITALIC, 18));
 
 		JLabel lblTelfono = new JLabel("Tel\u00E9fono: (0249) 442-2671 / 442-4228");
+		lblTelfono.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTelfono.setBackground(Color.WHITE);
 		lblTelfono.setFont(new Font("Calibri", Font.ITALIC, 18));
 		GridBagConstraints gbc_lblTelfono = new GridBagConstraints();
+		gbc_lblTelfono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblTelfono.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTelfono.gridx = 0;
 		gbc_lblTelfono.gridy = 2;
 		panel.add(lblTelfono, gbc_lblTelfono);
 		
 		JLabel lblAeroclubtandilcomar = new JLabel("aeroclubtandil.com.ar");
+		lblAeroclubtandilcomar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAeroclubtandilcomar.setFont(new Font("Calibri", Font.ITALIC, 18));
 		lblAeroclubtandilcomar.setBackground(Color.WHITE);
 		GridBagConstraints gbc_lblAeroclubtandilcomar = new GridBagConstraints();
+		gbc_lblAeroclubtandilcomar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblAeroclubtandilcomar.insets = new Insets(0, 0, 5, 0);
 		gbc_lblAeroclubtandilcomar.gridx = 0;
 		gbc_lblAeroclubtandilcomar.gridy = 3;
@@ -385,7 +389,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 																		gbc_panel_11.gridy = 8;
 																		panel_2.add(panel_11, gbc_panel_11);
 																		
-																		JLabel lblMonto = new JLabel("Monto:");
+																		JLabel lblMonto = new JLabel("Monto: $");
 																		lblMonto.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 25));
 																		lblMonto.setBackground(Color.WHITE);
 																		panel_11.add(lblMonto);
