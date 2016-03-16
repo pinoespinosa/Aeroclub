@@ -256,12 +256,14 @@ public class Informes extends JDialogExtended {
 
 									List<String> columnas = new ArrayList<String>();
 
-									String columnNames[] = {"idAvion", "tipoInspeccion", "Horas_voladas_desde_la_ultima_revision"};
+									String columnNames[] = {"idAvion", "tipoInspeccion", "fecha", "Horas_voladas_desde_la_ultima_revision"};
 
+									SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/YYYY");
+									
 									List<String> campos = Arrays.asList(columnNames);
 									List<List<String>> filtrado = managerDB.executeScript_Query(
 											
-											"select idAvion, tipoInspeccion, max(horasDesdeRevision) as Horas_voladas_desde_la_ultima_revision " +
+											"select idAvion, tipoInspeccion, fecha, max(horasDesdeRevision) as Horas_voladas_desde_la_ultima_revision " +
 											"from " +
 											"(" +
 											"(" +
@@ -284,6 +286,9 @@ public class Informes extends JDialogExtended {
 									if (filtrado.isEmpty()) {
 										JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" + inicioMes.getSelectedItem() + "/" + inicioAnio.getSelectedItem() + " a 01/" + finMes.getSelectedItem() + "/" + finAnio.getSelectedItem());
 										return;
+									}
+									for (List<String> list : filtrado) {
+										list.set(2, formatDay.format(new Date(Long.parseLong(list.get(2)))));
 									}
 
 									// Create columns names String
