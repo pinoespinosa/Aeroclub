@@ -500,7 +500,8 @@ public class Administrar_General extends JDialogExtended {
 					{
 
 						precioInstructorSpinner = new JSpinner();
-						precioInstructorSpinner.setValue(((Instructor) instructoresComboBox.getSelectedItem()).getPrecio());
+						if (instructoresComboBox.getSelectedItem()!=null)
+							precioInstructorSpinner.setValue(((Instructor) instructoresComboBox.getSelectedItem()).getPrecio());
 						GridBagConstraints gbc_spinner = new GridBagConstraints();
 						gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 						gbc_spinner.insets = new Insets(0, 0, 5, 5);

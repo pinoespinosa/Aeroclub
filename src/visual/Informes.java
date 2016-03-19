@@ -516,6 +516,8 @@ public class Informes extends JDialogExtended {
 										list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
 										total -= Float.parseFloat(list.get(2));
 										total += Float.parseFloat(list.get(3));
+										list.set(2, Math.round(Float.parseFloat(list.get(2)))+"");
+										list.set(3, Math.round(Float.parseFloat(list.get(3)))+"");
 									}
 
 									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Vencimiento del psicofísico", "Monto actual: $" + total));
