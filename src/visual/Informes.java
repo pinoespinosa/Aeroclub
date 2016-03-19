@@ -496,9 +496,9 @@ public class Informes extends JDialogExtended {
 								public void actionPerformed(ActionEvent arg0) {
 
 									// Create columns names
-									String columnNames[] = {"fecha", "total", "detalle"};
+									String columnNames[] = {"fecha","detalle", "A_pagar", "A_favor"};
 
-									String script = "SELECT fecha, total, detalle FROM aviones.cuenta_corriente WHERE idPersona like'" + ((Persona) personasCuentaCorriente.getSelectedItem()).getId() + "';";
+									String script = "SELECT fecha,detalle, A_pagar, A_favor FROM aviones.cuenta_corriente WHERE idPersona like'" + ((Persona) personasCuentaCorriente.getSelectedItem()).getId() + "';";
 
 									List<String> campos = Arrays.asList(columnNames);
 
@@ -514,10 +514,11 @@ public class Informes extends JDialogExtended {
 
 									for (List<String> list : datos) {
 										list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
-										total += Float.parseFloat(list.get(1));
+										total -= Float.parseFloat(list.get(2));
+										total += Float.parseFloat(list.get(3));
 									}
 
-									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Vencimiento del psicofísico", "Monto actual: " + total));
+									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Vencimiento del psicofísico", "Monto actual: $" + total));
 								}
 							});
 							GridBagConstraints gbc_btnVerCuentasCorrientes = new GridBagConstraints();

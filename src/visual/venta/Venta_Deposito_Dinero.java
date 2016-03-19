@@ -115,7 +115,7 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Registrar venta");
+				JButton okButton = new JButton("Registrar depósito");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -123,9 +123,9 @@ public class Venta_Deposito_Dinero extends JDialogExtended {
 							JOptionPane.showMessageDialog(null, "Ingrese un monto mayor a 0.");
 						else 
 						{
-							boolean succefull =managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','DEPOSITO','DINERO','-1','-1','','" + total.getValue() + "','"+Precios.TYPE_PAGO.EFECTIVO.ordinal()+"','" + ((Date) fechaVenta.getValue()).getTime() + "','" + ((Persona) destinatarios.getSelectedItem()).getId() + "');");
+							boolean succefull =managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','DEPOSITO','DINERO','-1','-1','','" + total.getValue() + "','"+Precios.TYPE_PAGO.CUENTA_CORRIENTE.ordinal()+"','" + ((Date) fechaVenta.getValue()).getTime() + "','" + ((Persona) destinatarios.getSelectedItem()).getId() + "');");
 							if (succefull)						
-								JOptionPane.showMessageDialog(null, "Se registro la venta.");
+								JOptionPane.showMessageDialog(null, "Se registro el depósito en la cuenta corriente.");
 						}
 					}
 				});
