@@ -573,11 +573,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			}
 
 			// Cargo los pilotos en el combo
-			pilotosList.removeAllElements();
-			List<Piloto> pilotos = Piloto.loadFromDB();
-			for (Piloto piloto : pilotos) {
-				pilotosList.addElement(piloto);
-			}
+			reloadPilotos();
 
 			// Cargo los instructores en el combo
 			instructorList.removeAllElements();
@@ -799,6 +795,14 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		costoVuelo.setText(valor + "");
 	}
 
+	public void reloadPilotos(){
+		pilotosList.removeAllElements();
+		List<Piloto> pilotos = Piloto.loadFromDB();
+		for (Piloto piloto : pilotos) {
+			pilotosList.addElement(piloto);
+		}
+	}
+	
 	public void validateHorasPrevendidas(){
 		// Valido que se el pago de las horas prevendidas sea válido
 		if (avionComboBox.getSelectedItem() != null && pilotoComboBox.getSelectedItem() != null) {
@@ -844,6 +848,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				
 		updatePrecio();
 		validateHorasPrevendidas();
+		reloadPilotos();
 
 		stateRefreshUpdate = false;
 	}
