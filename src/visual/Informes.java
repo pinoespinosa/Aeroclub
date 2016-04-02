@@ -178,7 +178,7 @@ public class Informes extends JDialogExtended {
 				gbc_inicioAnio.gridx = 3;
 				gbc_inicioAnio.gridy = 0;
 				panel.add(inicioAnio, gbc_inicioAnio);
-				inicioAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
+				inicioAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2010","2011","2012","2013","2014","2015","2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 			}
 			{
 				JLabel lblHasta = new JLabel("hasta");
@@ -216,7 +216,7 @@ public class Informes extends JDialogExtended {
 				gbc_finAnio.gridx = 7;
 				gbc_finAnio.gridy = 0;
 				panel.add(finAnio, gbc_finAnio);
-				finAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
+				finAnio.setModel(new DefaultComboBoxModel<String>(new String[]{"2010","2011","2012","2013","2014","2015","2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 			}
 			{
 				JButton btnHorasDeVuelo = new JButton("Horas de vuelo simples");
@@ -259,30 +259,13 @@ public class Informes extends JDialogExtended {
 									String columnNames[] = {"idAvion", "tipoInspeccion", "fecha", "Horas_voladas_desde_la_ultima_revision"};
 
 									SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/YYYY");
-									
+
 									List<String> campos = Arrays.asList(columnNames);
 									List<List<String>> filtrado = managerDB.executeScript_Query(
-											
-											"select idAvion, tipoInspeccion, fecha, max(horasDesdeRevision) as Horas_voladas_desde_la_ultima_revision " +
-											"from " +
-											"(" +
-											"(" +
-											"SELECT ins.idAvion, tipoInspeccion, max(fechaInspeccion) as fecha, round(sum((vue.horaFinal-vue.horaInicio)/3600000)) as horasDesdeRevision, count(*) " +
-											"FROM aviones.inspeccion as ins left join aviones.vuelo as vue on (vue.idAvion=ins.idAvion) " +
-											"where fechaInspeccion < vue.horaInicio " +
-											"group by tipoInspeccion, idAvion " +
-											"order by idAvion" +
-											")" +
-											"union" +
-											"(" +
-											"SELECT ins.idAvion, tipoInspeccion, max(fechaInspeccion) as fecha, '0', count(*) " +
-											"FROM aviones.inspeccion as ins left join aviones.vuelo as vue on (vue.idAvion=ins.idAvion) " +
-											"group by tipoInspeccion, idAvion " +
-											"order by idAvion)" +
-											") as pino " +
-											"group by idAvion, tipoInspeccion", campos);
 
-	
+									"select idAvion, tipoInspeccion, fecha, max(horasDesdeRevision) as Horas_voladas_desde_la_ultima_revision " + "from " + "(" + "(" + "SELECT ins.idAvion, tipoInspeccion, max(fechaInspeccion) as fecha, round(sum((vue.horaFinal-vue.horaInicio)/3600000)) as horasDesdeRevision, count(*) " + "FROM " + MainController.getEsquema() + ".inspeccion as ins left join " + MainController.getEsquema() + ".vuelo as vue on (vue.idAvion=ins.idAvion) " + "where fechaInspeccion < vue.horaInicio " + "group by tipoInspeccion, idAvion " + "order by idAvion" + ")" + "union" + "("
+											+ "SELECT ins.idAvion, tipoInspeccion, max(fechaInspeccion) as fecha, '0', count(*) " + "FROM " + MainController.getEsquema() + ".inspeccion as ins left join " + MainController.getEsquema() + ".vuelo as vue on (vue.idAvion=ins.idAvion) " + "group by tipoInspeccion, idAvion " + "order by idAvion)" + ") as pino " + "group by idAvion, tipoInspeccion", campos);
+
 									if (filtrado.isEmpty()) {
 										JOptionPane.showMessageDialog(null, "No se encontraron vuelos en el intervalo del " + "01/" + inicioMes.getSelectedItem() + "/" + inicioAnio.getSelectedItem() + " a 01/" + finMes.getSelectedItem() + "/" + finAnio.getSelectedItem());
 										return;
@@ -343,7 +326,7 @@ public class Informes extends JDialogExtended {
 							}
 							{
 								inicioAnioComboBox = new JComboBox<String>();
-								inicioAnioComboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
+								inicioAnioComboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"2010","2011","2012","2013","2014","2015","2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 								GridBagConstraints gbc_inicioAnioComboBox = new GridBagConstraints();
 								gbc_inicioAnioComboBox.insets = new Insets(0, 0, 0, 5);
 								gbc_inicioAnioComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -381,7 +364,7 @@ public class Informes extends JDialogExtended {
 							}
 							{
 								finAnioComboBox = new JComboBox<String>();
-								finAnioComboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
+								finAnioComboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"2010","2011","2012","2013","2014","2015","2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 								GridBagConstraints gbc_finMesComboBox = new GridBagConstraints();
 								gbc_finMesComboBox.insets = new Insets(0, 0, 0, 5);
 								gbc_finMesComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -496,9 +479,9 @@ public class Informes extends JDialogExtended {
 								public void actionPerformed(ActionEvent arg0) {
 
 									// Create columns names
-									String columnNames[] = {"fecha","detalle", "A_pagar", "A_favor"};
+									String columnNames[] = {"fecha", "detalle", "A_pagar", "A_favor"};
 
-									String script = "SELECT fecha,detalle, A_pagar, A_favor FROM aviones.cuenta_corriente WHERE idPersona like'" + ((Persona) personasCuentaCorriente.getSelectedItem()).getId() + "';";
+									String script = "SELECT fecha,detalle, A_pagar, A_favor FROM " + MainController.getEsquema() + ".cuenta_corriente WHERE idPersona like'" + ((Persona) personasCuentaCorriente.getSelectedItem()).getId() + "';";
 
 									List<String> campos = Arrays.asList(columnNames);
 
@@ -508,7 +491,7 @@ public class Informes extends JDialogExtended {
 										JOptionPane.showMessageDialog(null, "No se registran movimientos.");
 										return;
 									}
-									SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd ");
+									SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd HH:mm");
 
 									float total = 0;
 
@@ -516,8 +499,8 @@ public class Informes extends JDialogExtended {
 										list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
 										total -= Float.parseFloat(list.get(2));
 										total += Float.parseFloat(list.get(3));
-										list.set(2, Math.round(Float.parseFloat(list.get(2)))+"");
-										list.set(3, Math.round(Float.parseFloat(list.get(3)))+"");
+										list.set(2, Math.round(Float.parseFloat(list.get(2))) + "");
+										list.set(3, Math.round(Float.parseFloat(list.get(3))) + "");
 									}
 
 									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Vencimiento del psicofísico", "Monto actual: $" + total));
@@ -657,7 +640,15 @@ public class Informes extends JDialogExtended {
 		Hashtable<String, Integer> horasVoladas = new Hashtable<String, Integer>();
 
 		for (Vuelo vuelo : vuelos) {
-			if (vuelo.getHoraInicio() > fechaInicioSimple.getTime() && vuelo.getHoraFinal() < fechaFinalSimple.getTime() && (id.equals("-1") || id.equals(vuelo.getIdAvion() + ""))) {
+			
+		boolean aa = 	vuelo.getHoraInicio() > fechaInicioSimple.getTime();
+		boolean bb =    vuelo.getHoraFinal() < fechaFinalSimple.getTime();
+			
+			if (	aa && bb
+					 && 
+					(id.equals("-1") || id.equals(vuelo.getIdAvion() + "")) && 
+					vuelo.getHoraFinal()!=0) 
+			{
 				if (!horasVoladas.containsKey(vuelo.getIdAvion() + ""))
 					horasVoladas.put(vuelo.getIdAvion() + "", 0);
 

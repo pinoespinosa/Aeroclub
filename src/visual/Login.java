@@ -83,7 +83,6 @@ public class Login extends JDialogExtended {
 		}
 		{
 			dniTextField = new JTextField();
-			dniTextField.setText("36442114");
 
 			GridBagConstraints gbc_dniTextField = new GridBagConstraints();
 			gbc_dniTextField.insets = new Insets(0, 0, 5, 5);
@@ -104,7 +103,6 @@ public class Login extends JDialogExtended {
 		}
 		{
 			passwordField = new JPasswordField();
-			passwordField.setText("1028");
 			GridBagConstraints gbc_passwordField = new GridBagConstraints();
 			gbc_passwordField.insets = new Insets(0, 0, 5, 5);
 			gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;

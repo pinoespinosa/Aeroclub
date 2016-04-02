@@ -7,7 +7,7 @@ import extended.MainController;
 
 public class Precios {
 	
-	public enum TYPE_PAGO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE, UNKNOWN }
+	public enum TYPE_PAGO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE } // UNKNOWN
 	public enum TYPE_PAGO_VUELO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE, HORAS_ADELANTADAS }
 	
 	
