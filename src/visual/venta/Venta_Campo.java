@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -158,11 +157,7 @@ public class Venta_Campo extends JDialogExtended {
 			contentPanel.add(detalleTextField, gbc_detalleTextField);
 			detalleTextField.setColumns(10);
 		}
-		{
-			{
-				ButtonGroup botones = new ButtonGroup();
-			}
-		}
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

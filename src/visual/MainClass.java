@@ -144,6 +144,8 @@ public class MainClass extends JDialogExtended{
 	private void initialize(String perfil) {
 		frame = new JFrame(){
 
+			private static final long serialVersionUID = -2459113721298506488L;
+
 			@Override
 			public void setEnabled(boolean arg0) {
 				super.setEnabled(arg0);

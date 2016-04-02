@@ -253,9 +253,7 @@ public class Informes extends JDialogExtended {
 							JButton btnVerUltimasRevisiones = new JButton("Ver ultimas revisiones");
 							btnVerUltimasRevisiones.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent arg0) {
-
-									List<String> columnas = new ArrayList<String>();
-
+							
 									String columnNames[] = {"idAvion", "tipoInspeccion", "fecha", "Horas_voladas_desde_la_ultima_revision"};
 
 									SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/YYYY");
@@ -274,10 +272,7 @@ public class Informes extends JDialogExtended {
 										list.set(2, formatDay.format(new Date(Long.parseLong(list.get(2)))));
 									}
 
-									// Create columns names String
-									String[] columnNmes = {"Avion", "Tiempo de vuelo"};
-									List<String> camos = Arrays.asList(columnNames);
-
+		
 									Informes_Table dialog = new Informes_Table(parent, campos, filtrado, "Horas de vuelo desde " + "01/" + inicioMes.getSelectedItem() + "/" + inicioAnio.getSelectedItem() + " a 01/" + finMes.getSelectedItem() + "/" + finAnio.getSelectedItem(), "");
 									dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 									dialog.setVisible(true);
