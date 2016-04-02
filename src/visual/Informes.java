@@ -58,7 +58,7 @@ public class Informes extends JDialogExtended {
 	public Informes(final JFrame parent) {
 		super(parent);
 		setTitle("Mostrar informes");
-		setBounds(100, 100, 645, 412);
+		setBounds(100, 100, 645, 439);
 		getContentPane().setLayout(new BorderLayout());
 
 		addWindowListener(new WindowAdapter() {
@@ -460,14 +460,14 @@ public class Informes extends JDialogExtended {
 						contentPanel.add(panel_1, gbc_panel_1);
 						GridBagLayout gbl_panel_1 = new GridBagLayout();
 						gbl_panel_1.columnWidths = new int[]{0, 200, 0};
-						gbl_panel_1.rowHeights = new int[]{0, 0};
+						gbl_panel_1.rowHeights = new int[]{0, 0, 0};
 						gbl_panel_1.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-						gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+						gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 						panel_1.setLayout(gbl_panel_1);
 						{
 							personasCuentaCorriente = new JComboBox<Persona>();
 							GridBagConstraints gbc_comboBox = new GridBagConstraints();
-							gbc_comboBox.insets = new Insets(0, 0, 0, 5);
+							gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 							gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 							gbc_comboBox.gridx = 0;
 							gbc_comboBox.gridy = 0;
@@ -503,15 +503,58 @@ public class Informes extends JDialogExtended {
 										list.set(3, Math.round(Float.parseFloat(list.get(3))) + "");
 									}
 
-									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Vencimiento del psicofísico", "Monto actual: $" + total));
+									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Detalle de cuenta corriente", "Monto actual: $" + total));
 								}
 							});
 							GridBagConstraints gbc_btnVerCuentasCorrientes = new GridBagConstraints();
+							gbc_btnVerCuentasCorrientes.insets = new Insets(0, 0, 5, 0);
 							gbc_btnVerCuentasCorrientes.fill = GridBagConstraints.HORIZONTAL;
 							gbc_btnVerCuentasCorrientes.gridx = 1;
 							gbc_btnVerCuentasCorrientes.gridy = 0;
 							panel_1.add(btnVerCuentasCorrientes, gbc_btnVerCuentasCorrientes);
 						}
+						{
+							JButton btnDineroEnCaja = new JButton("Dinero en caja");
+							btnDineroEnCaja.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent arg0) {
+									
+
+									// Create columns names
+									String columnNames[] = {"fecha", "detalle", "Egreso_de_caja", "Ingreso_en_caja"};
+
+									String script = "SELECT * FROM " + MainController.getEsquema() + ".caja;";
+
+									List<String> campos = Arrays.asList(columnNames);
+
+									List<List<String>> datos = managerDB.executeScript_Query(script, campos);
+
+									if (datos.isEmpty()) {
+										JOptionPane.showMessageDialog(null, "No se registran movimientos.");
+										return;
+									}
+									SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd HH:mm");
+
+									float total = 0;
+
+									for (List<String> list : datos) {
+										list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
+										total -= Float.parseFloat(list.get(2));
+										total += Float.parseFloat(list.get(3));
+										list.set(2, Math.round(Float.parseFloat(list.get(2))) + "");
+										list.set(3, Math.round(Float.parseFloat(list.get(3))) + "");
+									}
+
+									MainController.sleepActualAndCreateNew(Informes.this, new Informes_Table(Informes.this, campos, datos, "Detalle de cuenta corriente", "Monto actual: $" + total));
+
+								}
+							});
+							GridBagConstraints gbc_btnDineroEnCaja = new GridBagConstraints();
+							gbc_btnDineroEnCaja.fill = GridBagConstraints.HORIZONTAL;
+							gbc_btnDineroEnCaja.gridx = 1;
+							gbc_btnDineroEnCaja.gridy = 1;
+							panel_1.add(btnDineroEnCaja, gbc_btnDineroEnCaja);
+						}
+						
 					}
 					btnNewButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
