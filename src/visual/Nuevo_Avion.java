@@ -169,7 +169,7 @@ public class Nuevo_Avion extends JDialogExtended {
 				int id = managerDB.getNextId("avion");
 				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`avion` VALUES ('"+ id +"','"+nombreAvionTextField.getText()+"','"+spinnerPrecio.getValue()+"" +"');");
 				managerDB.executeScript_Void(" INSERT INTO `"+MainController.getEsquema()+"`.`precios` (`id`, `precio`) VALUES ('"+id+"-Bautismo', '"+precio/2+"');");
-				JOptionPane.showMessageDialog(null, "Se registró el nuevo avion. El precio del vuelo de bautismo se fijo en " + precio/2);	
+				JOptionPane.showMessageDialog(null, "Se registró el nuevo avion. El precio del vuelo de bautismo se fijo en $" + precio/2);	
 				Nuevo_Avion.this.dispose();	
 			}
 		});
