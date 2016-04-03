@@ -13,7 +13,7 @@ import extended.MainController;
 public class Vuelo implements Comparable<Vuelo> {
 
 	public enum TipoVuelo {
-		Diurno, Nocturno
+		Diurno, Nocturno, Bautismo
 	}
 
 	private int id;

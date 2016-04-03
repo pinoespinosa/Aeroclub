@@ -59,7 +59,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 	private DefaultComboBoxModel<Avion> avionesList;
 	private DefaultComboBoxModel<Instructor> instructorList;
-	private DefaultComboBoxModel<Piloto> pilotosList;
+//	private DefaultComboBoxModel<Piloto> pilotosList;
 	private JSpinner aceiteSpinner, combustibleSpinner;
 	private JSpinner inicioSpinner, finalizacionSpinner;
 	private Vuelo current;
@@ -142,8 +142,6 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			}
 			{
 				pilotoComboBox = new JComboBox<Piloto>();
-				pilotosList = new DefaultComboBoxModel<Piloto>();
-				pilotoComboBox.setModel(pilotosList);
 				GridBagConstraints gbc_pilotoComboBox = new GridBagConstraints();
 				gbc_pilotoComboBox.gridwidth = 2;
 				gbc_pilotoComboBox.fill = GridBagConstraints.BOTH;
@@ -717,7 +715,12 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 		ordenDeVuelo.setText("Orden de vuelo: " + aux.getId());
 
-		pilotoComboBox.setSelectedIndex(pilotosList.getIndexOf(new Piloto(aux.getIdPiloto())));
+
+		
+		for (int i = 0; i < pilotoComboBox.getModel().getSize(); i++) {
+			if (pilotoComboBox.getItemAt(i).getId() == aux.getIdPiloto())
+				pilotoComboBox.setSelectedIndex(i);
+		}
 
 		pagoEfectivo.setSelected(aux.getFormaDePago() == TYPE_PAGO_VUELO.EFECTIVO.ordinal());
 		pagoCuentaCorriente.setSelected(aux.getFormaDePago() == TYPE_PAGO_VUELO.CUENTA_CORRIENTE.ordinal());
@@ -756,7 +759,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				Float.parseFloat(aceiteSpinner.getValue() + ""), 
 				Float.parseFloat(combustibleSpinner.getValue() + ""), 
 				((Avion) avionesList.getSelectedItem()).getId(), 
-				((Piloto) pilotosList.getSelectedItem()).getId(), 
+				((Piloto) pilotoComboBox.getSelectedItem()).getId(), 
 				((Instructor) instructorList.getSelectedItem()).getId(), 
 				Float.parseFloat(costoVuelo.getText()), 
 				Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), 
@@ -784,11 +787,18 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 		float valorAvion = (minutosVuelo / 60) * ((Avion) avionesList.getSelectedItem()).getPrecio();
 
+		
+		
 		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Nocturno + ""))
 			valorAvion = (float) (valorAvion * 1.1);
-		float valorPiloto = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
-		float valor = valorAvion + valorPiloto;
+				
+		float valorInstructor = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
+		
+		float valor = valorAvion + valorInstructor;
 
+		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Bautismo + ""))
+			valor = Precios.getPrecio(((Avion) avionesList.getSelectedItem()).getId()+"-Bautismo");
+		
 		valor = Math.round(valor * 100);
 		valor = valor / 100;
 
@@ -796,10 +806,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	}
 
 	public void reloadPilotos(){
-		pilotosList.removeAllElements();
+		pilotoComboBox.removeAllItems();
 		List<Piloto> pilotos = Piloto.loadFromDB();
 		for (Piloto piloto : pilotos) {
-			pilotosList.addElement(piloto);
+			pilotoComboBox.addItem(piloto);
 		}
 	}
 	
@@ -848,7 +858,6 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				
 		updatePrecio();
 		validateHorasPrevendidas();
-		reloadPilotos();
 
 		stateRefreshUpdate = false;
 	}

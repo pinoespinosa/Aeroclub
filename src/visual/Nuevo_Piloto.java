@@ -27,6 +27,7 @@ import javax.swing.JTextPane;
 import javax.swing.SpinnerDateModel;
 import javax.swing.border.EmptyBorder;
 
+import visual.venta.Venta_Vuelo_Nuevo_Editar_Cerrar;
 import base_datos.managerDB;
 import data.Persona;
 import data.Piloto;
@@ -50,7 +51,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 	private JLabel lblNombre, lblApellido, lblFechaNaciemiento, lblFechaVencimientoLicencia;
 	private JSpinner nacimientoSpinner;
 	private JButton okButton;
-
+	private Venta_Vuelo_Nuevo_Editar_Cerrar parrent;
 	/**
 	 * Create the dialog.
 	 * 
@@ -59,7 +60,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 	public Nuevo_Piloto(Window parent) {
 		super(parent);
 		setTitle("Nuevo Piloto");
-
+		parrent=(Venta_Vuelo_Nuevo_Editar_Cerrar) parent;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -244,6 +245,8 @@ public class Nuevo_Piloto extends JDialogExtended {
 					current.setFecha_licencia(((Date) vencimientoPsicoFisicoSpinner.getValue()).getTime());
 					managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`piloto` SET `id` = '"+current.getId()+"', `fechaVencimientoLicencia` = '"+current.getFecha_licencia()+"' WHERE `id` = '"+current.getId()+"';");
 					JOptionPane.showMessageDialog(null, "Se actualizó el psicofísico");
+					
+					parrent.reloadPilotos();
 					Nuevo_Piloto.this.dispose();
 				}
 				else

@@ -269,6 +269,7 @@ public class Informes extends JDialogExtended {
 										return;
 									}
 									for (List<String> list : filtrado) {
+										list.set(0, Avion.getAvionById(list.get(0)).getName());
 										list.set(2, formatDay.format(new Date(Long.parseLong(list.get(2)))));
 									}
 
@@ -559,14 +560,12 @@ public class Informes extends JDialogExtended {
 							try {
 								fechaInicioSimple = format.parse(inicioAnio.getSelectedItem() + "-" + inicioMes.getSelectedItem() + "-1");
 							} catch (ParseException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							Date fechaFinalSimple = null;
 							try {
 								fechaFinalSimple = format.parse(finAnio.getSelectedItem() + "-" + finMes.getSelectedItem() + "-1");
 							} catch (ParseException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -574,7 +573,7 @@ public class Informes extends JDialogExtended {
 							List<List<String>> filtrado = new ArrayList<List<String>>();
 
 							for (Vuelo vuelo : vuelos) {
-								if (vuelo.getHoraInicio() > fechaInicioSimple.getTime() && vuelo.getHoraFinal() < fechaFinalSimple.getTime()) {
+								if (vuelo.getHoraInicio() > fechaInicioSimple.getTime() && vuelo.getHoraFinal() < fechaFinalSimple.getTime() && vuelo.getHoraFinal()!=0) {
 									List<String> aa = new ArrayList<String>();
 									aa.add(format.format(new Date(vuelo.getHoraInicio())) + "");
 									aa.add(Utils.minutesBetweenDates(new Date(vuelo.getHoraInicio()), new Date(vuelo.getHoraFinal())) + " minutos ");
