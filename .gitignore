@@ -7,4 +7,6 @@
 CVS/
 target/
 bin/
+src/
 build/
+.jar
