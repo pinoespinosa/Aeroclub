@@ -6,4 +6,4 @@ ESQUEMA=aviones
 MINIMO_COMBUSTIBLE=500
 MINIMO_ACEITE=10
 UBICACION_GIT=C:\\Program Files\\Git\\git-bash.exe
-UBICACION_GIT_SCRIPT=C:\\Users\\Usuario\\SistemaAeroclub
+UBICACION_GIT_SCRIPT=C:\\Users\\Usuario\\git\\Aeroclub\\git.sh
