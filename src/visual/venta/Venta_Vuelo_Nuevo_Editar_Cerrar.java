@@ -83,6 +83,8 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private JRadioButton pagoCheque;
 	private JRadioButton pagoHorasPreVendidas;
 	
+	private float valorInstructor;
+	
 	private Window parent;
 	
 	boolean stateRefreshUpdate = false;
@@ -669,6 +671,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 								nuevo.setFormaDePago(getFormaPago());
 
 								managerDB.updateAsset(nuevo);
+								
+								if (valorInstructor!=0)
+									managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','DEPOSITO - PAGO A INSTRUCTOR', 'PAGO A INSTRUCTOR ','" + valorInstructor+ "', '" + 1 + "','','" + valorInstructor + "','" + Precios.TYPE_PAGO.CUENTA_CORRIENTE.ordinal() + "','" + nuevo.getHoraFinal() + "','"+nuevo.getIdInstructor()+"');");
+								
 
 								JOptionPane.showMessageDialog(null, "Se ha cerrado exitosamente el vuelo.");
 								
@@ -792,7 +798,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Nocturno + ""))
 			valorAvion = (float) (valorAvion * 1.1);
 				
-		float valorInstructor = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
+		valorInstructor = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
 		
 		float valor = valorAvion + valorInstructor;
 

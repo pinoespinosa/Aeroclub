@@ -19,7 +19,7 @@ union
 			`gasto`.`total` AS `A_favor`,            
 			concat(`gasto`.`claseDeGasto`,' - ',`gasto`.`tipo`) AS `detalle` 
 	from `gasto` 
-	where (`gasto`.`claseDeGasto` like 'DEPOSITO' and `gasto`.`formaPago` like '1')
+	where (`gasto`.`claseDeGasto` like 'DEPOSITO%' and `gasto`.`formaPago` like '1')
 ) 
 union 
 (
