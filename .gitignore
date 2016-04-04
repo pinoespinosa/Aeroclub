@@ -9,4 +9,4 @@ target/
 bin/
 src/
 build/
-.jar
+*.jar
