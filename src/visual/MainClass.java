@@ -158,7 +158,9 @@ public class MainClass extends JDialogExtended{
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 
-				String[] commands = {"I:/Program Files/Git/git-bash.exe", "-i", "I:/Users/Pino/git/Aeroclub/git.sh"};
+				String gitPath = MainController.getProperties().get("UBICACION_GIT");
+				String scriptPath =  MainController.getProperties().get("UBICACION_GIT_SCRIPT");
+				String[] commands = {gitPath, "-i", scriptPath};
 				ProcessBuilder pBuilder = new ProcessBuilder(commands);
 				pBuilder.redirectOutput();
 				pBuilder.inheritIO();

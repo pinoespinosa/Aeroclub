@@ -1,5 +1,5 @@
 ﻿
-git checkout texto
+git checkout aeroclub
 git add .
 git commit -am "Cambios Ocultos Nuevos 45"
-git push origin texto
+git push origin aeroclub
