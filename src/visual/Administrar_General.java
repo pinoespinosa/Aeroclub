@@ -601,12 +601,12 @@ public class Administrar_General extends JDialogExtended {
 					dirtyInstructorCosto = true;
 			}
 		};
-		spinnerPrecioCombustibleSocio.addChangeListener(spinListenerAviones);
-		spinnerPrecioAceiteSocio.addChangeListener(spinListenerAviones);
-		spinnerPrecioAvion.addChangeListener(spinListenerAviones);
-		spinnerPrecioBautismo.addChangeListener(spinListenerAviones);
+	//	spinnerPrecioCombustibleSocio.addChangeListener(spinListenerAviones);
+	//	spinnerPrecioAceiteSocio.addChangeListener(spinListenerAviones);
+//		spinnerPrecioAvion.addChangeListener(spinListenerAviones);
+//		spinnerPrecioBautismo.addChangeListener(spinListenerAviones);
 		
-		precioInstructorSpinner.addChangeListener(spinListenerInstructores);
+	//	precioInstructorSpinner.addChangeListener(spinListenerInstructores);
 
 		avionComboBox.addItemListener(new ItemListener() {
 
