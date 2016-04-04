@@ -1,9 +1,9 @@
 header=header
-UBICACION_MYSQL=I:\\Program Files (x86)\\MySQL\\MySQL Server 5.5\\bin\\
-UBICACION_GIT=I:\\Program Files\\Git\\git-bash.exe
-UBICACION_GIT_SCRIPT=I:\\Users\\Pino\\git\\Aeroclub\\git.sh
+UBICACION_MYSQL=C:\Program Files\MySQL\MySQL Workbench 6.3 CE
 USUARIO=root
 PASSWORD=36442114
 ESQUEMA=aviones
-MINIMO_COMBUSTIBLE=80000
-MINIMO_ACEITE=50
+MINIMO_COMBUSTIBLE=500
+MINIMO_ACEITE=10
+UBICACION_GIT=C:\\Program Files\\Git\\git-bash.exe
+UBICACION_GIT_SCRIPT=C:\\Users\\Usuario\\SistemaAeroclub
