@@ -112,7 +112,7 @@ public class Venta_Combustible extends JDialogExtended {
 		}
 		{
 			tipoDeGasto = new JComboBox<String>();
-			tipoDeGasto.setModel(new DefaultComboBoxModel<String>(new String[] {"COMBUSTIBLE_PRECIO_AEROCLUB", "COMBUSTIBLE_PRECIO_SOCIO", "ACEITE_PRECIO_AEROCLUB", "ACEITE_PRECIO_SOCIO"}));
+			tipoDeGasto.setModel(new DefaultComboBoxModel<String>(new String[] {"COMBUSTIBLE", "ACEITE", "ACEITE_DESCARTADO_RECAMBIO"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);

@@ -11,10 +11,8 @@ public class Precios {
 	public enum TYPE_PAGO_VUELO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE, HORAS_ADELANTADAS }
 	
 	
-	public static final String COMBUSTIBLE_PRECIO_AEROCLUB = "combustiblePrecioAeroclub";
-	public static final String COMBUSTIBLE_PRECIO_SOCIO = "combustiblePrecioSocio";
-	public static final String ACEITE_PRECIO_AEROCLUB = "aceitePrecioAeroclub";
-	public static final String ACEITE_PRECIO_SOCIO = "aceitePrecioSocio";
+	public static final String COMBUSTIBLE = "combustible";
+	public static final String ACEITE = "aceite";
 	
 	public static float getPrecio(String elemento){
 		return Float.parseFloat(managerDB.executeScript_Query("SELECT precio FROM "+MainController.getEsquema()+".precios WHERE id='"+elemento+"';", "precio").get(0));

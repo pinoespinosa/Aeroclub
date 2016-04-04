@@ -533,9 +533,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				avionesList.addElement(avion);
 			}
 			if (!aviones.isEmpty())
-				current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), avionesList.getElementAt(0).getPrecio());
+				current = new Vuelo(Precios.getPrecio(Precios.ACEITE), Precios.getPrecio(Precios.COMBUSTIBLE), avionesList.getElementAt(0).getPrecio());
 			else
-				current = new Vuelo(Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB), 0);
+				current = new Vuelo(Precios.getPrecio(Precios.ACEITE), Precios.getPrecio(Precios.COMBUSTIBLE), 0);
 
 			ActionListener precioDirty = new ActionListener() {
 
@@ -762,8 +762,8 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				((Piloto) pilotoComboBox.getSelectedItem()).getId(), 
 				((Instructor) instructorList.getSelectedItem()).getId(), 
 				Float.parseFloat(costoVuelo.getText()), 
-				Precios.getPrecio(Precios.ACEITE_PRECIO_AEROCLUB), 
-				Precios.getPrecio(Precios.COMBUSTIBLE_PRECIO_AEROCLUB),
+				Precios.getPrecio(Precios.ACEITE), 
+				Precios.getPrecio(Precios.COMBUSTIBLE),
 				((Avion) avionesList.getSelectedItem()).getPrecio(), 
 				getFormaPago(), 
 				Vuelo.TipoVuelo.valueOf((String) tipoVueloComboBox.getSelectedItem()).ordinal());
