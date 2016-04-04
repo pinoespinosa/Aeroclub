@@ -32,8 +32,6 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import visual.venta.Venta_Campo;
 import base_datos.managerDB;
@@ -583,30 +581,6 @@ public class Administrar_General extends JDialogExtended {
 		setAction(MainController.ACTION_REACTIVAR_PADRE);
 
 		updateUi();
-
-		ChangeListener spinListenerAviones = new ChangeListener() {
-			// Este parametro update sirve para que cuando yo cambie el valor
-			// adrede no empiece un ciclo de evento de "me refresque"
-			public void stateChanged(ChangeEvent e) {
-				if (!updateAvion)
-					dirtyAvionCosto = true;
-			}
-		};
-
-		ChangeListener spinListenerInstructores = new ChangeListener() {
-			// Este parametro update sirve para que cuando yo cambie el valor
-			// adrede no empiece un ciclo de evento de "me refresque"
-			public void stateChanged(ChangeEvent e) {
-				if (!updateInstructor)
-					dirtyInstructorCosto = true;
-			}
-		};
-	//	spinnerPrecioCombustibleSocio.addChangeListener(spinListenerAviones);
-	//	spinnerPrecioAceiteSocio.addChangeListener(spinListenerAviones);
-//		spinnerPrecioAvion.addChangeListener(spinListenerAviones);
-//		spinnerPrecioBautismo.addChangeListener(spinListenerAviones);
-		
-	//	precioInstructorSpinner.addChangeListener(spinListenerInstructores);
 
 		avionComboBox.addItemListener(new ItemListener() {
 

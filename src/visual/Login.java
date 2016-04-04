@@ -177,7 +177,7 @@ public class Login extends JDialogExtended {
 					JOptionPane.showMessageDialog(null, "Verifique su dni y contraseña.");
 					return;
 				}
-				String script = "SELECT * FROM `" + MainController.getEsquema() + "`.usuario	WHERE dni like " + dniTextField.getText() + " and password like " + passwordField.getText() + ";";
+				String script = "SELECT * FROM `" + MainController.getEsquema() + "`.usuario	WHERE dni like '" + dniTextField.getText() + "' and password like '" + passwordField.getText() + "';";
 				final List<String> perfil = managerDB.executeScript_Query(script, "perfil");
 
 				if (!perfil.isEmpty()) {
