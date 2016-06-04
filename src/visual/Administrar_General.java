@@ -14,6 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,9 +36,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import visual.venta.Venta_Campo;
+import visual.venta.Venta_Deposito_Dinero;
 import base_datos.managerDB;
 import data.Avion;
 import data.Instructor;
+import data.Persona;
 import data.Precios;
 import extended.JDialogExtended;
 import extended.MainController;
@@ -57,6 +61,7 @@ public class Administrar_General extends JDialogExtended {
 	private JButton btnGuardarCambios;
 	private JComboBox<Instructor> instructoresComboBox;
 	private JComboBox<Avion> avionInspeccionComboBox;
+	private JComboBox<Persona> personasCuentaCorriente;
 
 	/**
 	 * Create the dialog.
@@ -108,6 +113,137 @@ public class Administrar_General extends JDialogExtended {
 						}
 					}
 				});
+				{
+					JPanel panel = new JPanel();
+					tabbedPane.addTab("Cargar Base Datos", null, panel, null);
+					GridBagLayout gbl_panel = new GridBagLayout();
+					gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
+					gbl_panel.rowHeights = new int[]{23, 0, 0, 0, 0, 0};
+					gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					panel.setLayout(gbl_panel);
+					{
+						JButton btnCrearPiloto = new JButton("Crear Piloto");
+						btnCrearPiloto.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								Nuevo_Piloto dialog = new Nuevo_Piloto(Administrar_General.this);
+								MainController.sleepActualAndCreateNew(Administrar_General.this, dialog);
+							}
+						});
+						GridBagConstraints gbc_btnCrearPiloto = new GridBagConstraints();
+						gbc_btnCrearPiloto.gridwidth = 3;
+						gbc_btnCrearPiloto.fill = GridBagConstraints.HORIZONTAL;
+						gbc_btnCrearPiloto.insets = new Insets(0, 0, 5, 5);
+						gbc_btnCrearPiloto.anchor = GridBagConstraints.NORTH;
+						gbc_btnCrearPiloto.gridx = 1;
+						gbc_btnCrearPiloto.gridy = 1;
+						panel.add(btnCrearPiloto, gbc_btnCrearPiloto);
+					}
+					{
+						JButton btnCrearInstructor = new JButton("Crear Instructor");
+						btnCrearInstructor.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								Nuevo_Instructor dialog = new Nuevo_Instructor(Administrar_General.this);
+								MainController.sleepActualAndCreateNew(Administrar_General.this, dialog);
+							}
+						});
+						GridBagConstraints gbc_btnCrearInstructor = new GridBagConstraints();
+						gbc_btnCrearInstructor.fill = GridBagConstraints.HORIZONTAL;
+						gbc_btnCrearInstructor.gridwidth = 3;
+						gbc_btnCrearInstructor.insets = new Insets(0, 0, 5, 5);
+						gbc_btnCrearInstructor.gridx = 1;
+						gbc_btnCrearInstructor.gridy = 2;
+						panel.add(btnCrearInstructor, gbc_btnCrearInstructor);
+					}
+					{
+						JButton btnCargarDinero = new JButton("Cargar dinero");
+						btnCargarDinero.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								
+								MainController.sleepActualAndCreateNew(Administrar_General.this, new Venta_Deposito_Dinero(Administrar_General.this));
+							}
+						});
+						GridBagConstraints gbc_btnCargarDinero = new GridBagConstraints();
+						gbc_btnCargarDinero.gridwidth = 3;
+						gbc_btnCargarDinero.insets = new Insets(0, 0, 5, 5);
+						gbc_btnCargarDinero.fill = GridBagConstraints.HORIZONTAL;
+						gbc_btnCargarDinero.gridx = 1;
+						gbc_btnCargarDinero.gridy = 3;
+						panel.add(btnCargarDinero, gbc_btnCargarDinero);
+					}
+					{
+						JButton btnVerSaldos = new JButton("Ver detalle");
+						btnVerSaldos.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								
+								// Create columns names
+								String columnNames[] = {"fecha", "detalle", "A_pagar", "A_favor"};
+
+								String script = "SELECT fecha,detalle, A_pagar, A_favor FROM " + MainController.getEsquema() + ".cuenta_corriente WHERE idPersona like'" + ((Persona) personasCuentaCorriente.getSelectedItem()).getId() + "';";
+
+								List<String> campos = Arrays.asList(columnNames);
+
+								List<List<String>> datos = managerDB.executeScript_Query(script, campos);
+
+								if (datos.isEmpty()) {
+									JOptionPane.showMessageDialog(null, "No se registran movimientos.");
+									return;
+								}
+								SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd HH:mm");
+
+								float total = 0;
+
+								for (List<String> list : datos) {
+									list.set(0, format.format(new Date(Long.parseLong(list.get(0)))));
+									total -= Float.parseFloat(list.get(2));
+									total += Float.parseFloat(list.get(3));
+									list.set(2, Math.round(Float.parseFloat(list.get(2))) + "");
+									list.set(3, Math.round(Float.parseFloat(list.get(3))) + "");
+								}
+
+								MainController.sleepActualAndCreateNew(Administrar_General.this, new Informes_Table(Administrar_General.this, campos, datos, "Detalle de cuenta corriente de " + ((Persona) personasCuentaCorriente.getSelectedItem()).getName() + " " + ((Persona) personasCuentaCorriente.getSelectedItem()).getApellido() , "Monto actual: $" + total));
+						
+							}
+						});
+						{
+							JButton Refresh = new JButton("Refresh");
+							Refresh.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent arg0) {
+									
+									personasCuentaCorriente.removeAllItems();
+									List<Persona> personas = Persona.loadFromDB();
+									for (Persona persona : personas) {
+										personasCuentaCorriente.addItem(persona);
+									}								
+								}
+							});
+							GridBagConstraints gbc_Refresh = new GridBagConstraints();
+							gbc_Refresh.insets = new Insets(0, 0, 0, 5);
+							gbc_Refresh.gridx = 1;
+							gbc_Refresh.gridy = 4;
+							panel.add(Refresh, gbc_Refresh);
+						}
+						{
+							personasCuentaCorriente = new JComboBox<Persona>();
+							List<Persona> personas = Persona.loadFromDB();
+							for (Persona persona : personas) {
+								personasCuentaCorriente.addItem(persona);
+							}
+							
+							GridBagConstraints gbc_comboBox = new GridBagConstraints();
+							gbc_comboBox.insets = new Insets(0, 0, 0, 5);
+							gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+							gbc_comboBox.gridx = 2;
+							gbc_comboBox.gridy = 4;
+							panel.add(personasCuentaCorriente, gbc_comboBox);
+						}
+						GridBagConstraints gbc_btnVerSaldos = new GridBagConstraints();
+						gbc_btnVerSaldos.insets = new Insets(0, 0, 0, 5);
+						gbc_btnVerSaldos.gridx = 3;
+						gbc_btnVerSaldos.gridy = 4;
+						panel.add(btnVerSaldos, gbc_btnVerSaldos);
+					}
+				}
 				tabbedPane.addTab("Precios Comb/Aceites", null, preciosPanel, null);
 				GridBagLayout gbl_preciosPanel = new GridBagLayout();
 				gbl_preciosPanel.columnWidths = new int[]{20, 0, 0, 20, 0};

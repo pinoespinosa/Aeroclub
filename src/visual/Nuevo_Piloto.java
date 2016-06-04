@@ -51,7 +51,7 @@ public class Nuevo_Piloto extends JDialogExtended {
 	private JLabel lblNombre, lblApellido, lblFechaNaciemiento, lblFechaVencimientoLicencia;
 	private JSpinner nacimientoSpinner;
 	private JButton okButton;
-	private Venta_Vuelo_Nuevo_Editar_Cerrar parrent;
+	private Venta_Vuelo_Nuevo_Editar_Cerrar parrent=null;
 	/**
 	 * Create the dialog.
 	 * 
@@ -60,7 +60,10 @@ public class Nuevo_Piloto extends JDialogExtended {
 	public Nuevo_Piloto(Window parent) {
 		super(parent);
 		setTitle("Nuevo Piloto");
-		parrent=(Venta_Vuelo_Nuevo_Editar_Cerrar) parent;
+		try {
+			parrent=(Venta_Vuelo_Nuevo_Editar_Cerrar) parent;
+		} catch (Exception e) {
+		}
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -246,7 +249,8 @@ public class Nuevo_Piloto extends JDialogExtended {
 					managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`piloto` SET `id` = '"+current.getId()+"', `fechaVencimientoLicencia` = '"+current.getFecha_licencia()+"' WHERE `id` = '"+current.getId()+"';");
 					JOptionPane.showMessageDialog(null, "Se actualizó el psicofísico");
 					
-					parrent.reloadPilotos();
+					if (parrent!=null)
+						parrent.reloadPilotos();
 					Nuevo_Piloto.this.dispose();
 				}
 				else
