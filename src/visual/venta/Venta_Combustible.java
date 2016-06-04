@@ -94,6 +94,7 @@ public class Venta_Combustible extends JDialogExtended {
 		}
 		{
 			destinatarios = new JComboBox<Persona>();
+			destinatarios.setEditable(true);
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -212,7 +213,16 @@ public class Venta_Combustible extends JDialogExtended {
 
 							float total = Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) * (float) cantidad.getValue();
 
-							managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','VENTA','" + tipoDeGasto.getSelectedItem() + "','" + Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) + "', '" + cantidad.getValue() + "','" + detalleTextField.getText() + "','" + total + "','" + ((Precios.TYPE_PAGO) formaDePago.getSelectedItem()).ordinal() + "','" + ((Date) fechaVenta.getValue()).getTime() + "','" + ((Persona) destinatarios.getSelectedItem()).getId() + "');");
+							int id = -1;
+							
+							try {
+
+								id = ((Persona) destinatarios.getSelectedItem()).getId();
+							} catch (Exception e) {
+							}
+							
+							
+							managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','VENTA','" + tipoDeGasto.getSelectedItem() + "','" + Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) + "', '" + cantidad.getValue() + "','" + detalleTextField.getText() + "','" + total + "','" + ((Precios.TYPE_PAGO) formaDePago.getSelectedItem()).ordinal() + "','" + ((Date) fechaVenta.getValue()).getTime() + "','" + id + "');");
 
 							JOptionPane.showMessageDialog(null, "Se registro la venta.");
 						}

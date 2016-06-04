@@ -15,6 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -54,16 +55,25 @@ public class MainClass extends JDialogExtended{
 	private static Process p;
 	private JLabel lblTiempoLicencia;
 	private JButton btnNuevaVenta, btnNuevaCompra, btnVerInformes, btnAdministrar;
-
+	private static PrintStream pst;
+	
+	
 	public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
+		//			pst = new PrintStream(args[0]);  
+
+		//			System.setOut(pst);
+
+		//			System.setErr(pst);
+
 					
 					// Carga las propiedades y el lookAndFeel
 					MainController.loadProperties();
