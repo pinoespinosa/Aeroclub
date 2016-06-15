@@ -68,15 +68,17 @@ public class MainClass extends JDialogExtended{
 			public void run() {
 				try {
 					
-		//			pst = new PrintStream(args[0]);  
+			//		pst = new PrintStream(args[0]);  
 
-		//			System.setOut(pst);
+//					System.setOut(pst);
 
-		//			System.setErr(pst);
+	//				System.setErr(pst);
 
 					
 					// Carga las propiedades y el lookAndFeel
 					MainController.loadProperties();
+					
+					System.out.println(Utils.encript("1475623260000"));
 					
 					// Regenero la vista de vencimientos por si se modifican los limites minimos
 					managerDB.executeScript_Void("DROP VIEW `" + MainController.getEsquema() + "`.vencimientosproximos; ");
