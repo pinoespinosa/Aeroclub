@@ -61,7 +61,7 @@ public class Administrar_General extends JDialogExtended {
 	private JButton btnGuardarCambios;
 	private JComboBox<Instructor> instructoresComboBox;
 	private JComboBox<Avion> avionInspeccionComboBox;
-	private JComboBox<Persona> personasCuentaCorriente;
+	private JComboBox<Persona> personasCuentaCorriente, personas;
 
 	/**
 	 * Create the dialog.
@@ -118,9 +118,9 @@ public class Administrar_General extends JDialogExtended {
 					tabbedPane.addTab("Cargar Base Datos", null, panel, null);
 					GridBagLayout gbl_panel = new GridBagLayout();
 					gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-					gbl_panel.rowHeights = new int[]{23, 0, 0, 0, 0, 0};
-					gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					gbl_panel.rowHeights = new int[]{23, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+					gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 					panel.setLayout(gbl_panel);
 					{
 						JButton btnCrearPiloto = new JButton("Crear Piloto");
@@ -211,14 +211,20 @@ public class Administrar_General extends JDialogExtended {
 								public void actionPerformed(ActionEvent arg0) {
 									
 									personasCuentaCorriente.removeAllItems();
-									List<Persona> personas = Persona.loadFromDB();
-									for (Persona persona : personas) {
+									List<Persona> lper = Persona.loadFromDB();
+									for (Persona persona : lper) {
 										personasCuentaCorriente.addItem(persona);
-									}								
+									}
+									
+									
+									personas.removeAllItems();
+									for (Persona persona : lper) {
+										personas.addItem(persona);
+									}
 								}
 							});
 							GridBagConstraints gbc_Refresh = new GridBagConstraints();
-							gbc_Refresh.insets = new Insets(0, 0, 0, 5);
+							gbc_Refresh.insets = new Insets(0, 0, 5, 5);
 							gbc_Refresh.gridx = 1;
 							gbc_Refresh.gridy = 4;
 							panel.add(Refresh, gbc_Refresh);
@@ -231,17 +237,75 @@ public class Administrar_General extends JDialogExtended {
 							}
 							
 							GridBagConstraints gbc_comboBox = new GridBagConstraints();
-							gbc_comboBox.insets = new Insets(0, 0, 0, 5);
+							gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 							gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 							gbc_comboBox.gridx = 2;
 							gbc_comboBox.gridy = 4;
 							panel.add(personasCuentaCorriente, gbc_comboBox);
 						}
 						GridBagConstraints gbc_btnVerSaldos = new GridBagConstraints();
-						gbc_btnVerSaldos.insets = new Insets(0, 0, 0, 5);
+						gbc_btnVerSaldos.insets = new Insets(0, 0, 5, 5);
 						gbc_btnVerSaldos.gridx = 3;
 						gbc_btnVerSaldos.gridy = 4;
 						panel.add(btnVerSaldos, gbc_btnVerSaldos);
+					}
+					{
+						JLabel lblEliminarPersona = new JLabel("Eliminar persona, piloto, instructor");
+						GridBagConstraints gbc_lblEliminarPersona = new GridBagConstraints();
+						gbc_lblEliminarPersona.anchor = GridBagConstraints.WEST;
+						gbc_lblEliminarPersona.gridwidth = 2;
+						gbc_lblEliminarPersona.insets = new Insets(0, 0, 5, 5);
+						gbc_lblEliminarPersona.gridx = 1;
+						gbc_lblEliminarPersona.gridy = 7;
+						panel.add(lblEliminarPersona, gbc_lblEliminarPersona);
+					}
+					{
+						personas = new JComboBox<Persona>();
+						List<Persona> lper = Persona.loadFromDB();
+						for (Persona persona : lper) {
+							personas.addItem(persona);
+						}
+						GridBagConstraints gbc_personas = new GridBagConstraints();
+						gbc_personas.gridwidth = 2;
+						gbc_personas.insets = new Insets(0, 0, 0, 5);
+						gbc_personas.fill = GridBagConstraints.HORIZONTAL;
+						gbc_personas.gridx = 1;
+						gbc_personas.gridy = 8;
+						panel.add(personas, gbc_personas);
+					}
+					{
+						JButton btnEliminarPersona = new JButton("Eliminar");
+						btnEliminarPersona.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								Persona select = (Persona)personas.getSelectedItem();
+								
+								int opcion = JOptionPane.showConfirmDialog(null, "Está a punto de eliminar a la persona " + select.toString() + " ¿Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
+								if (opcion == JOptionPane.YES_OPTION) {
+									managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`persona` SET `dni` = -'"+select.getDni()+"' WHERE `id` = '"+select.getId()+"';");
+									
+									
+									personas.removeAllItems();
+									List<Persona> lper = Persona.loadFromDB();
+									for (Persona persona : lper) {
+										personas.addItem(persona);
+									}
+									
+									personasCuentaCorriente.removeAllItems();
+									List<Persona> personas = Persona.loadFromDB();
+									for (Persona persona : personas) {
+										personasCuentaCorriente.addItem(persona);
+									}		
+									
+								}
+								
+							}
+						});
+						GridBagConstraints gbc_btnEliminarPersona = new GridBagConstraints();
+						gbc_btnEliminarPersona.anchor = GridBagConstraints.WEST;
+						gbc_btnEliminarPersona.insets = new Insets(0, 0, 0, 5);
+						gbc_btnEliminarPersona.gridx = 3;
+						gbc_btnEliminarPersona.gridy = 8;
+						panel.add(btnEliminarPersona, gbc_btnEliminarPersona);
 					}
 				}
 				tabbedPane.addTab("Precios Comb/Aceites", null, preciosPanel, null);

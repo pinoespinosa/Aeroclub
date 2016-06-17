@@ -12,13 +12,13 @@ public class ObjetoDeImpresion implements Printable {
 		if (pageIndex == 0) {
 
 			Graphics2D g2 = (Graphics2D) g;
-			g2.translate(20, 25);
+			g2.translate(20, 0);
 		//	g2.rotate(Math.toRadians(90));
-			g2.scale(0.6, 0.6);
+			g2.scale(0.55, 0.55);
 			//g2.translate(0, -1100);
 			p.printAll(g);
 		
-			g2.translate(500, 0);
+			g2.translate(575, 0);
 			p.printAll(g);
 			
 			return PAGE_EXISTS;

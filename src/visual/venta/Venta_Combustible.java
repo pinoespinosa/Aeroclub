@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
@@ -42,7 +41,6 @@ public class Venta_Combustible extends JDialogExtended {
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<Persona> destinatarios; 
 	private JComboBox<String> tipoDeGasto;	
-	private JTextField detalleTextField;
 	private JSpinner cantidad, fechaVenta; 
 	private JComboBox<Precios.TYPE_PAGO> formaDePago;
 	private JLabel monto;
@@ -59,9 +57,9 @@ public class Venta_Combustible extends JDialogExtended {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{20, 0, 0, 0, 20, 0};
-		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblFecha = new JLabel("Fecha");
@@ -142,31 +140,12 @@ public class Venta_Combustible extends JDialogExtended {
 			contentPanel.add(cantidad, gbc_spinner);
 		}
 		{
-			JLabel lblDetalle = new JLabel("Detalle");
-			GridBagConstraints gbc_lblDetalle = new GridBagConstraints();
-			gbc_lblDetalle.insets = new Insets(0, 0, 5, 5);
-			gbc_lblDetalle.gridx = 1;
-			gbc_lblDetalle.gridy = 5;
-			contentPanel.add(lblDetalle, gbc_lblDetalle);
-		}
-		{
-			detalleTextField = new JTextField();
-			GridBagConstraints gbc_detalleTextField = new GridBagConstraints();
-			gbc_detalleTextField.gridwidth = 2;
-			gbc_detalleTextField.insets = new Insets(0, 0, 5, 5);
-			gbc_detalleTextField.fill = GridBagConstraints.HORIZONTAL;
-			gbc_detalleTextField.gridx = 2;
-			gbc_detalleTextField.gridy = 5;
-			contentPanel.add(detalleTextField, gbc_detalleTextField);
-			detalleTextField.setColumns(10);
-		}
-		{
 			JLabel lblFormaDePago = new JLabel("Forma de pago");
 			GridBagConstraints gbc_lblFormaDePago = new GridBagConstraints();
 			gbc_lblFormaDePago.anchor = GridBagConstraints.EAST;
 			gbc_lblFormaDePago.insets = new Insets(0, 0, 5, 5);
 			gbc_lblFormaDePago.gridx = 1;
-			gbc_lblFormaDePago.gridy = 6;
+			gbc_lblFormaDePago.gridy = 5;
 			contentPanel.add(lblFormaDePago, gbc_lblFormaDePago);
 		}
 		{
@@ -176,7 +155,7 @@ public class Venta_Combustible extends JDialogExtended {
 			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 			gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 			gbc_comboBox.gridx = 2;
-			gbc_comboBox.gridy = 6;
+			gbc_comboBox.gridy = 5;
 			contentPanel.add(formaDePago, gbc_comboBox);
 		}
 		{
@@ -185,7 +164,7 @@ public class Venta_Combustible extends JDialogExtended {
 			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
 			gbc_lblNewLabel.gridx = 2;
-			gbc_lblNewLabel.gridy = 8;
+			gbc_lblNewLabel.gridy = 7;
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
@@ -194,7 +173,7 @@ public class Venta_Combustible extends JDialogExtended {
 			gbc_monto.anchor = GridBagConstraints.WEST;
 			gbc_monto.insets = new Insets(0, 0, 0, 5);
 			gbc_monto.gridx = 3;
-			gbc_monto.gridy = 8;
+			gbc_monto.gridy = 7;
 			contentPanel.add(monto, gbc_monto);
 		}
 		{
@@ -214,15 +193,17 @@ public class Venta_Combustible extends JDialogExtended {
 							float total = Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) * (float) cantidad.getValue();
 
 							int id = -1;
-							
+							String detalle;
 							try {
 
 								id = ((Persona) destinatarios.getSelectedItem()).getId();
+								detalle = ((Persona) destinatarios.getSelectedItem()).toString();
 							} catch (Exception e) {
+								detalle = destinatarios.getSelectedItem().toString();
 							}
 							
 							
-							managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','VENTA','" + tipoDeGasto.getSelectedItem() + "','" + Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) + "', '" + cantidad.getValue() + "','" + detalleTextField.getText() + "','" + total + "','" + ((Precios.TYPE_PAGO) formaDePago.getSelectedItem()).ordinal() + "','" + ((Date) fechaVenta.getValue()).getTime() + "','" + id + "');");
+							managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','VENTA','" + tipoDeGasto.getSelectedItem() + "','" + Precios.getPrecio(Utils.tolowerCamelCase(tipoDeGasto.getSelectedItem().toString().replace("_", " "))) + "', '" + cantidad.getValue() + "','" + detalle + "','" + total + "','" + ((Precios.TYPE_PAGO) formaDePago.getSelectedItem()).ordinal() + "','" + ((Date) fechaVenta.getValue()).getTime() + "','" + id + "');");
 
 							JOptionPane.showMessageDialog(null, "Se registro la venta.");
 						}

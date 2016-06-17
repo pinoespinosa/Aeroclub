@@ -71,7 +71,15 @@ public class Piloto {
 		this.fecha_licencia = fecha_licencia;
 	}
 	public static List<Piloto> loadFromDB() {
-		return loadFromDB(Piloto.getScriptDataBase());
+		List<Piloto> all = loadFromDB(Piloto.getScriptDataBase());
+	
+		// Se elimina los pilotos deprecados
+		List<Piloto> vigentes = new ArrayList<Piloto>();
+		for (Piloto piloto : all) {
+			if (piloto.getDni()>0)
+				vigentes.add(piloto);
+		}
+		return vigentes;
 	}
 	@Override
 	public String toString() {
@@ -139,7 +147,7 @@ public class Piloto {
 		List<Piloto> pilotos = new ArrayList<Piloto>();
 		
 		for (List<String> list : pilotosData) {
-			pilotos.add(loadFromList(list));
+				pilotos.add(loadFromList(list));
 		}
 	return pilotos;
 	}

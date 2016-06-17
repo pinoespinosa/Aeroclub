@@ -97,7 +97,16 @@ public class Instructor {
 	}
 	
 	public static List<Instructor> loadFromDB(){
-	return loadFromDB(Instructor.getScriptDataBase());
+		
+		List<Instructor> all = loadFromDB(Instructor.getScriptDataBase());
+		List<Instructor> vigentes = new ArrayList<Instructor>();
+		
+		for (Instructor instructor : all) {
+			if (instructor.getDni()>0)
+				vigentes.add(instructor);
+		}
+		
+		return vigentes;
 	}
 	
 	private static List<Instructor> loadFromDB(String script){

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
@@ -117,4 +118,18 @@ public final class DateUtils {
                                                                  |
     The instant the "*" appears, is the exact time. <------------+
   */
+  
+  
+  
+  public static String toTraditionalFormat (Date fecha){
+	   return new SimpleDateFormat("dd/MMM/YYYY ").format(fecha);	
+  }
+  
+  
+  
 }
+
+
+
+
+

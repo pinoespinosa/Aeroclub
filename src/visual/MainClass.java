@@ -14,11 +14,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -170,7 +168,7 @@ public class MainClass extends JDialogExtended{
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 
-				String pathGit = MainController.getProperties().get("UBICACION_GIT");
+	/*		String pathGit = MainController.getProperties().get("UBICACION_GIT");
 				String pathGitScript = MainController.getProperties().get("UBICACION_GIT_SCRIPT");
 				
 				String[] commands = {pathGit, "-i", pathGitScript};
@@ -197,7 +195,7 @@ public class MainClass extends JDialogExtended{
 					e.printStackTrace();
 				}
 
-				System.out.println();
+				System.out.println();*/
 
 			}
 		});
@@ -391,8 +389,8 @@ public class MainClass extends JDialogExtended{
 
 		long tiempoPendienteLicencia = fechaVencLicen.getTime() - horaInternet.getTime();
 
-		if (tiempoPendienteLicencia > 0) {
-			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias.");
+		if (tiempoPendienteLicencia > 0) {					
+			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias. El día " + DateUtils.toTraditionalFormat(fechaVencLicen));
 			managerDB.executeScript_Void("UPDATE " + MainController.getEsquema() + ".licencia SET dato='10' WHERE valor='intentos';");
 		} else {
 			lblTiempoLicencia.setText("La licencia del sistema expiró. Consulte con su administrador. Dirección de email: pino.espinosa91@gmail.com");

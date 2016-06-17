@@ -32,15 +32,15 @@ public class Venta extends JDialogExtended {
 	public Venta(final Window frame) {
 		super(frame);
 		setTitle("Tipos de venta");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 344);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{424, 0};
-		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{32, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnVuelo = new JButton("Vuelos");
@@ -114,10 +114,40 @@ public class Venta extends JDialogExtended {
 			});
 			btnExtraccinDeCombustibleaceite.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 			GridBagConstraints gbc_btnExtraccinDeCombustibleaceite = new GridBagConstraints();
+			gbc_btnExtraccinDeCombustibleaceite.insets = new Insets(0, 0, 5, 0);
 			gbc_btnExtraccinDeCombustibleaceite.fill = GridBagConstraints.BOTH;
 			gbc_btnExtraccinDeCombustibleaceite.gridx = 0;
 			gbc_btnExtraccinDeCombustibleaceite.gridy = 4;
 			contentPanel.add(btnExtraccinDeCombustibleaceite, gbc_btnExtraccinDeCombustibleaceite);
+		}
+		{
+			JButton btnPagoAInstructor = new JButton("Pago a instructor");
+			btnPagoAInstructor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					MainController.closeActualAndCreateNew(Venta.this, new Pago_Instructor(frame));					
+				}
+			});
+			btnPagoAInstructor.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+			GridBagConstraints gbc_btnPagoAInstructor = new GridBagConstraints();
+			gbc_btnPagoAInstructor.insets = new Insets(0, 0, 5, 0);
+			gbc_btnPagoAInstructor.fill = GridBagConstraints.BOTH;
+			gbc_btnPagoAInstructor.gridx = 0;
+			gbc_btnPagoAInstructor.gridy = 5;
+			contentPanel.add(btnPagoAInstructor, gbc_btnPagoAInstructor);
+		}
+		{
+			JButton btnImprimirComprobante = new JButton("Imprimir comprobante");
+			btnImprimirComprobante.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					MainController.closeActualAndCreateNew(Venta.this, new Menu_Comprobantes(frame));	
+				}
+			});
+			btnImprimirComprobante.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+			GridBagConstraints gbc_btnImprimirComprobante = new GridBagConstraints();
+			gbc_btnImprimirComprobante.fill = GridBagConstraints.BOTH;
+			gbc_btnImprimirComprobante.gridx = 0;
+			gbc_btnImprimirComprobante.gridy = 6;
+			contentPanel.add(btnImprimirComprobante, gbc_btnImprimirComprobante);
 		}
 		inic();
 	}

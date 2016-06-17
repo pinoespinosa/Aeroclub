@@ -58,6 +58,25 @@ public class Gasto implements Comparable<Gasto>{
 	}
 	
 	
+	public static List<Gasto> loadFromDBSinDuplicados(){
+		
+		String script = "SELECT * FROM "+MainController.getEsquema()+".gasto WHERE tipo<>'EXTRACCION DE DINERO DE CUENTA CORRIENTE';";
+		List<String> campos = Arrays.asList(new String[]{"id","claseDeGasto","tipo","precio_por_unidad","unidades", "detalle","total","formaPago","fecha","idPersona" });
+				
+		List<List<String>> vuelosData = managerDB.executeScript_Query(script,campos);
+
+		
+		List<Gasto> gastos = new ArrayList<Gasto>();
+		
+		for (List<String> list : vuelosData) {
+			gastos.add(loadFromList(list));
+		}
+
+		Collections.sort(gastos);
+	
+	return gastos;
+	}
+	
 	private static Gasto loadFromList(List<String> valores){		
 		return new Gasto(
 							Long.parseLong(valores.get(0)),
@@ -116,7 +135,10 @@ public class Gasto implements Comparable<Gasto>{
 
 	@Override
 	public int compareTo(Gasto arg0) {
-		return 0;
+		if (arg0.getId()>getId())
+			return 1;
+		else
+			return -1;
 	}
 
 
@@ -177,4 +199,14 @@ public class Gasto implements Comparable<Gasto>{
 	public void setFormaPago(Precios.TYPE_PAGO formaPago) {
 		this.formaPago = formaPago;
 	}
+
+
+	@Override
+	public String toString() {
+		if (getId()==-1)
+			return getClaseDeGasto() +" - "+ getTipo() + " / "+ Persona.getPersonaById(getIdPersona()+"").toString()+" $"+ getTotal() + "";
+		else
+			return getClaseDeGasto() +" - "+ getTipo() + " / " + getDetalle() +" $"+ getTotal() + "";
+	}
+	
 }
