@@ -66,11 +66,11 @@ public class MainClass extends JDialogExtended{
 			public void run() {
 				try {
 					
-			//		pst = new PrintStream(args[0]);  
+					pst = new PrintStream(args[0]);  
 
-//					System.setOut(pst);
+					System.setOut(pst);
 
-	//				System.setErr(pst);
+					System.setErr(pst);
 
 					
 					// Carga las propiedades y el lookAndFeel
