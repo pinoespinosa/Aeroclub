@@ -14,9 +14,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -66,11 +68,11 @@ public class MainClass extends JDialogExtended{
 			public void run() {
 				try {
 					
-					pst = new PrintStream(args[0]);  
+				//	pst = new PrintStream(args[0]);  
 
-					System.setOut(pst);
+//					System.setOut(pst);
 
-					System.setErr(pst);
+	//				System.setErr(pst);
 
 					
 					// Carga las propiedades y el lookAndFeel
@@ -168,7 +170,7 @@ public class MainClass extends JDialogExtended{
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 
-	/*		String pathGit = MainController.getProperties().get("UBICACION_GIT");
+			String pathGit = MainController.getProperties().get("UBICACION_GIT");
 				String pathGitScript = MainController.getProperties().get("UBICACION_GIT_SCRIPT");
 				
 				String[] commands = {pathGit, "-i", pathGitScript};
@@ -195,7 +197,7 @@ public class MainClass extends JDialogExtended{
 					e.printStackTrace();
 				}
 
-				System.out.println();*/
+				System.out.println();
 
 			}
 		});
