@@ -392,9 +392,9 @@ public class Administrar_General extends JDialogExtended {
 							
 									Gasto gasto = (Gasto) depositosCC.getSelectedItem();
 									
-									int opcion = JOptionPane.showConfirmDialog(null, "Está a punto de editar el valor acreditado a la cuenta corriente. ¿Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
+									int opcion = JOptionPane.showConfirmDialog(null, "Está a punto de editar el valor acreditado a la cuenta corriente de "+montoOriginal.getText()+" a $"+montoActualizado.getValue()+". ¿Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
 									if (opcion == JOptionPane.YES_OPTION) {
-										managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`gasto` SET `total` = -'"+montoActualizado.getValue() +"' WHERE `id` = '"+gasto.getId()+"';");
+										managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`gasto` SET `total` = '"+montoActualizado.getValue() +"' WHERE `id` = '"+gasto.getId()+"';");
 										updateUi();
 									}
 									
@@ -1054,6 +1054,7 @@ public class Administrar_General extends JDialogExtended {
 			if (gasto.getClaseDeGasto().equals("DEPOSITO") && gasto.getTipo().equals("DINERO"))
 				depositosCC.addItem(gasto);
 		}
+		montoOriginal.setText("$ " + ((Gasto)depositosCC.getSelectedItem()).getTotal());
 		
 	}
 
