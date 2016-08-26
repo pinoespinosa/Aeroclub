@@ -123,9 +123,9 @@ public class Administrar_General extends JDialogExtended {
 					tabbedPane.addTab("Cargar Base Datos", null, panel, null);
 					GridBagLayout gbl_panel = new GridBagLayout();
 					gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-					gbl_panel.rowHeights = new int[]{23, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+					gbl_panel.rowHeights = new int[]{23, 0, 0, 0, 0, 20, 0, 0, 0, 10, 0, 20, 0, 0, 0, 10, 0, 0, 0, 0, 0};
 					gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 					panel.setLayout(gbl_panel);
 					{
 						JButton btnCrearPiloto = new JButton("Crear Piloto");
@@ -255,13 +255,24 @@ public class Administrar_General extends JDialogExtended {
 						panel.add(btnVerSaldos, gbc_btnVerSaldos);
 					}
 					{
+						JSeparator separator = new JSeparator();
+						GridBagConstraints gbc_separator = new GridBagConstraints();
+						gbc_separator.fill = GridBagConstraints.HORIZONTAL;
+						gbc_separator.gridwidth = 3;
+						gbc_separator.insets = new Insets(0, 0, 5, 5);
+						gbc_separator.gridx = 1;
+						gbc_separator.gridy = 6;
+						panel.add(separator, gbc_separator);
+					}
+					{
 						JLabel lblEliminarPersona = new JLabel("Eliminar persona, piloto, instructor");
+						lblEliminarPersona.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 						GridBagConstraints gbc_lblEliminarPersona = new GridBagConstraints();
 						gbc_lblEliminarPersona.anchor = GridBagConstraints.WEST;
 						gbc_lblEliminarPersona.gridwidth = 2;
 						gbc_lblEliminarPersona.insets = new Insets(0, 0, 5, 5);
 						gbc_lblEliminarPersona.gridx = 1;
-						gbc_lblEliminarPersona.gridy = 7;
+						gbc_lblEliminarPersona.gridy = 8;
 						panel.add(lblEliminarPersona, gbc_lblEliminarPersona);
 					}
 					{
@@ -272,10 +283,10 @@ public class Administrar_General extends JDialogExtended {
 						}
 						GridBagConstraints gbc_personas = new GridBagConstraints();
 						gbc_personas.gridwidth = 2;
-						gbc_personas.insets = new Insets(0, 0, 0, 5);
+						gbc_personas.insets = new Insets(0, 0, 5, 5);
 						gbc_personas.fill = GridBagConstraints.HORIZONTAL;
 						gbc_personas.gridx = 1;
-						gbc_personas.gridy = 8;
+						gbc_personas.gridy = 10;
 						panel.add(personas, gbc_personas);
 					}
 					{
@@ -306,10 +317,10 @@ public class Administrar_General extends JDialogExtended {
 							}
 						});
 						GridBagConstraints gbc_btnEliminarPersona = new GridBagConstraints();
-						gbc_btnEliminarPersona.anchor = GridBagConstraints.WEST;
-						gbc_btnEliminarPersona.insets = new Insets(0, 0, 0, 5);
+						gbc_btnEliminarPersona.fill = GridBagConstraints.HORIZONTAL;
+						gbc_btnEliminarPersona.insets = new Insets(0, 0, 5, 5);
 						gbc_btnEliminarPersona.gridx = 3;
-						gbc_btnEliminarPersona.gridy = 8;
+						gbc_btnEliminarPersona.gridy = 10;
 						panel.add(btnEliminarPersona, gbc_btnEliminarPersona);
 					}
 				
@@ -328,7 +339,7 @@ public class Administrar_General extends JDialogExtended {
 					gbc_separator.gridwidth = 3;
 					gbc_separator.insets = new Insets(0, 0, 5, 5);
 					gbc_separator.gridx = 1;
-					gbc_separator.gridy = 11;
+					gbc_separator.gridy = 13;
 					panel.add(separator, gbc_separator);
 				}
 				{
@@ -337,7 +348,7 @@ public class Administrar_General extends JDialogExtended {
 					GridBagConstraints gbc_lblEditarMontoCargado = new GridBagConstraints();
 					gbc_lblEditarMontoCargado.insets = new Insets(0, 0, 5, 5);
 					gbc_lblEditarMontoCargado.gridx = 1;
-					gbc_lblEditarMontoCargado.gridy = 13;
+					gbc_lblEditarMontoCargado.gridy = 14;
 					panel.add(lblEditarMontoCargado, gbc_lblEditarMontoCargado);
 				}
 				{
@@ -347,7 +358,7 @@ public class Administrar_General extends JDialogExtended {
 					gbc_depositosCC.insets = new Insets(0, 0, 5, 5);
 					gbc_depositosCC.fill = GridBagConstraints.HORIZONTAL;
 					gbc_depositosCC.gridx = 1;
-					gbc_depositosCC.gridy = 15;
+					gbc_depositosCC.gridy = 16;
 					panel.add(depositosCC, gbc_depositosCC);
 				}
 				{
@@ -355,7 +366,7 @@ public class Administrar_General extends JDialogExtended {
 					GridBagConstraints gbc_lblActualizar = new GridBagConstraints();
 					gbc_lblActualizar.insets = new Insets(0, 0, 5, 5);
 					gbc_lblActualizar.gridx = 1;
-					gbc_lblActualizar.gridy = 16;
+					gbc_lblActualizar.gridy = 17;
 					panel.add(lblActualizar, gbc_lblActualizar);
 				}
 				{
@@ -363,7 +374,7 @@ public class Administrar_General extends JDialogExtended {
 					GridBagConstraints gbc_lblMontoActualizado = new GridBagConstraints();
 					gbc_lblMontoActualizado.insets = new Insets(0, 0, 5, 5);
 					gbc_lblMontoActualizado.gridx = 2;
-					gbc_lblMontoActualizado.gridy = 16;
+					gbc_lblMontoActualizado.gridy = 17;
 					panel.add(lblMontoActualizado, gbc_lblMontoActualizado);
 				}
 				{
@@ -371,7 +382,7 @@ public class Administrar_General extends JDialogExtended {
 					GridBagConstraints gbc_montoOriginal = new GridBagConstraints();
 					gbc_montoOriginal.insets = new Insets(0, 0, 5, 5);
 					gbc_montoOriginal.gridx = 1;
-					gbc_montoOriginal.gridy = 17;
+					gbc_montoOriginal.gridy = 18;
 					panel.add(montoOriginal, gbc_montoOriginal);
 				}
 				{
@@ -395,7 +406,7 @@ public class Administrar_General extends JDialogExtended {
 						gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 						gbc_spinner.insets = new Insets(0, 0, 5, 5);
 						gbc_spinner.gridx = 2;
-						gbc_spinner.gridy = 17;
+						gbc_spinner.gridy = 18;
 						panel.add(montoActualizado, gbc_spinner);
 					}
 							
@@ -404,9 +415,9 @@ public class Administrar_General extends JDialogExtended {
 					GridBagConstraints gbc_btnActualizarValorCC = new GridBagConstraints();
 					gbc_btnActualizarValorCC.fill = GridBagConstraints.HORIZONTAL;
 					gbc_btnActualizarValorCC.gridwidth = 3;
-					gbc_btnActualizarValorCC.insets = new Insets(0, 0, 0, 5);
+					gbc_btnActualizarValorCC.insets = new Insets(0, 0, 5, 5);
 					gbc_btnActualizarValorCC.gridx = 1;
-					gbc_btnActualizarValorCC.gridy = 18;
+					gbc_btnActualizarValorCC.gridy = 19;
 					panel.add(btnActualizarValorCC, gbc_btnActualizarValorCC);
 				}
 
