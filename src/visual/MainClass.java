@@ -14,11 +14,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -56,6 +54,7 @@ public class MainClass extends JDialogExtended{
 	private JLabel lblTiempoLicencia;
 	private JButton btnNuevaVenta, btnNuevaCompra, btnVerInformes, btnAdministrar;
 	private static PrintStream pst;
+	private JButton btnVaciarCaja;
 	
 	
 	public enum Profiles {	ADMIN, DATAENTRY, VIEWER 	}
@@ -132,6 +131,7 @@ public class MainClass extends JDialogExtended{
 
 			case DATAENTRY : {
 				btnAdministrar.setVisible(false);
+				btnVaciarCaja.setVisible(false);
 			}
 				break;
 
@@ -139,6 +139,7 @@ public class MainClass extends JDialogExtended{
 				btnAdministrar.setVisible(false);
 				btnNuevaCompra.setVisible(false);
 				btnNuevaVenta.setVisible(false);
+				btnVaciarCaja.setVisible(false);
 			}
 				break;
 
@@ -169,7 +170,7 @@ public class MainClass extends JDialogExtended{
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-
+/*
 			String pathGit = MainController.getProperties().get("UBICACION_GIT");
 				String pathGitScript = MainController.getProperties().get("UBICACION_GIT_SCRIPT");
 				
@@ -198,7 +199,7 @@ public class MainClass extends JDialogExtended{
 				}
 
 				System.out.println();
-
+*/
 			}
 		});
 
@@ -208,9 +209,9 @@ public class MainClass extends JDialogExtended{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{50, 0, 50, 0, 50, 0};
-		gridBagLayout.rowHeights = new int[]{50, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 50, 0};
+		gridBagLayout.rowHeights = new int[]{50, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 50, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		btnNuevaVenta = new JButton("Nueva Venta / Deposito");
@@ -248,7 +249,7 @@ public class MainClass extends JDialogExtended{
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridheight = 7;
+		gbc_panel.gridheight = 9;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 3;
@@ -342,6 +343,29 @@ public class MainClass extends JDialogExtended{
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 9;
 		frame.getContentPane().add(btnAdministrar, gbc_btnNewButton_3);
+		
+		btnVaciarCaja = new JButton("Retirar Caja");
+		btnVaciarCaja.setIcon(new ImageIcon(MainClass.class.getResource("/resources/icon_vaciar_caja.png")));
+		btnVaciarCaja.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnVaciarCaja.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				/*
+				 * --------------- Nueva Extraccion de Caja -----------------
+				 */
+				Retirar_De_Caja dialog = new Retirar_De_Caja(frame);
+				MainController.sleepActualFrameAndCreateNew(MainClass.this, dialog, frame);
+			}
+		});
+		
+		
+		GridBagConstraints gbc_btnVaciarCaja = new GridBagConstraints();
+		gbc_btnVaciarCaja.fill = GridBagConstraints.BOTH;
+		gbc_btnVaciarCaja.insets = new Insets(0, 0, 5, 5);
+		gbc_btnVaciarCaja.gridx = 1;
+		gbc_btnVaciarCaja.gridy = 11;
+		frame.getContentPane().add(btnVaciarCaja, gbc_btnVaciarCaja);
 
 		postContructor();
 	}

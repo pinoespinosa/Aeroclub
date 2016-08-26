@@ -1,6 +1,7 @@
 package visual;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -28,6 +29,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.SpinnerDateModel;
@@ -39,6 +41,7 @@ import visual.venta.Venta_Campo;
 import visual.venta.Venta_Deposito_Dinero;
 import base_datos.managerDB;
 import data.Avion;
+import data.Gasto;
 import data.Instructor;
 import data.Persona;
 import data.Precios;
@@ -52,7 +55,7 @@ public class Administrar_General extends JDialogExtended {
 	 */
 
 	private static final long serialVersionUID = 1L;
-	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioAceiteSocio, spinnerPrecioAvion, precioInstructorSpinner, spinnerPrecioBautismo;
+	private JSpinner spinnerPrecioCombustibleSocio, spinnerPrecioAceiteSocio, spinnerPrecioAvion, precioInstructorSpinner, spinnerPrecioBautismo, montoActualizado;;
 	private boolean dirtyAvionCosto = false;
 	private boolean dirtyInstructorCosto = false;
 	private boolean updateAvion = false, updateInstructor = false;
@@ -62,6 +65,8 @@ public class Administrar_General extends JDialogExtended {
 	private JComboBox<Instructor> instructoresComboBox;
 	private JComboBox<Avion> avionInspeccionComboBox;
 	private JComboBox<Persona> personasCuentaCorriente, personas;
+	private JComboBox<Gasto> depositosCC;
+	private JLabel montoOriginal;
 
 	/**
 	 * Create the dialog.
@@ -307,7 +312,141 @@ public class Administrar_General extends JDialogExtended {
 						gbc_btnEliminarPersona.gridy = 8;
 						panel.add(btnEliminarPersona, gbc_btnEliminarPersona);
 					}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				{
+					JSeparator separator = new JSeparator();
+					GridBagConstraints gbc_separator = new GridBagConstraints();
+					gbc_separator.fill = GridBagConstraints.HORIZONTAL;
+					gbc_separator.gridwidth = 3;
+					gbc_separator.insets = new Insets(0, 0, 5, 5);
+					gbc_separator.gridx = 1;
+					gbc_separator.gridy = 11;
+					panel.add(separator, gbc_separator);
 				}
+				{
+					JLabel lblEditarMontoCargado = new JLabel("Editar monto cargado a Cuenta Corriente");
+					lblEditarMontoCargado.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+					GridBagConstraints gbc_lblEditarMontoCargado = new GridBagConstraints();
+					gbc_lblEditarMontoCargado.insets = new Insets(0, 0, 5, 5);
+					gbc_lblEditarMontoCargado.gridx = 1;
+					gbc_lblEditarMontoCargado.gridy = 13;
+					panel.add(lblEditarMontoCargado, gbc_lblEditarMontoCargado);
+				}
+				{
+					depositosCC = new JComboBox<Gasto>();
+					GridBagConstraints gbc_depositosCC = new GridBagConstraints();
+					gbc_depositosCC.gridwidth = 3;
+					gbc_depositosCC.insets = new Insets(0, 0, 5, 5);
+					gbc_depositosCC.fill = GridBagConstraints.HORIZONTAL;
+					gbc_depositosCC.gridx = 1;
+					gbc_depositosCC.gridy = 15;
+					panel.add(depositosCC, gbc_depositosCC);
+				}
+				{
+					JLabel lblActualizar = new JLabel("Monto orignal");
+					GridBagConstraints gbc_lblActualizar = new GridBagConstraints();
+					gbc_lblActualizar.insets = new Insets(0, 0, 5, 5);
+					gbc_lblActualizar.gridx = 1;
+					gbc_lblActualizar.gridy = 16;
+					panel.add(lblActualizar, gbc_lblActualizar);
+				}
+				{
+					JLabel lblMontoActualizado = new JLabel("Monto actualizado");
+					GridBagConstraints gbc_lblMontoActualizado = new GridBagConstraints();
+					gbc_lblMontoActualizado.insets = new Insets(0, 0, 5, 5);
+					gbc_lblMontoActualizado.gridx = 2;
+					gbc_lblMontoActualizado.gridy = 16;
+					panel.add(lblMontoActualizado, gbc_lblMontoActualizado);
+				}
+				{
+					montoOriginal = new JLabel("$ ");
+					GridBagConstraints gbc_montoOriginal = new GridBagConstraints();
+					gbc_montoOriginal.insets = new Insets(0, 0, 5, 5);
+					gbc_montoOriginal.gridx = 1;
+					gbc_montoOriginal.gridy = 17;
+					panel.add(montoOriginal, gbc_montoOriginal);
+				}
+				{
+					JButton btnActualizarValorCC = new JButton("Actualizar");
+					btnActualizarValorCC.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							
+									Gasto gasto = (Gasto) depositosCC.getSelectedItem();
+									
+									int opcion = JOptionPane.showConfirmDialog(null, "Está a punto de editar el valor acreditado a la cuenta corriente. ¿Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
+									if (opcion == JOptionPane.YES_OPTION) {
+										managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`gasto` SET `total` = -'"+montoActualizado.getValue() +"' WHERE `id` = '"+gasto.getId()+"';");
+										updateUi();
+									}
+									
+								}
+							});
+					{
+						montoActualizado = new JSpinner();
+						GridBagConstraints gbc_spinner = new GridBagConstraints();
+						gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
+						gbc_spinner.insets = new Insets(0, 0, 5, 5);
+						gbc_spinner.gridx = 2;
+						gbc_spinner.gridy = 17;
+						panel.add(montoActualizado, gbc_spinner);
+					}
+							
+						
+				
+					GridBagConstraints gbc_btnActualizarValorCC = new GridBagConstraints();
+					gbc_btnActualizarValorCC.fill = GridBagConstraints.HORIZONTAL;
+					gbc_btnActualizarValorCC.gridwidth = 3;
+					gbc_btnActualizarValorCC.insets = new Insets(0, 0, 0, 5);
+					gbc_btnActualizarValorCC.gridx = 1;
+					gbc_btnActualizarValorCC.gridy = 18;
+					panel.add(btnActualizarValorCC, gbc_btnActualizarValorCC);
+				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				}
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				tabbedPane.addTab("Precios Comb/Aceites", null, preciosPanel, null);
 				GridBagLayout gbl_preciosPanel = new GridBagLayout();
 				gbl_preciosPanel.columnWidths = new int[]{20, 0, 0, 20, 0};
@@ -831,7 +970,15 @@ public class Administrar_General extends JDialogExtended {
 			}
 		});
 
-		
+		depositosCC.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					montoOriginal.setText("$ " + ((Gasto)depositosCC.getSelectedItem()).getTotal());					
+				}
+			}
+		});
 	}
 	private void saveChangesAvionesBautismo() {
 		Avion current = (Avion) avionesPreciosList.getSelectedItem();
@@ -890,6 +1037,13 @@ public class Administrar_General extends JDialogExtended {
 		updateAvion=false;
 		dirtyAvionCosto = false;
 
+		depositosCC.removeAllItems();
+		List<Gasto> gastos = Gasto.loadFromDB();
+		for (Gasto gasto : gastos) {
+			if (gasto.getClaseDeGasto().equals("DEPOSITO") && gasto.getTipo().equals("DINERO"))
+				depositosCC.addItem(gasto);
+		}
+		
 	}
 
 }

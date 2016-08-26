@@ -93,9 +93,7 @@ public class Persona {
 		return loadFromDBPersona(getScriptDataBase());
 	}
 
-	public static Persona getPersonaById(String id) {
-		System.out.println(getScriptDataBaseID(id));
-		
+	public static Persona getPersonaById(String id) {	
 		return loadFromDBPersona(getScriptDataBaseID(id)).get(0);
 	}
 

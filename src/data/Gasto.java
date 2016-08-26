@@ -203,7 +203,7 @@ public class Gasto implements Comparable<Gasto>{
 
 	@Override
 	public String toString() {
-		if (getId()==-1)
+		if (getId()!=-1)
 			return getClaseDeGasto() +" - "+ getTipo() + " / "+ Persona.getPersonaById(getIdPersona()+"").toString()+" $"+ getTotal() + "";
 		else
 			return getClaseDeGasto() +" - "+ getTipo() + " / " + getDetalle() +" $"+ getTotal() + "";

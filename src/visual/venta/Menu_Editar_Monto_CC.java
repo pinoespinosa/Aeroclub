@@ -23,7 +23,7 @@ import data.Gasto;
 import extended.JDialogExtended;
 import extended.ObjetoDeImpresion;
 
-public class Menu_Comprobantes extends JDialogExtended {
+public class Menu_Editar_Monto_CC extends JDialogExtended {
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public class Menu_Comprobantes extends JDialogExtended {
 	 * 
 	 * @param parent
 	 */
-	public Menu_Comprobantes(final Window parent) {
+	public Menu_Editar_Monto_CC(final Window parent) {
 		super(parent);
 		setTitle("Impresion de Comprobantes");
 		setBounds(100, 100, 469, 307);
