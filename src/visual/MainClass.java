@@ -14,9 +14,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -170,7 +172,7 @@ public class MainClass extends JDialogExtended{
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-/*
+
 			String pathGit = MainController.getProperties().get("UBICACION_GIT");
 				String pathGitScript = MainController.getProperties().get("UBICACION_GIT_SCRIPT");
 				
@@ -199,7 +201,7 @@ public class MainClass extends JDialogExtended{
 				}
 
 				System.out.println();
-*/
+
 			}
 		});
 
