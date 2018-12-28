@@ -93,8 +93,16 @@ public class Persona {
 		return loadFromDBPersona(getScriptDataBase());
 	}
 
-	public static Persona getPersonaById(String id) {	
-		return loadFromDBPersona(getScriptDataBaseID(id)).get(0);
+	public static Persona getPersonaById(String id) {
+		
+		List<List<String>> personasData = managerDB.executeScript_Query(getScriptDataBaseID(id), Persona.getFieldScriptBase());
+		List<Persona> personas = new ArrayList<Persona>();
+
+		for (List<String> list : personasData) {
+				personas.add(loadFromList(list));
+		}
+
+		return personas.get(0);
 	}
 
 	private static Persona loadFromList(List<String> valores) {

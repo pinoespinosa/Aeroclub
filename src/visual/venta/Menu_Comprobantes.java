@@ -39,7 +39,7 @@ public class Menu_Comprobantes extends JDialogExtended {
 	public Menu_Comprobantes(final Window parent) {
 		super(parent);
 		setTitle("Impresion de Comprobantes");
-		setBounds(100, 100, 469, 307);
+		setBounds(100, 100, 856, 322);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterJob;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -272,9 +273,15 @@ public class Venta_Vuelo extends JDialogExtended {
 
 	public void updateListVuelos() {
 		vuelosList.removeAllElements();
-		for (Vuelo vuelo : Vuelo.loadFromDB())
-			vuelosList.addElement(vuelo);
-
+	
+		int i = 0;
+		
+		List<Vuelo> vuelos = Vuelo.loadFromDB();
+		
+		while (i<20 && i < vuelos.size()){
+			vuelosList.addElement(vuelos.get(i));
+			i++;
+		}
 	}
 
 	public void adjustButtons(){
