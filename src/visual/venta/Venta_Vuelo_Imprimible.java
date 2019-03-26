@@ -27,6 +27,7 @@ import base_datos.Utils;
 import data.Avion;
 import data.Instructor;
 import data.Piloto;
+import data.Precios;
 import data.Vuelo;
 import extended.JDialogExtended;
 
@@ -395,7 +396,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		panel_11.add(lblMonto);
 
 		montoTotal = new JLabel("New label");
-		montoTotal.setFont(new Font("Calibri", Font.ITALIC, 25));
+		montoTotal.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 22));
 		montoTotal.setBackground(Color.WHITE);
 		panel_11.add(montoTotal);
 	}
@@ -427,7 +428,7 @@ public class Venta_Vuelo_Imprimible extends JDialogExtended {
 		this.vencimientoPsicofisico.setText(formatDay.format(new Date(Piloto.getPilotoById(vuelo.getIdPiloto() + "").getFecha_licencia())));
 		this.aceite.setText(vuelo.getCantAceite() + "");
 		this.combustible.setText(vuelo.getCantCombustible() + "");
-		this.montoTotal.setText(vuelo.getPrecio() + "");
+		this.montoTotal.setText(vuelo.getPrecio() + " - " + Precios.getNameTypePagoVuelo(vuelo.getFormaDePago()));
 		this.tipoVuelo.setText(Vuelo.TipoVuelo.values()[vuelo.getTipoVuelo()] + "");
 	}
 

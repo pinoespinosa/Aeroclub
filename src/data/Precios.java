@@ -10,6 +10,22 @@ public class Precios {
 	public enum TYPE_PAGO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE } // UNKNOWN
 	public enum TYPE_PAGO_VUELO { EFECTIVO, CUENTA_CORRIENTE, CHEQUE, HORAS_ADELANTADAS }
 	
+	public static String getNameTypePagoVuelo(int value) {
+
+		switch (value) {
+			case 0 :
+				return "Efectivo";
+			case 1 :
+				return "Cta Cte";
+			case 2 :
+				return "Cheque";
+			case 3 :
+				return "Horas Adel";
+			default :
+				return "Desc";
+		}
+	}
+	
 	
 	public static final String COMBUSTIBLE = "combustible";
 	public static final String ACEITE = "aceite";

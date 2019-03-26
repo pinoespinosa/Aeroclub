@@ -14,11 +14,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -37,9 +35,11 @@ import javax.swing.UIManager;
 
 import visual.venta.Venta;
 import base_datos.DateUtils;
+import base_datos.Email;
 import base_datos.Utils;
 import base_datos.managerDB;
 import data.Vencimiento;
+import data.Vuelo;
 import extended.JDialogExtended;
 import extended.MainController;
 
@@ -69,18 +69,18 @@ public class MainClass extends JDialogExtended{
 			public void run() {
 				try {
 					
-				//	pst = new PrintStream(args[0]);  
+//					pst = new PrintStream(args[0]);  
 
 //					System.setOut(pst);
 
-	//				System.setErr(pst);
+//					System.setErr(pst);
 
 					
 					// Carga las propiedades y el lookAndFeel
 					MainController.loadProperties();
-					
-					System.out.println(Utils.encript("1475623260000"));
-					
+					          
+					Email.send(Vuelo.loadFromDB());
+							
 					// Regenero la vista de vencimientos por si se modifican los limites minimos
 					managerDB.executeScript_Void("DROP VIEW `" + MainController.getEsquema() + "`.vencimientosproximos; ");
 					managerDB.executeScript_Void(Vencimiento.getViewStript());
@@ -172,7 +172,7 @@ public class MainClass extends JDialogExtended{
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-
+/*
 			String pathGit = MainController.getProperties().get("UBICACION_GIT");
 				String pathGitScript = MainController.getProperties().get("UBICACION_GIT_SCRIPT");
 				
@@ -201,7 +201,7 @@ public class MainClass extends JDialogExtended{
 				}
 
 				System.out.println();
-
+*/
 			}
 		});
 
