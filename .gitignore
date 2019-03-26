@@ -1,10 +1,3 @@
-/build/
+
 *.class
 
-# Eclipse Files and Folders
-.classpath
-.settings
-CVS/
-target/
-bin/
-build/
