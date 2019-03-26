@@ -596,7 +596,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 							// Valido si tiene vencido el psicofisico
 							int continuarConLicenciaVencida = JOptionPane.YES_OPTION;
 							if (Utils.minutesBetweenDates(new Date(System.currentTimeMillis()), new Date(((Piloto) pilotoComboBox.getSelectedItem()).getFecha_licencia())) < 0)
-								continuarConLicenciaVencida = JOptionPane.showConfirmDialog(null, "El psicofísoco del piloto se encuentra vencido. ¿Desea crear el vuelo de todas formas?");
+								continuarConLicenciaVencida = JOptionPane.showConfirmDialog(null, "El psicofï¿½soco del piloto se encuentra vencido. ï¿½Desea crear el vuelo de todas formas?");
 
 							if (continuarConLicenciaVencida == JOptionPane.YES_OPTION) {
 								Vuelo current = getVueloFromView();
@@ -613,7 +613,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 				case MODE_EDICION : {
 					btnEdition.setText("Editar");
-					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Edición de vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Ediciï¿½n de vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					panelIzquierdo.setBackground(new Color(255, 255, 128));
 					setViewFromVueloStored(vuelo);
 					btnEdition.addActionListener(new ActionListener() {
@@ -692,7 +692,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				case MODE_VER : {
 					btnEdition.setVisible(false);
 					setViewFromVueloStored(vuelo);
-					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Información del vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Informaciï¿½n del vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					panelIzquierdo.setBackground(new Color(153, 217, 234));
 					setViewFromVueloStored(vuelo);
 					btnEdition.addActionListener(new ActionListener() {
@@ -800,6 +800,10 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				
 		valorInstructor = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
 		
+		
+		if (valorInstructor > 0)
+			valorInstructor = valorInstructor + 300;
+		
 		float valor = valorAvion + valorInstructor;
 
 		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Bautismo + ""))
@@ -820,7 +824,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	}
 	
 	public void validateHorasPrevendidas(){
-		// Valido que se el pago de las horas prevendidas sea válido
+		// Valido que se el pago de las horas prevendidas sea vï¿½lido
 		if (avionComboBox.getSelectedItem() != null && pilotoComboBox.getSelectedItem() != null) {
 			List<horas_vendida_adelantado> listaHorasAdelantadas = horas_vendida_adelantado.getHorasByAvionPiloto(((Avion) avionComboBox.getSelectedItem()).getId() + "", ((Piloto) pilotoComboBox.getSelectedItem()).getId() + "");
 
