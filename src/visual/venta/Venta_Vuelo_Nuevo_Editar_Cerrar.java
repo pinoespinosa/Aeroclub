@@ -91,6 +91,8 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private JLabel lblBriefingYDebriefing;
 	private JLabel label_1;
 
+	private TYPE modoAp;
+	
 	/**
 	 * Create the dialog.
 	 * 
@@ -459,15 +461,16 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				panelIzquierdo.add(lblBriefingYDebriefing, gbc_lblBriefingYDebriefing);
 			}
 			{
-				label_1 = new JLabel("a");
+				label_1 = new JLabel("0");
 				GridBagConstraints gbc_label_1 = new GridBagConstraints();
+				gbc_label_1.anchor = GridBagConstraints.WEST;
 				gbc_label_1.insets = new Insets(0, 0, 5, 5);
 				gbc_label_1.gridx = 3;
 				gbc_label_1.gridy = 10;
 				panelIzquierdo.add(label_1, gbc_label_1);
 			}
 			{
-				lblcostoVuelo = new JLabel("Cargos por el vuelo:    $");
+				lblcostoVuelo = new JLabel("Total por el vuelo:    $");
 				GridBagConstraints gbc_lblCargosPorEl = new GridBagConstraints();
 				gbc_lblCargosPorEl.anchor = GridBagConstraints.EAST;
 				gbc_lblCargosPorEl.insets = new Insets(0, 0, 5, 5);
@@ -521,7 +524,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			formaDePago.add(pagoCuentaCorriente);
 			formaDePago.add(pagoCheque);
 			formaDePago.add(pagoHorasPreVendidas);
-
+			modoAp = modoApertura;
 			
 			inicioSpinner.setEnabled(modoApertura != TYPE.MODE_CERRAR);
 			pilotoComboBox.setEnabled(modoApertura != TYPE.MODE_CERRAR);
@@ -546,6 +549,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			lblcostoVuelo.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			costoVuelo.setVisible(modoApertura == TYPE.MODE_CERRAR);
 
+			Instructor ints = (Instructor) instructorList.getSelectedItem();
+			lblBriefingYDebriefing.setVisible(modoApertura == TYPE.MODE_CERRAR);
+			label_1.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			// Cargo los aviones en el combo
 			avionesList.removeAllElements();
 			List<Avion> aviones = Avion.loadFromDB();
@@ -818,6 +824,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				
 		Instructor ints = (Instructor) instructorList.getSelectedItem();
 		valorInstructor = (minutosVuelo / 60) * ints.getPrecio();
+		
+		lblBriefingYDebriefing.setVisible(modoAp == TYPE.MODE_CERRAR && ints.getId() != -1);
+		label_1.setVisible(modoAp == TYPE.MODE_CERRAR && ints.getId() != -1);
 		
 		valorBrief = ints.getId() != -1 ? Instructor.getCostoBriefing():0 ;
 		valorDeBrif = ints.getId() != -1 ? Instructor.getCostoDeBriefing():0 ;

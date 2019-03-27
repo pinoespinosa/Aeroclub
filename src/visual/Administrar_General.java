@@ -953,7 +953,7 @@ public class Administrar_General extends JDialogExtended {
 						button.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
-								Instructor.updateCostoBriefing(Integer.parseInt(precioDeBri.getValue()+""));
+								Instructor.updateCostoDeBriefing(Integer.parseInt(precioDeBri.getValue()+""));
 								JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
 							}
 						});
