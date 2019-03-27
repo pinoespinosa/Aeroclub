@@ -798,7 +798,7 @@ public class Administrar_General extends JDialogExtended {
 				gbl_instructoresPanel.columnWidths = new int[]{0, 0, 0, 0};
 				gbl_instructoresPanel.rowHeights = new int[]{0, 0, 0, 0};
 				gbl_instructoresPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-				gbl_instructoresPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_instructoresPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 				instructoresPanel.setLayout(gbl_instructoresPanel);
 				{
 					JPanel updatePrecioInstructores = new JPanel();
@@ -877,6 +877,91 @@ public class Administrar_General extends JDialogExtended {
 						gbc_button.gridx = 2;
 						gbc_button.gridy = 3;
 						updatePrecioInstructores.add(button, gbc_button);
+					}
+				}
+				{
+					JPanel panel = new JPanel();
+					panel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Ajustar precios", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					GridBagConstraints gbc_panel = new GridBagConstraints();
+					gbc_panel.insets = new Insets(0, 0, 0, 5);
+					gbc_panel.fill = GridBagConstraints.BOTH;
+					gbc_panel.gridx = 1;
+					gbc_panel.gridy = 2;
+					instructoresPanel.add(panel, gbc_panel);
+					GridBagLayout gbl_panel = new GridBagLayout();
+					gbl_panel.columnWidths = new int[]{10, 100, 27, 0, 10, 0};
+					gbl_panel.rowHeights = new int[]{5, 14, 0, 0, 5, 0};
+					gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					panel.setLayout(gbl_panel);
+					{
+						JLabel lblPrecioBriefing = new JLabel("Precio Briefing");
+						GridBagConstraints gbc_lblPrecioBriefing = new GridBagConstraints();
+						gbc_lblPrecioBriefing.anchor = GridBagConstraints.WEST;
+						gbc_lblPrecioBriefing.insets = new Insets(0, 0, 5, 5);
+						gbc_lblPrecioBriefing.gridx = 1;
+						gbc_lblPrecioBriefing.gridy = 2;
+						panel.add(lblPrecioBriefing, gbc_lblPrecioBriefing);
+					}
+
+					{
+						final JSpinner precioBri = new JSpinner();
+						GridBagConstraints gbc_precioBri = new GridBagConstraints();
+						gbc_precioBri.fill = GridBagConstraints.HORIZONTAL;
+						gbc_precioBri.insets = new Insets(0, 0, 5, 5);
+						gbc_precioBri.gridx = 2;
+						gbc_precioBri.gridy = 2;
+						panel.add(precioBri, gbc_precioBri);
+						precioBri.setValue(Instructor.getCostoBriefing());
+
+						JButton button = new JButton("Actualizar precio");
+						button.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								Instructor.updateCostoBriefing(Integer.parseInt(precioBri.getValue()+""));
+								JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
+							}
+						});
+						GridBagConstraints gbc_button = new GridBagConstraints();
+						gbc_button.anchor = GridBagConstraints.EAST;
+						gbc_button.insets = new Insets(0, 0, 5, 5);
+						gbc_button.gridx = 3;
+						gbc_button.gridy = 2;
+						panel.add(button, gbc_button);
+					}
+					{
+						JLabel lblPrecioDebriefing = new JLabel("Precio De-Briefing");
+						GridBagConstraints gbc_lblPrecioDebriefing = new GridBagConstraints();
+						gbc_lblPrecioDebriefing.anchor = GridBagConstraints.WEST;
+						gbc_lblPrecioDebriefing.insets = new Insets(0, 0, 5, 5);
+						gbc_lblPrecioDebriefing.gridx = 1;
+						gbc_lblPrecioDebriefing.gridy = 3;
+						panel.add(lblPrecioDebriefing, gbc_lblPrecioDebriefing);
+					}
+
+					{
+						final JSpinner precioDeBri = new JSpinner();
+						GridBagConstraints gbc_precioDeBri = new GridBagConstraints();
+						gbc_precioDeBri.fill = GridBagConstraints.HORIZONTAL;
+						gbc_precioDeBri.insets = new Insets(0, 0, 5, 5);
+						gbc_precioDeBri.gridx = 2;
+						gbc_precioDeBri.gridy = 3;
+						precioDeBri.setValue(Instructor.getCostoDeBriefing());
+						panel.add(precioDeBri, gbc_precioDeBri);
+						
+						JButton button = new JButton("Actualizar precio");
+						button.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								Instructor.updateCostoBriefing(Integer.parseInt(precioDeBri.getValue()+""));
+								JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
+							}
+						});
+						GridBagConstraints gbc_button = new GridBagConstraints();
+						gbc_button.insets = new Insets(0, 0, 5, 5);
+						gbc_button.gridx = 3;
+						gbc_button.gridy = 3;
+						panel.add(button, gbc_button);
 					}
 				}
 			}

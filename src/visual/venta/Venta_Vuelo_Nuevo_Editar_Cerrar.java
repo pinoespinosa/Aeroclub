@@ -83,11 +83,13 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private JRadioButton pagoCheque;
 	private JRadioButton pagoHorasPreVendidas;
 	
-	private float valorInstructor;
+	private float valorInstructor, valorBrief, valorDeBrif;
 	
 	private Window parent;
 	
 	boolean stateRefreshUpdate = false;
+	private JLabel lblBriefingYDebriefing;
+	private JLabel label_1;
 
 	/**
 	 * Create the dialog.
@@ -117,9 +119,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			getContentPane().add(panelIzquierdo, gbc_panelIzquierdo);
 			GridBagLayout gbl_panelIzquierdo = new GridBagLayout();
 			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 20, 0, 0, 0, 10, 0};
-			gbl_panelIzquierdo.rowHeights = new int[]{0, 40, 40, 40, 40, 40, 0, 40, 40, 40, 20, 0, 0};
+			gbl_panelIzquierdo.rowHeights = new int[]{0, 40, 40, 40, 40, 40, 0, 40, 40, 40, 0, 20, 0, 0};
 			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 			panelIzquierdo.setLayout(gbl_panelIzquierdo);
 			{
 				ordenDeVuelo = new JLabel("");
@@ -449,12 +451,28 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				aceiteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
+				lblBriefingYDebriefing = new JLabel("Briefing y De-Briefing $");
+				GridBagConstraints gbc_lblBriefingYDebriefing = new GridBagConstraints();
+				gbc_lblBriefingYDebriefing.insets = new Insets(0, 0, 5, 5);
+				gbc_lblBriefingYDebriefing.gridx = 1;
+				gbc_lblBriefingYDebriefing.gridy = 10;
+				panelIzquierdo.add(lblBriefingYDebriefing, gbc_lblBriefingYDebriefing);
+			}
+			{
+				label_1 = new JLabel("a");
+				GridBagConstraints gbc_label_1 = new GridBagConstraints();
+				gbc_label_1.insets = new Insets(0, 0, 5, 5);
+				gbc_label_1.gridx = 3;
+				gbc_label_1.gridy = 10;
+				panelIzquierdo.add(label_1, gbc_label_1);
+			}
+			{
 				lblcostoVuelo = new JLabel("Cargos por el vuelo:    $");
 				GridBagConstraints gbc_lblCargosPorEl = new GridBagConstraints();
 				gbc_lblCargosPorEl.anchor = GridBagConstraints.EAST;
 				gbc_lblCargosPorEl.insets = new Insets(0, 0, 5, 5);
 				gbc_lblCargosPorEl.gridx = 3;
-				gbc_lblCargosPorEl.gridy = 10;
+				gbc_lblCargosPorEl.gridy = 11;
 				panelIzquierdo.add(lblcostoVuelo, gbc_lblCargosPorEl);
 			}
 			{
@@ -463,7 +481,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_costoVuelo.anchor = GridBagConstraints.WEST;
 				gbc_costoVuelo.insets = new Insets(0, 0, 5, 5);
 				gbc_costoVuelo.gridx = 5;
-				gbc_costoVuelo.gridy = 10;
+				gbc_costoVuelo.gridy = 11;
 				panelIzquierdo.add(costoVuelo, gbc_costoVuelo);
 			}
 		}
@@ -798,17 +816,21 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Nocturno + ""))
 			valorAvion = (float) (valorAvion * 1.1);
 				
-		valorInstructor = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
+		Instructor ints = (Instructor) instructorList.getSelectedItem();
+		valorInstructor = (minutosVuelo / 60) * ints.getPrecio();
 		
+		valorBrief = ints.getId() != -1 ? Instructor.getCostoBriefing():0 ;
+		valorDeBrif = ints.getId() != -1 ? Instructor.getCostoDeBriefing():0 ;
+			
 		
-		if (valorInstructor > 0)
-			valorInstructor = valorInstructor + 300;
+		label_1.setText( (valorBrief + valorDeBrif)+"");
 		
-		float valor = valorAvion + valorInstructor;
+		float valor = valorAvion;
 
 		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Bautismo + ""))
 			valor = Precios.getPrecio(((Avion) avionesList.getSelectedItem()).getId()+"-Bautismo");
-		
+				
+		valor = valor + valorInstructor + valorBrief + valorDeBrif;
 		valor = Math.round(valor * 100);
 		valor = valor / 100;
 
