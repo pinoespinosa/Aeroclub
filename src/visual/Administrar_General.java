@@ -79,7 +79,7 @@ public class Administrar_General extends JDialogExtended {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				if (dirtyAvionCosto) {
-					int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+					int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ï¿½Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 					if (opcion == JOptionPane.YES_OPTION) {
 						saveChangesCombustiblesAceites();
 					}
@@ -109,7 +109,7 @@ public class Administrar_General extends JDialogExtended {
 					@Override
 					public void componentHidden(ComponentEvent arg0) {
 						if (dirtyAvionCosto) {
-							int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+							int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ï¿½Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 							if (opcion == JOptionPane.YES_OPTION) {
 								saveChangesCombustiblesAceites();
 							} else
@@ -128,7 +128,7 @@ public class Administrar_General extends JDialogExtended {
 					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 					panel.setLayout(gbl_panel);
 					{
-						JButton btnCrearPiloto = new JButton("Crear Piloto");
+						JButton btnCrearPiloto = new JButton("Crear Piloto / Actualizar Fecha Psico");
 						btnCrearPiloto.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
 								Nuevo_Piloto dialog = new Nuevo_Piloto(Administrar_General.this);
@@ -295,7 +295,7 @@ public class Administrar_General extends JDialogExtended {
 							public void actionPerformed(ActionEvent arg0) {
 								Persona select = (Persona)personas.getSelectedItem();
 								
-								int opcion = JOptionPane.showConfirmDialog(null, "Está a punto de eliminar a la persona " + select.toString() + " ¿Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
+								int opcion = JOptionPane.showConfirmDialog(null, "Estï¿½ a punto de eliminar a la persona " + select.toString() + " ï¿½Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
 								if (opcion == JOptionPane.YES_OPTION) {
 									managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`persona` SET `dni` = -'"+select.getDni()+"' WHERE `id` = '"+select.getId()+"';");
 									
@@ -392,7 +392,7 @@ public class Administrar_General extends JDialogExtended {
 							
 									Gasto gasto = (Gasto) depositosCC.getSelectedItem();
 									
-									int opcion = JOptionPane.showConfirmDialog(null, "Está a punto de editar el valor acreditado a la cuenta corriente de "+montoOriginal.getText()+" a $"+montoActualizado.getValue()+". ¿Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
+									int opcion = JOptionPane.showConfirmDialog(null, "Estï¿½ a punto de editar el valor acreditado a la cuenta corriente de "+montoOriginal.getText()+" a $"+montoActualizado.getValue()+". ï¿½Quiere continuar?", "Eliminar persona", JOptionPane.YES_NO_OPTION);
 									if (opcion == JOptionPane.YES_OPTION) {
 										managerDB.executeScript_Void("UPDATE `"+MainController.getEsquema()+"`.`gasto` SET `total` = '"+montoActualizado.getValue() +"' WHERE `id` = '"+gasto.getId()+"';");
 										updateUi();
@@ -526,7 +526,7 @@ public class Administrar_General extends JDialogExtended {
 					public void componentHidden(ComponentEvent arg0) {
 
 						if (dirtyAvionCosto) {
-							int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+							int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios. ï¿½Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 							if (opcion == JOptionPane.YES_OPTION) {
 								saveChangesAviones();
 							}
@@ -659,7 +659,7 @@ public class Administrar_General extends JDialogExtended {
 				}
 				{
 					JPanel crearAvionPanel = new JPanel();
-					crearAvionPanel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Añadir un nuevo avión", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					crearAvionPanel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Aï¿½adir un nuevo aviï¿½n", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					GridBagConstraints gbc_crearAvionPanel = new GridBagConstraints();
 					gbc_crearAvionPanel.insets = new Insets(0, 0, 5, 5);
 					gbc_crearAvionPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -694,7 +694,7 @@ public class Administrar_General extends JDialogExtended {
 				}
 				{
 					JPanel panel = new JPanel();
-					panel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Añadir una inspección a un avión", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Aï¿½adir una inspecciï¿½n a un aviï¿½n", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					GridBagConstraints gbc_panel = new GridBagConstraints();
 					gbc_panel.insets = new Insets(0, 0, 5, 5);
 					gbc_panel.fill = GridBagConstraints.BOTH;
@@ -779,7 +779,7 @@ public class Administrar_General extends JDialogExtended {
 
 								Avion selectedAvion = (Avion) avionInspeccionComboBox.getSelectedItem();
 								managerDB.executeScript_Void("INSERT INTO `" + MainController.getEsquema() + "`.`inspeccion` VALUES ('" + managerDB.getNextId("inspeccion") + "','" + selectedAvion.getId() + "','" + ((Date) fechaInspeccionSpinner.getValue()).getTime() + "','" + tipoInspeccionComboBox.getSelectedItem() + "') ");
-								JOptionPane.showMessageDialog(null, "Se registro una nueva revisión");
+								JOptionPane.showMessageDialog(null, "Se registro una nueva revisiï¿½n");
 							}
 						});
 						GridBagConstraints gbc_btnRegistrarRevisin = new GridBagConstraints();
@@ -798,7 +798,7 @@ public class Administrar_General extends JDialogExtended {
 				gbl_instructoresPanel.columnWidths = new int[]{0, 0, 0, 0};
 				gbl_instructoresPanel.rowHeights = new int[]{0, 0, 0, 0};
 				gbl_instructoresPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-				gbl_instructoresPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_instructoresPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 				instructoresPanel.setLayout(gbl_instructoresPanel);
 				{
 					JPanel updatePrecioInstructores = new JPanel();
@@ -879,6 +879,91 @@ public class Administrar_General extends JDialogExtended {
 						updatePrecioInstructores.add(button, gbc_button);
 					}
 				}
+				{
+					JPanel panel = new JPanel();
+					panel.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Ajustar precios", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					GridBagConstraints gbc_panel = new GridBagConstraints();
+					gbc_panel.insets = new Insets(0, 0, 0, 5);
+					gbc_panel.fill = GridBagConstraints.BOTH;
+					gbc_panel.gridx = 1;
+					gbc_panel.gridy = 2;
+					instructoresPanel.add(panel, gbc_panel);
+					GridBagLayout gbl_panel = new GridBagLayout();
+					gbl_panel.columnWidths = new int[]{10, 100, 27, 0, 10, 0};
+					gbl_panel.rowHeights = new int[]{5, 14, 0, 0, 5, 0};
+					gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+					gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					panel.setLayout(gbl_panel);
+					{
+						JLabel lblPrecioBriefing = new JLabel("Precio Briefing");
+						GridBagConstraints gbc_lblPrecioBriefing = new GridBagConstraints();
+						gbc_lblPrecioBriefing.anchor = GridBagConstraints.WEST;
+						gbc_lblPrecioBriefing.insets = new Insets(0, 0, 5, 5);
+						gbc_lblPrecioBriefing.gridx = 1;
+						gbc_lblPrecioBriefing.gridy = 2;
+						panel.add(lblPrecioBriefing, gbc_lblPrecioBriefing);
+					}
+
+					{
+						final JSpinner precioBri = new JSpinner();
+						GridBagConstraints gbc_precioBri = new GridBagConstraints();
+						gbc_precioBri.fill = GridBagConstraints.HORIZONTAL;
+						gbc_precioBri.insets = new Insets(0, 0, 5, 5);
+						gbc_precioBri.gridx = 2;
+						gbc_precioBri.gridy = 2;
+						panel.add(precioBri, gbc_precioBri);
+						precioBri.setValue(Instructor.getCostoBriefing());
+
+						JButton button = new JButton("Actualizar precio");
+						button.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								Instructor.updateCostoBriefing(Integer.parseInt(precioBri.getValue()+""));
+								JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
+							}
+						});
+						GridBagConstraints gbc_button = new GridBagConstraints();
+						gbc_button.anchor = GridBagConstraints.EAST;
+						gbc_button.insets = new Insets(0, 0, 5, 5);
+						gbc_button.gridx = 3;
+						gbc_button.gridy = 2;
+						panel.add(button, gbc_button);
+					}
+					{
+						JLabel lblPrecioDebriefing = new JLabel("Precio De-Briefing");
+						GridBagConstraints gbc_lblPrecioDebriefing = new GridBagConstraints();
+						gbc_lblPrecioDebriefing.anchor = GridBagConstraints.WEST;
+						gbc_lblPrecioDebriefing.insets = new Insets(0, 0, 5, 5);
+						gbc_lblPrecioDebriefing.gridx = 1;
+						gbc_lblPrecioDebriefing.gridy = 3;
+						panel.add(lblPrecioDebriefing, gbc_lblPrecioDebriefing);
+					}
+
+					{
+						final JSpinner precioDeBri = new JSpinner();
+						GridBagConstraints gbc_precioDeBri = new GridBagConstraints();
+						gbc_precioDeBri.fill = GridBagConstraints.HORIZONTAL;
+						gbc_precioDeBri.insets = new Insets(0, 0, 5, 5);
+						gbc_precioDeBri.gridx = 2;
+						gbc_precioDeBri.gridy = 3;
+						precioDeBri.setValue(Instructor.getCostoDeBriefing());
+						panel.add(precioDeBri, gbc_precioDeBri);
+						
+						JButton button = new JButton("Actualizar precio");
+						button.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								Instructor.updateCostoDeBriefing(Integer.parseInt(precioDeBri.getValue()+""));
+								JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente.");
+							}
+						});
+						GridBagConstraints gbc_button = new GridBagConstraints();
+						gbc_button.insets = new Insets(0, 0, 5, 5);
+						gbc_button.gridx = 3;
+						gbc_button.gridy = 3;
+						panel.add(button, gbc_button);
+					}
+				}
 			}
 			{
 				JPanel campoPanel = new JPanel();
@@ -942,7 +1027,7 @@ public class Administrar_General extends JDialogExtended {
 						
 						Avion avion = (Avion) avionesPreciosList.getSelectedItem();
 						
-						int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios en el/los precio/s del avion "+avion.getName()+". ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+						int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios en el/los precio/s del avion "+avion.getName()+". ï¿½Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 						if (opcion == JOptionPane.YES_OPTION) {
 							saveChangesAviones();
 						}
@@ -967,7 +1052,7 @@ public class Administrar_General extends JDialogExtended {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 
 					if (dirtyInstructorCosto) {
-						int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios en el precio de los instructores. ¿Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
+						int opcion = JOptionPane.showConfirmDialog(null, "Se realizaron cambios en el precio de los instructores. ï¿½Desea guardar los cambios?", "Cambios", JOptionPane.YES_NO_OPTION);
 						if (opcion == JOptionPane.YES_OPTION) {
 							saveChangesInstructores();
 						}

@@ -83,12 +83,16 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	private JRadioButton pagoCheque;
 	private JRadioButton pagoHorasPreVendidas;
 	
-	private float valorInstructor;
+	private float valorInstructor, valorBrief, valorDeBrif;
 	
 	private Window parent;
 	
 	boolean stateRefreshUpdate = false;
+	private JLabel lblBriefingYDebriefing;
+	private JLabel label_1;
 
+	private TYPE modoAp;
+	
 	/**
 	 * Create the dialog.
 	 * 
@@ -117,9 +121,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			getContentPane().add(panelIzquierdo, gbc_panelIzquierdo);
 			GridBagLayout gbl_panelIzquierdo = new GridBagLayout();
 			gbl_panelIzquierdo.columnWidths = new int[]{10, 0, 20, 0, 0, 0, 10, 0};
-			gbl_panelIzquierdo.rowHeights = new int[]{0, 40, 40, 40, 40, 40, 0, 40, 40, 40, 20, 0, 0};
+			gbl_panelIzquierdo.rowHeights = new int[]{0, 40, 40, 40, 40, 40, 0, 40, 40, 40, 0, 20, 0, 0};
 			gbl_panelIzquierdo.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panelIzquierdo.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 			panelIzquierdo.setLayout(gbl_panelIzquierdo);
 			{
 				ordenDeVuelo = new JLabel("");
@@ -449,12 +453,29 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				aceiteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			}
 			{
-				lblcostoVuelo = new JLabel("Cargos por el vuelo:    $");
+				lblBriefingYDebriefing = new JLabel("Briefing y De-Briefing $");
+				GridBagConstraints gbc_lblBriefingYDebriefing = new GridBagConstraints();
+				gbc_lblBriefingYDebriefing.insets = new Insets(0, 0, 5, 5);
+				gbc_lblBriefingYDebriefing.gridx = 1;
+				gbc_lblBriefingYDebriefing.gridy = 10;
+				panelIzquierdo.add(lblBriefingYDebriefing, gbc_lblBriefingYDebriefing);
+			}
+			{
+				label_1 = new JLabel("0");
+				GridBagConstraints gbc_label_1 = new GridBagConstraints();
+				gbc_label_1.anchor = GridBagConstraints.WEST;
+				gbc_label_1.insets = new Insets(0, 0, 5, 5);
+				gbc_label_1.gridx = 3;
+				gbc_label_1.gridy = 10;
+				panelIzquierdo.add(label_1, gbc_label_1);
+			}
+			{
+				lblcostoVuelo = new JLabel("Total por el vuelo:    $");
 				GridBagConstraints gbc_lblCargosPorEl = new GridBagConstraints();
 				gbc_lblCargosPorEl.anchor = GridBagConstraints.EAST;
 				gbc_lblCargosPorEl.insets = new Insets(0, 0, 5, 5);
 				gbc_lblCargosPorEl.gridx = 3;
-				gbc_lblCargosPorEl.gridy = 10;
+				gbc_lblCargosPorEl.gridy = 11;
 				panelIzquierdo.add(lblcostoVuelo, gbc_lblCargosPorEl);
 			}
 			{
@@ -463,7 +484,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				gbc_costoVuelo.anchor = GridBagConstraints.WEST;
 				gbc_costoVuelo.insets = new Insets(0, 0, 5, 5);
 				gbc_costoVuelo.gridx = 5;
-				gbc_costoVuelo.gridy = 10;
+				gbc_costoVuelo.gridy = 11;
 				panelIzquierdo.add(costoVuelo, gbc_costoVuelo);
 			}
 		}
@@ -503,7 +524,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			formaDePago.add(pagoCuentaCorriente);
 			formaDePago.add(pagoCheque);
 			formaDePago.add(pagoHorasPreVendidas);
-
+			modoAp = modoApertura;
 			
 			inicioSpinner.setEnabled(modoApertura != TYPE.MODE_CERRAR);
 			pilotoComboBox.setEnabled(modoApertura != TYPE.MODE_CERRAR);
@@ -528,6 +549,9 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 			lblcostoVuelo.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			costoVuelo.setVisible(modoApertura == TYPE.MODE_CERRAR);
 
+			Instructor ints = (Instructor) instructorList.getSelectedItem();
+			lblBriefingYDebriefing.setVisible(modoApertura == TYPE.MODE_CERRAR);
+			label_1.setVisible(modoApertura == TYPE.MODE_CERRAR);
 			// Cargo los aviones en el combo
 			avionesList.removeAllElements();
 			List<Avion> aviones = Avion.loadFromDB();
@@ -596,7 +620,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 							// Valido si tiene vencido el psicofisico
 							int continuarConLicenciaVencida = JOptionPane.YES_OPTION;
 							if (Utils.minutesBetweenDates(new Date(System.currentTimeMillis()), new Date(((Piloto) pilotoComboBox.getSelectedItem()).getFecha_licencia())) < 0)
-								continuarConLicenciaVencida = JOptionPane.showConfirmDialog(null, "El psicofísoco del piloto se encuentra vencido. ¿Desea crear el vuelo de todas formas?");
+								continuarConLicenciaVencida = JOptionPane.showConfirmDialog(null, "El psicofï¿½soco del piloto se encuentra vencido. ï¿½Desea crear el vuelo de todas formas?");
 
 							if (continuarConLicenciaVencida == JOptionPane.YES_OPTION) {
 								Vuelo current = getVueloFromView();
@@ -613,7 +637,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 				case MODE_EDICION : {
 					btnEdition.setText("Editar");
-					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Edición de vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Ediciï¿½n de vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					panelIzquierdo.setBackground(new Color(255, 255, 128));
 					setViewFromVueloStored(vuelo);
 					btnEdition.addActionListener(new ActionListener() {
@@ -692,7 +716,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 				case MODE_VER : {
 					btnEdition.setVisible(false);
 					setViewFromVueloStored(vuelo);
-					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Información del vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
+					panelIzquierdo.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 1, true), "Informaciï¿½n del vuelo", TitledBorder.LEADING, TitledBorder.TOP, MainController.getDefaultFont(MainController.GROUP_LAYOUT), null));
 					panelIzquierdo.setBackground(new Color(153, 217, 234));
 					setViewFromVueloStored(vuelo);
 					btnEdition.addActionListener(new ActionListener() {
@@ -798,13 +822,24 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Nocturno + ""))
 			valorAvion = (float) (valorAvion * 1.1);
 				
-		valorInstructor = (minutosVuelo / 60) * ((Instructor) instructorList.getSelectedItem()).getPrecio();
+		Instructor ints = (Instructor) instructorList.getSelectedItem();
+		valorInstructor = (minutosVuelo / 60) * ints.getPrecio();
 		
-		float valor = valorAvion + valorInstructor;
+		lblBriefingYDebriefing.setVisible(modoAp == TYPE.MODE_CERRAR && ints.getId() != -1);
+		label_1.setVisible(modoAp == TYPE.MODE_CERRAR && ints.getId() != -1);
+		
+		valorBrief = ints.getId() != -1 ? Instructor.getCostoBriefing():0 ;
+		valorDeBrif = ints.getId() != -1 ? Instructor.getCostoDeBriefing():0 ;
+			
+		
+		label_1.setText( (valorBrief + valorDeBrif)+"");
+		
+		float valor = valorAvion;
 
 		if (tipoVueloComboBox.getSelectedItem() != null && tipoVueloComboBox.getSelectedItem().equals(Vuelo.TipoVuelo.Bautismo + ""))
 			valor = Precios.getPrecio(((Avion) avionesList.getSelectedItem()).getId()+"-Bautismo");
-		
+				
+		valor = valor + valorInstructor + valorBrief + valorDeBrif;
 		valor = Math.round(valor * 100);
 		valor = valor / 100;
 
@@ -820,7 +855,7 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 	}
 	
 	public void validateHorasPrevendidas(){
-		// Valido que se el pago de las horas prevendidas sea válido
+		// Valido que se el pago de las horas prevendidas sea vï¿½lido
 		if (avionComboBox.getSelectedItem() != null && pilotoComboBox.getSelectedItem() != null) {
 			List<horas_vendida_adelantado> listaHorasAdelantadas = horas_vendida_adelantado.getHorasByAvionPiloto(((Avion) avionComboBox.getSelectedItem()).getId() + "", ((Piloto) pilotoComboBox.getSelectedItem()).getId() + "");
 
