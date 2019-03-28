@@ -696,8 +696,12 @@ public class Venta_Vuelo_Nuevo_Editar_Cerrar extends JDialogExtended {
 
 								managerDB.updateAsset(nuevo);
 								
-								if (valorInstructor!=0)
-									managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','DEPOSITO - PAGO A INSTRUCTOR', 'PAGO A INSTRUCTOR ','" + valorInstructor+ "', '" + 1 + "','','" + valorInstructor + "','" + Precios.TYPE_PAGO.CUENTA_CORRIENTE.ordinal() + "','" + nuevo.getHoraFinal() + "','"+nuevo.getIdInstructor()+"');");
+								
+								float sumaInstructor = valorInstructor + valorBrief + valorDeBrif ;
+								
+								Instructor ints = (Instructor) instructorList.getSelectedItem();	
+								if (ints.getId() != -1)
+									managerDB.executeScript_Void("INSERT INTO " + MainController.getEsquema() + ".`gasto` VALUES ('" + managerDB.getNextId("gasto") + "','DEPOSITO - PAGO A INSTRUCTOR', 'PAGO A INSTRUCTOR ','" + sumaInstructor+ "', '" + 1 + "','','" + sumaInstructor + "','" + Precios.TYPE_PAGO.CUENTA_CORRIENTE.ordinal() + "','" + nuevo.getHoraFinal() + "','"+nuevo.getIdInstructor()+"');");
 								
 
 								JOptionPane.showMessageDialog(null, "Se ha cerrado exitosamente el vuelo.");
