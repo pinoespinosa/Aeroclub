@@ -151,7 +151,7 @@ public class managerDB {
 		
 			Field[] fields = element.getClass().getDeclaredFields();
 
-			String string = "UPDATE `"+MainController.getEsquema()+"`.`"+ element.getClass().getSimpleName() + "`" + " SET ";
+			String string = "UPDATE `"+MainController.getEsquema()+"`.`"+ element.getClass().getSimpleName().toLowerCase() + "`" + " SET ";
 
 			String partefinal = "";
 

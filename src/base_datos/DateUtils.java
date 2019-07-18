@@ -24,12 +24,7 @@ public final class DateUtils {
     BufferedReader in = null;
     Socket conn = null;
 
-    try {
-		Thread.sleep(4000);
-	} catch (InterruptedException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+
     
     try {
        conn = new Socket(ATOMICTIME_SERVER, ATOMICTIME_PORT);
@@ -62,13 +57,17 @@ public final class DateUtils {
        calendar.set(Calendar.SECOND, Integer.parseInt(time[2]));
        return calendar;
     }
-    catch (IOException e){
-       throw e;
+    catch (Exception e){
+    	return new GregorianCalendar();
     }
     finally {
        if (in != null) { in.close();   }
        if (conn != null) { conn.close();   }
     }
+    
+    
+    
+    
   }
 
   public static void main(String args[]) throws IOException {

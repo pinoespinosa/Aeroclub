@@ -79,7 +79,7 @@ public class MainClass extends JDialogExtended{
 					// Carga las propiedades y el lookAndFeel
 					MainController.loadProperties();
 					          
-					Email.send(Vuelo.loadFromDB());
+				//	Email.send(Vuelo.loadFromDB());
 							
 					// Regenero la vista de vencimientos por si se modifican los limites minimos
 					managerDB.executeScript_Void("DROP VIEW `" + MainController.getEsquema() + "`.vencimientosproximos; ");
@@ -376,8 +376,8 @@ public class MainClass extends JDialogExtended{
 
 		try {
 			verificarFecha();
-		} catch (IOException e) {
-			ingresarSinValicion();
+		} catch (Exception e) {
+			descontarIngreso();
 
 		}
 
@@ -418,17 +418,17 @@ public class MainClass extends JDialogExtended{
 		long tiempoPendienteLicencia = fechaVencLicen.getTime() - horaInternet.getTime();
 
 		if (tiempoPendienteLicencia > 0) {					
-			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias. El día " + DateUtils.toTraditionalFormat(fechaVencLicen));
+			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias. El dï¿½a " + DateUtils.toTraditionalFormat(fechaVencLicen));
 			managerDB.executeScript_Void("UPDATE " + MainController.getEsquema() + ".licencia SET dato='10' WHERE valor='intentos';");
 		} else {
-			lblTiempoLicencia.setText("La licencia del sistema expiró. Consulte con su administrador. Dirección de email: pino.espinosa91@gmail.com");
+			lblTiempoLicencia.setText("La licencia del sistema expirï¿½. Consulte con su administrador. Direcciï¿½n de email: pino.espinosa91@gmail.com");
 			deshabilitarSistema();
 		}
 		MainController.setLicenciaValida(tiempoPendienteLicencia > 0);
 
 	}
 
-	private void ingresarSinValicion() {
+	private void descontarIngreso() {
 		int intentos = Integer.parseInt(managerDB.executeScript_Query("SELECT dato FROM " + MainController.getEsquema() + ".licencia WHERE valor='intentos';", "dato").get(0));
 
 		MainController.setLicenciaValida(intentos > 0);
