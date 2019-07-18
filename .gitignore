@@ -1,3 +1,14 @@
 
 *.class
 
+/target/
+
+Dumps/
+
+\.classpath
+
+\.project
+
+\.settings/
+
+sentencias\.txt
