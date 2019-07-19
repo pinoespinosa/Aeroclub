@@ -10,6 +10,17 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class Utils {
 
+	/*
+	public static void main(final String[] args) {
+				
+		System.out.println(Long.parseLong(decript("Y6ZtyCy3/vaBMxzZsx+ieQ==")));
+		System.out.println(Long.parseLong(decript("4zAuuIzaiS6iW0f57fwxVg==")));
+	
+		System.out.println(encript("1572615229000"));
+		
+	}
+	
+	*/
 	public static String toCamelCase(String value) {
 		if (value.length() > 1)
 			return value.toUpperCase().substring(0, 1) + value.toLowerCase().substring(1, value.length());

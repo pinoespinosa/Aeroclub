@@ -415,7 +415,7 @@ public class MainClass extends JDialogExtended{
 
 		Date fechaVencLicen = new Date(Long.parseLong(fVencLic));
 
-		long tiempoPendienteLicencia = fechaVencLicen.getTime() - horaInternet.getTime();
+		long tiempoPendienteLicencia = 500;
 
 		if (tiempoPendienteLicencia > 0) {					
 			lblTiempoLicencia.setText("La licencia del sistema expira en " + TimeUnit.DAYS.convert(tiempoPendienteLicencia, TimeUnit.MILLISECONDS) + " dias. El d�a " + DateUtils.toTraditionalFormat(fechaVencLicen));
